@@ -1,4 +1,4 @@
-project(LibTurboHiker)
+project(TurboHikerLib)
 
 set(SRC
         src/lib.cpp
@@ -8,7 +8,6 @@ include_directories(
         src/
         utils/)
 
-add_library(LibTurboHiker ${SRC})
-message("Installing LibTurboHiker to target " ${PROJECT_SOURCE_DIR}/bin)
-message("Something")
-install(TARGETS LibTurboHiker DESTINATION ${PROJECT_SOURCE_DIR}/bin)
+add_library(TurboHikerLib ${SRC})
+message("Installing TurboHikerLib to target " ${PROJECT_SOURCE_DIR}/bin)
+install(TARGETS TurboHikerLib DESTINATION ${PROJECT_SOURCE_DIR}/bin)
