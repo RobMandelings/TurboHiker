@@ -1,13 +1,9 @@
-project(TurboHikerLib)
+cmake_minimum_required(VERSION 3.10)
+project(TurboHiker)
+set(CMAKE_CXX_STANDARD 17)
 
-set(SRC
-        src/lib.cpp
-        src/lib.h)
+# TODO can you make it so that you should only include_directories in LibTurboHiker and it becomes available to SFMLTurboHiker as well?
+include_directories(LibTurboHiker/src/)
 
-include_directories(
-        src/
-        utils/)
-
-add_library(TurboHikerLib ${SRC})
-message("Installing TurboHikerLib to target " ${PROJECT_SOURCE_DIR}/bin)
-install(TARGETS TurboHikerLib DESTINATION ${PROJECT_SOURCE_DIR}/bin)
+add_subdirectory(LibTurboHiker/)
+add_subdirectory(SFMLTurboHiker/)
