@@ -8,7 +8,7 @@ include_directories(
 
 add_executable(SFMLTurboHiker ${SRC})
 
-target_link_libraries(SFMLTurboHiker LibTurboHiker)
+target_link_libraries(SFMLTurboHiker TurboHikerLib)
 
 message("Installing SFMLTurboHiker to target " ${PROJECT_SOURCE_DIR}/bin)
 install(TARGETS SFMLTurboHiker DESTINATION ${PROJECT_SOURCE_DIR}/bin)

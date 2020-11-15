@@ -7,5 +7,5 @@
 #include <iostream>
 
 void lib_turboHiker::printMessage() {
-    std::cout << "Library! Ik ben grave stuff aan het doen" << std::endl;
+    std::cout << "This is the turbo hiker library" << std::endl;
 }
