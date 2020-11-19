@@ -1,7 +1,3 @@
-#include <iostream>
-#include "lib.h"
+#include "turbo_lib/lib.h"
 
-int main(){
-    lib_turboHiker::printMessage();
-
-}
+int main() { turbo_lib::printMessage(); }

@@ -7,6 +7,6 @@
 
 #endif // TURBOHIKER_LIB_H
 
-namespace lib_turboHiker {
+namespace turbo_lib {
     void printMessage();
 }

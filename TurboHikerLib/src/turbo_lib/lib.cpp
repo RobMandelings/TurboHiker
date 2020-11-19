@@ -6,6 +6,6 @@
 
 #include <iostream>
 
-void lib_turboHiker::printMessage() {
+void turbo_lib::printMessage() {
     std::cout << "This is the turbo hiker library" << std::endl;
 }
