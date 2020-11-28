@@ -7,7 +7,6 @@ SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake/Modules/
 #By default it is empty, it is intended to be set by the project.
 #See also CMAKE_SYSTEM_PREFIX_PATH, CMAKE_INCLUDE_PATH, CMAKE_LIBRARY_PATH, CMAKE_PROGRAM_PATH.
 
-# TODO use CMAKE_INCLUDE PATH and CMAKE_LIBARY path instead if possible
 list(APPEND CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}/lib/SFML" )
 
 #list(APPEND CMAKE_INCLUDE_PATH "${CMAKE_INCLUDE_PATH}/include/SFML/")
