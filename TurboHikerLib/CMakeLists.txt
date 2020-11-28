@@ -1,3 +1,5 @@
+project(TurboHikerLib)
+
 add_library(TurboHikerLib
         src/turbo_lib/lib.cpp
         src/turbo_lib/lib.h)
