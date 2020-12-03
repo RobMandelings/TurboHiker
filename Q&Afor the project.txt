@@ -1,0 +1,25 @@
+shoud our classes have a constructor or should the factories make everything ?
+Cleanest to use functions like createPlayer
+
+Classes will have constructors
+
+Is turbohiker::World also part of the static library, seeing as it requests visualizations of its child entities. (And game presentation and game logic have to be separated)
+Make world be a part of the logic library
+
+Make the world aware that it does need a function to display it, but it doesn't need to be aware that SFML needs to display it
+
+For the game coordinate system, is  [-4,4] x [-3, 3] the entire game world or is that only for what's being displayed?
+You don't need to use that specific coordinates, you can use different kind of coordinates
+
+Do we really need to use a singleton Transformation class, SFML already provides transformation utilities that allow for changing between coordinate systems
+Yes, the goal is to use advanced c++ programming technique, not create the best SFML game
+
+Do we need factories for both the visualization subclasses and the classes itsself , in practice we would only use those with the visualization code
+You don't need to make it an entity, it would be useful to delegate the entity for its subclasses (?).
+
+Do we have to use the composite pattern for the world? It was mentioned in the assignment but is it required?
+Yes its required, mandatory logic feature
+
+All entities are part of your world
+
+So it is a good idea to create a simple settings class that takes a .ini file as input and then functiones as a data holder containing all those informations
