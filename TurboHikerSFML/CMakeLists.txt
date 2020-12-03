@@ -7,12 +7,12 @@ SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake/Modules/
 #By default it is empty, it is intended to be set by the project.
 #See also CMAKE_SYSTEM_PREFIX_PATH, CMAKE_INCLUDE_PATH, CMAKE_LIBRARY_PATH, CMAKE_PROGRAM_PATH.
 
-# TODO use CMAKE_INCLUDE PATH and CMAKE_LIBARY path instead if possible
 list(APPEND CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}/lib/SFML" )
 
 #list(APPEND CMAKE_INCLUDE_PATH "${CMAKE_INCLUDE_PATH}/include/SFML/")
 #list(APPEND CMAKE_LIBRARY_PATH "${CMAKE_SOURCE_DIR}/lib/SFML")
 
+# TODO make this optional. Depending on the system you want to run it on, you might want to link to SFML using shared libraries instead of static
 set(SFML_STATIC_LIBRARIES TRUE)
 # Order does matter
 FIND_PACKAGE(SFML 2.4 COMPONENTS graphics window system REQUIRED)
