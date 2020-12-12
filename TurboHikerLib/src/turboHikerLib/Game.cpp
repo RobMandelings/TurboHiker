@@ -9,7 +9,7 @@
 #include <iostream>
 #include <thread>
 
-turboHikerLib::Game::Game(std::chrono::seconds timePerFrame) : m_timePerFrame(timePerFrame), m_isRunning(false) {}
+turboHikerLib::Game::Game(std::chrono::nanoseconds timePerFrame) : m_timePerFrame(timePerFrame), m_isRunning(false) {}
 
 /**
  * Uses fixed timestep on to maintain a steady framerate for logic updates. The framerate may be more / less laggy
@@ -27,6 +27,7 @@ void turboHikerLib::Game::startRunning()
 
         std::cout << "The updateTimeStep is: " << m_timePerFrame.count() << std::endl;
 
+        // Set max framerate (optionally) as well (For example: max 60FPS)
         while (isRunning()) {
                 processInputEvents();
                 timeSinceLastUpdate += clock.restart();
@@ -51,4 +52,4 @@ void turboHikerLib::Game::update()
 {
         // world.update();
 }
-const std::chrono::seconds& turboHikerLib::Game::getTimePerFrame() const { return m_timePerFrame; }
+const std::chrono::nanoseconds& turboHikerLib::Game::getTimePerFrame() const { return m_timePerFrame; }

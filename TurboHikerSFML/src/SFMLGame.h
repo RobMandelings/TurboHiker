@@ -9,7 +9,7 @@
 class SFMLGame : public turboHikerLib::Game
 {
 public:
-        SFMLGame(const std::chrono::seconds& timePerFrame);
+        SFMLGame(const std::chrono::nanoseconds& timePerFrame);
 private:
         void processInputEvents() override;
         void render() override;

@@ -12,7 +12,7 @@ int main()
 //        shape.setFillColor(sf::Color::Green);
 
         using namespace std::chrono_literals;
-        SFMLGame game(std::chrono::duration_cast<std::chrono::seconds>(std::chrono::milliseconds(1000)));
+        SFMLGame game(std::chrono::nanoseconds(long((1/20.0)*1000000000)));
         game.startRunning();
 
 //        while (window.isOpen()) {
