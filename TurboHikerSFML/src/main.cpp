@@ -1,31 +1,37 @@
 #include <SFML/Graphics.hpp>
 
+#include "SFMLGame.h"
 #include <iostream>
+#include <chrono>
 
 int main()
 {
-        sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-        window.setVerticalSyncEnabled(true);
-        sf::CircleShape shape(100.f);
-        shape.setFillColor(sf::Color::Green);
+//        sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
+//        window.setVerticalSyncEnabled(true);
+//        sf::CircleShape shape(100.f);
+//        shape.setFillColor(sf::Color::Green);
 
-        while (window.isOpen()) {
-                sf::Event event{};
-                while (window.pollEvent(event)) {
-                        std::cout << event.type << std::endl;
-                        switch (event.type) {
-                        case sf::Event::Closed:
-                                window.close();
-                                break;
-                        default:
-                                break;
-                        }
-                }
+        using namespace std::chrono_literals;
+        SFMLGame game(std::chrono::duration_cast<std::chrono::seconds>(std::chrono::milliseconds(1000)));
+        game.startRunning();
 
-                window.clear();
-                window.draw(shape);
-                window.display();
-        }
+//        while (window.isOpen()) {
+//                sf::Event event{};
+//                while (window.pollEvent(event)) {
+//                        std::cout << event.type << std::endl;
+//                        switch (event.type) {
+//                        case sf::Event::Closed:
+//                                window.close();
+//                                break;
+//                        default:
+//                                break;
+//                        }
+//                }
+//
+//                window.clear();
+//                window.draw(shape);
+//                window.display();
+//        }
 
         return 0;
 }

@@ -20,5 +20,5 @@ Other 'general' locations are also allowed, but you might have to look in FindSF
 You still need to configure the corresponding compiler as well. In the case you are using Clion:
 First unzip the MinGW file and place the folder in a directory like C:\MinGW\MinGW-6.1.0\mingw32\ (for example). Then you can go and configure your toolchain using the settings of clion.
 Point to mingw folder you have extracted and put into a directory you like. Now Clion should find this compiler.
-You can now go to the 'Cmake' option in the settings and select that you want to use the MinGW toolchain to run your program.
-Once this is done, everything should be set up and you should able to run the program!
+You can now go to the 'Cmake' option in the settings and select that you want to use the MinGW toolchain to startRunning your program.
+Once this is done, everything should be set up and you should able to startRunning the program!

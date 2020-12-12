@@ -6,9 +6,15 @@
 
 turboHikerLib::Clock::Clock() : m_start(std::chrono::high_resolution_clock::now()) {}
 
-std::chrono::milliseconds turboHikerLib::Clock::reset() {
+std::chrono::nanoseconds turboHikerLib::Clock::restart()
+{
         auto now = std::chrono::high_resolution_clock::now();
         auto difference = now - m_start;
         m_start = now;
-        return std::chrono::duration_cast<std::chrono::milliseconds>(difference);
+        return difference;
+}
+
+std::chrono::nanoseconds turboHikerLib::Clock::getElapsedTime() const
+{
+        return std::chrono::high_resolution_clock::now() - m_start;
 }

@@ -1,10 +1,15 @@
 project(TurboHikerLib)
 
 set(SRC
-        src/Game.cpp
-        src/utils/constants.h src/utils/Clock.cpp src/utils/Clock.h)
+        src/turboHikerLib/Game.cpp
+        src/turboHikerLib/utils/constants.h src/turboHikerLib/utils/Clock.cpp src/turboHikerLib/utils/Clock.h)
 
 add_library(TurboHikerLib ${SRC})
+
+include_directories(
+        src/turboHikerLib/
+        src/turboHikerLib/utils/
+)
 
 target_include_directories(TurboHikerLib PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/src/)
