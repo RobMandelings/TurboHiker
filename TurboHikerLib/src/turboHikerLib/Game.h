@@ -6,7 +6,7 @@
 
 #include <chrono>
 
-namespace turboHikerLib {
+namespace turboHiker {
 
 class Game
 {
@@ -62,4 +62,4 @@ private:
 
         bool m_isRunning;
 };
-} // namespace turboHikerLib
+} // namespace turboHiker

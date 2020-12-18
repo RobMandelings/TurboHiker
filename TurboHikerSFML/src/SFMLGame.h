@@ -6,7 +6,7 @@
 
 #include "turboHikerLib/Game.h"
 
-class SFMLGame : public turboHikerLib::Game
+class SFMLGame : public turboHiker::Game
 {
 public:
         SFMLGame(const std::chrono::nanoseconds& timePerFrame);

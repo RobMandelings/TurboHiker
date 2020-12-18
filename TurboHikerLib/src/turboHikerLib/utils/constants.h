@@ -8,10 +8,10 @@
 
 using namespace std::chrono_literals;
 
-namespace turboHikerLib {
+namespace turboHiker {
 
 namespace constants {
 
 
 }
-} // namespace turboHikerLib
+} // namespace turboHiker

@@ -4,9 +4,9 @@
 
 #include "Clock.h"
 
-turboHikerLib::Clock::Clock() : m_start(std::chrono::high_resolution_clock::now()) {}
+turboHiker::Clock::Clock() : m_start(std::chrono::high_resolution_clock::now()) {}
 
-std::chrono::nanoseconds turboHikerLib::Clock::restart()
+std::chrono::nanoseconds turboHiker::Clock::restart()
 {
         auto now = std::chrono::high_resolution_clock::now();
         auto difference = now - m_start;
@@ -14,7 +14,7 @@ std::chrono::nanoseconds turboHikerLib::Clock::restart()
         return difference;
 }
 
-std::chrono::nanoseconds turboHikerLib::Clock::getElapsedTime() const
+std::chrono::nanoseconds turboHiker::Clock::getElapsedTime() const
 {
         return std::chrono::high_resolution_clock::now() - m_start;
 }

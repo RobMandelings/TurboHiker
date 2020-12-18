@@ -9,30 +9,30 @@
 #include <iostream>
 #include <thread>
 
-turboHikerLib::Game::Game(std::chrono::nanoseconds timePerFrame) : m_timePerFrame(timePerFrame), m_isRunning(false) {}
+turboHiker::Game::Game(std::chrono::nanoseconds timePerFrame) : m_timePerFrame(timePerFrame), m_isRunning(false) {}
 
 /**
  * Uses fixed timestep on to maintain a steady framerate for logic updates. The framerate may be more / less laggy
  * depending on your system
  */
-void turboHikerLib::Game::startRunning()
+void turboHiker::Game::startRunning()
 {
         // TODO how to debug?
         assert(!isRunning() && "The game is already running!");
         m_isRunning = true;
 
-        turboHikerLib::Clock clock2;
-        turboHikerLib::Clock clock;
+        turboHiker::Clock clock2;
+        turboHiker::Clock clock;
         std::chrono::nanoseconds timeSinceLastUpdate = std::chrono::milliseconds(0);
 
         std::cout << "The updateTimeStep is: " << m_timePerFrame.count() << std::endl;
-
         // Set max framerate (optionally) as well (For example: max 60FPS)
         while (isRunning()) {
                 processInputEvents();
                 timeSinceLastUpdate += clock.restart();
                 while (timeSinceLastUpdate > getTimePerFrame()) {
-                        std::cout << "Smaller loop" << std::endl;
+                        std::cout << "Smallert loop" << std::endl;
+
                         timeSinceLastUpdate -= getTimePerFrame();
                         processInputEvents();
                         update();
@@ -44,12 +44,12 @@ void turboHikerLib::Game::startRunning()
         std::cout << "Time passed in milliseconds: " << clock2.restart().count();
 }
 
-void turboHikerLib::Game::stopRunning() { m_isRunning = false; }
+void turboHiker::Game::stopRunning() { m_isRunning = false; }
 
-bool turboHikerLib::Game::isRunning() const { return m_isRunning; }
+bool turboHiker::Game::isRunning() const { return m_isRunning; }
 
-void turboHikerLib::Game::update()
+void turboHiker::Game::update()
 {
         // world.update();
 }
-const std::chrono::nanoseconds& turboHikerLib::Game::getTimePerFrame() const { return m_timePerFrame; }
+const std::chrono::nanoseconds& turboHiker::Game::getTimePerFrame() const { return m_timePerFrame; }

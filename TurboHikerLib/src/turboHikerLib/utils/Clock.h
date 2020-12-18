@@ -6,7 +6,7 @@
 
 #include <chrono>
 
-namespace turboHikerLib {
+namespace turboHiker {
 class Clock
 {
 
@@ -26,4 +26,4 @@ public:
 private:
         std::chrono::time_point<std::chrono::system_clock> m_start;
 };
-} // namespace turboHikerLib
+} // namespace turboHiker
