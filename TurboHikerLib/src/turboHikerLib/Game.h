@@ -13,7 +13,7 @@ class Game
 
 public:
 
-        Game(std::chrono::nanoseconds timePerFrame);
+        Game(std::chrono::nanoseconds timeStep);
 
         /**
          * Starts and maintains the Game Loop

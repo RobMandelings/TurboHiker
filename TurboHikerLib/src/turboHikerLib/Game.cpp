@@ -9,7 +9,7 @@
 #include <iostream>
 #include <thread>
 
-turboHiker::Game::Game(std::chrono::nanoseconds timePerFrame) : m_timePerFrame(timePerFrame), m_isRunning(false) {}
+turboHiker::Game::Game(std::chrono::nanoseconds timeStep) : m_timePerFrame(timeStep), m_isRunning(false) {}
 
 /**
  * Uses fixed timestep on to maintain a steady framerate for logic updates. The framerate may be more / less laggy
