@@ -5,8 +5,10 @@
 #ifndef TURBOHIKER_GAMEOBJECT_H
 #define TURBOHIKER_GAMEOBJECT_H
 
+namespace turboHiker {
 class GameObject
 {
 };
+}
 
 #endif // TURBOHIKER_GAMEOBJECT_H

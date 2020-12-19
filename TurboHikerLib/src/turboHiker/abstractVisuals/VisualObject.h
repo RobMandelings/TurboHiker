@@ -5,8 +5,10 @@
 #ifndef TURBOHIKER_VISUALOBJECT_H
 #define TURBOHIKER_VISUALOBJECT_H
 
+namespace turboHiker {
 class VisualObject
 {
 };
+}
 
 #endif // TURBOHIKER_VISUALOBJECT_H
