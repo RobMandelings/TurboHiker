@@ -4,12 +4,13 @@
 
 #pragma once
 
-#include "turboHikerLib/Game.h"
+#include "turboHiker/Game.h"
 
 class SFMLGame : public turboHiker::Game
 {
+private:
 public:
-        SFMLGame(const std::chrono::nanoseconds& timePerFrame);
+        SFMLGame(const std::chrono::duration<double>& timePerFrame);
 private:
         void processInputEvents() override;
         void render() override;

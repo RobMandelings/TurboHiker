@@ -4,7 +4,7 @@
 
 #include "SFMLGame.h"
 
-SFMLGame::SFMLGame(const std::chrono::nanoseconds& timePerFrame) : Game(timePerFrame) {}
+SFMLGame::SFMLGame(const std::chrono::duration<double>& timePerFrame) : Game(timePerFrame) {}
 
 void SFMLGame::processInputEvents() {}
 void SFMLGame::render() {}

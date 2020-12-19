@@ -9,7 +9,7 @@
 #include <iostream>
 #include <thread>
 
-turboHiker::Game::Game(std::chrono::nanoseconds timeStep) : m_timePerFrame(timeStep), m_isRunning(false) {}
+turboHiker::Game::Game(std::chrono::duration<double> timePerFrame) : m_timePerFrame(timePerFrame), m_isRunning(false) {}
 
 /**
  * Uses fixed timestep on to maintain a steady framerate for logic updates. The framerate may be more / less laggy
@@ -22,7 +22,7 @@ void turboHiker::Game::startRunning()
 
         turboHiker::Clock clock2;
         turboHiker::Clock clock;
-        std::chrono::nanoseconds timeSinceLastUpdate = std::chrono::nanoseconds(0);
+        std::chrono::duration<double> timeSinceLastUpdate = std::chrono::nanoseconds(0);
 
         // TODO call update function with std::chrono::duration<float> (in seconds)
         std::cout << "The updateTimeStep is: " << m_timePerFrame.count() << std::endl;
@@ -30,10 +30,10 @@ void turboHiker::Game::startRunning()
         while (isRunning()) {
                 processInputEvents();
                 timeSinceLastUpdate += clock.restart();
-                while (timeSinceLastUpdate > getTimePerFrame()) {
+                while (timeSinceLastUpdate > getTimeStep()) {
                         std::cout << "Smaller loop" << std::endl;
 
-                        timeSinceLastUpdate -= getTimePerFrame();
+                        timeSinceLastUpdate -= getTimeStep();
                         processInputEvents();
                         update();
                 }
@@ -49,4 +49,4 @@ void turboHiker::Game::update()
 {
         // world.update();
 }
-const std::chrono::nanoseconds& turboHiker::Game::getTimePerFrame() const { return m_timePerFrame; }
+const std::chrono::duration<double>& turboHiker::Game::getTimeStep() const { return m_timePerFrame; }

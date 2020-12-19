@@ -13,7 +13,7 @@ class Game
 
 public:
 
-        Game(std::chrono::nanoseconds timeStep);
+        Game(std::chrono::duration<double> timePerFrame);
 
         /**
          * Starts and maintains the Game Loop
@@ -35,7 +35,7 @@ public:
          * The logic framerate of the game (how many seconds per logic update)
          * @return
          */
-        const std::chrono::nanoseconds& getTimePerFrame() const;
+        const std::chrono::duration<double>& getTimeStep() const;
 
         // TODO add pause functionality
 
@@ -58,7 +58,7 @@ private:
 
 private:
 
-        std::chrono::nanoseconds m_timePerFrame;
+        std::chrono::duration<double> m_timePerFrame;
 
         bool m_isRunning;
 };
