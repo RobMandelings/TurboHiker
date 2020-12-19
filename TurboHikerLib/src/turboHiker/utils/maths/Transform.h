@@ -1,0 +1,12 @@
+//
+// Created by RobMa on 19/12/2020.
+//
+
+#ifndef TURBOHIKER_TRANSFORM_H
+#define TURBOHIKER_TRANSFORM_H
+
+class Transform
+{
+};
+
+#endif // TURBOHIKER_TRANSFORM_H
