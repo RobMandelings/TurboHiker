@@ -24,7 +24,7 @@ message(STATUS ${SFML_LIBRARIES})
 
 set(SRC
         src/main.cpp
-        src/utils/constants.h src/SFMLGame.cpp src/SFMLGame.h)
+        src/utils/constants.h src/SFMLGame.cpp src/SFMLGame.h src/utils/Transformation.cpp src/utils/Transformation.h)
 
 include_directories(
         ${SFML_INCLUDE_DIR}
