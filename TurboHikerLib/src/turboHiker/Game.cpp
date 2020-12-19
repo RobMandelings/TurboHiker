@@ -17,21 +17,21 @@ turboHiker::Game::Game(std::chrono::nanoseconds timeStep) : m_timePerFrame(timeS
  */
 void turboHiker::Game::startRunning()
 {
-        // TODO how to debug?
         assert(!isRunning() && "The game is already running!");
         m_isRunning = true;
 
         turboHiker::Clock clock2;
         turboHiker::Clock clock;
-        std::chrono::nanoseconds timeSinceLastUpdate = std::chrono::milliseconds(0);
+        std::chrono::nanoseconds timeSinceLastUpdate = std::chrono::nanoseconds(0);
 
+        // TODO call update function with std::chrono::duration<float> (in seconds)
         std::cout << "The updateTimeStep is: " << m_timePerFrame.count() << std::endl;
-        // Set max framerate (optionally) as well (For example: max 60FPS)
+        // TODO Set max framerate (optionally) as well (For example: max 60FPS)
         while (isRunning()) {
                 processInputEvents();
                 timeSinceLastUpdate += clock.restart();
                 while (timeSinceLastUpdate > getTimePerFrame()) {
-                        std::cout << "Smallert loop" << std::endl;
+                        std::cout << "Smaller loop" << std::endl;
 
                         timeSinceLastUpdate -= getTimePerFrame();
                         processInputEvents();
@@ -39,9 +39,6 @@ void turboHiker::Game::startRunning()
                 }
                 render();
         }
-
-        std::this_thread::sleep_for(std::chrono::seconds(1));
-        std::cout << "Time passed in milliseconds: " << clock2.restart().count();
 }
 
 void turboHiker::Game::stopRunning() { m_isRunning = false; }

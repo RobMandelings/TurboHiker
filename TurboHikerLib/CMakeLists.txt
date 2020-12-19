@@ -1,14 +1,14 @@
 project(TurboHikerLib)
 
 set(SRC
-        src/turboHikerLib/Game.cpp
-        src/turboHikerLib/utils/constants.h src/turboHikerLib/utils/Clock.cpp src/turboHikerLib/utils/Clock.h src/turboHikerLib/utils/NonCopyable.cpp src/turboHikerLib/utils/NonCopyable.h)
+        src/turboHiker/Game.cpp
+        src/turboHiker/utils/constants.h src/turboHiker/utils/Clock.cpp src/turboHiker/utils/Clock.h src/turboHiker/utils/NonCopyable.cpp src/turboHiker/utils/NonCopyable.h)
 
 add_library(TurboHikerLib ${SRC})
 
 include_directories(
-        src/turboHikerLib/
-        src/turboHikerLib/utils/
+        src/turboHiker/
+        src/turboHiker/utils/
 )
 
 target_include_directories(TurboHikerLib PUBLIC
