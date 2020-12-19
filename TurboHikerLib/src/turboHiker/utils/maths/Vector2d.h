@@ -6,8 +6,20 @@
 #define TURBOHIKER_VECTOR2D_H
 
 namespace turboHiker {
-class Vector2d
+struct Vector2d
 {
+        double xCoord;
+        double yCoord;
+
+        Vector2d(double xCoord, double yCoord);
+
+        Vector2d operator+(const Vector2d& vector2D) const;
+        Vector2d operator-(const Vector2d& vector2D) const;
+
+        Vector2d& operator+=(const Vector2d& vector2D);
+        Vector2d& operator-=(const Vector2d& vector2D);
+
+
 };
 } // namespace turboHiker
 
