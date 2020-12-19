@@ -5,8 +5,10 @@
 #ifndef TURBOHIKER_TRANSFORM_H
 #define TURBOHIKER_TRANSFORM_H
 
+namespace turboHiker {
 class Transform
 {
 };
+} // namespace turboHiker
 
 #endif // TURBOHIKER_TRANSFORM_H
