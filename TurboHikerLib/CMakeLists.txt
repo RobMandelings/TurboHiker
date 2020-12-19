@@ -2,7 +2,7 @@ project(TurboHikerLib)
 
 set(SRC
         src/turboHikerLib/Game.cpp
-        src/turboHikerLib/utils/constants.h src/turboHikerLib/utils/Clock.cpp src/turboHikerLib/utils/Clock.h)
+        src/turboHikerLib/utils/constants.h src/turboHikerLib/utils/Clock.cpp src/turboHikerLib/utils/Clock.h src/turboHikerLib/utils/NonCopyable.cpp src/turboHikerLib/utils/NonCopyable.h)
 
 add_library(TurboHikerLib ${SRC})
 
