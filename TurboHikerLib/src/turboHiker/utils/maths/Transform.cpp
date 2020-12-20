@@ -3,3 +3,9 @@
 //
 
 #include "Transform.h"
+
+namespace turboHiker {
+
+const Transform Transform::IDENTITY = Transform();
+
+}
