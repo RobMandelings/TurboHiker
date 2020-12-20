@@ -6,9 +6,15 @@
 #define TURBOHIKER_VISUALCOMPONENT_H
 
 namespace turboHiker {
+
+class Vector2d;
+
 class VisualComponent
 {
+
+public:
+        virtual void draw(const Vector2d& worldLocation) const = 0;
 };
-}
+} // namespace turboHiker
 
 #endif // TURBOHIKER_VISUALCOMPONENT_H

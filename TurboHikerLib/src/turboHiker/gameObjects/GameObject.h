@@ -36,13 +36,18 @@ public:
         void setLocation(const Vector2d& currentLocation);
 
 private:
-        virtual void updateCurrent(seconds dt) = 0;
+        virtual void updateCurrent(seconds dt);
         void updateChildren(seconds dt);
 
         // TODO replace currentLocation with currentTransform for more flexibility
-        void draw(const Vector2d& currentLocation) const;
-        void drawCurrent(const Vector2d& currentLocation);
-        void drawChildren(Vector2d currentLocation);
+        /**
+         *
+         * @param currentAbsoluteLocation: the current location of the Game Object. Due to the hierarchy and relative locations,
+         * the value of currentLocation can change
+         */
+        void draw(const Vector2d& currentAbsoluteLocation) const;
+        void drawCurrent(const Vector2d& currentAbsoluteLocation) const;
+        void drawChildren(Vector2d currentAbsoluteLocation) const;
 
 private:
         GameObject* mParent;
@@ -54,10 +59,11 @@ private:
 
         /**
          * This will be used by a concrete implementation of the game. It can be whatever visual library you'd like to
-         * use (SFML, OpenGL, Qt,...), just set this component to a concrete implementation of the visual representation of an object
-         * It must be uniquely coupled to the GameObject (no shared instances across GameObjects), thats the reason for the unique ptr
+         * use (SFML, OpenGL, Qt,...), just set this component to a concrete implementation of the visual representation
+         * of an object It must be uniquely coupled to the GameObject (no shared instances across GameObjects), thats
+         * the reason for the unique ptr
          */
-         std::unique_ptr<VisualComponent> visualComponent;
+        std::unique_ptr<VisualComponent> visualComponent;
 };
 } // namespace turboHiker
 
