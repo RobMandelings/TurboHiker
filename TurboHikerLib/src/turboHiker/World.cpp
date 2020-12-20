@@ -11,7 +11,7 @@ turboHiker::World::World() {
 }
 
 void turboHiker::World::update(Updatable::seconds dt) {
-
+        mSceneGraph->update(dt);
 }
 
 void turboHiker::World::draw() const {
