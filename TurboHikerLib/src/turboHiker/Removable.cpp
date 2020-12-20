@@ -7,6 +7,9 @@
 #include <cassert>
 
 namespace turboHiker {
+
+Removable::Removable() : mMarkedForRemoval(false) {}
+
 void Removable::markForRemoval()
 {
         assert(!isMarkedForRemoval() && "Object is already marked for removal");

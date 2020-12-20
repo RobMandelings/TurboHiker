@@ -7,9 +7,10 @@
 
 #include "Updatable.h"
 #include "Drawable.h"
+#include "Removable.h"
 
 namespace turboHiker {
-class GameObject : private Updatable, private Drawable
+class GameObject : public Updatable, public Drawable, public Removable
 {
 
         void update(seconds dt) override;

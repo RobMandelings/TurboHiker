@@ -10,8 +10,11 @@ class Removable
 {
 
 public:
+
+        Removable();
+
         void markForRemoval();
-        bool isMarkedForRemoval() const const;
+        bool isMarkedForRemoval() const;
 
 private:
         bool mMarkedForRemoval;
