@@ -3,3 +3,26 @@
 //
 
 #include "World.h"
+
+#include <cassert>
+
+turboHiker::World::World() {
+        buildWorld();
+}
+
+void turboHiker::World::update(Updatable::seconds dt) {
+
+}
+
+void turboHiker::World::draw() const {
+
+}
+
+void turboHiker::World::buildWorld() {
+        // Pre-condition
+        assert(mSceneGraph == nullptr && "The world is already built!");
+
+
+        // Post-condition
+        assert(mSceneGraph != nullptr);
+}

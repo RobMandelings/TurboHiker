@@ -7,14 +7,15 @@
 
 #include <chrono>
 
+namespace turboHiker {
 class Updatable
 {
 
 public:
-
         typedef std::chrono::duration<double> seconds;
 
         virtual void update(seconds dt) = 0;
 };
+} // namespace turboHiker
 
 #endif // TURBOHIKER_UPDATABLE_H
