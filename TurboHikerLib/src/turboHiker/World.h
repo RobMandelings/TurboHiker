@@ -5,9 +5,9 @@
 #ifndef TURBOHIKER_WORLD_H
 #define TURBOHIKER_WORLD_H
 
-#include "Updatable.h"
 #include "Drawable.h"
-#include "GameObject.h"
+#include "Updatable.h"
+#include "gameObjects/GameObject.h"
 
 #include <memory>
 
