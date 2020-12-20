@@ -49,8 +49,8 @@ void GameObject::updateChildren(Updatable::seconds dt)
 
 void GameObject::draw() const
 {
-        // This draw method is executed as if the location is absolute. If this is not the case, you should use
-        // draw(currentAbsoluteLocation) instead
+        // This draw method is executed as if the location was absolute (probably top of the Hierarchy, called by
+        // world.draw()). If this is not the case, you should use draw(currentAbsoluteLocation) instead
         draw(getLocation());
 }
 
