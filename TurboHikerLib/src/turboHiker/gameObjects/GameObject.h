@@ -21,6 +21,10 @@ class VisualComponent;
 class GameObject : public Updatable, public Drawable, public Removable
 {
 
+        // TODO add a tagging system which denotes the type of the GameObjects (probably best an enum to not confuse with other) so you can check which tag the game object has (for example Entity, Hiker,...)
+        // TODO After that you should assert that you can dynamically cast to the corresponding class and then perform a static cast
+        // TODO Also lookup: is static casting good programming design pattern or not?
+
 public:
         typedef std::unique_ptr<GameObject> GameObjectPtr;
 
