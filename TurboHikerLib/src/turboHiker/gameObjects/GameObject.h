@@ -29,9 +29,8 @@ public:
 
         void attachChild(GameObjectPtr child);
         GameObjectPtr detachChild(const GameObject& gameObject);
+
         bool hasChildren();
-        const std::vector<GameObjectPtr>& getMChildren() const;
-        void setMChildren(const std::vector<GameObjectPtr>& mChildren);
         const Vector2d& getCurrentLocation() const;
         void setCurrentLocation(const Vector2d& mCurrentLocation);
 
