@@ -12,6 +12,10 @@ class Updatable
 {
 
 public:
+
+        /**
+         * The chrono duration, used as deltaTime, in seconds (double value)
+         */
         typedef std::chrono::duration<double> seconds;
 
         virtual void update(seconds dt) = 0;

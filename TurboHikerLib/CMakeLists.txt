@@ -12,6 +12,7 @@ include_directories(
         src/turboHiker/interfaces/
         src/turboHiker/abstractVisuals/
         src/turboHiker/gameObjects/
+        src/turboHiker/utils/maths/
 )
 
 target_include_directories(TurboHikerLib PUBLIC

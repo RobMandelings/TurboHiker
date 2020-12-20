@@ -4,5 +4,13 @@
 
 #include "GameObject.h"
 
-void turboHiker::GameObject::draw() const {}
-void turboHiker::GameObject::update(turboHiker::Updatable::seconds dt) {}
+namespace turboHiker {
+void GameObject::draw() const {}
+void GameObject::update(Updatable::seconds dt) {}
+
+const Vector2d& GameObject::getCurrentLocation() const { return mCurrentLocation; }
+void GameObject::setCurrentLocation(const Vector2d& currentLocation)
+{
+        mCurrentLocation = currentLocation;
+}
+} // namespace turboHiker
