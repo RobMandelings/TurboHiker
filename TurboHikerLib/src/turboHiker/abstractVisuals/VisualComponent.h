@@ -2,8 +2,10 @@
 // Created by RobMa on 19/12/2020.
 //
 
-#ifndef TURBOHIKER_VISUALCOMPONENT_H
+#ifndef TURBOHIKER_VISUALCOMPONENTSFML_H
 #define TURBOHIKER_VISUALCOMPONENT_H
+
+#endif // TURBOHIKER_VISUALCOMPONENTSFML_H
 
 namespace turboHiker {
 
@@ -16,5 +18,3 @@ public:
         virtual void draw(const Vector2d& worldLocation) const = 0;
 };
 } // namespace turboHiker
-
-#endif // TURBOHIKER_VISUALCOMPONENT_H
