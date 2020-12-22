@@ -12,11 +12,9 @@ namespace turboHiker {
 /**
  * An extension to the basic PhysicsComponent that allows for moving in time
  */
-class MovingPhysicsComponent : PhysicsComponent
+class MovingPhysicsComponent : public PhysicsComponent
 {
 
-public:
-private:
 public:
         MovingPhysicsComponent(const WorldPosition& initialWorldPosition,
                                const BoundingBox& initialBoundingBox,

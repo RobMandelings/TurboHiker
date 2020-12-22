@@ -11,7 +11,6 @@
 turboHiker::PhysicsComponent::PhysicsComponent(const WorldPosition& worldPosition, const BoundingBox& boundingBox)
     : mWorldPosition(worldPosition), mBoundingBox(boundingBox)
 {
-        assert(mWorldPosition != nullptr);
 }
 
 void turboHiker::PhysicsComponent::update(turboHiker::Updatable::seconds dt) { }
