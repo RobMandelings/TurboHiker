@@ -14,7 +14,7 @@
 class EntityFactorySFML : turboHiker::EntityFactory
 {
 
-        turboHiker::Entity* createStaticHiker() const override;
+        turboHiker::Entity* createStaticHiker(const turboHiker::WorldPosition& worldPosition) const override;
 };
 
 #endif // TURBOHIKER_ENTITYFACTORYSFML_H

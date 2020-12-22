@@ -18,9 +18,9 @@ class MovingPhysicsComponent : PhysicsComponent
 public:
 private:
 public:
-        MovingPhysicsComponent(std::unique_ptr<WorldPosition> position,
-                               std::unique_ptr<BoundingBox> boundingBox,
-                               std::unique_ptr<Vector2d> velocity);
+        MovingPhysicsComponent(const WorldPosition& initialWorldPosition,
+                               const BoundingBox& initialBoundingBox,
+                               const Vector2d& initialVelocity);
         void update(seconds dt) override;
 
         void setVelocity(const Vector2d& newVelocity);
@@ -32,7 +32,7 @@ public:
         const Vector2d& getVelocity() const;
 
 private:
-        std::unique_ptr<Vector2d> mVelocity;
+        Vector2d mVelocity;
 
 };
 } // namespace turboHiker

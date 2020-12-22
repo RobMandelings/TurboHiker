@@ -7,20 +7,18 @@
 #include <memory>
 
 #include "Updatable.h"
+#include "WorldPosition.h"
+#include "BoundingBox.h"
 
 namespace turboHiker {
 
 class Vector2d;
 
-class BoundingBox;
-class WorldPosition;
-
 class PhysicsComponent : public Updatable
 {
 
 public:
-        PhysicsComponent(std::unique_ptr<WorldPosition> position,
-                      std::unique_ptr<BoundingBox> boundingBox);
+        PhysicsComponent(const WorldPosition& initialWorldPosition, const BoundingBox& boundingBox);
         void update(seconds dt) override;
 
         const WorldPosition& getWorldPosition() const;
@@ -32,8 +30,8 @@ public:
 
 private:
 
-        std::unique_ptr<WorldPosition> mWorldPosition;
-        std::unique_ptr<BoundingBox> mBoundingBox;
+        WorldPosition mWorldPosition;
+        BoundingBox mBoundingBox;
 
 };
 } // namespace turboHiker
