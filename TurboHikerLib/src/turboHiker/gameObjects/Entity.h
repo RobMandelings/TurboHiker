@@ -36,7 +36,8 @@ class Entity : public Updatable, public Drawable, public Removable
 public:
         typedef std::unique_ptr<Entity> SceneNodePtr;
 
-        Entity(std::unique_ptr<PhysicsComponent> physicsComponent, std::unique_ptr<RenderComponent> renderComponent, std::unique_ptr<InputComponent> inputComponent);
+        Entity(std::unique_ptr<PhysicsComponent> physicsComponent, std::unique_ptr<RenderComponent> renderComponent,
+               std::unique_ptr<InputComponent> inputComponent);
         void update(seconds dt) override;
 
         void draw() const override;
