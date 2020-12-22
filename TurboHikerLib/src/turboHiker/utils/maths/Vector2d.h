@@ -8,8 +8,8 @@
 namespace turboHiker {
 struct Vector2d
 {
-        double xCoord;
-        double yCoord;
+        double x;
+        double y;
 
         Vector2d(double xCoord, double yCoord);
 
