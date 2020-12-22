@@ -7,8 +7,6 @@
 #include <algorithm>
 #include <cassert>
 
-#include "VisualComponent.h"
-
 namespace turboHiker {
 
 SceneNode::SceneNode(const Vector2d& currentLocation, std::unique_ptr<VisualComponent> visualComponent)

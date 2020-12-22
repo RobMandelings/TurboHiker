@@ -13,10 +13,9 @@
 #include <vector>
 
 #include "Vector2d.h"
+#include "VisualComponent.h"
 
 namespace turboHiker {
-
-class VisualComponent;
 
 /**
  * Fundamental
