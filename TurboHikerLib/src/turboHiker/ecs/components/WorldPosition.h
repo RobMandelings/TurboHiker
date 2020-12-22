@@ -28,6 +28,8 @@ public:
 
         void move(const Vector2d& movement);
 
+        void setPosition(const Vector2d& newPosition);
+
         Vector2d getVectorPosition() const;
 
         const Vector2d& getVectorPositionRef() const;

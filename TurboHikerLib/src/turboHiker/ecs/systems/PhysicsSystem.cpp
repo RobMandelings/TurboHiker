@@ -19,4 +19,7 @@ void turboHiker::PhysicsSystem::update(turboHiker::Updatable::seconds dt) { move
 
 void turboHiker::PhysicsSystem::move(const turboHiker::Vector2d& vector2D) { mWorldPosition->move(vector2D); }
 const turboHiker::WorldPosition& turboHiker::PhysicsSystem::getWorldPosition() const { return *mWorldPosition; }
+void turboHiker::PhysicsSystem::setWorldPosition(const turboHiker::Vector2d& newPosition) {
+        mWorldPosition->get
+}
 const turboHiker::BoundingBox& turboHiker::PhysicsSystem::getBoundingBox() const { return *mBoundingBox; }

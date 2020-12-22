@@ -9,6 +9,7 @@
 
 #include "PhysicsSystem.h"
 #include "RenderSystem.h"
+#include "WorldPosition.h"
 
 namespace turboHiker {
 
@@ -70,7 +71,7 @@ void SceneNode::draw(const Vector2d& currentAbsoluteLocation) const
 }
 void SceneNode::drawCurrent(const Vector2d& currentAbsoluteLocation) const
 {
-        mPhysicsSystem->draw(currentAbsoluteLocation);
+        mRenderSystem->draw();
 }
 
 void SceneNode::drawChildren(Vector2d currentAbsoluteLocation) const
@@ -80,6 +81,6 @@ void SceneNode::drawChildren(Vector2d currentAbsoluteLocation) const
         }
 }
 
-const Vector2d& SceneNode::getLocation() const { return mPhysicsSystem->; }
-void SceneNode::setLocation(const Vector2d& currentLocation) { mCurrentLocation = currentLocation; }
+const Vector2d& SceneNode::getLocation() const { return mPhysicsSystem->getWorldPosition().getVectorPositionRef(); }
+void SceneNode::setLocation(const Vector2d& currentLocation) { ; }
 } // namespace turboHiker

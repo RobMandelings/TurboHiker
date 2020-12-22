@@ -24,10 +24,13 @@ public:
         void update(seconds dt) override;
 
         const WorldPosition& getWorldPosition() const;
+
+        void setWorldPosition(const Vector2d& newPosition);
+        void move(const Vector2d& vector2D);
+
         const BoundingBox& getBoundingBox() const;
 
 private:
-        void move(const Vector2d& vector2D);
 
         std::unique_ptr<WorldPosition> mWorldPosition;
         std::unique_ptr<BoundingBox> mBoundingBox;
