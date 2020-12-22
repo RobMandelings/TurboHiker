@@ -69,10 +69,7 @@ void SceneNode::draw(const Vector2d& currentAbsoluteLocation) const
         drawCurrent(currentAbsoluteLocation);
         drawChildren(currentAbsoluteLocation);
 }
-void SceneNode::drawCurrent(const Vector2d& currentAbsoluteLocation) const
-{
-        mRenderSystem->draw();
-}
+void SceneNode::drawCurrent(const Vector2d& currentAbsoluteLocation) const { mRenderSystem->draw(); }
 
 void SceneNode::drawChildren(Vector2d currentAbsoluteLocation) const
 {
@@ -82,5 +79,5 @@ void SceneNode::drawChildren(Vector2d currentAbsoluteLocation) const
 }
 
 const Vector2d& SceneNode::getLocation() const { return mPhysicsSystem->getWorldPosition().getVectorPositionRef(); }
-void SceneNode::setLocation(const Vector2d& currentLocation) { ; }
+void SceneNode::setLocation(const Vector2d& newLocation) { mPhysicsSystem->setWorldLocation(newLocation); }
 } // namespace turboHiker

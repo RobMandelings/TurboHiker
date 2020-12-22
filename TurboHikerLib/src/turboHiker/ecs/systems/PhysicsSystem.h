@@ -25,7 +25,7 @@ public:
 
         const WorldPosition& getWorldPosition() const;
 
-        void setWorldPosition(const Vector2d& newPosition);
+        void setWorldLocation(const Vector2d& newPosition);
         void move(const Vector2d& vector2D);
 
         const BoundingBox& getBoundingBox() const;

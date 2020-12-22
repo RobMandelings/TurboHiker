@@ -45,7 +45,7 @@ public:
 
         bool hasChildren();
         const Vector2d& getLocation() const;
-        void setLocation(const Vector2d& currentLocation);
+        void setLocation(const Vector2d& newLocation);
 
 private:
         virtual void updateCurrent(seconds dt);
