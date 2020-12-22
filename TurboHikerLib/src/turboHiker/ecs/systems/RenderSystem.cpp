@@ -17,4 +17,4 @@ turboHiker::RenderSystem::RenderSystem(const turboHiker::WorldPosition& worldPos
  * Simple Render implementation just consists of getting the world Position as well as the model and delegating the draw
  * request to that model
  */
-void turboHiker::RenderSystem::render() const { mModel->draw(mWorldPosition.getVectorPosition()); }
+void turboHiker::RenderSystem::draw() const { mModel->draw(mWorldPosition.getVectorPosition()); }

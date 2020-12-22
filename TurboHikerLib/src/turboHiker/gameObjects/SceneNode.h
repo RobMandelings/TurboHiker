@@ -17,8 +17,11 @@
 
 namespace turboHiker {
 
+class PhysicsSystem;
+class RenderSystem;
+
 /**
- * Fundamental
+ * Fundamental object to the game. Can be decoration
  */
 class SceneNode : public Updatable, public Drawable, public Removable
 {
@@ -32,7 +35,7 @@ class SceneNode : public Updatable, public Drawable, public Removable
 public:
         typedef std::unique_ptr<SceneNode> SceneNodePtr;
 
-        SceneNode(const Vector2d& currentLocation, std::unique_ptr<VisualComponent> visualComponent);
+        SceneNode(std::unique_ptr<PhysicsSystem> physicsSystem, std::unique_ptr<RenderSystem> renderSystem);
         void update(seconds dt) override;
 
         void draw() const override;
@@ -62,17 +65,17 @@ private:
         SceneNode* mParent;
         std::vector<SceneNodePtr> mChildren;
 
-        Vector2d mCurrentLocation;
-
         // Optional components depending on the type of SceneNode
 
         /**
-         * This will be used by a concrete implementation of the game. It can be whatever visual library you'd like to
-         * use (SFML, OpenGL, Qt,...), just set this component to a concrete implementation of the visual representation
-         * of an object It must be uniquely coupled to the SceneNode (no shared instances across GameObjects), thats
-         * the reason for the unique ptr
+         * Used to render the node
          */
-        std::unique_ptr<VisualComponent> mVisualComponent;
+        std::unique_ptr<RenderSystem> mRenderSystem;
+
+        /**
+         * Contains the main physics code for this node
+         */
+        std::unique_ptr<PhysicsSystem> mPhysicsSystem;
 };
 } // namespace turboHiker
 

@@ -23,6 +23,9 @@ public:
                       std::unique_ptr<BoundingBox> boundingBox);
         void update(seconds dt) override;
 
+        const WorldPosition& getWorldPosition() const;
+        const BoundingBox& getBoundingBox() const;
+
 private:
         void move(const Vector2d& vector2D);
 

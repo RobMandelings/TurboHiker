@@ -7,10 +7,13 @@
 #include <algorithm>
 #include <cassert>
 
+#include "PhysicsSystem.h"
+#include "RenderSystem.h"
+
 namespace turboHiker {
 
-SceneNode::SceneNode(const Vector2d& currentLocation, std::unique_ptr<VisualComponent> visualComponent)
-    : mParent(nullptr), mCurrentLocation(currentLocation), mVisualComponent(std::move(visualComponent))
+SceneNode::SceneNode(std::unique_ptr<PhysicsSystem> physicsSystem, std::unique_ptr<RenderSystem> renderSystem)
+    : mParent(nullptr), mPhysicsSystem(std::move(physicsSystem)), mRenderSystem(std::move(renderSystem))
 {
         // De moment dat je make_unique doet wordt er een kopie gemaakt van dat object en daarna is er een pointer naar
         // dat object. Dit zorgt ervoor dat je geen meerdere pointers can hebben die allebei naar dat object wijzen,
@@ -67,7 +70,7 @@ void SceneNode::draw(const Vector2d& currentAbsoluteLocation) const
 }
 void SceneNode::drawCurrent(const Vector2d& currentAbsoluteLocation) const
 {
-        mVisualComponent->draw(currentAbsoluteLocation);
+        mPhysicsSystem->draw(currentAbsoluteLocation);
 }
 
 void SceneNode::drawChildren(Vector2d currentAbsoluteLocation) const
@@ -77,6 +80,6 @@ void SceneNode::drawChildren(Vector2d currentAbsoluteLocation) const
         }
 }
 
-const Vector2d& SceneNode::getLocation() const { return mCurrentLocation; }
+const Vector2d& SceneNode::getLocation() const { return mPhysicsSystem->; }
 void SceneNode::setLocation(const Vector2d& currentLocation) { mCurrentLocation = currentLocation; }
 } // namespace turboHiker

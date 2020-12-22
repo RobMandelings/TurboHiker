@@ -5,8 +5,8 @@
 #include "PhysicsSystem.h"
 #include <cassert>
 
-#include "WorldPosition.h"
 #include "BoundingBox.h"
+#include "WorldPosition.h"
 
 turboHiker::PhysicsSystem::PhysicsSystem(std::unique_ptr<WorldPosition> position, std::unique_ptr<Vector2d> velocity,
                                          std::unique_ptr<BoundingBox> boundingBox)
@@ -15,11 +15,8 @@ turboHiker::PhysicsSystem::PhysicsSystem(std::unique_ptr<WorldPosition> position
         assert(mWorldPosition != nullptr);
 }
 
-void turboHiker::PhysicsSystem::update(turboHiker::Updatable::seconds dt)
-{
-        move(*mVelocity * dt);
-}
+void turboHiker::PhysicsSystem::update(turboHiker::Updatable::seconds dt) { move(*mVelocity * dt); }
 
-void turboHiker::PhysicsSystem::move(const turboHiker::Vector2d& vector2D) {
-        mWorldPosition->move(vector2D);
-}
+void turboHiker::PhysicsSystem::move(const turboHiker::Vector2d& vector2D) { mWorldPosition->move(vector2D); }
+const turboHiker::WorldPosition& turboHiker::PhysicsSystem::getWorldPosition() const { return *mWorldPosition; }
+const turboHiker::BoundingBox& turboHiker::PhysicsSystem::getBoundingBox() const { return *mBoundingBox; }
