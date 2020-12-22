@@ -7,12 +7,17 @@
 
 namespace turboHiker {
 
+class SceneNode;
+
 /**
  * An Abstract Factory to create entities (Specific GameObjects). Their visual representation must be implemented by the
  * visualization library used (Such as SFML)
  */
 class EntityFactory
 {
+
+        SceneNode* createTestObject();
+
 };
 } // namespace turboHiker
 

@@ -22,7 +22,7 @@ class VisualComponentSFML : private turboHiker::VisualComponent, private sf::Dra
         // the parent classes' method not?
 
         /**
-         * Draw method called by the GameObject that implements it.
+         * Draw method called by the SceneNode that implements it.
          * Considered final as it may not be overridden by inherited classes
          */
         void draw(const turboHiker::Vector2d& worldLocation) const final;
