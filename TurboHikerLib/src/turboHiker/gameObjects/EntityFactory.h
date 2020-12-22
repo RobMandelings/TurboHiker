@@ -16,7 +16,7 @@ class Entity;
 class EntityFactory
 {
 
-        Entity* createTestObject();
+        virtual Entity* createStaticHiker() const = 0;
 
 };
 } // namespace turboHiker

@@ -13,6 +13,8 @@
  */
 class EntityFactorySFML : turboHiker::EntityFactory
 {
+
+        turboHiker::Entity* createStaticHiker() const override;
 };
 
 #endif // TURBOHIKER_ENTITYFACTORYSFML_H

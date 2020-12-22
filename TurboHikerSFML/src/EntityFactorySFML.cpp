@@ -3,3 +3,6 @@
 //
 
 #include "EntityFactorySFML.h"
+turboHiker::Entity* EntityFactorySFML::createStaticHiker() const {
+        // Implement
+}
