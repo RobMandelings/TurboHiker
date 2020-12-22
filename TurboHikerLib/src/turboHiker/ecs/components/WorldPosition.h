@@ -17,7 +17,8 @@ class WorldPosition
 {
 
 public:
-        WorldPosition(const BoundingBox& worldBoundaries, const Vector2d& initialPosition);
+        WorldPosition(const turboHiker::BoundingBox& worldBoundaries, const turboHiker::Vector2d& initialPosition,
+                      const turboHiker::BoundingBox& sceneNodeBoundingBox);
 
         bool isOutOfBounds() const;
 
@@ -27,9 +28,14 @@ public:
 
         void move(const Vector2d& movement);
 
+        Vector2d getVectorPosition() const;
+
+        const Vector2d& getVectorPositionRef() const;
+
 private:
 
         const BoundingBox& mWorldBoundaries;
+        const BoundingBox& mSceneNodeBoundingBox;
         Vector2d mWorldPosition;
 
         // TODO optional 'clamp to border' boolean? If true, automatically clamps, if false: not allowed?

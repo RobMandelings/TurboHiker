@@ -6,12 +6,14 @@
 
 namespace turboHiker {
 
-class Position;
+class Vector2d;
 
 class Model
 {
 
-        virtual void draw(const Position& worldLocation) const = 0;
+public:
+
+        virtual void draw(const Vector2d& worldLocation) const = 0;
 
 };
 } // namespace turboHiker

@@ -5,3 +5,5 @@ https://en.wikipedia.org/wiki/Entity_component_system#:~:text=Entity%3A%20The%20
 https://softwareengineering.stackexchange.com/questions/133159/entity-component-system-architecture-interaction-between-systems
 
 https://stackoverflow.com/questions/34072862/why-is-error-invalid-application-of-sizeof-to-an-incomplete-type-using-uniqu
+
+Aggregation in classes is best done using const references, this way, the concrete pointer towards it is abstracted from it, as well as keeping it const is easier

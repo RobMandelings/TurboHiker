@@ -15,8 +15,8 @@ class RenderSystem
 {
 
 public:
-
-        virtual void render() = 0;
+        RenderSystem(const WorldPosition& worldPosition, std::shared_ptr<Model>  model);
+        virtual void render() const;
 
 private:
 
@@ -24,7 +24,7 @@ private:
          * Keeps track of the position that is maintained and updated by a PhysicsSystem (Aggregation, not owned by the RenderSystem)
          */
         const WorldPosition& mWorldPosition;
-        std::shared_ptr<Model> mModel;
+        std::unique_ptr<Model> mModel;
 
 };
 }

@@ -5,6 +5,8 @@
 #ifndef TURBOHIKER_VECTOR2D_H
 #define TURBOHIKER_VECTOR2D_H
 
+#include <chrono>
+
 namespace turboHiker {
 struct Vector2d
 {
@@ -12,6 +14,15 @@ struct Vector2d
         double y;
 
         Vector2d(double xCoord, double yCoord);
+
+        /**
+         * Operator overload for operator * to easily multiply by the amount of seconds (used by updates to multiply by the timeStep)
+         * @param seconds
+         * @return
+         */
+        Vector2d operator*(std::chrono::duration<double> seconds);
+
+        Vector2d operator*(double scalar) const;
 
         Vector2d operator+(const Vector2d& vector2D) const;
         Vector2d operator-(const Vector2d& vector2D) const;

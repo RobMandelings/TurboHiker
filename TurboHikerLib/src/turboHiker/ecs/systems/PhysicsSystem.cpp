@@ -5,8 +5,11 @@
 #include "PhysicsSystem.h"
 #include <cassert>
 
-turboHiker::PhysicsSystem::PhysicsSystem(std::shared_ptr<WorldPosition> position, std::shared_ptr<Velocity> velocity,
-                                         std::shared_ptr<BoundingBox> boundingBox)
+#include "WorldPosition.h"
+#include "BoundingBox.h"
+
+turboHiker::PhysicsSystem::PhysicsSystem(std::unique_ptr<WorldPosition> position, std::unique_ptr<Vector2d> velocity,
+                                         std::unique_ptr<BoundingBox> boundingBox)
     : mWorldPosition(std::move(position)), mVelocity(std::move(velocity)), mBoundingBox(std::move(boundingBox))
 {
         assert(mWorldPosition != nullptr);
@@ -14,7 +17,7 @@ turboHiker::PhysicsSystem::PhysicsSystem(std::shared_ptr<WorldPosition> position
 
 void turboHiker::PhysicsSystem::update(turboHiker::Updatable::seconds dt)
 {
-        move(mWorldPosition * )
+        mWorldPosition->move(*mVelocity * dt);
 }
 
 void turboHiker::PhysicsSystem::move(const turboHiker::Vector2d& vector2D) {
