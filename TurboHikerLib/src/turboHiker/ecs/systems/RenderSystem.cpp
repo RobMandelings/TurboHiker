@@ -8,7 +8,7 @@
 #include "WorldPosition.h"
 #include <utility>
 
-turboHiker::RenderSystem::RenderSystem(const turboHiker::WorldPosition& worldPosition, std::shared_ptr<Model> model)
+turboHiker::RenderSystem::RenderSystem(const turboHiker::WorldPosition& worldPosition, std::unique_ptr<Model> model)
     : mWorldPosition(worldPosition), mModel(std::move(model))
 {
 }

@@ -17,9 +17,9 @@ turboHiker::PhysicsSystem::PhysicsSystem(std::unique_ptr<WorldPosition> position
 
 void turboHiker::PhysicsSystem::update(turboHiker::Updatable::seconds dt)
 {
-        mWorldPosition->move(*mVelocity * dt);
+        move(*mVelocity * dt);
 }
 
 void turboHiker::PhysicsSystem::move(const turboHiker::Vector2d& vector2D) {
-
+        mWorldPosition->move(vector2D);
 }

@@ -15,7 +15,7 @@ class RenderSystem
 {
 
 public:
-        RenderSystem(const WorldPosition& worldPosition, std::shared_ptr<Model>  model);
+        RenderSystem(const WorldPosition& worldPosition, std::unique_ptr<Model> model);
         virtual void render() const;
 
 private:
