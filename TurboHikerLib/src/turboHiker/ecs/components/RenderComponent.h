@@ -15,15 +15,13 @@ class RenderComponent
 {
 
 public:
-        RenderComponent(const WorldPosition& worldPosition, std::unique_ptr<Model> model);
-        virtual void draw() const;
+        explicit RenderComponent(const WorldPosition& worldPosition);
+        virtual void draw() const = 0;
 
-private:
         /**
          * Keeps track of the position that is maintained and updated by a PhysicsComponent (Aggregation, not owned by the
          * RenderComponent)
          */
         const WorldPosition& mWorldPosition;
-        std::unique_ptr<Model> mModel;
 };
 } // namespace turboHiker
