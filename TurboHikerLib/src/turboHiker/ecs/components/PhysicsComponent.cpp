@@ -8,14 +8,14 @@
 #include "BoundingBox.h"
 #include "WorldPosition.h"
 
-turboHiker::PhysicsComponent::PhysicsComponent(std::unique_ptr<WorldPosition> position, std::unique_ptr<Vector2d> velocity,
+turboHiker::PhysicsComponent::PhysicsComponent(std::unique_ptr<WorldPosition> position,
                                          std::unique_ptr<BoundingBox> boundingBox)
-    : mWorldPosition(std::move(position)), mVelocity(std::move(velocity)), mBoundingBox(std::move(boundingBox))
+    : mWorldPosition(std::move(position)), mBoundingBox(std::move(boundingBox))
 {
         assert(mWorldPosition != nullptr);
 }
 
-void turboHiker::PhysicsComponent::update(turboHiker::Updatable::seconds dt) { move(*mVelocity * dt); }
+void turboHiker::PhysicsComponent::update(turboHiker::Updatable::seconds dt) { }
 
 void turboHiker::PhysicsComponent::move(const turboHiker::Vector2d& vector2D) { mWorldPosition->move(vector2D); }
 const turboHiker::WorldPosition& turboHiker::PhysicsComponent::getWorldPosition() const { return *mWorldPosition; }

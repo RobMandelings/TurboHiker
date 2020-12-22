@@ -19,7 +19,7 @@ class PhysicsComponent : public Updatable
 {
 
 public:
-        PhysicsComponent(std::unique_ptr<WorldPosition> position, std::unique_ptr<Vector2d> velocity,
+        PhysicsComponent(std::unique_ptr<WorldPosition> position,
                       std::unique_ptr<BoundingBox> boundingBox);
         void update(seconds dt) override;
 
@@ -35,6 +35,5 @@ private:
         std::unique_ptr<WorldPosition> mWorldPosition;
         std::unique_ptr<BoundingBox> mBoundingBox;
 
-        std::unique_ptr<Vector2d> mVelocity;
 };
 } // namespace turboHiker
