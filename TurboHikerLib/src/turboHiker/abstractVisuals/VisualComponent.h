@@ -12,7 +12,7 @@ namespace turboHiker {
 class Vector2d;
 
 /**
- * The VisualComponent is used by the SceneNode to (optionally) give it a visual representation.
+ * The VisualComponent is used by the Entity to (optionally) give it a visual representation.
  * Visual libraries can inherit from this base VisualComponent class to actually give it a visual representation in the
  * API of the visualization library (Such as SFML, Qt,...)
  */

@@ -7,7 +7,7 @@
 
 #include "Drawable.h"
 #include "Updatable.h"
-#include "gameObjects/SceneNode.h"
+#include "gameObjects/Entity.h"
 
 #include <memory>
 
@@ -17,7 +17,7 @@ class World : private Updatable, private Drawable
         /**
          * This is Main Game Object of the world, it contains all sub game objects (can be entities, decorations,...)
          */
-        std::unique_ptr<SceneNode> mSceneGraph;
+        std::unique_ptr<Entity> mSceneGraph;
 
 public:
         World();

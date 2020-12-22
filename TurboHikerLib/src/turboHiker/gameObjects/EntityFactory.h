@@ -7,7 +7,7 @@
 
 namespace turboHiker {
 
-class SceneNode;
+class Entity;
 
 /**
  * An Abstract Factory to create entities (Specific GameObjects). Their visual representation must be implemented by the
@@ -16,7 +16,7 @@ class SceneNode;
 class EntityFactory
 {
 
-        SceneNode* createTestObject();
+        Entity* createTestObject();
 
 };
 } // namespace turboHiker

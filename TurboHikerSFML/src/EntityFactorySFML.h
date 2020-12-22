@@ -8,7 +8,7 @@
 #include "turboHiker/gameObjects/EntityFactory.h"
 
 /**
- * Creates Entities (A type of SceneNode that can move) with a specific VisualComponent created with SFML to give a
+ * Creates Entities (A type of Entity that can move) with a specific VisualComponent created with SFML to give a
  * visual representation to these entities
  */
 class EntityFactorySFML : turboHiker::EntityFactory
