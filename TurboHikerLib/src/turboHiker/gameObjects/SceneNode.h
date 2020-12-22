@@ -17,8 +17,9 @@
 
 namespace turboHiker {
 
-class PhysicsSystem;
-class RenderSystem;
+class PhysicsComponent;
+class RenderComponent;
+class InputComponent;
 
 /**
  * Fundamental object to the game. Can be decoration
@@ -35,7 +36,7 @@ class SceneNode : public Updatable, public Drawable, public Removable
 public:
         typedef std::unique_ptr<SceneNode> SceneNodePtr;
 
-        SceneNode(std::unique_ptr<PhysicsSystem> physicsSystem, std::unique_ptr<RenderSystem> renderSystem);
+        SceneNode(std::unique_ptr<PhysicsComponent> physicsComponent, std::unique_ptr<RenderComponent> renderComponent, std::unique_ptr<InputComponent> inputComponent);
         void update(seconds dt) override;
 
         void draw() const override;
@@ -65,17 +66,19 @@ private:
         SceneNode* mParent;
         std::vector<SceneNodePtr> mChildren;
 
-        // Optional components depending on the type of SceneNode
+        // Components that can differ among nodes
+
+        std::unique_ptr<InputComponent> mInputComponent;
 
         /**
          * Used to render the node
          */
-        std::unique_ptr<RenderSystem> mRenderSystem;
+        std::unique_ptr<RenderComponent> mRenderComponent;
 
         /**
          * Contains the main physics code for this node
          */
-        std::unique_ptr<PhysicsSystem> mPhysicsSystem;
+        std::unique_ptr<PhysicsComponent> mPhysicsComponent;
 };
 } // namespace turboHiker
 

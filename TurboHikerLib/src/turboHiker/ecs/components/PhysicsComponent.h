@@ -15,11 +15,11 @@ class Vector2d;
 class BoundingBox;
 class WorldPosition;
 
-class PhysicsSystem : public Updatable
+class PhysicsComponent : public Updatable
 {
 
 public:
-        PhysicsSystem(std::unique_ptr<WorldPosition> position, std::unique_ptr<Vector2d> velocity,
+        PhysicsComponent(std::unique_ptr<WorldPosition> position, std::unique_ptr<Vector2d> velocity,
                       std::unique_ptr<BoundingBox> boundingBox);
         void update(seconds dt) override;
 

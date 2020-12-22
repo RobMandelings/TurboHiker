@@ -7,14 +7,16 @@
 #include <algorithm>
 #include <cassert>
 
-#include "PhysicsSystem.h"
-#include "RenderSystem.h"
+#include "PhysicsComponent.h"
+#include "RenderComponent.h"
+#include "InputComponent.h"
+
 #include "WorldPosition.h"
 
 namespace turboHiker {
 
-SceneNode::SceneNode(std::unique_ptr<PhysicsSystem> physicsSystem, std::unique_ptr<RenderSystem> renderSystem)
-    : mParent(nullptr), mPhysicsSystem(std::move(physicsSystem)), mRenderSystem(std::move(renderSystem))
+SceneNode::SceneNode(std::unique_ptr<PhysicsComponent> physicsComponent, std::unique_ptr<RenderComponent> renderComponent, std::unique_ptr<InputComponent> inputComponent)
+    : mParent(nullptr), mInputComponent(std::move(inputComponent)), mPhysicsComponent(std::move(physicsComponent)), mRenderComponent(std::move(renderComponent))
 {
         // De moment dat je make_unique doet wordt er een kopie gemaakt van dat object en daarna is er een pointer naar
         // dat object. Dit zorgt ervoor dat je geen meerdere pointers can hebben die allebei naar dat object wijzen,
@@ -69,7 +71,7 @@ void SceneNode::draw(const Vector2d& currentAbsoluteLocation) const
         drawCurrent(currentAbsoluteLocation);
         drawChildren(currentAbsoluteLocation);
 }
-void SceneNode::drawCurrent(const Vector2d& currentAbsoluteLocation) const { mRenderSystem->draw(); }
+void SceneNode::drawCurrent(const Vector2d& currentAbsoluteLocation) const { mRenderComponent->draw(); }
 
 void SceneNode::drawChildren(Vector2d currentAbsoluteLocation) const
 {
@@ -78,6 +80,6 @@ void SceneNode::drawChildren(Vector2d currentAbsoluteLocation) const
         }
 }
 
-const Vector2d& SceneNode::getLocation() const { return mPhysicsSystem->getWorldPosition().getVectorPositionRef(); }
-void SceneNode::setLocation(const Vector2d& newLocation) { mPhysicsSystem->setWorldLocation(newLocation); }
+const Vector2d& SceneNode::getLocation() const { return mPhysicsComponent->getWorldPosition().getVectorPositionRef(); }
+void SceneNode::setLocation(const Vector2d& newLocation) { mPhysicsComponent->setWorldLocation(newLocation); }
 } // namespace turboHiker
