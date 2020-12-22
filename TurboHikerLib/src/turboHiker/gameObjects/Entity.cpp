@@ -7,11 +7,11 @@
 #include <algorithm>
 #include <cassert>
 
-#include "PhysicsComponent.h"
-#include "RenderComponent.h"
 #include "InputComponent.h"
+#include "RenderComponent.h"
+#include "ecs/components/physics/PhysicsComponent.h"
 
-#include "WorldPosition.h"
+#include "WorldLocation.h"
 
 namespace turboHiker {
 
@@ -80,6 +80,6 @@ void Entity::drawChildren(Vector2d currentAbsoluteLocation) const
         }
 }
 
-const Vector2d& Entity::getLocation() const { return mPhysicsComponent->getWorldPosition().getVectorPositionRef(); }
+const Vector2d& Entity::getLocation() const { return mPhysicsComponent->getWorldLocation().getVectorPositionRef(); }
 void Entity::setLocation(const Vector2d& newLocation) { mPhysicsComponent->setWorldLocation(newLocation); }
 } // namespace turboHiker

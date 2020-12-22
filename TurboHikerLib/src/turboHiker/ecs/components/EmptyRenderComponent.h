@@ -16,7 +16,7 @@ class EmptyRenderComponent : RenderComponent
 {
 
 public:
-        EmptyRenderComponent(const WorldPosition& worldPosition);
+        EmptyRenderComponent(const WorldLocation& worldPosition);
 private:
         void draw() const override;
 };

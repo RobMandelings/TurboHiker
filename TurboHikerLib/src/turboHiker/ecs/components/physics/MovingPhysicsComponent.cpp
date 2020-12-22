@@ -4,11 +4,11 @@
 
 #include "MovingPhysicsComponent.h"
 
-#include "WorldPosition.h"
 #include "BoundingBox.h"
 #include "Vector2d.h"
+#include "WorldLocation.h"
 
-turboHiker::MovingPhysicsComponent::MovingPhysicsComponent(const WorldPosition& initialWorldPosition,
+turboHiker::MovingPhysicsComponent::MovingPhysicsComponent(const WorldLocation& initialWorldPosition,
                                                            const BoundingBox& initialBoundingBox,
                                                            const Vector2d& initialVelocity)
     : PhysicsComponent(initialWorldPosition, initialBoundingBox), mVelocity(initialVelocity)

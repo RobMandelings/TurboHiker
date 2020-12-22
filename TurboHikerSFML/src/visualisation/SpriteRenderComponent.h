@@ -13,7 +13,7 @@ class SpriteRenderComponent : RenderComponentSFML
 {
 
 public:
-        SpriteRenderComponent(const turboHiker::WorldPosition& worldPosition, WindowDrawer& windowDrawer,
+        SpriteRenderComponent(const turboHiker::WorldLocation& worldPosition, WindowDrawer& windowDrawer,
                               sf::Sprite  mSprite);
 
         void draw() const final;

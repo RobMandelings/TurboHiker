@@ -16,7 +16,7 @@ class MovingPhysicsComponent : public PhysicsComponent
 {
 
 public:
-        MovingPhysicsComponent(const WorldPosition& initialWorldPosition,
+        MovingPhysicsComponent(const WorldLocation& initialWorldPosition,
                                const BoundingBox& initialBoundingBox,
                                const Vector2d& initialVelocity);
         void update(seconds dt) override;

@@ -2,7 +2,7 @@ project(TurboHikerLib)
 
 set(SRC
         src/turboHiker/Game.cpp
-        src/turboHiker/utils/constants.h src/turboHiker/utils/Clock.cpp src/turboHiker/utils/Clock.h src/turboHiker/utils/NonCopyable.cpp src/turboHiker/utils/NonCopyable.h src/turboHiker/World.cpp src/turboHiker/World.h src/turboHiker/gameObjects/Entity.cpp src/turboHiker/gameObjects/Entity.h src/turboHiker/abstractVisuals/VisualComponent.h src/turboHiker/utils/maths/Transform.cpp src/turboHiker/utils/maths/Transform.h src/turboHiker/utils/maths/Vector2d.cpp src/turboHiker/utils/maths/Vector2d.h src/turboHiker/interfaces/Updatable.h src/turboHiker/interfaces/Drawable.h src/turboHiker/Removable.h src/turboHiker/Removable.cpp src/turboHiker/abstractVisuals/EmptyVisualComponent.h src/turboHiker/gameObjects/EntityFactory.h src/turboHiker/ecs/components/RenderComponent.cpp src/turboHiker/ecs/components/RenderComponent.h src/turboHiker/ecs/components/PhysicsComponent.cpp src/turboHiker/ecs/components/PhysicsComponent.h src/turboHiker/ecs/modules/WorldPosition.cpp src/turboHiker/ecs/modules/WorldPosition.h src/turboHiker/ecs/modules/physics/BoundingBox.cpp src/turboHiker/ecs/modules/physics/BoundingBox.h src/turboHiker/ecs/components/InputComponent.cpp src/turboHiker/ecs/components/InputComponent.h src/turboHiker/ecs/components/MovingPhysicsComponent.cpp src/turboHiker/ecs/components/MovingPhysicsComponent.h src/turboHiker/ecs/components/EmptyRenderComponent.cpp src/turboHiker/ecs/components/EmptyRenderComponent.h)
+        src/turboHiker/utils/constants.h src/turboHiker/utils/Clock.cpp src/turboHiker/utils/Clock.h src/turboHiker/utils/NonCopyable.cpp src/turboHiker/utils/NonCopyable.h src/turboHiker/World.cpp src/turboHiker/World.h src/turboHiker/gameObjects/Entity.cpp src/turboHiker/gameObjects/Entity.h src/turboHiker/abstractVisuals/VisualComponent.h src/turboHiker/utils/maths/Transform.cpp src/turboHiker/utils/maths/Transform.h src/turboHiker/utils/maths/Vector2d.cpp src/turboHiker/utils/maths/Vector2d.h src/turboHiker/interfaces/Updatable.h src/turboHiker/interfaces/Drawable.h src/turboHiker/Removable.h src/turboHiker/Removable.cpp src/turboHiker/abstractVisuals/EmptyVisualComponent.h src/turboHiker/gameObjects/EntityFactory.h src/turboHiker/ecs/components/RenderComponent.cpp src/turboHiker/ecs/components/RenderComponent.h src/turboHiker/ecs/components/physics/PhysicsComponent.cpp src/turboHiker/ecs/components/physics/PhysicsComponent.h src/turboHiker/ecs/components/modules/WorldLocation.cpp src/turboHiker/ecs/components/modules/WorldLocation.h src/turboHiker/ecs/components/modules/BoundingBox.cpp src/turboHiker/ecs/components/modules/BoundingBox.h src/turboHiker/ecs/components/InputComponent.cpp src/turboHiker/ecs/components/InputComponent.h src/turboHiker/ecs/components/physics/MovingPhysicsComponent.cpp src/turboHiker/ecs/components/physics/MovingPhysicsComponent.h src/turboHiker/ecs/components/EmptyRenderComponent.cpp src/turboHiker/ecs/components/EmptyRenderComponent.h src/turboHiker/ecs/components/physics/collision/CollisionComponent.cpp src/turboHiker/ecs/components/physics/collision/CollisionComponent.h)
 
 add_library(TurboHikerLib ${SRC})
 
@@ -15,8 +15,8 @@ include_directories(
         src/turboHiker/utils/maths/
         src/turboHiker/ecs/
         src/turboHiker/ecs/components/
-        src/turboHiker/ecs/modules/
-        src/turboHiker/ecs/modules/physics/
+        src/turboHiker/ecs/components/modules/
+        src/turboHiker/ecs/components/modules/physics/
 )
 
 target_include_directories(TurboHikerLib PUBLIC

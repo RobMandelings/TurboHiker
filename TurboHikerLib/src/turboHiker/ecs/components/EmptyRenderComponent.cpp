@@ -4,7 +4,7 @@
 
 #include "EmptyRenderComponent.h"
 
-turboHiker::EmptyRenderComponent::EmptyRenderComponent(const turboHiker::WorldPosition& worldPosition)
+turboHiker::EmptyRenderComponent::EmptyRenderComponent(const turboHiker::WorldLocation& worldPosition)
     : RenderComponent(worldPosition)
 {
 }

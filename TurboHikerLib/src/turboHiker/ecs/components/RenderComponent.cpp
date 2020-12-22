@@ -4,10 +4,10 @@
 
 #include "RenderComponent.h"
 
-#include "WorldPosition.h"
+#include "WorldLocation.h"
 #include <utility>
 
-turboHiker::RenderComponent::RenderComponent(const WorldPosition& worldPosition)
+turboHiker::RenderComponent::RenderComponent(const WorldLocation& worldPosition)
     : mWorldPosition(worldPosition)
 {
 }

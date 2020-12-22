@@ -12,7 +12,7 @@ namespace turboHikerSFML {
 class RenderComponentSFML : turboHiker::RenderComponent
 {
 public:
-        RenderComponentSFML(const turboHiker::WorldPosition& worldPosition, WindowDrawer& windowDrawer);
+        RenderComponentSFML(const turboHiker::WorldLocation& worldPosition, WindowDrawer& windowDrawer);
 
 public:
 

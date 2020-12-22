@@ -13,11 +13,11 @@ class BoundingBox;
 /**
  * Basically a wrapper around a 2D vector class that also does bounds checking
  */
-class WorldPosition
+class WorldLocation
 {
 
 public:
-        WorldPosition(const turboHiker::BoundingBox& worldBoundaries, const turboHiker::Vector2d& initialPosition,
+        WorldLocation(const turboHiker::BoundingBox& worldBoundaries, const turboHiker::Vector2d& initialPosition,
                       const turboHiker::BoundingBox& sceneNodeBoundingBox);
 
         bool isOutOfBounds() const;

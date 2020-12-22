@@ -8,20 +8,20 @@
 
 namespace turboHiker {
 
-class WorldPosition;
+class WorldLocation;
 class Model;
 
 class RenderComponent
 {
 
 public:
-        explicit RenderComponent(const WorldPosition& worldPosition);
+        explicit RenderComponent(const WorldLocation& worldPosition);
         virtual void draw() const = 0;
 
         /**
          * Keeps track of the position that is maintained and updated by a PhysicsComponent (Aggregation, not owned by the
          * RenderComponent)
          */
-        const WorldPosition& mWorldPosition;
+        const WorldLocation& mWorldPosition;
 };
 } // namespace turboHiker

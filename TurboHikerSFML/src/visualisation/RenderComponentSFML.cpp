@@ -11,7 +11,7 @@ void turboHikerSFML::RenderComponentSFML::drawOnWindow(const sf::Drawable& drawa
         mWindowDrawer.drawOnWindow(drawable, mWorldPosition.getVectorPositionRef());
 }
 
-turboHikerSFML::RenderComponentSFML::RenderComponentSFML(const turboHiker::WorldPosition& worldPosition,
+turboHikerSFML::RenderComponentSFML::RenderComponentSFML(const turboHiker::WorldLocation& worldPosition,
                                                          turboHikerSFML::WindowDrawer& windowDrawer)
     : RenderComponent(worldPosition), mWindowDrawer(windowDrawer)
 {

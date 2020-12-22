@@ -2,14 +2,14 @@
 // Created by Rob Mandelings on 22/12/2020.
 //
 
-#include "WorldPosition.h"
+#include "WorldLocation.h"
 
 #include <cassert>
 #include <iostream>
 
 #include "BoundingBox.h"
 
-turboHiker::WorldPosition::WorldPosition(const turboHiker::BoundingBox& worldBoundaries,
+turboHiker::WorldLocation::WorldLocation(const turboHiker::BoundingBox& worldBoundaries,
                                          const turboHiker::Vector2d& initialPosition,
                                          const turboHiker::BoundingBox& sceneNodeBoundingBox)
     : mWorldBoundaries(worldBoundaries), mWorldPosition(initialPosition), mSceneNodeBoundingBox(sceneNodeBoundingBox)
@@ -17,14 +17,14 @@ turboHiker::WorldPosition::WorldPosition(const turboHiker::BoundingBox& worldBou
         assert(!isOutOfBounds() && "The given initial position is not valid! It falls out of the world!");
 }
 
-bool turboHiker::WorldPosition::isOutOfBounds() const
+bool turboHiker::WorldLocation::isOutOfBounds() const
 {
         // TODO check for bounds
-        std::cout << "WorldPosition: out of bounds must be implemented!" << std::endl;
+        std::cout << "WorldLocation: out of bounds must be implemented!" << std::endl;
         return false;
 }
 
-void turboHiker::WorldPosition::moveX(double xMovement)
+void turboHiker::WorldLocation::moveX(double xMovement)
 {
         assert(!isOutOfBounds() && "Position was invalid before move");
         mWorldPosition.x += xMovement;
@@ -39,7 +39,7 @@ void turboHiker::WorldPosition::moveX(double xMovement)
         assert(!isOutOfBounds());
 }
 
-void turboHiker::WorldPosition::moveY(double yMovement)
+void turboHiker::WorldLocation::moveY(double yMovement)
 {
         assert(!isOutOfBounds() && "Position was invalid before move");
         mWorldPosition.y += yMovement;
@@ -55,7 +55,7 @@ void turboHiker::WorldPosition::moveY(double yMovement)
         assert(!isOutOfBounds());
 }
 
-void turboHiker::WorldPosition::move(const turboHiker::Vector2d& movement)
+void turboHiker::WorldLocation::move(const turboHiker::Vector2d& movement)
 {
         assert(!isOutOfBounds() && "Position was invalid before move");
         moveX(movement.x);
@@ -63,13 +63,13 @@ void turboHiker::WorldPosition::move(const turboHiker::Vector2d& movement)
         assert(!isOutOfBounds());
 }
 
-void turboHiker::WorldPosition::setPosition(const turboHiker::Vector2d& newPosition)
+void turboHiker::WorldLocation::setPosition(const turboHiker::Vector2d& newPosition)
 {
         mWorldPosition.x = newPosition.x;
         mWorldPosition.y = newPosition.y;
         assert(!isOutOfBounds() && "The new position of the object is out of bounds of the world");
 }
 
-turboHiker::Vector2d turboHiker::WorldPosition::getVectorPosition() const { return mWorldPosition; }
+turboHiker::Vector2d turboHiker::WorldLocation::getVectorPosition() const { return mWorldPosition; }
 
-const turboHiker::Vector2d& turboHiker::WorldPosition::getVectorPositionRef() const { return mWorldPosition; }
+const turboHiker::Vector2d& turboHiker::WorldLocation::getVectorPositionRef() const { return mWorldPosition; }
