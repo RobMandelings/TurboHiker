@@ -21,13 +21,16 @@ class VisualComponent;
 class GameObject : public Updatable, public Drawable, public Removable
 {
 
-        // TODO add a tagging system which denotes the type of the GameObjects (probably best an enum to not confuse with other) so you can check which tag the game object has (for example Entity, Hiker,...)
-        // TODO After that you should assert that you can dynamically cast to the corresponding class and then perform a static cast
+        // TODO add a tagging system which denotes the type of the GameObjects (probably best an enum to not confuse
+        // with other) so you can check which tag the game object has (for example Entity, Hiker,...)
+        // TODO After that you should assert that you can dynamically cast to the corresponding class and then perform a
+        // static cast
         // TODO Also lookup: is static casting good programming design pattern or not?
 
 public:
         typedef std::unique_ptr<GameObject> GameObjectPtr;
 
+        GameObject(const Vector2d& currentLocation, std::unique_ptr<VisualComponent> visualComponent);
         void update(seconds dt) override;
 
         void draw() const override;
@@ -46,8 +49,8 @@ private:
         // TODO replace currentLocation with currentTransform for more flexibility
         /**
          *
-         * @param currentAbsoluteLocation: the current location of the Game Object. Due to the hierarchy and relative locations,
-         * the value of currentLocation can change
+         * @param currentAbsoluteLocation: the current location of the Game Object. Due to the hierarchy and relative
+         * locations, the value of currentLocation can change
          */
         void draw(const Vector2d& currentAbsoluteLocation) const;
         void drawCurrent(const Vector2d& currentAbsoluteLocation) const;
@@ -67,7 +70,7 @@ private:
          * of an object It must be uniquely coupled to the GameObject (no shared instances across GameObjects), thats
          * the reason for the unique ptr
          */
-        std::unique_ptr<VisualComponent> visualComponent;
+        std::unique_ptr<VisualComponent> mVisualComponent;
 };
 } // namespace turboHiker
 

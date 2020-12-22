@@ -1,0 +1,1 @@
+https://stackoverflow.com/questions/29163805/member-objects-as-unique-ptr-or-on-stack

@@ -11,6 +11,14 @@
 
 namespace turboHiker {
 
+GameObject::GameObject(const Vector2d& currentLocation, std::unique_ptr<VisualComponent> visualComponent)
+    : mParent(nullptr), mCurrentLocation(currentLocation), mVisualComponent(std::move(visualComponent))
+{
+        // De moment dat je make_unique doet wordt er een kopie gemaakt van dat object en daarna is er een pointer naar
+        // dat object. Dit zorgt ervoor dat je geen meerdere pointers can hebben die allebei naar dat object wijzen,
+        // aangezien je de pointer niet kan kopieren en niet maken (want make unique kopieert)
+}
+
 void GameObject::attachChild(GameObject::GameObjectPtr child)
 {
         child->mParent = this;
@@ -61,7 +69,7 @@ void GameObject::draw(const Vector2d& currentAbsoluteLocation) const
 }
 void GameObject::drawCurrent(const Vector2d& currentAbsoluteLocation) const
 {
-        visualComponent->draw(currentAbsoluteLocation);
+        mVisualComponent->draw(currentAbsoluteLocation);
 }
 
 void GameObject::drawChildren(Vector2d currentAbsoluteLocation) const
