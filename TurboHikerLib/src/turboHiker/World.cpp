@@ -5,26 +5,33 @@
 #include "World.h"
 #include <cassert>
 
-#include "PhysicsComponent.h"
-#include "InputComponent.h"
-#include "RenderComponent.h"
 #include "CollisionComponent.h"
-turboHiker::World::World() {
+#include "InputComponent.h"
+#include "PhysicsComponent.h"
+#include "RenderComponent.h"
+
+#include <iostream>
+
+turboHiker::World::World(std::unique_ptr<EntityFactory> entityFactory) : mEntityFactory(std::move(entityFactory))
+{
         buildWorld();
 }
 
-void turboHiker::World::update(Updatable::seconds dt) {
-        mSceneGraph->update(dt);
+void turboHiker::World::update(Updatable::seconds dt)
+{
+
+        for (const std::unique_ptr<Entity>& mainEntity : mMainEntities) {
+                mainEntity->update(dt);
+        }
+        std::cout << "Check me out" << std::endl;
 }
 
-void turboHiker::World::draw() const {
+void turboHiker::World::draw() const {}
 
-}
-
-void turboHiker::World::buildWorld() {
+void turboHiker::World::buildWorld()
+{
         // Pre-condition
-        assert(mSceneGraph == nullptr && "The world is already built!");
+        assert(mMainEntities.empty() && "The world is already built!");
 
-        // Post-condition
-        assert(mSceneGraph != nullptr);
+        mMainEntities.push_back(mEntityFactory->createStaticHiker(Vector2d(20, 50)));
 }

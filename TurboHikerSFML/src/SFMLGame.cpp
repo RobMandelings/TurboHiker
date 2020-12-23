@@ -4,7 +4,10 @@
 
 #include "SFMLGame.h"
 
-SFMLGame::SFMLGame(const std::chrono::duration<double>& timePerFrame) : Game(timePerFrame) {}
+SFMLGame::SFMLGame(const std::chrono::duration<double>& timePerFrame, std::unique_ptr<turboHiker::World>& world)
+    : Game(timePerFrame, world)
+{
+}
 
 void SFMLGame::processInputEvents() {}
 void SFMLGame::render() {}

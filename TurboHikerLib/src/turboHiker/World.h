@@ -10,6 +10,11 @@
 #include "Updatable.h"
 #include "EntityFactory.h"
 
+#include "InputComponent.h"
+#include "RenderComponent.h"
+#include "PhysicsComponent.h"
+#include "CollisionComponent.h"
+
 #include <memory>
 
 namespace turboHiker {
@@ -17,7 +22,7 @@ class World : private Updatable, private Drawable
 {
 
 public:
-        World();
+        World(std::unique_ptr<EntityFactory> entityFactory);
 
         void update(seconds dt) override;
         void draw() const override;
@@ -29,7 +34,7 @@ private:
         /**
          * This is Main Game Object of the world, it contains all sub game objects (can be entities, decorations,...)
          */
-        std::unique_ptr<Entity> mSceneGraph;
+        std::vector<std::unique_ptr<Entity>> mMainEntities;
 
         std::unique_ptr<EntityFactory> mEntityFactory;
 };

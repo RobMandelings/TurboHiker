@@ -25,13 +25,13 @@ turboHiker::Vector2d turboHiker::Vector2d::operator-(const turboHiker::Vector2d&
 }
 turboHiker::Vector2d& turboHiker::Vector2d::operator+=(const turboHiker::Vector2d& vector2D)
 {
-        this->x + vector2D.x;
-        this->y + vector2D.y;
+        this->x += vector2D.x;
+        this->y += vector2D.y;
         return *this;
 }
 turboHiker::Vector2d& turboHiker::Vector2d::operator-=(const turboHiker::Vector2d& vector2D)
 {
-        this->x - vector2D.x;
-        this->y - vector2D.y;
+        this->x -= vector2D.x;
+        this->y -= vector2D.y;
         return *this;
 }

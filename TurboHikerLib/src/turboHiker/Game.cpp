@@ -9,7 +9,8 @@
 #include <iostream>
 #include <thread>
 
-turboHiker::Game::Game(std::chrono::duration<double> timePerFrame) : m_timePerFrame(timePerFrame), m_isRunning(false) {}
+turboHiker::Game::Game(std::chrono::duration<double> timePerFrame, std::unique_ptr<World>& world)
+    : m_timePerFrame(timePerFrame), m_isRunning(false), mWorld(std::move(world)) {}
 
 /**
  * Uses fixed timestep on to maintain a steady framerate for logic updates. The framerate may be more / less laggy
@@ -32,7 +33,6 @@ void turboHiker::Game::startRunning()
                 timeSinceLastUpdate += clock.restart();
                 while (timeSinceLastUpdate > getTimeStep()) {
                         std::cout << "Smaller loop" << std::endl;
-
                         timeSinceLastUpdate -= getTimeStep();
                         processInputEvents();
                         update();
@@ -45,8 +45,7 @@ void turboHiker::Game::stopRunning() { m_isRunning = false; }
 
 bool turboHiker::Game::isRunning() const { return m_isRunning; }
 
-void turboHiker::Game::update()
-{
-        // world.update();
+void turboHiker::Game::update() {
+        mWorld->update(getTimeStep());
 }
 const std::chrono::duration<double>& turboHiker::Game::getTimeStep() const { return m_timePerFrame; }

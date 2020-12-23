@@ -3,6 +3,7 @@
 //
 
 #include "MovingPhysicsComponent.h"
+#include <iostream>
 
 #include "BoundingBox.h"
 #include "CollisionComponent.h"

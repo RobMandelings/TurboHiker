@@ -5,8 +5,8 @@
 #ifndef TURBOHIKER_ENTITYFACTORY_H
 #define TURBOHIKER_ENTITYFACTORY_H
 
-#include "WorldLocation.h"
 #include "Entity.h"
+#include "WorldLocation.h"
 
 namespace turboHiker {
 
@@ -17,8 +17,8 @@ namespace turboHiker {
 class EntityFactory
 {
 
+public:
         virtual std::unique_ptr<Entity> createStaticHiker(const Vector2d& location) const = 0;
-
 };
 } // namespace turboHiker
 

@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "World.h"
 #include <chrono>
 
 namespace turboHiker {
@@ -12,8 +13,7 @@ class Game
 {
 
 public:
-
-        Game(std::chrono::duration<double> timePerFrame);
+        Game(std::chrono::duration<double> timePerFrame, std::unique_ptr<World>& world);
 
         /**
          * Starts and maintains the Game Loop
@@ -61,5 +61,7 @@ private:
         std::chrono::duration<double> m_timePerFrame;
 
         bool m_isRunning;
+
+        std::unique_ptr<World> mWorld;
 };
 } // namespace turboHiker

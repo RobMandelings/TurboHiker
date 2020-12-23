@@ -56,7 +56,7 @@ void Entity::update(Updatable::seconds dt)
 
 void Entity::updateCurrent(Updatable::seconds dt)
 {
-        // Do nothing by default, can be implemented if wanted
+        mPhysicsComponent->update(dt);
 }
 void Entity::updateChildren(Updatable::seconds dt)
 {
