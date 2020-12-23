@@ -53,7 +53,7 @@ protected:
         /**
          * Process input events such as user input
          */
-        virtual void processEvents() = 0;
+        virtual void processInput() = 0;
 
 protected:
 

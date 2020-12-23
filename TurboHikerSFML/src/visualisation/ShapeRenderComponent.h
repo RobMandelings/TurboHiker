@@ -19,7 +19,7 @@ class ShapeRenderComponent : public RenderComponentSFML
 {
 
 public:
-        ShapeRenderComponent(WindowRenderer& windowDrawer, std::unique_ptr<sf::Shape> shape);
+        ShapeRenderComponent(DrawableRenderer& windowDrawer, std::unique_ptr<sf::Shape> shape);
 
         void update(const turboHiker::Updatable::seconds& dt,
                     const turboHiker::Vector2d& currentWorldLocation) override;

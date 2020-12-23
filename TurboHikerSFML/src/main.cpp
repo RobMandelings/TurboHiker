@@ -4,7 +4,6 @@
 
 #include "World.h"
 #include "EntityFactorySFML.h"
-#include "WindowHandler.h"
 #include <iostream>
 #include <chrono>
 

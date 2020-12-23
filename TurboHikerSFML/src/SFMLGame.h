@@ -5,7 +5,9 @@
 #pragma once
 
 #include "turboHiker/Game.h"
-#include "WindowHandler.h"
+
+#include "MyRenderWindow.h"
+#include "Player.h"
 
 namespace turboHiker {
 class World;
@@ -21,9 +23,12 @@ public:
         bool isRunning() const override;
 
 private:
-        void processEvents() override;
+        void processInput() override;
         void render() override;
 
-        WindowHandler mWindowHandler;
+        // TODO add initializeWindow method
+
+        Player mPlayer;
+        turboHikerSFML::MyRenderWindow mWindow;
 };
 }

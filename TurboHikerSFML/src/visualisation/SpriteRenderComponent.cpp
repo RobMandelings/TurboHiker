@@ -5,7 +5,7 @@
 #include "SpriteRenderComponent.h"
 
 #include <utility>
-turboHikerSFML::SpriteRenderComponent::SpriteRenderComponent(WindowRenderer& windowDrawer, const sf::Sprite& sprite)
+turboHikerSFML::SpriteRenderComponent::SpriteRenderComponent(DrawableRenderer& windowDrawer, const sf::Sprite& sprite)
     : RenderComponentSFML(windowDrawer), mShape(std::make_unique<sf::Sprite>(sprite))
 {
 }

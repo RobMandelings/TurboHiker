@@ -9,21 +9,36 @@
 
 #include "EntityFactorySFML.h"
 
+using namespace turboHiker;
 using namespace turboHikerSFML;
 
-SFMLGame::SFMLGame(const std::chrono::duration<double>& timePerFrame) : Game(timePerFrame, std::make_unique<turboHiker::World>()), mWindowHandler()
+SFMLGame::SFMLGame(const std::chrono::duration<double>& timePerFrame)
+    : Game(timePerFrame, std::make_unique<turboHiker::World>()), mWindow(sf::VideoMode(1000, 500), "TurboHiker")
 {
-        mWorld->setEntityFactory(std::make_unique<EntityFactorySFML>(mWindowHandler));
+        mWorld->setEntityFactory(std::make_unique<EntityFactorySFML>(mWindow));
         mWorld->buildWorld();
 }
 
-void SFMLGame::processEvents() { mWindowHandler.processEvents(); }
+void SFMLGame::processInput()
+{
+        CommandQueue& commands = mWorld->getCommandQueue();
+
+        sf::Event event{};
+        while (mWindow.pollEvent(event)) {
+                mPlayer.handleEvent(event, commands);
+
+                if (event.type == sf::Event::Closed)
+                        mWindow.close();
+        }
+
+        mPlayer.handleRealtimeInput(commands);
+}
 void SFMLGame::render()
 {
-        mWindowHandler.clearWindow();
+        mWindow.clear();
         mWorld->render();
-        mWindowHandler.displayWindow();
+        mWindow.display();
 }
 
-void SFMLGame::stopRunning() { mWindowHandler.closeWindow(); }
-bool SFMLGame::isRunning() const { return mWindowHandler.getWindow().isOpen(); }
+void SFMLGame::stopRunning() { mWindow.close(); }
+bool SFMLGame::isRunning() const { return mWindow.isOpen(); }

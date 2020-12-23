@@ -13,7 +13,7 @@ class SpriteRenderComponent : RenderComponentSFML
 {
 
 public:
-        SpriteRenderComponent(WindowRenderer& windowDrawer, const sf::Sprite& sprite);
+        SpriteRenderComponent(DrawableRenderer& windowDrawer, const sf::Sprite& sprite);
 
 private:
         void update(const turboHiker::Updatable::seconds& dt,

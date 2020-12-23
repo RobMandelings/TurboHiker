@@ -6,7 +6,7 @@
 
 #include "SFML/Graphics/Shape.hpp"
 
-turboHikerSFML::ShapeRenderComponent::ShapeRenderComponent(turboHikerSFML::WindowRenderer& windowDrawer,
+turboHikerSFML::ShapeRenderComponent::ShapeRenderComponent(turboHikerSFML::DrawableRenderer& windowDrawer,
                                                            std::unique_ptr<sf::Shape> shape)
     : RenderComponentSFML(windowDrawer), mShape(std::move(shape)), goingDown(false)
 {

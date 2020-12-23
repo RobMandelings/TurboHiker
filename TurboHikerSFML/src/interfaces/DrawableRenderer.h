@@ -19,7 +19,7 @@ class Vector2d;
 
 namespace turboHikerSFML {
 
-class WindowRenderer
+class DrawableRenderer
 {
 
 public:

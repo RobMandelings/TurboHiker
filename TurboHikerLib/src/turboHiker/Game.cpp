@@ -28,12 +28,12 @@ void turboHiker::Game::startRunning()
 
         // TODO Set max framerate (optionally) as well (For example: max 60FPS)
         while (isRunning()) {
-                processEvents();
+                processInput();
                 timeSinceLastUpdate += clock.restart();
                 while (timeSinceLastUpdate > getTimeStep()) {
                         timeSinceLastUpdate -= getTimeStep();
 
-                        processEvents();
+                        processInput();
                         update();
                 }
 

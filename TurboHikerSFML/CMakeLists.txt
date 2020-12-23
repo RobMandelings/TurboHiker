@@ -29,19 +29,17 @@ set(SRC
         src/SFMLGame.h
         src/utils/Transformation.cpp
         src/utils/Transformation.h
-        src/interfaces/WindowRenderer.h
+        src/interfaces/DrawableRenderer.h
         src/EntityFactorySFML.cpp
         src/EntityFactorySFML.h
         src/visualisation/RenderComponentSFML.h
         src/visualisation/SpriteRenderComponent.cpp
         src/visualisation/SpriteRenderComponent.h
         src/visualisation/RenderComponentSFML.cpp
-        src/visualisation/WindowHandler.cpp
-        src/visualisation/WindowHandler.h
         src/visualisation/ShapeRenderComponent.cpp
         src/visualisation/ShapeRenderComponent.h
         src/inputhandling/Player.cpp
-        src/inputhandling/Player.h)
+        src/inputhandling/Player.h src/visualisation/MyRenderWindow.cpp src/visualisation/MyRenderWindow.h)
 
 include_directories(
         ${SFML_INCLUDE_DIR}
