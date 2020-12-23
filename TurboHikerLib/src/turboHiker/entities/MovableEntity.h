@@ -15,6 +15,10 @@ public:
         MovableEntity(const Vector2d& initialLocation, std::unique_ptr<BoundingBox> mBoundingBox,
                       std::unique_ptr<RenderComponent> renderComponent, const Vector2d& mVelocity);
 
+        void setVelocity(const Vector2d& newVelocity);
+
+        void accelerate(const Vector2d& acceleration);
+
 private:
         void updateCurrent(seconds dt) override;
 

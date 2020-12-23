@@ -7,7 +7,7 @@ SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake/Modules/
 #By default it is empty, it is intended to be set by the project.
 #See also CMAKE_SYSTEM_PREFIX_PATH, CMAKE_INCLUDE_PATH, CMAKE_LIBRARY_PATH, CMAKE_PROGRAM_PATH.
 
-list(APPEND CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}/lib/SFML" )
+list(APPEND CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}/lib/SFML")
 
 #list(APPEND CMAKE_INCLUDE_PATH "${CMAKE_INCLUDE_PATH}/include/SFML/")
 #list(APPEND CMAKE_LIBRARY_PATH "${CMAKE_SOURCE_DIR}/lib/SFML")
@@ -24,7 +24,24 @@ message(STATUS ${SFML_LIBRARIES})
 
 set(SRC
         src/main.cpp
-        src/utils/constants.h src/SFMLGame.cpp src/SFMLGame.h src/utils/Transformation.cpp src/utils/Transformation.h src/interfaces/WindowRenderer.h src/EntityFactorySFML.cpp src/EntityFactorySFML.h src/visualisation/RenderComponentSFML.h src/visualisation/SpriteRenderComponent.cpp src/visualisation/SpriteRenderComponent.h src/visualisation/RenderComponentSFML.cpp src/visualisation/WindowHandler.cpp src/visualisation/WindowHandler.h src/visualisation/ShapeRenderComponent.cpp src/visualisation/ShapeRenderComponent.h)
+        src/utils/constants.h
+        src/SFMLGame.cpp
+        src/SFMLGame.h
+        src/utils/Transformation.cpp
+        src/utils/Transformation.h
+        src/interfaces/WindowRenderer.h
+        src/EntityFactorySFML.cpp
+        src/EntityFactorySFML.h
+        src/visualisation/RenderComponentSFML.h
+        src/visualisation/SpriteRenderComponent.cpp
+        src/visualisation/SpriteRenderComponent.h
+        src/visualisation/RenderComponentSFML.cpp
+        src/visualisation/WindowHandler.cpp
+        src/visualisation/WindowHandler.h
+        src/visualisation/ShapeRenderComponent.cpp
+        src/visualisation/ShapeRenderComponent.h
+        src/inputhandling/Player.cpp
+        src/inputhandling/Player.h)
 
 include_directories(
         ${SFML_INCLUDE_DIR}
@@ -33,6 +50,7 @@ include_directories(
         src/interfaces/
         src/visualComponents/
         src/visualisation/
+        src/inputhandling/
 )
 
 add_executable(TurboHikerSFML ${SRC})
