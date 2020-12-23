@@ -52,6 +52,9 @@ public:
 
         bool collidesWith(const Entity& entity) const;
 
+        // TODO make this type-safe
+        virtual unsigned int getCategory() const;
+
 private:
         virtual void updateCurrent(seconds dt);
         void updateChildren(seconds dt);

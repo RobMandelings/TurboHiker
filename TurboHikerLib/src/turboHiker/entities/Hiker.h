@@ -15,7 +15,12 @@ class Hiker : public MovableEntity
 
 public:
         Hiker(const Vector2d& initialLocation, std::unique_ptr<BoundingBox> boundingBox,
-              std::unique_ptr<RenderComponent> renderComponent, const Vector2d& initialVelocity);
+              std::unique_ptr<RenderComponent> renderComponent, const Vector2d& initialVelocity, bool playerControlled);
+        unsigned int getCategory() const override;
+
+private:
+
+        bool mPlayerControlled;
 };
 } // namespace turboHiker
 

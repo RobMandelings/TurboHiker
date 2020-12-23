@@ -15,6 +15,7 @@
 #include "WorldLocation.h"
 
 #include <iostream>
+#include <turboHiker/Category.h>
 
 namespace turboHiker {
 
@@ -25,10 +26,7 @@ Entity::Entity(const Vector2d& initialLocation, std::unique_ptr<BoundingBox> mBo
 {
 }
 
-Entity::Entity()
-    : Entity(Vector2d(0, 0), nullptr, nullptr)
-{
-}
+Entity::Entity() : Entity(Vector2d(0, 0), nullptr, nullptr) {}
 
 void Entity::attachChild(Entity::SceneNodePtr child)
 {
@@ -100,6 +98,8 @@ void Entity::handleCollision(const Entity& entity)
                 handleCollisionInternal(entity);
         }
 }
+
+unsigned int Entity::getCategory() const { return Category::Scene; }
 bool Entity::hasBoundingBox() const { return mBoundingBox != nullptr; }
 bool Entity::collidesWith(const Entity& entity) const
 {
