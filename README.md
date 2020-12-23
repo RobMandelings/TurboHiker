@@ -22,3 +22,7 @@ First unzip the MinGW file and place the folder in a directory like C:\MinGW\Min
 Point to mingw folder you have extracted and put into a directory you like. Now Clion should find this compiler.
 You can now go to the 'Cmake' option in the settings and select that you want to use the MinGW toolchain to startRunning your program.
 Once this is done, everything should be set up and you should able to startRunning the program!
+
+# TODOs
+
+Maybe also add an update() in the render component for usage in animations and such, or to change the sprite being used depending on the physical state of an entity,...
