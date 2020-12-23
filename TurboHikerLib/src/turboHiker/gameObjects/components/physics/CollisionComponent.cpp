@@ -9,6 +9,11 @@ turboHiker::CollisionComponent::CollisionComponent(const turboHiker::BoundingBox
 {
 }
 
+bool turboHiker::CollisionComponent::collidesWith(const turboHiker::Entity& entity) {
+        // Needs to be implemented
+        return false;
+}
+
 /** Do nothing by default */
 void turboHiker::CollisionComponent::handleCollision(const turboHiker::Entity& entity) {}
 

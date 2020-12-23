@@ -15,7 +15,7 @@ class CollisionComponent
 {
 
 public:
-        explicit CollisionComponent(const BoundingBox& boundingBox);
+        CollisionComponent(const BoundingBox& boundingBox);
 
         void handleCollision(const Entity& entity);
 

@@ -9,7 +9,8 @@
 #include "CollisionComponent.h"
 #include "WorldLocation.h"
 
-turboHiker::PhysicsComponent::PhysicsComponent(const Vector2d& initialLocation, std::unique_ptr<CollisionComponent> collisionComponent)
+turboHiker::PhysicsComponent::PhysicsComponent(const Vector2d& initialLocation,
+                                               std::unique_ptr<CollisionComponent> collisionComponent)
     : mLocation(initialLocation), mCollisionComponent(std::move(collisionComponent))
 {
 }
@@ -29,4 +30,7 @@ void turboHiker::PhysicsComponent::setWorldLocation(const turboHiker::Vector2d& 
 {
         mLocation = newLocation;
 }
-const turboHiker::BoundingBox& turboHiker::PhysicsComponent::getBoundingBox() const { return mCollisionComponent->getBoundingBox(); }
+const turboHiker::BoundingBox& turboHiker::PhysicsComponent::getBoundingBox() const
+{
+        return mCollisionComponent->getBoundingBox();
+}
