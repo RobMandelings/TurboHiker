@@ -28,6 +28,8 @@ public:
 
 private:
         std::unique_ptr<sf::Shape> mShape;
+
+        bool goingDown;
 };
 } // namespace turboHikerSFML
 
