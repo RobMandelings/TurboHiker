@@ -7,7 +7,7 @@
 
 #include "WorldLocation.h"
 
-turboHikerSFML::WindowHandler::WindowHandler() : mWindow(sf::VideoMode(200, 200), "SFML works!")
+turboHikerSFML::WindowHandler::WindowHandler() : mWindow(sf::VideoMode(1000, 500), "SFML works!")
 {
         mWindow.setVerticalSyncEnabled(true);
 }

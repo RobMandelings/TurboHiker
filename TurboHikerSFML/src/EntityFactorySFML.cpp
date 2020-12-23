@@ -4,10 +4,6 @@
 
 #include "EntityFactorySFML.h"
 
-#include "EmptyRenderComponent.h"
-#include "InputComponent.h"
-#include "MovingPhysicsComponent.h"
-#include "CollisionComponent.h"
 #include "ShapeRenderComponent.h"
 #include "BoundingBox.h"
 #include "Vector2d.h"
@@ -32,6 +28,6 @@ std::unique_ptr<Entity> turboHikerSFML::EntityFactorySFML::createTestCircle(cons
 
         std::unique_ptr<ShapeRenderComponent> shapeRenderComponent = std::make_unique<ShapeRenderComponent>(mWindowDrawer, std::move(shape));
 
-        return std::make_unique<MovableEntity>(Vector2d(50, 50), nullptr, std::move(shapeRenderComponent), Vector2d(5, 2));
+        return std::make_unique<MovableEntity>(Vector2d(50, 50), nullptr, std::move(shapeRenderComponent), Vector2d(35, 2));
 
 }

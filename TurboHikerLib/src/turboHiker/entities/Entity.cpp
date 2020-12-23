@@ -51,10 +51,12 @@ void Entity::update(Updatable::seconds dt)
 {
 
         updateCurrent(dt);
-        // Update the render component so it can alter its RenderState / Representation / ...
-        // TODO improve to not use the absolute location directly
-        // TODO use getWorldLocation() function to get the absolute location
-        mRenderComponent->update(dt, getLocation());
+        if (mRenderComponent) {
+                // Update the render component so it can alter its RenderState / Representation / ...
+                // TODO improve to not use the absolute location directly
+                // TODO use getWorldLocation() function to get the absolute location
+                mRenderComponent->update(dt, getLocation());
+        }
 
         updateChildren(dt);
 }
@@ -76,7 +78,12 @@ void Entity::render() const
         renderChildren();
 }
 
-void Entity::renderCurrent() const { mRenderComponent->render(); }
+void Entity::renderCurrent() const
+{
+        if (mRenderComponent) {
+                mRenderComponent->render();
+        }
+}
 
 void Entity::renderChildren() const
 {
