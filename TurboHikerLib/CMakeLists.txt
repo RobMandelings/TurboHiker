@@ -6,21 +6,19 @@ set(SRC
 
 add_library(TurboHikerLib ${SRC})
 
-include_directories(
-        src/turboHiker/
-        src/turboHiker/utils/
-        src/turboHiker/interfaces/
-        src/turboHiker/abstractVisuals/
-        src/turboHiker/gameObjects/
-        src/turboHiker/utils/maths/
-        src/turboHiker/ecs/
-        src/turboHiker/ecs/components/
-        src/turboHiker/ecs/components/modules/
-        src/turboHiker/ecs/components/physics/
-)
-
 target_include_directories(TurboHikerLib PUBLIC
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/)
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/utils/
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/interfaces/
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/abstractVisuals/
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/gameObjects/
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/utils/maths/
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/ecs/
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/ecs/components/
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/ecs/components/modules/
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/ecs/components/physics/
+        )
 
 message("Installing TurboHikerLib to target " ${PROJECT_SOURCE_DIR}/bin)
 install(TARGETS TurboHikerLib DESTINATION ${PROJECT_SOURCE_DIR}/bin)
