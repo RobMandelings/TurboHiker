@@ -27,9 +27,9 @@ public:
 
         void closeWindow();
 
-        void renderOnWindow(sf::Sprite& sprite, const turboHiker::Vector2d& worldLocation) override;
+        void renderOnWindow(sf::Sprite& sprite) override;
 
-        void renderOnWindow(sf::Shape& drawable, const turboHiker::Vector2d& worldLocation) override;
+        void renderOnWindow(sf::Shape& drawable) override;
 public:
         const sf::RenderWindow& getWindow() const;
 

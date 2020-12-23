@@ -12,7 +12,7 @@
 namespace turboHiker {
 class Vector2d;
 class WorldLocation;
-}
+} // namespace turboHiker
 
 namespace turboHikerSFML {
 class ShapeRenderComponent : public RenderComponentSFML
@@ -21,12 +21,13 @@ class ShapeRenderComponent : public RenderComponentSFML
 public:
         ShapeRenderComponent(WindowRenderer& windowDrawer, std::unique_ptr<sf::Shape> shape);
 
-        void render(const turboHiker::Vector2d& worldLocation) const final;
+        void update(const turboHiker::Updatable::seconds& dt,
+                    const turboHiker::Vector2d& currentWorldLocation) override;
+
+        void render() const final;
 
 private:
-
         std::unique_ptr<sf::Shape> mShape;
-
 };
 } // namespace turboHikerSFML
 

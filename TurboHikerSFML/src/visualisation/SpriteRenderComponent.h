@@ -15,7 +15,11 @@ class SpriteRenderComponent : RenderComponentSFML
 public:
         SpriteRenderComponent(WindowRenderer& windowDrawer, const sf::Sprite& sprite);
 
-        void render(const turboHiker::Vector2d& worldLocation) const final;
+private:
+        void update(const turboHiker::Updatable::seconds& dt,
+                    const turboHiker::Vector2d& currentWorldLocation) override;
+public:
+        void render() const final;
 
 private:
 

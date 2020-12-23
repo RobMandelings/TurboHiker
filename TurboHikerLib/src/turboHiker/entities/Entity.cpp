@@ -7,10 +7,10 @@
 #include <algorithm>
 #include <cassert>
 
-#include "InputComponent.h"
-#include "RenderComponent.h"
-#include "PhysicsComponent.h"
 #include "CollisionComponent.h"
+#include "InputComponent.h"
+#include "PhysicsComponent.h"
+#include "RenderComponent.h"
 
 #include "WorldLocation.h"
 
@@ -20,7 +20,8 @@ namespace turboHiker {
 
 Entity::Entity(std::unique_ptr<PhysicsComponent> physicsComponent, std::unique_ptr<InputComponent> inputComponent,
                std::unique_ptr<RenderComponent> renderComponent)
-    : mParent(nullptr), mInputComponent(std::move(inputComponent)), mPhysicsComponent(std::move(physicsComponent)), mRenderComponent(std::move(renderComponent))
+    : mParent(nullptr), mInputComponent(std::move(inputComponent)), mPhysicsComponent(std::move(physicsComponent)),
+      mRenderComponent(std::move(renderComponent))
 {
         // De moment dat je make_unique doet wordt er een kopie gemaakt van dat object en daarna is er een pointer naar
         // dat object. Dit zorgt ervoor dat je geen meerdere pointers can hebben die allebei naar dat object wijzen,
@@ -49,15 +50,16 @@ bool Entity::hasChildren() { return !mChildren.empty(); }
 void Entity::update(Updatable::seconds dt)
 {
 
-        std::cout << "entity is being updated" << std::endl;
         updateCurrent(dt);
+        // Update the render component so it can alter its RenderState / Representation / ...
+        // TODO improve to not use the absolute location directly
+        // TODO use getWorldLocation() function to get the absolute location
+        mRenderComponent->update(dt, mPhysicsComponent->getLocation());
+
         updateChildren(dt);
 }
 
-void Entity::updateCurrent(Updatable::seconds dt)
-{
-        mPhysicsComponent->update(dt);
-}
+void Entity::updateCurrent(Updatable::seconds dt) { mPhysicsComponent->update(dt); }
 void Entity::updateChildren(Updatable::seconds dt)
 {
         for (const SceneNodePtr& child : mChildren) {
@@ -67,23 +69,16 @@ void Entity::updateChildren(Updatable::seconds dt)
 
 void Entity::render() const
 {
-        // This draw method is executed as if the location was absolute (probably top of the Hierarchy, called by
-        // world.draw()). If this is not the case, you should use draw(currentAbsoluteLocation) instead
-        draw(getLocation());
+        renderCurrent();
+        renderChildren();
 }
 
-void Entity::draw(const Vector2d& currentAbsoluteLocation) const
-{
-        drawCurrent(currentAbsoluteLocation);
-        drawChildren(currentAbsoluteLocation);
-}
-void Entity::drawCurrent(const Vector2d& currentAbsoluteLocation) const {
-        mRenderComponent->render(mPhysicsComponent->getLocation()); }
+void Entity::renderCurrent() const { mRenderComponent->render(); }
 
-void Entity::drawChildren(Vector2d currentAbsoluteLocation) const
+void Entity::renderChildren() const
 {
         for (const SceneNodePtr& gameObjectPtr : mChildren) {
-                gameObjectPtr->draw(currentAbsoluteLocation);
+                gameObjectPtr->render();
         }
 }
 

@@ -20,7 +20,6 @@ set(SRC
         src/turboHiker/Removable.h
         src/turboHiker/Removable.cpp
         src/turboHiker/entities/EntityFactory.h
-        src/turboHiker/entities/components/RenderComponent.cpp
         src/turboHiker/entities/components/RenderComponent.h
         src/turboHiker/entities/components/physics/PhysicsComponent.cpp
         src/turboHiker/entities/components/physics/PhysicsComponent.h

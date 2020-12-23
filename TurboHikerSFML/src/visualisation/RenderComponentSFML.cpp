@@ -12,12 +12,12 @@ turboHikerSFML::RenderComponentSFML::RenderComponentSFML(WindowRenderer& windowD
 {
 }
 
-void turboHikerSFML::RenderComponentSFML::renderOnWindow(sf::Sprite& drawable, const Vector2d& worldLocation) const
+void turboHikerSFML::RenderComponentSFML::renderOnWindow(sf::Sprite& drawable) const
 {
-        mWindowDrawer.renderOnWindow(drawable, worldLocation);
+        mWindowDrawer.renderOnWindow(drawable);
 }
 
-void turboHikerSFML::RenderComponentSFML::drawOnWindow(sf::Shape& drawable, const Vector2d& worldLocation) const
+void turboHikerSFML::RenderComponentSFML::drawOnWindow(sf::Shape& drawable) const
 {
-        mWindowDrawer.renderOnWindow(drawable, worldLocation);
+        mWindowDrawer.renderOnWindow(drawable);
 }

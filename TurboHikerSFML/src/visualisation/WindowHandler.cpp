@@ -46,14 +46,13 @@ void turboHikerSFML::WindowHandler::processEvents() {
         }
 }
 
-void turboHikerSFML::WindowHandler::renderOnWindow(sf::Sprite& sprite, const turboHiker::Vector2d& worldLocation)
+void turboHikerSFML::WindowHandler::renderOnWindow(sf::Sprite& sprite)
 {
-        sprite.setPosition(float(worldLocation.x), float(worldLocation.y));
         mWindow.draw(sprite);
 }
 const sf::RenderWindow& turboHikerSFML::WindowHandler::getWindow() const { return mWindow; }
 
-void turboHikerSFML::WindowHandler::renderOnWindow(sf::Shape& drawable, const turboHiker::Vector2d& worldLocation) {
-        drawable.setPosition(float(worldLocation.x), float(worldLocation.y));
+void turboHikerSFML::WindowHandler::renderOnWindow(sf::Shape& drawable)
+{
         mWindow.draw(drawable);
 }

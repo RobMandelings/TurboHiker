@@ -4,4 +4,8 @@
 
 #include "EmptyRenderComponent.h"
 
-void turboHiker::EmptyRenderComponent::render(const Vector2d& worldLocation) const {}
+void turboHiker::EmptyRenderComponent::render() const {}
+void turboHiker::EmptyRenderComponent::update(const turboHiker::Updatable::seconds& dt,
+                                              const turboHiker::Vector2d& worldLocation)
+{
+}

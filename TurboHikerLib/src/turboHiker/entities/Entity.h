@@ -37,6 +37,7 @@ public:
 
         Entity(std::unique_ptr<PhysicsComponent> physicsComponent, std::unique_ptr<InputComponent> inputComponent,
                std::unique_ptr<RenderComponent> renderComponent);
+
         void update(seconds dt) override;
 
         void render() const override;
@@ -52,15 +53,8 @@ private:
         virtual void updateCurrent(seconds dt);
         void updateChildren(seconds dt);
 
-        // TODO replace currentLocation with currentTransform for more flexibility
-        /**
-         *
-         * @param currentAbsoluteLocation: the current location of the Game Object. Due to the hierarchy and relative
-         * locations, the value of currentLocation can change
-         */
-        void draw(const Vector2d& currentAbsoluteLocation) const;
-        void drawCurrent(const Vector2d& currentAbsoluteLocation) const;
-        void drawChildren(Vector2d currentAbsoluteLocation) const;
+        void renderCurrent() const;
+        void renderChildren() const;
 
 private:
         Entity* mParent;
