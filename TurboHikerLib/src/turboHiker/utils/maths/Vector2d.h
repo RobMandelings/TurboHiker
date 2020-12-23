@@ -6,6 +6,7 @@
 #define TURBOHIKER_VECTOR2D_H
 
 #include <chrono>
+#include <iostream>
 
 namespace turboHiker {
 struct Vector2d
@@ -29,6 +30,8 @@ struct Vector2d
 
         Vector2d& operator+=(const Vector2d& vector2D);
         Vector2d& operator-=(const Vector2d& vector2D);
+
+        friend std::ostream& operator<<(std::ostream& os, const Vector2d& vector2D);
 
 
 };

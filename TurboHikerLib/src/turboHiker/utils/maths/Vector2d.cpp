@@ -35,3 +35,8 @@ turboHiker::Vector2d& turboHiker::Vector2d::operator-=(const turboHiker::Vector2
         this->y -= vector2D.y;
         return *this;
 }
+
+std::ostream& turboHiker::operator<<(std::ostream& os, const turboHiker::Vector2d& vector2D)
+{
+        return os << "(" << vector2D.x << ", " << vector2D.y << ")";
+}
