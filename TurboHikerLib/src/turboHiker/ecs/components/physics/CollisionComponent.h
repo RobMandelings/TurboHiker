@@ -21,6 +21,8 @@ public:
         // TODO implement
         bool collidesWith(const Entity& entity);
 
+        const BoundingBox& getBoundingBox() const;
+
 private:
 
         BoundingBox mBoundingBox;

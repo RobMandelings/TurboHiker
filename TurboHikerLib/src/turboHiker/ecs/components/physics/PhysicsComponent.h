@@ -12,15 +12,18 @@
 
 namespace turboHiker {
 
-class AbstractCollisionComponent;
+class CollisionComponent;
 class Vector2d;
+class Entity;
 
 class PhysicsComponent : public Updatable
 {
 
 public:
-        PhysicsComponent(const WorldLocation& initialWorldPosition, const BoundingBox& boundingBox);
+        PhysicsComponent(const WorldLocation& worldPosition, std::unique_ptr<CollisionComponent> collisionComponent);
         void update(seconds dt) override;
+
+        void handleCollision(const Entity& entity);
 
         const WorldLocation& getWorldLocation() const;
 
@@ -32,7 +35,7 @@ public:
 private:
         WorldLocation mWorldLocation;
 
-        std::unique_ptr<AbstractCollisionComponent> mCollisionComponent;
+        std::unique_ptr<CollisionComponent> mCollisionComponent;
 
 };
 } // namespace turboHiker
