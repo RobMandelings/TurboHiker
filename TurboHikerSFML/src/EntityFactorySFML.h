@@ -6,6 +6,7 @@
 #define TURBOHIKER_ENTITYFACTORYSFML_H
 
 #include "turboHiker/gameObjects/EntityFactory.h"
+#include <memory>
 
 /**
  * Creates Entities (A type of Entity that can move) with a specific VisualComponent created with SFML to give a
@@ -14,7 +15,7 @@
 class EntityFactorySFML : turboHiker::EntityFactory
 {
 
-        turboHiker::Entity* createStaticHiker(const turboHiker::WorldLocation& worldLocation) const override;
+        std::unique_ptr<Entity> createStaticHiker(const turboHiker::WorldLocation& worldLocation) const override;
 };
 
 #endif // TURBOHIKER_ENTITYFACTORYSFML_H

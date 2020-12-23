@@ -18,7 +18,8 @@
 
 namespace turboHiker {
 
-Entity::Entity(std::unique_ptr<PhysicsComponent> physicsComponent, std::unique_ptr<RenderComponent> renderComponent, std::unique_ptr<InputComponent> inputComponent)
+Entity::Entity(std::unique_ptr<PhysicsComponent> physicsComponent, std::unique_ptr<InputComponent> inputComponent,
+               std::unique_ptr<RenderComponent> renderComponent)
     : mParent(nullptr), mInputComponent(std::move(inputComponent)), mPhysicsComponent(std::move(physicsComponent)), mRenderComponent(std::move(renderComponent))
 {
         // De moment dat je make_unique doet wordt er een kopie gemaakt van dat object en daarna is er een pointer naar

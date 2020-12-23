@@ -12,7 +12,7 @@ namespace turboHiker {
 /**
  * This class is used for invisible entities
  */
-class EmptyRenderComponent : RenderComponent
+class EmptyRenderComponent : public RenderComponent
 {
 public:
         void draw(const WorldLocation& worldLocation) const override;

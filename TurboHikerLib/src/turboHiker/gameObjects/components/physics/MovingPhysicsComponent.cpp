@@ -10,7 +10,7 @@
 #include "CollisionComponent.h"
 
 turboHiker::MovingPhysicsComponent::MovingPhysicsComponent(const WorldLocation& initialWorldPosition,
-                                                           std::unique_ptr<CollisionComponent> collisionComponent,
+                                                           BoundingBox collisionComponent,
                                                            const Vector2d& initialVelocity)
     : PhysicsComponent(initialWorldPosition, std::move(collisionComponent)), mVelocity(initialVelocity)
 {

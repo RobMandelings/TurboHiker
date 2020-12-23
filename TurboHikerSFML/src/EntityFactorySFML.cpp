@@ -9,17 +9,19 @@
 #include "MovingPhysicsComponent.h"
 #include "BoundingBox.h"
 #include "Vector2d.h"
+#include "Entity.h"
 #include <memory>
 
 using namespace turboHiker;
 
-Entity* EntityFactorySFML::createStaticHiker(const WorldLocation& worldLocation) const
+std::unique_ptr<Entity> EntityFactorySFML::createStaticHiker(const WorldLocation& worldLocation) const
 {
-        /*// Implement
+        // Implement
         std::unique_ptr<MovingPhysicsComponent> movingPhysicsComponent =
             std::make_unique<MovingPhysicsComponent>(worldLocation, BoundingBox(0, 0, 0, 0), Vector2d(0.0, 0.0));
         std::unique_ptr<InputComponent> inputComponent = std::make_unique<InputComponent>();
-        const WorldLocation& worldPosition1 = movingPhysicsComponent->getWorldLocation();
-        std::unique_ptr<EmptyRenderComponent> renderComponent = EmptyRenderComponent();*/
+        std::unique_ptr<EmptyRenderComponent> renderComponent = std::make_unique<EmptyRenderComponent>();
+
+        return std::make_unique<Entity>(std::move(movingPhysicsComponent), std::move(inputComponent), std::move(renderComponent));
 
 }
