@@ -5,7 +5,7 @@
 #ifndef TURBOHIKER_ENTITYFACTORY_H
 #define TURBOHIKER_ENTITYFACTORY_H
 
-#include <turboHiker/ecs/components/modules/WorldLocation.h>
+#include "WorldLocation.h"
 namespace turboHiker {
 
 class Entity;

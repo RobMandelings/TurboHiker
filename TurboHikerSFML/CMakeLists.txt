@@ -32,16 +32,6 @@ include_directories(
         src/utils/
         src/interfaces/
         src/visualComponents/
-        ../TurboHikerLib/src/turboHiker/
-        ../TurboHikerLib/src/turboHiker/utils/
-        ../TurboHikerLib/src/turboHiker/interfaces/
-        ../TurboHikerLib/src/turboHiker/abstractVisuals/
-        ../TurboHikerLib/src/turboHiker/gameObjects/
-        ../TurboHikerLib/src/turboHiker/utils/maths/
-        ../TurboHikerLib/src/turboHiker/ecs/
-        ../TurboHikerLib/src/turboHiker/ecs/components/
-        ../TurboHikerLib/src/turboHiker/ecs/components/modules/
-        ../TurboHikerLib/src/turboHiker/ecs/components/physics/
 )
 
 add_executable(TurboHikerSFML ${SRC})

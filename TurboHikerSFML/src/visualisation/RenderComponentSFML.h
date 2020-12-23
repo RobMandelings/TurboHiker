@@ -6,7 +6,7 @@
 #define TURBOHIKER_RENDERCOMPONENTSFML_H
 
 #include "WindowDrawer.h"
-#include "turboHiker/ecs/components/RenderComponent.h"
+#include "RenderComponent.h"
 
 namespace turboHiker {
 class WorldLocation;

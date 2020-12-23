@@ -4,11 +4,11 @@
 
 #include "EntityFactorySFML.h"
 
-#include "turboHiker/ecs/components/EmptyRenderComponent.h"
-#include "turboHiker/ecs/components/InputComponent.h"
-#include "turboHiker/ecs/components/physics/MovingPhysicsComponent.h"
-#include "turboHiker/ecs/components/modules/BoundingBox.h"
-#include "turboHiker/utils/maths/Vector2d.h"
+#include "EmptyRenderComponent.h"
+#include "InputComponent.h"
+#include "MovingPhysicsComponent.h"
+#include "BoundingBox.h"
+#include "Vector2d.h"
 #include <memory>
 
 using namespace turboHiker;
