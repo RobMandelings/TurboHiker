@@ -5,7 +5,7 @@
 #ifndef TURBOHIKER_ENTITYFACTORYSFML_H
 #define TURBOHIKER_ENTITYFACTORYSFML_H
 
-#include "turboHiker/gameObjects/EntityFactory.h"
+#include "EntityFactory.h"
 #include <memory>
 
 namespace turboHiker {
