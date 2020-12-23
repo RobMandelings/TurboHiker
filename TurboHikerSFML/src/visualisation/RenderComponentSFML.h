@@ -22,6 +22,8 @@ public:
 public:
         void drawOnWindow(sf::Sprite& drawable, const turboHiker::Vector2d& worldLocation) const;
 
+        void drawOnWindow(sf::Shape& drawable, const turboHiker::Vector2d& worldLocation) const;
+
 private:
         WindowDrawer& mWindowDrawer;
 };

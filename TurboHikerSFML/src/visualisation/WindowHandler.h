@@ -8,6 +8,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <interfaces/WindowDrawer.h>
 
+#include <SFML/Graphics/Shape.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <memory>
 
@@ -28,6 +29,8 @@ public:
 
         void drawOnWindow(sf::Sprite& sprite, const turboHiker::Vector2d& worldLocation) override;
 
+        void drawOnWindow(sf::Shape& drawable, const turboHiker::Vector2d& worldLocation) override;
+public:
         const sf::RenderWindow& getWindow() const;
 
 private:

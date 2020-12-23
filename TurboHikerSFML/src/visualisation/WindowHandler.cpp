@@ -52,3 +52,8 @@ void turboHikerSFML::WindowHandler::drawOnWindow(sf::Sprite& sprite, const turbo
         mWindow.draw(sprite);
 }
 const sf::RenderWindow& turboHikerSFML::WindowHandler::getWindow() const { return mWindow; }
+
+void turboHikerSFML::WindowHandler::drawOnWindow(sf::Shape& drawable, const turboHiker::Vector2d& worldLocation) {
+        drawable.setPosition(float(worldLocation.x), float(worldLocation.y));
+        mWindow.draw(drawable);
+}

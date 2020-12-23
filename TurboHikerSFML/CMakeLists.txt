@@ -24,7 +24,7 @@ message(STATUS ${SFML_LIBRARIES})
 
 set(SRC
         src/main.cpp
-        src/utils/constants.h src/SFMLGame.cpp src/SFMLGame.h src/utils/Transformation.cpp src/utils/Transformation.h src/interfaces/WindowDrawer.h src/EntityFactorySFML.cpp src/EntityFactorySFML.h src/visualisation/RenderComponentSFML.h src/visualisation/SpriteRenderComponent.cpp src/visualisation/SpriteRenderComponent.h src/visualisation/RenderComponentSFML.cpp src/visualisation/WindowHandler.cpp src/visualisation/WindowHandler.h)
+        src/utils/constants.h src/SFMLGame.cpp src/SFMLGame.h src/utils/Transformation.cpp src/utils/Transformation.h src/interfaces/WindowDrawer.h src/EntityFactorySFML.cpp src/EntityFactorySFML.h src/visualisation/RenderComponentSFML.h src/visualisation/SpriteRenderComponent.cpp src/visualisation/SpriteRenderComponent.h src/visualisation/RenderComponentSFML.cpp src/visualisation/WindowHandler.cpp src/visualisation/WindowHandler.h src/visualisation/SceneNode.cpp src/visualisation/SceneNode.h src/visualisation/ShapeRenderComponent.cpp src/visualisation/ShapeRenderComponent.h)
 
 include_directories(
         ${SFML_INCLUDE_DIR}

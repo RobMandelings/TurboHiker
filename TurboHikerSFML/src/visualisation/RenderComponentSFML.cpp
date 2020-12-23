@@ -16,3 +16,8 @@ void turboHikerSFML::RenderComponentSFML::drawOnWindow(sf::Sprite& drawable, con
 {
         mWindowDrawer.drawOnWindow(drawable, worldLocation);
 }
+
+void turboHikerSFML::RenderComponentSFML::drawOnWindow(sf::Shape& drawable, const Vector2d& worldLocation) const
+{
+        mWindowDrawer.drawOnWindow(drawable, worldLocation);
+}
