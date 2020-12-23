@@ -12,33 +12,21 @@
 
 #include <iostream>
 
-turboHiker::World::World() : mEntityFactory(nullptr)
-{}
+turboHiker::World::World() : mSceneGraph(std::make_unique<Entity>()), mEntityFactory(nullptr) {}
 
-void turboHiker::World::update(Updatable::seconds dt)
-{
+void turboHiker::World::update(Updatable::seconds dt) { mSceneGraph->update(dt); }
 
-        for (const std::unique_ptr<Entity>& mainEntity : mMainEntities) {
-                mainEntity->update(dt);
-        }
-}
-
-void turboHiker::World::render() const {
-        for (const std::unique_ptr<Entity>& mainEntity : mMainEntities) {
-                mainEntity->render();
-        }
-}
+void turboHiker::World::render() const { mSceneGraph->render(); }
 
 void turboHiker::World::buildWorld()
 {
         assert(mEntityFactory != nullptr && "Entityfactory not set: no way to create new entities");
-        // Pre-condition
-        assert(mMainEntities.empty() && "The world is already built!");
 
-        mMainEntities.push_back(mEntityFactory->createTestCircle(Vector2d(20, 50), Vector2d(5, 10)));
-        mMainEntities.push_back(mEntityFactory->createTestCircle(Vector2d(50, 50), Vector2d(2, -5)));
+        mSceneGraph->attachChild(mEntityFactory->createTestCircle(Vector2d(20, 50), Vector2d(5, 10)));
+        mSceneGraph->attachChild(mEntityFactory->createTestCircle(Vector2d(50, 50), Vector2d(2, -5)));
 }
 
-void turboHiker::World::setEntityFactory(std::unique_ptr<EntityFactory> entityFactory) {
+void turboHiker::World::setEntityFactory(std::unique_ptr<EntityFactory> entityFactory)
+{
         mEntityFactory = std::move(entityFactory);
 }

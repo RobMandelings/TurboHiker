@@ -23,9 +23,11 @@ Entity::Entity(const Vector2d& initialLocation, std::unique_ptr<BoundingBox> mBo
     : mParent(nullptr), mLocation(initialLocation), mBoundingBox(std::move(mBoundingBox)),
       mRenderComponent(std::move(renderComponent))
 {
-        // De moment dat je make_unique doet wordt er een kopie gemaakt van dat object en daarna is er een pointer naar
-        // dat object. Dit zorgt ervoor dat je geen meerdere pointers can hebben die allebei naar dat object wijzen,
-        // aangezien je de pointer niet kan kopieren en niet maken (want make unique kopieert)
+}
+
+Entity::Entity()
+    : Entity(Vector2d(0, 0), nullptr, nullptr)
+{
 }
 
 void Entity::attachChild(Entity::SceneNodePtr child)

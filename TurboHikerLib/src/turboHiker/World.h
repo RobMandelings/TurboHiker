@@ -36,7 +36,7 @@ private:
         /**
          * This is Main Game Object of the world, it contains all sub game objects (can be entities, decorations,...)
          */
-        std::vector<std::unique_ptr<Entity>> mMainEntities;
+        std::unique_ptr<Entity> mSceneGraph;
 
         std::unique_ptr<EntityFactory> mEntityFactory;
 };

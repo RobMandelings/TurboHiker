@@ -33,6 +33,8 @@ public:
         Entity(const Vector2d& initialLocation, std::unique_ptr<BoundingBox> mBoundingBox,
                std::unique_ptr<RenderComponent> renderComponent);
 
+        Entity();
+
         void update(seconds dt) final;
 
         void render() const final;
@@ -65,7 +67,6 @@ private:
         virtual void handleCollisionInternal(const Entity& entity);
 
 protected:
-
         /**
          * The location of the entity. If its a child of another entity it is relative to the location of that entity.
          * If it's the root, it is already the absolute location
@@ -75,7 +76,6 @@ protected:
         std::unique_ptr<BoundingBox> mBoundingBox;
 
 private:
-
         Entity* mParent;
         std::vector<SceneNodePtr> mChildren;
 
