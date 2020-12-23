@@ -3,16 +3,17 @@
 //
 
 #include "RenderComponentSFML.h"
-#include "turboHiker/ecs/modules/WorldPosition.h"
+#include "turboHiker/ecs/components/modules/WorldLocation.h"
 #include <SFML/Graphics/Drawable.hpp>
 
-void turboHikerSFML::RenderComponentSFML::drawOnWindow(const sf::Drawable& drawable) const
+using namespace turboHiker;
+
+turboHikerSFML::RenderComponentSFML::RenderComponentSFML(WindowDrawer& windowDrawer) : mWindowDrawer(windowDrawer)
 {
-        mWindowDrawer.drawOnWindow(drawable, mWorldPosition.getVectorPositionRef());
 }
 
-turboHikerSFML::RenderComponentSFML::RenderComponentSFML(const turboHiker::WorldLocation& worldPosition,
-                                                         turboHikerSFML::WindowDrawer& windowDrawer)
-    : RenderComponent(worldPosition), mWindowDrawer(windowDrawer)
+void turboHikerSFML::RenderComponentSFML::drawOnWindow(const sf::Drawable& drawable,
+                                                       const WorldLocation& worldLocation) const
 {
+        mWindowDrawer.drawOnWindow(drawable, worldLocation.getVectorPositionRef());
 }
