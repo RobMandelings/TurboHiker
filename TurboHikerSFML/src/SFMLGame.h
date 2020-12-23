@@ -5,17 +5,25 @@
 #pragma once
 
 #include "turboHiker/Game.h"
+#include "WindowHandler.h"
 
 namespace turboHiker {
 class World;
 }
 
+namespace turboHikerSFML {
 class SFMLGame : public turboHiker::Game
 {
 private:
 public:
         SFMLGame(const std::chrono::duration<double>& timePerFrame, std::unique_ptr<turboHiker::World>& world);
+        void stopRunning() override;
+        bool isRunning() const override;
+
 private:
-        void processInputEvents() override;
+        void processEvents() override;
         void render() override;
+
+        WindowHandler mWindowHandler;
 };
+}

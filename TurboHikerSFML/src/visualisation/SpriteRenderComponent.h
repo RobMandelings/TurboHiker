@@ -14,13 +14,13 @@ class SpriteRenderComponent : RenderComponentSFML
 
 public:
         SpriteRenderComponent(const turboHiker::WorldLocation& worldPosition, WindowDrawer& windowDrawer,
-                              sf::Sprite  mSprite);
+                              const sf::Sprite& sprite);
 
         void draw(const turboHiker::Vector2d& worldLocation) const final;
 
 private:
 
-        sf::Sprite mSprite;
+        std::unique_ptr<sf::Sprite> mSprite;
 
 };
 } // namespace turboHikerSFML

@@ -23,13 +23,13 @@ public:
         /**
          * Stops the game in a proper manner
          */
-        void stopRunning();
+        virtual void stopRunning() = 0;
 
         /**
          * Checks whether the game is running or not
          * @return true if the game is currently running
          */
-        bool isRunning() const;
+        virtual bool isRunning() const = 0;
 
         /**
          * The logic framerate of the game (how many seconds per logic update)
@@ -39,29 +39,31 @@ public:
 
         // TODO add pause functionality
 
-private:
-
-        /**
-         * Process input events such as user input
-         */
-        virtual void processInputEvents() = 0;
-
-        /**
-         * Updates the game by the given timestep
-         */
-        void update();
+protected:
 
         /**
          * Renders the game (window, world, overlays,...)
          */
         virtual void render() = 0;
 
+        /**
+         * Process input events such as user input
+         */
+        virtual void processEvents() = 0;
+
+protected:
+
+        std::unique_ptr<World> mWorld;
+
+private:
+
+        /**
+         * Updates the game by the given timestep
+         */
+        void update();
+
 private:
 
         std::chrono::duration<double> m_timePerFrame;
-
-        bool m_isRunning;
-
-        std::unique_ptr<World> mWorld;
 };
 } // namespace turboHiker

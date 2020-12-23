@@ -24,7 +24,7 @@ message(STATUS ${SFML_LIBRARIES})
 
 set(SRC
         src/main.cpp
-        src/utils/constants.h src/SFMLGame.cpp src/SFMLGame.h src/utils/Transformation.cpp src/utils/Transformation.h src/interfaces/WindowDrawer.h src/EntityFactorySFML.cpp src/EntityFactorySFML.h src/visualisation/RenderComponentSFML.h src/visualisation/SpriteRenderComponent.cpp src/visualisation/SpriteRenderComponent.h src/visualisation/RenderComponentSFML.cpp src/visualisation/Graphics.cpp src/visualisation/Graphics.h)
+        src/utils/constants.h src/SFMLGame.cpp src/SFMLGame.h src/utils/Transformation.cpp src/utils/Transformation.h src/interfaces/WindowDrawer.h src/EntityFactorySFML.cpp src/EntityFactorySFML.h src/visualisation/RenderComponentSFML.h src/visualisation/SpriteRenderComponent.cpp src/visualisation/SpriteRenderComponent.h src/visualisation/RenderComponentSFML.cpp src/visualisation/WindowHandler.cpp src/visualisation/WindowHandler.h)
 
 include_directories(
         ${SFML_INCLUDE_DIR}
@@ -32,6 +32,7 @@ include_directories(
         src/utils/
         src/interfaces/
         src/visualComponents/
+        src/visualisation/
 )
 
 add_executable(TurboHikerSFML ${SRC})

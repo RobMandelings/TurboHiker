@@ -20,7 +20,7 @@ public:
         explicit RenderComponentSFML(WindowDrawer& windowDrawer);
 
 public:
-        void drawOnWindow(const sf::Drawable& drawable, const turboHiker::Vector2d& worldLocation) const;
+        void drawOnWindow(sf::Sprite& drawable, const turboHiker::Vector2d& worldLocation) const;
 
 private:
         WindowDrawer& mWindowDrawer;

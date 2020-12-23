@@ -9,6 +9,7 @@
 
 namespace sf {
 class Drawable;
+class Sprite;
 }
 
 namespace turboHiker {
@@ -22,6 +23,6 @@ class WindowDrawer
 
 public:
         /** Draws an SFML Drawable Object on the window */
-        virtual void drawOnWindow(const sf::Drawable& drawable, const turboHiker::Vector2d& worldLocation) = 0;
+        virtual void drawOnWindow(sf::Sprite& drawable, const turboHiker::Vector2d& worldLocation) = 0;
 };
 } // namespace turboHikerSFML

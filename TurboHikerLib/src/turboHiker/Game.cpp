@@ -10,7 +10,9 @@
 #include <thread>
 
 turboHiker::Game::Game(std::chrono::duration<double> timePerFrame, std::unique_ptr<World>& world)
-    : m_timePerFrame(timePerFrame), m_isRunning(false), mWorld(std::move(world)) {}
+    : m_timePerFrame(timePerFrame), mWorld(std::move(world))
+{
+}
 
 /**
  * Uses fixed timestep on to maintain a steady framerate for logic updates. The framerate may be more / less laggy
@@ -18,34 +20,25 @@ turboHiker::Game::Game(std::chrono::duration<double> timePerFrame, std::unique_p
  */
 void turboHiker::Game::startRunning()
 {
-        assert(!isRunning() && "The game is already running!");
-        m_isRunning = true;
 
         turboHiker::Clock clock2;
         turboHiker::Clock clock;
         std::chrono::duration<double> timeSinceLastUpdate = std::chrono::nanoseconds(0);
 
-        // TODO call update function with std::chrono::duration<float> (in seconds)
-        std::cout << "The updateTimeStep is: " << m_timePerFrame.count() << std::endl;
         // TODO Set max framerate (optionally) as well (For example: max 60FPS)
         while (isRunning()) {
-                processInputEvents();
+                processEvents();
                 timeSinceLastUpdate += clock.restart();
                 while (timeSinceLastUpdate > getTimeStep()) {
-                        std::cout << "Smaller loop" << std::endl;
                         timeSinceLastUpdate -= getTimeStep();
-                        processInputEvents();
+
+                        processEvents();
                         update();
                 }
+
                 render();
         }
 }
 
-void turboHiker::Game::stopRunning() { m_isRunning = false; }
-
-bool turboHiker::Game::isRunning() const { return m_isRunning; }
-
-void turboHiker::Game::update() {
-        mWorld->update(getTimeStep());
-}
+void turboHiker::Game::update() { mWorld->update(getTimeStep()); }
 const std::chrono::duration<double>& turboHiker::Game::getTimeStep() const { return m_timePerFrame; }
