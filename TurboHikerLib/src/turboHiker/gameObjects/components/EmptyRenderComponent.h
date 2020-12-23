@@ -6,6 +6,7 @@
 #define TURBOHIKER_EMPTYRENDERCOMPONENT_H
 
 #include "RenderComponent.h"
+#include <turboHiker/utils/maths/Vector2d.h>
 
 namespace turboHiker {
 
@@ -15,7 +16,7 @@ namespace turboHiker {
 class EmptyRenderComponent : public RenderComponent
 {
 public:
-        void draw(const WorldLocation& worldLocation) const override;
+        void draw(const Vector2d& worldLocation) const override;
 };
 }
 

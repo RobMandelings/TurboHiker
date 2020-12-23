@@ -5,6 +5,7 @@
 #pragma once
 
 #include <memory>
+#include <turboHiker/utils/maths/Vector2d.h>
 
 namespace turboHiker {
 
@@ -16,6 +17,6 @@ class RenderComponent
 
 public:
 
-        virtual void draw(const WorldLocation& worldLocation) const = 0;
+        virtual void draw(const Vector2d& worldLocation) const = 0;
 };
 } // namespace turboHiker

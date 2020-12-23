@@ -16,7 +16,7 @@ public:
         SpriteRenderComponent(const turboHiker::WorldLocation& worldPosition, WindowDrawer& windowDrawer,
                               sf::Sprite  mSprite);
 
-        void draw(const turboHiker::WorldLocation& worldLocation) const final;
+        void draw(const turboHiker::Vector2d& worldLocation) const final;
 
 private:
 

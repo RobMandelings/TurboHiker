@@ -25,8 +25,6 @@ void turboHiker::World::buildWorld() {
         // Pre-condition
         assert(mSceneGraph == nullptr && "The world is already built!");
 
-        mEntityFactory->createStaticHiker()
-
         // Post-condition
         assert(mSceneGraph != nullptr);
 }

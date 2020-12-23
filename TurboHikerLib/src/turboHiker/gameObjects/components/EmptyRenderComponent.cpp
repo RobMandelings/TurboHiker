@@ -4,4 +4,4 @@
 
 #include "EmptyRenderComponent.h"
 
-void turboHiker::EmptyRenderComponent::draw(const WorldLocation& worldLocation) const {}
+void turboHiker::EmptyRenderComponent::draw(const Vector2d& worldLocation) const {}

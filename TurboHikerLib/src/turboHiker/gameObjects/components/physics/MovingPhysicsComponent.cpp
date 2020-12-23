@@ -5,12 +5,12 @@
 #include "MovingPhysicsComponent.h"
 
 #include "BoundingBox.h"
+#include "CollisionComponent.h"
 #include "Vector2d.h"
 #include "WorldLocation.h"
-#include "CollisionComponent.h"
 
 turboHiker::MovingPhysicsComponent::MovingPhysicsComponent(const Vector2d& initialLocation,
-                                                           BoundingBox collisionComponent,
+                                                           std::unique_ptr<CollisionComponent> collisionComponent,
                                                            const Vector2d& initialVelocity)
     : PhysicsComponent(initialLocation, std::move(collisionComponent)), mVelocity(initialVelocity)
 {
@@ -22,13 +22,10 @@ void turboHiker::MovingPhysicsComponent::update(turboHiker::Updatable::seconds d
         move(mVelocity * dt);
 }
 
-void turboHiker::MovingPhysicsComponent::setVelocity(const turboHiker::Vector2d& newVelocity) {
+void turboHiker::MovingPhysicsComponent::setVelocity(const turboHiker::Vector2d& newVelocity)
+{
         mVelocity = newVelocity;
 }
-void turboHiker::MovingPhysicsComponent::setVelocityX(double newVelocityX) {
-        mVelocity.x = newVelocityX;
-}
-void turboHiker::MovingPhysicsComponent::setVelocityY(double newVelocityY) {
-        mVelocity.y = newVelocityY;
-}
+void turboHiker::MovingPhysicsComponent::setVelocityX(double newVelocityX) { mVelocity.x = newVelocityX; }
+void turboHiker::MovingPhysicsComponent::setVelocityY(double newVelocityY) { mVelocity.y = newVelocityY; }
 const turboHiker::Vector2d& turboHiker::MovingPhysicsComponent::getVelocity() const { return mVelocity; }

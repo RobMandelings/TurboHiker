@@ -6,9 +6,9 @@
 #define TURBOHIKER_ENTITYFACTORY_H
 
 #include "WorldLocation.h"
-namespace turboHiker {
+#include "Entity.h"
 
-class Entity;
+namespace turboHiker {
 
 /**
  * An Abstract Factory to create entities (Specific GameObjects). Their visual representation must be implemented by the

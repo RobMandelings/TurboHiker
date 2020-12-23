@@ -4,6 +4,11 @@
 
 #include "CollisionComponent.h"
 
+turboHiker::CollisionComponent::CollisionComponent(const turboHiker::BoundingBox& boundingBox)
+    : mBoundingBox(boundingBox)
+{
+}
+
 /** Do nothing by default */
 void turboHiker::CollisionComponent::handleCollision(const turboHiker::Entity& entity) {}
 

@@ -86,6 +86,6 @@ void Entity::drawChildren(Vector2d currentAbsoluteLocation) const
         }
 }
 
-const Vector2d& Entity::getLocation() const { return mPhysicsComponent->getLocation().getVectorPositionRef(); }
+const Vector2d& Entity::getLocation() const { return mPhysicsComponent->getLocation(); }
 void Entity::setLocation(const Vector2d& newLocation) { mPhysicsComponent->setWorldLocation(newLocation); }
 } // namespace turboHiker
