@@ -18,6 +18,7 @@ namespace turboHiker {
 
 class RenderComponent;
 class BoundingBox;
+class Command;
 
 /**
  * Fundamental object to the game. Can be decoration
@@ -52,6 +53,8 @@ public:
 
         // TODO make this type-safe
         virtual unsigned int getCategory() const;
+
+        void onCommand(const Command& command, seconds dt);
 
 private:
         virtual void updateCurrent(seconds dt);

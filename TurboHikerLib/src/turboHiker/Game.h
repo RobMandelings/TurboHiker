@@ -4,10 +4,14 @@
 
 #pragma once
 
-#include "World.h"
 #include <chrono>
+#include <memory>
+
+#include "BoundingBox.h"
 
 namespace turboHiker {
+
+class World;
 
 class Game
 {

@@ -14,7 +14,12 @@
 
 turboHiker::World::World() : mSceneGraph(SceneNode()), mEntityFactory(nullptr) {}
 
-void turboHiker::World::update(Updatable::seconds dt) { mSceneGraph.update(dt); }
+void turboHiker::World::update(Updatable::seconds dt)
+{
+        mSceneGraph.update(dt);
+        while (!mCommandQueue.isEmpty())
+                mSceneGraph.onCommand(mCommandQueue.pop(), dt);
+}
 
 void turboHiker::World::render() const { mSceneGraph.render(); }
 
@@ -30,3 +35,5 @@ void turboHiker::World::setEntityFactory(std::unique_ptr<EntityFactory> entityFa
 {
         mEntityFactory = std::move(entityFactory);
 }
+
+turboHiker::CommandQueue& turboHiker::World::getCommandQueue() { return mCommandQueue; }

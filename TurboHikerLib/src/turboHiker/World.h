@@ -10,14 +10,14 @@
 #include "SceneNode.h"
 #include "Updatable.h"
 
-#include "InputComponent.h"
 #include "RenderComponent.h"
-#include "PhysicsComponent.h"
-#include "CollisionComponent.h"
+
+#include "CommandQueue.h"
 
 #include <memory>
 
 namespace turboHiker {
+
 class World : private Updatable, private Renderable
 {
 
@@ -29,6 +29,8 @@ public:
 
         void setEntityFactory(std::unique_ptr<EntityFactory> entityFactory);
 
+        CommandQueue& getCommandQueue();
+
         void buildWorld();
 
 private:
@@ -37,6 +39,8 @@ private:
          * This is Main Game Object of the world, it contains all sub game objects (can be entities, decorations,...)
          */
         SceneNode mSceneGraph;
+
+        CommandQueue mCommandQueue;
 
         std::unique_ptr<EntityFactory> mEntityFactory;
 };

@@ -5,9 +5,10 @@
 #include "Game.h"
 
 #include "Clock.h"
-#include <cassert>
-#include <iostream>
 #include <thread>
+
+#include "BoundingBox.h"
+#include "World.h"
 
 turboHiker::Game::Game(std::chrono::duration<double> timePerFrame, std::unique_ptr<World> world)
     : m_timePerFrame(timePerFrame), mWorld(std::move(world))

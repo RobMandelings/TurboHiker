@@ -8,9 +8,10 @@
 #include <cassert>
 
 #include "CollisionComponent.h"
-#include "InputComponent.h"
-#include "PhysicsComponent.h"
 #include "RenderComponent.h"
+#include "BoundingBox.h"
+
+#include "Command.h"
 
 #include "WorldLocation.h"
 
@@ -20,7 +21,7 @@
 namespace turboHiker {
 
 SceneNode::SceneNode(const Vector2d& initialLocation, std::unique_ptr<BoundingBox> mBoundingBox,
-               std::unique_ptr<RenderComponent> renderComponent)
+                     std::unique_ptr<RenderComponent> renderComponent)
     : mParent(nullptr), mLocation(initialLocation), mBoundingBox(std::move(mBoundingBox)),
       mRenderComponent(std::move(renderComponent))
 {
@@ -101,6 +102,7 @@ void SceneNode::handleCollision(const SceneNode& entity)
 
 unsigned int SceneNode::getCategory() const { return Category::Scene; }
 bool SceneNode::hasBoundingBox() const { return mBoundingBox != nullptr; }
+
 bool SceneNode::collidesWith(const SceneNode& entity) const
 {
         if (&entity != this && hasBoundingBox() && entity.hasBoundingBox()) {
@@ -116,6 +118,18 @@ void SceneNode::handleCollisionInternal(const SceneNode& entity)
         assert(collidesWith(entity));
         assert(hasBoundingBox());
         // Do nothing by default, needs to be handled by the specific entity
+}
+
+void SceneNode::onCommand(const Command& command, seconds dt)
+{
+        // Command current node, if category matches
+        if (command.category & getCategory())
+                command.action(*this, dt);
+
+        // Command children
+        for (std::unique_ptr<SceneNode>& child : mChildren) {
+                child->onCommand(command, dt);
+        }
 }
 
 const Vector2d& SceneNode::getLocation() const { return mLocation; }

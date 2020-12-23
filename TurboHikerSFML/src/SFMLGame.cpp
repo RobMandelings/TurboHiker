@@ -4,6 +4,9 @@
 
 #include "SFMLGame.h"
 
+#include "BoundingBox.h"
+#include "World.h"
+
 #include "EntityFactorySFML.h"
 
 using namespace turboHikerSFML;
