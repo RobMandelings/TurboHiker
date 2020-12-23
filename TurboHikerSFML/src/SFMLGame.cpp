@@ -18,7 +18,7 @@ void SFMLGame::processEvents() { mWindowHandler.processEvents(); }
 void SFMLGame::render()
 {
         mWindowHandler.clearWindow();
-        mWorld->draw();
+        mWorld->render();
         mWindowHandler.displayWindow();
 }
 

@@ -5,11 +5,11 @@
 #include "SpriteRenderComponent.h"
 
 #include <utility>
-void turboHikerSFML::SpriteRenderComponent::draw(const turboHiker::Vector2d& worldLocation) const
+void turboHikerSFML::SpriteRenderComponent::render(const turboHiker::Vector2d& worldLocation) const
 {
-        drawOnWindow(*mShape, worldLocation);
+        renderOnWindow(*mShape, worldLocation);
 }
-turboHikerSFML::SpriteRenderComponent::SpriteRenderComponent(WindowDrawer& windowDrawer, const sf::Sprite& sprite)
+turboHikerSFML::SpriteRenderComponent::SpriteRenderComponent(WindowRenderer& windowDrawer, const sf::Sprite& sprite)
     : RenderComponentSFML(windowDrawer), mShape(std::make_unique<sf::Sprite>(sprite))
 {
 }

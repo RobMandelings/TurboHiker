@@ -6,7 +6,7 @@
 #define TURBOHIKER_WINDOWHANDLER_H
 
 #include <SFML/Graphics/RenderWindow.hpp>
-#include <interfaces/WindowDrawer.h>
+#include <interfaces/WindowRenderer.h>
 
 #include <SFML/Graphics/Shape.hpp>
 #include <SFML/Graphics/Sprite.hpp>
@@ -14,7 +14,7 @@
 
 namespace turboHikerSFML {
 // Maybe its better to extend from RenderWindow
-class WindowHandler : public WindowDrawer
+class WindowHandler : public WindowRenderer
 {
 public:
         WindowHandler();
@@ -27,9 +27,9 @@ public:
 
         void closeWindow();
 
-        void drawOnWindow(sf::Sprite& sprite, const turboHiker::Vector2d& worldLocation) override;
+        void renderOnWindow(sf::Sprite& sprite, const turboHiker::Vector2d& worldLocation) override;
 
-        void drawOnWindow(sf::Shape& drawable, const turboHiker::Vector2d& worldLocation) override;
+        void renderOnWindow(sf::Shape& drawable, const turboHiker::Vector2d& worldLocation) override;
 public:
         const sf::RenderWindow& getWindow() const;
 

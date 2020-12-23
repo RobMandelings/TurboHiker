@@ -5,10 +5,10 @@
 #ifndef TURBOHIKER_WORLD_H
 #define TURBOHIKER_WORLD_H
 
-#include "Drawable.h"
 #include "Entity.h"
-#include "Updatable.h"
 #include "EntityFactory.h"
+#include "Renderable.h"
+#include "Updatable.h"
 
 #include "InputComponent.h"
 #include "RenderComponent.h"
@@ -18,14 +18,14 @@
 #include <memory>
 
 namespace turboHiker {
-class World : private Updatable, private Drawable
+class World : private Updatable, private Renderable
 {
 
 public:
         World();
 
         void update(seconds dt) override;
-        void draw() const override;
+        void render() const override;
 
         void setEntityFactory(std::unique_ptr<EntityFactory> entityFactory);
 

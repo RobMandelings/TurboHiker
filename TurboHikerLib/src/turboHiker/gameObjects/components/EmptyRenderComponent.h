@@ -16,7 +16,7 @@ namespace turboHiker {
 class EmptyRenderComponent : public RenderComponent
 {
 public:
-        void draw(const Vector2d& worldLocation) const override;
+        void render(const Vector2d& worldLocation) const override;
 };
 }
 

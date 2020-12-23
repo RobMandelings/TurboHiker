@@ -6,12 +6,12 @@
 
 #include "SFML/Graphics/Shape.hpp"
 
-turboHikerSFML::ShapeRenderComponent::ShapeRenderComponent(turboHikerSFML::WindowDrawer& windowDrawer,
+turboHikerSFML::ShapeRenderComponent::ShapeRenderComponent(turboHikerSFML::WindowRenderer& windowDrawer,
                                                            std::unique_ptr<sf::Shape> shape)
     : RenderComponentSFML(windowDrawer), mShape(std::move(shape))
 {
 }
-void turboHikerSFML::ShapeRenderComponent::draw(const turboHiker::Vector2d& worldLocation) const
+void turboHikerSFML::ShapeRenderComponent::render(const turboHiker::Vector2d& worldLocation) const
 {
         mShape->setFillColor(
             sf::Color(mShape->getFillColor().r == 255 ? mShape->getFillColor().r - 255 : mShape->getFillColor().r + 1,

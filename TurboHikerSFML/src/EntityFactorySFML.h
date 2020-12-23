@@ -18,20 +18,19 @@ class Entity;
  */
 namespace turboHikerSFML {
 
-class WindowDrawer;
+class WindowRenderer;
 
 class EntityFactorySFML : public turboHiker::EntityFactory
 {
 
 public:
-        EntityFactorySFML(WindowDrawer& mWindowDrawer);
+        EntityFactorySFML(WindowRenderer& mWindowDrawer);
 
         std::unique_ptr<turboHiker::Entity> createTestCircle(const turboHiker::Vector2d& location,
                                                  const turboHiker::Vector2d& initialVelocity) const override;
 
 private:
-
-        WindowDrawer& mWindowDrawer;
+        WindowRenderer& mWindowDrawer;
 };
 } // namespace turboHikerSFML
 

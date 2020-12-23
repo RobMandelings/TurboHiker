@@ -17,7 +17,7 @@
 
 using namespace turboHiker;
 
-turboHikerSFML::EntityFactorySFML::EntityFactorySFML(turboHikerSFML::WindowDrawer& mWindowDrawer)
+turboHikerSFML::EntityFactorySFML::EntityFactorySFML(turboHikerSFML::WindowRenderer& mWindowDrawer)
     : mWindowDrawer(mWindowDrawer)
 {
 }

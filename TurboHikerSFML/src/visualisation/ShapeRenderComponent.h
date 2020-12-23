@@ -19,9 +19,9 @@ class ShapeRenderComponent : public RenderComponentSFML
 {
 
 public:
-        ShapeRenderComponent(WindowDrawer& windowDrawer, std::unique_ptr<sf::Shape> shape);
+        ShapeRenderComponent(WindowRenderer& windowDrawer, std::unique_ptr<sf::Shape> shape);
 
-        void draw(const turboHiker::Vector2d& worldLocation) const final;
+        void render(const turboHiker::Vector2d& worldLocation) const final;
 
 private:
 

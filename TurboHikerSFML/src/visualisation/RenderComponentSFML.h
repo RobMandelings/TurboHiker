@@ -5,8 +5,8 @@
 #ifndef TURBOHIKER_RENDERCOMPONENTSFML_H
 #define TURBOHIKER_RENDERCOMPONENTSFML_H
 
-#include "WindowDrawer.h"
 #include "RenderComponent.h"
+#include "WindowRenderer.h"
 
 namespace turboHiker {
 class WorldLocation;
@@ -17,15 +17,15 @@ namespace turboHikerSFML {
 class RenderComponentSFML : public turboHiker::RenderComponent
 {
 public:
-        explicit RenderComponentSFML(WindowDrawer& windowDrawer);
+        explicit RenderComponentSFML(WindowRenderer& windowDrawer);
 
 public:
-        void drawOnWindow(sf::Sprite& drawable, const turboHiker::Vector2d& worldLocation) const;
+        void renderOnWindow(sf::Sprite& drawable, const turboHiker::Vector2d& worldLocation) const;
 
         void drawOnWindow(sf::Shape& drawable, const turboHiker::Vector2d& worldLocation) const;
 
 private:
-        WindowDrawer& mWindowDrawer;
+        WindowRenderer& mWindowDrawer;
 };
 } // namespace turboHikerSFML
 

@@ -65,7 +65,7 @@ void Entity::updateChildren(Updatable::seconds dt)
         }
 }
 
-void Entity::draw() const
+void Entity::render() const
 {
         // This draw method is executed as if the location was absolute (probably top of the Hierarchy, called by
         // world.draw()). If this is not the case, you should use draw(currentAbsoluteLocation) instead
@@ -77,7 +77,8 @@ void Entity::draw(const Vector2d& currentAbsoluteLocation) const
         drawCurrent(currentAbsoluteLocation);
         drawChildren(currentAbsoluteLocation);
 }
-void Entity::drawCurrent(const Vector2d& currentAbsoluteLocation) const { mRenderComponent->draw(mPhysicsComponent->getLocation()); }
+void Entity::drawCurrent(const Vector2d& currentAbsoluteLocation) const {
+        mRenderComponent->render(mPhysicsComponent->getLocation()); }
 
 void Entity::drawChildren(Vector2d currentAbsoluteLocation) const
 {

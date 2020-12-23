@@ -17,6 +17,6 @@ class RenderComponent
 
 public:
 
-        virtual void draw(const Vector2d& worldLocation) const = 0;
+        virtual void render(const Vector2d& worldLocation) const = 0;
 };
 } // namespace turboHiker

@@ -5,15 +5,14 @@
 #ifndef TURBOHIKER_ENTITY_H
 #define TURBOHIKER_ENTITY_H
 
-#include "Drawable.h"
 #include "Removable.h"
+#include "Renderable.h"
 #include "Updatable.h"
 
 #include <memory>
 #include <vector>
 
 #include "Vector2d.h"
-#include "VisualComponent.h"
 
 namespace turboHiker {
 
@@ -24,7 +23,7 @@ class InputComponent;
 /**
  * Fundamental object to the game. Can be decoration
  */
-class Entity : public Updatable, public Drawable, public Removable
+class Entity : public Updatable, public Renderable, public Removable
 {
 
         // TODO add a tagging system which denotes the type of the GameObjects (probably best an enum to not confuse
@@ -40,7 +39,7 @@ public:
                std::unique_ptr<RenderComponent> renderComponent);
         void update(seconds dt) override;
 
-        void draw() const override;
+        void render() const override;
 
         void attachChild(SceneNodePtr child);
         SceneNodePtr detachChild(const Entity& gameObject);
