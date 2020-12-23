@@ -18,9 +18,9 @@
 
 namespace turboHiker {
 
-Entity::Entity(std::unique_ptr<PhysicsComponent> physicsComponent, std::unique_ptr<InputComponent> inputComponent,
+Entity::Entity(const Vector2d& initialLocation, std::unique_ptr<BoundingBox> mBoundingBox,
                std::unique_ptr<RenderComponent> renderComponent)
-    : mParent(nullptr), mInputComponent(std::move(inputComponent)), mPhysicsComponent(std::move(physicsComponent)),
+    : mParent(nullptr), mLocation(initialLocation), mBoundingBox(std::move(mBoundingBox)),
       mRenderComponent(std::move(renderComponent))
 {
         // De moment dat je make_unique doet wordt er een kopie gemaakt van dat object en daarna is er een pointer naar
@@ -54,12 +54,15 @@ void Entity::update(Updatable::seconds dt)
         // Update the render component so it can alter its RenderState / Representation / ...
         // TODO improve to not use the absolute location directly
         // TODO use getWorldLocation() function to get the absolute location
-        mRenderComponent->update(dt, mPhysicsComponent->getLocation());
+        mRenderComponent->update(dt, getLocation());
 
         updateChildren(dt);
 }
 
-void Entity::updateCurrent(Updatable::seconds dt) { mPhysicsComponent->update(dt); }
+void Entity::updateCurrent(Updatable::seconds dt)
+{
+        // Do nothing by default
+}
 void Entity::updateChildren(Updatable::seconds dt)
 {
         for (const SceneNodePtr& child : mChildren) {
@@ -82,6 +85,30 @@ void Entity::renderChildren() const
         }
 }
 
-const Vector2d& Entity::getLocation() const { return mPhysicsComponent->getLocation(); }
-void Entity::setLocation(const Vector2d& newLocation) { mPhysicsComponent->setWorldLocation(newLocation); }
+void Entity::handleCollision(const Entity& entity)
+{
+        if (collidesWith(entity)) {
+                handleCollisionInternal(entity);
+        }
+}
+bool Entity::hasBoundingBox() const { return mBoundingBox != nullptr; }
+bool Entity::collidesWith(const Entity& entity) const
+{
+        if (&entity != this && hasBoundingBox() && entity.hasBoundingBox()) {
+                // TODO implement collision detection with other entity
+        } else {
+                return false;
+        }
+        return false;
+}
+
+void Entity::handleCollisionInternal(const Entity& entity)
+{
+        assert(collidesWith(entity));
+        assert(hasBoundingBox());
+        // Do nothing by default, needs to be handled by the specific entity
+}
+
+const Vector2d& Entity::getLocation() const { return mLocation; }
+void Entity::setLocation(const Vector2d& newLocation) { mLocation = newLocation; }
 } // namespace turboHiker

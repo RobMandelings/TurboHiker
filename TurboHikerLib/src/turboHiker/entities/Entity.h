@@ -19,6 +19,7 @@ namespace turboHiker {
 class PhysicsComponent;
 class RenderComponent;
 class InputComponent;
+class BoundingBox;
 
 /**
  * Fundamental object to the game. Can be decoration
@@ -26,16 +27,10 @@ class InputComponent;
 class Entity : public Updatable, public Renderable, public Removable
 {
 
-        // TODO add a tagging system which denotes the type of the GameObjects (probably best an enum to not confuse
-        // with other) so you can check which tag the game object has (for example Entity, Hiker,...)
-        // TODO After that you should assert that you can dynamically cast to the corresponding class and then perform a
-        // static cast
-        // TODO Also lookup: is static casting good programming design pattern or not?
-
 public:
         typedef std::unique_ptr<Entity> SceneNodePtr;
 
-        Entity(std::unique_ptr<PhysicsComponent> physicsComponent, std::unique_ptr<InputComponent> inputComponent,
+        Entity(const Vector2d& initialLocation, std::unique_ptr<BoundingBox> mBoundingBox,
                std::unique_ptr<RenderComponent> renderComponent);
 
         void update(seconds dt) override;
@@ -44,10 +39,16 @@ public:
 
         void attachChild(SceneNodePtr child);
         SceneNodePtr detachChild(const Entity& gameObject);
-
         bool hasChildren();
+
         const Vector2d& getLocation() const;
         void setLocation(const Vector2d& newLocation);
+
+        void handleCollision(const Entity& entity);
+
+        bool hasBoundingBox() const;
+
+        bool collidesWith(const Entity& entity) const;
 
 private:
         virtual void updateCurrent(seconds dt);
@@ -56,23 +57,29 @@ private:
         void renderCurrent() const;
         void renderChildren() const;
 
+        /**
+         * This function can be overriden. Called by the handleCollision() method that can be accessed from outside.
+         * Some checks have been done already before this function got called;
+         * @param entity: the entity it is colliding with
+         */
+        virtual void handleCollisionInternal(const Entity& entity);
+
 private:
         Entity* mParent;
         std::vector<SceneNodePtr> mChildren;
 
-        // Components that can differ among nodes
+        /**
+         * The location of the entity. If its a child of another entity it is relative to the location of that entity.
+         * If it's the root, it is already the absolute location
+         */
+        Vector2d mLocation;
 
-        std::unique_ptr<InputComponent> mInputComponent;
+        std::unique_ptr<BoundingBox> mBoundingBox;
 
         /**
          * Used to render the node
          */
         std::unique_ptr<RenderComponent> mRenderComponent;
-
-        /**
-         * Contains the main physics code for this node
-         */
-        std::unique_ptr<PhysicsComponent> mPhysicsComponent;
 };
 } // namespace turboHiker
 
