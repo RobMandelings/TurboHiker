@@ -9,8 +9,8 @@
 #include "CollisionComponent.h"
 #include "WorldLocation.h"
 
-turboHiker::PhysicsComponent::PhysicsComponent(const WorldLocation& worldPosition, std::unique_ptr<CollisionComponent> collisionComponent)
-    : mWorldLocation(worldPosition), mCollisionComponent(std::move(collisionComponent))
+turboHiker::PhysicsComponent::PhysicsComponent(const Vector2d& initialLocation, std::unique_ptr<CollisionComponent> collisionComponent)
+    : mLocation(initialLocation), mCollisionComponent(std::move(collisionComponent))
 {
 }
 
@@ -23,10 +23,10 @@ void turboHiker::PhysicsComponent::handleCollision(const turboHiker::Entity& ent
         }
 }
 
-void turboHiker::PhysicsComponent::move(const turboHiker::Vector2d& vector2D) { mWorldLocation.move(vector2D); }
-const turboHiker::WorldLocation& turboHiker::PhysicsComponent::getWorldLocation() const { return mWorldLocation; }
+void turboHiker::PhysicsComponent::move(const turboHiker::Vector2d& vector2D) { mLocation.move(vector2D); }
+const turboHiker::Vector2d& turboHiker::PhysicsComponent::getLocation() const { return mLocation; }
 void turboHiker::PhysicsComponent::setWorldLocation(const turboHiker::Vector2d& newLocation)
 {
-        mWorldLocation.setPosition(newLocation);
+        mLocation.setPosition(newLocation);
 }
 const turboHiker::BoundingBox& turboHiker::PhysicsComponent::getBoundingBox() const { return mCollisionComponent->getBoundingBox(); }

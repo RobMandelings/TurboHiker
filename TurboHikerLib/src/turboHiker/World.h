@@ -6,26 +6,32 @@
 #define TURBOHIKER_WORLD_H
 
 #include "Drawable.h"
-#include "Updatable.h"
 #include "Entity.h"
+#include "Updatable.h"
+#include "EntityFactory.h"
 
 #include <memory>
 
 namespace turboHiker {
 class World : private Updatable, private Drawable
 {
+
+public:
+        World();
+
+        void update(seconds dt) override;
+        void draw() const override;
+
+private:
+
+        void buildWorld();
+
         /**
          * This is Main Game Object of the world, it contains all sub game objects (can be entities, decorations,...)
          */
         std::unique_ptr<Entity> mSceneGraph;
 
-public:
-        World();
-private:
-        void update(seconds dt) override;
-        void draw() const override;
-
-        void buildWorld();
+        std::unique_ptr<EntityFactory> mEntityFactory;
 };
 } // namespace turboHiker
 

@@ -9,10 +9,10 @@
 #include "WorldLocation.h"
 #include "CollisionComponent.h"
 
-turboHiker::MovingPhysicsComponent::MovingPhysicsComponent(const WorldLocation& initialWorldPosition,
+turboHiker::MovingPhysicsComponent::MovingPhysicsComponent(const Vector2d& initialLocation,
                                                            BoundingBox collisionComponent,
                                                            const Vector2d& initialVelocity)
-    : PhysicsComponent(initialWorldPosition, std::move(collisionComponent)), mVelocity(initialVelocity)
+    : PhysicsComponent(initialLocation, std::move(collisionComponent)), mVelocity(initialVelocity)
 {
 }
 
