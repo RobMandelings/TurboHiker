@@ -21,6 +21,8 @@ void turboHiker::MovingPhysicsComponent::update(turboHiker::Updatable::seconds d
 {
         PhysicsComponent::update(dt);
         move(mVelocity * dt);
+        std::cout << mVelocity << std::endl;
+        std::cout << getLocation() << std::endl;
 }
 
 void turboHiker::MovingPhysicsComponent::setVelocity(const turboHiker::Vector2d& newVelocity)

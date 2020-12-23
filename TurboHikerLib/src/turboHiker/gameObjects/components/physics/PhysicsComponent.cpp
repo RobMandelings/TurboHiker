@@ -26,8 +26,7 @@ void turboHiker::PhysicsComponent::handleCollision(const turboHiker::Entity& ent
         }
 }
 
-void turboHiker::PhysicsComponent::move(const turboHiker::Vector2d& vector2D) { mLocation += vector2D;
-}
+void turboHiker::PhysicsComponent::move(const turboHiker::Vector2d& vector2D) { mLocation += vector2D; }
 const turboHiker::Vector2d& turboHiker::PhysicsComponent::getLocation() const { return mLocation; }
 void turboHiker::PhysicsComponent::setWorldLocation(const turboHiker::Vector2d& newLocation)
 {
