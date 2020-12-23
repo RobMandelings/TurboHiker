@@ -21,7 +21,6 @@ void turboHiker::World::update(Updatable::seconds dt)
         for (const std::unique_ptr<Entity>& mainEntity : mMainEntities) {
                 mainEntity->update(dt);
         }
-        std::cout << "Check me out" << std::endl;
 }
 
 void turboHiker::World::render() const {

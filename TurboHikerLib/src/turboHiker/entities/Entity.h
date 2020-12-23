@@ -33,9 +33,9 @@ public:
         Entity(const Vector2d& initialLocation, std::unique_ptr<BoundingBox> mBoundingBox,
                std::unique_ptr<RenderComponent> renderComponent);
 
-        void update(seconds dt) override;
+        void update(seconds dt) final;
 
-        void render() const override;
+        void render() const final;
 
         void attachChild(SceneNodePtr child);
         SceneNodePtr detachChild(const Entity& gameObject);
@@ -64,9 +64,7 @@ private:
          */
         virtual void handleCollisionInternal(const Entity& entity);
 
-private:
-        Entity* mParent;
-        std::vector<SceneNodePtr> mChildren;
+protected:
 
         /**
          * The location of the entity. If its a child of another entity it is relative to the location of that entity.
@@ -75,6 +73,11 @@ private:
         Vector2d mLocation;
 
         std::unique_ptr<BoundingBox> mBoundingBox;
+
+private:
+
+        Entity* mParent;
+        std::vector<SceneNodePtr> mChildren;
 
         /**
          * Used to render the node

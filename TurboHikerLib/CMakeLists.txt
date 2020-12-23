@@ -35,7 +35,7 @@ set(SRC
         src/turboHiker/entities/components/physics/CollisionComponent.cpp
         src/turboHiker/entities/components/physics/CollisionComponent.h
         src/turboHiker/entities/Hiker.cpp
-        src/turboHiker/entities/Hiker.h)
+        src/turboHiker/entities/Hiker.h src/turboHiker/entities/MovableEntity.cpp src/turboHiker/entities/MovableEntity.h)
 
 add_library(TurboHikerLib ${SRC})
 
