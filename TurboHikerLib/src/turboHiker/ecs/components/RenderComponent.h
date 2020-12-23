@@ -15,13 +15,7 @@ class RenderComponent
 {
 
 public:
-        explicit RenderComponent(const WorldLocation& worldPosition);
-        virtual void draw() const = 0;
 
-        /**
-         * Keeps track of the position that is maintained and updated by a PhysicsComponent (Aggregation, not owned by the
-         * RenderComponent)
-         */
-        const WorldLocation& mWorldPosition;
+        virtual void draw(const WorldLocation& worldLocation) const = 0;
 };
 } // namespace turboHiker

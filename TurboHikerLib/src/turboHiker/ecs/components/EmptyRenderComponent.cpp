@@ -9,4 +9,4 @@ turboHiker::EmptyRenderComponent::EmptyRenderComponent(const turboHiker::WorldLo
 {
 }
 
-void turboHiker::EmptyRenderComponent::draw() const {}
+void turboHiker::EmptyRenderComponent::draw(const WorldLocation& worldLocation) const {}

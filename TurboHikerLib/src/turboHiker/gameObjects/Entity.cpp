@@ -71,7 +71,7 @@ void Entity::draw(const Vector2d& currentAbsoluteLocation) const
         drawCurrent(currentAbsoluteLocation);
         drawChildren(currentAbsoluteLocation);
 }
-void Entity::drawCurrent(const Vector2d& currentAbsoluteLocation) const { mRenderComponent->draw(); }
+void Entity::drawCurrent(const Vector2d& currentAbsoluteLocation) const { mRenderComponent->draw(mPhysicsComponent->getWorldLocation()); }
 
 void Entity::drawChildren(Vector2d currentAbsoluteLocation) const
 {
