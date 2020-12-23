@@ -17,7 +17,7 @@ class MovingPhysicsComponent : public PhysicsComponent
 
 public:
         MovingPhysicsComponent(const WorldLocation& initialWorldPosition,
-                               const BoundingBox& initialBoundingBox,
+                               std::unique_ptr<CollisionComponent> collisionComponent,
                                const Vector2d& initialVelocity);
         void update(seconds dt) override;
 

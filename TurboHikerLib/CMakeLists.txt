@@ -16,7 +16,7 @@ include_directories(
         src/turboHiker/ecs/
         src/turboHiker/ecs/components/
         src/turboHiker/ecs/components/modules/
-        src/turboHiker/ecs/components/modules/physics/
+        src/turboHiker/ecs/components/physics/
 )
 
 target_include_directories(TurboHikerLib PUBLIC

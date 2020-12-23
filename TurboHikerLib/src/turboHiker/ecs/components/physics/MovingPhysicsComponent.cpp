@@ -7,11 +7,12 @@
 #include "BoundingBox.h"
 #include "Vector2d.h"
 #include "WorldLocation.h"
+#include "CollisionComponent.h"
 
 turboHiker::MovingPhysicsComponent::MovingPhysicsComponent(const WorldLocation& initialWorldPosition,
-                                                           const BoundingBox& initialBoundingBox,
+                                                           std::unique_ptr<CollisionComponent> collisionComponent,
                                                            const Vector2d& initialVelocity)
-    : PhysicsComponent(initialWorldPosition, initialBoundingBox), mVelocity(initialVelocity)
+    : PhysicsComponent(initialWorldPosition, std::move(collisionComponent)), mVelocity(initialVelocity)
 {
 }
 

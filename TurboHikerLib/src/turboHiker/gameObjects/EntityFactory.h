@@ -5,7 +5,7 @@
 #ifndef TURBOHIKER_ENTITYFACTORY_H
 #define TURBOHIKER_ENTITYFACTORY_H
 
-#include <turboHiker/ecs/modules/WorldPosition.h>
+#include <turboHiker/ecs/components/modules/WorldLocation.h>
 namespace turboHiker {
 
 class Entity;
@@ -17,7 +17,7 @@ class Entity;
 class EntityFactory
 {
 
-        virtual Entity* createStaticHiker(const WorldPosition& worldPosition) const = 0;
+        virtual Entity* createStaticHiker(const WorldLocation& worldLocation) const = 0;
 
 };
 } // namespace turboHiker

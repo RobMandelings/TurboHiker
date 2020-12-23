@@ -6,7 +6,7 @@
 
 #include <utility>
 void turboHikerSFML::SpriteRenderComponent::draw(const turboHiker::WorldLocation& worldLocation) const {
-        drawOnWindow(mSprite, <#initializer #>); }
+        drawOnWindow(mSprite, worldLocation); }
 turboHikerSFML::SpriteRenderComponent::SpriteRenderComponent(const turboHiker::WorldLocation& worldPosition,
                                                              turboHikerSFML::WindowDrawer& windowDrawer,
                                                              sf::Sprite mSprite)

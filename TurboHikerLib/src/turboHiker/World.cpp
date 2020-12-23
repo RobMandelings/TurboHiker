@@ -3,8 +3,12 @@
 //
 
 #include "World.h"
-
 #include <cassert>
+
+#include "PhysicsComponent.h"
+#include "InputComponent.h"
+#include "RenderComponent.h"
+#include "CollisionComponent.h"
 
 turboHiker::World::World() {
         buildWorld();

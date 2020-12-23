@@ -24,7 +24,7 @@ message(STATUS ${SFML_LIBRARIES})
 
 set(SRC
         src/main.cpp
-        src/utils/constants.h src/SFMLGame.cpp src/SFMLGame.h src/utils/Transformation.cpp src/utils/Transformation.h src/interfaces/WindowDrawer.h src/EntityFactorySFML.cpp src/EntityFactorySFML.h src/visualComponents/HikerModel.cpp src/visualComponents/HikerModel.h src/visualisation/RenderComponentSFML.h src/visualisation/SpriteRenderComponent.cpp src/visualisation/SpriteRenderComponent.h src/visualisation/RenderComponentSFML.cpp)
+        src/utils/constants.h src/SFMLGame.cpp src/SFMLGame.h src/utils/Transformation.cpp src/utils/Transformation.h src/interfaces/WindowDrawer.h src/EntityFactorySFML.cpp src/EntityFactorySFML.h src/visualisation/RenderComponentSFML.h src/visualisation/SpriteRenderComponent.cpp src/visualisation/SpriteRenderComponent.h src/visualisation/RenderComponentSFML.cpp)
 
 include_directories(
         ${SFML_INCLUDE_DIR}
@@ -32,6 +32,16 @@ include_directories(
         src/utils/
         src/interfaces/
         src/visualComponents/
+        ../TurboHikerLib/src/turboHiker/
+        ../TurboHikerLib/src/turboHiker/utils/
+        ../TurboHikerLib/src/turboHiker/interfaces/
+        ../TurboHikerLib/src/turboHiker/abstractVisuals/
+        ../TurboHikerLib/src/turboHiker/gameObjects/
+        ../TurboHikerLib/src/turboHiker/utils/maths/
+        ../TurboHikerLib/src/turboHiker/ecs/
+        ../TurboHikerLib/src/turboHiker/ecs/components/
+        ../TurboHikerLib/src/turboHiker/ecs/components/modules/
+        ../TurboHikerLib/src/turboHiker/ecs/components/physics/
 )
 
 add_executable(TurboHikerSFML ${SRC})

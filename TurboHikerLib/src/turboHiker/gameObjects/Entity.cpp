@@ -9,9 +9,12 @@
 
 #include "InputComponent.h"
 #include "RenderComponent.h"
-#include "ecs/components/physics/PhysicsComponent.h"
+#include "PhysicsComponent.h"
+#include "CollisionComponent.h"
 
 #include "WorldLocation.h"
+
+#include <iostream>
 
 namespace turboHiker {
 
@@ -44,6 +47,8 @@ bool Entity::hasChildren() { return !mChildren.empty(); }
 
 void Entity::update(Updatable::seconds dt)
 {
+
+        std::cout << "entity is being updated" << std::endl;
         updateCurrent(dt);
         updateChildren(dt);
 }

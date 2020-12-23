@@ -7,7 +7,7 @@
 
 #include "Drawable.h"
 #include "Updatable.h"
-#include "gameObjects/Entity.h"
+#include "Entity.h"
 
 #include <memory>
 
