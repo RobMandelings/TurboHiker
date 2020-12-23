@@ -1,6 +1,6 @@
 #pragma once
 
-// Entity/scene node category, used to dispatch commands
+// SceneNode/scene node category, used to dispatch commands
 namespace turboHiker::Category {
 enum Type
 {

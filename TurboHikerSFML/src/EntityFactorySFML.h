@@ -9,11 +9,11 @@
 #include <memory>
 
 namespace turboHiker {
-class Entity;
+class SceneNode;
 }
 
 /**
- * Creates Entities (A type of Entity that can move) with a specific VisualComponent created with SFML to give a
+ * Creates Entities (A type of SceneNode that can move) with a specific VisualComponent created with SFML to give a
  * visual representation to these entities
  */
 namespace turboHikerSFML {
@@ -26,7 +26,7 @@ class EntityFactorySFML : public turboHiker::EntityFactory
 public:
         EntityFactorySFML(WindowRenderer& mWindowDrawer);
 
-        std::unique_ptr<turboHiker::Entity> createTestCircle(const turboHiker::Vector2d& location,
+        std::unique_ptr<turboHiker::SceneNode> createTestCircle(const turboHiker::Vector2d& location,
                                                  const turboHiker::Vector2d& initialVelocity) const override;
 
 private:

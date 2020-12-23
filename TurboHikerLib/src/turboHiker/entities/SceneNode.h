@@ -2,8 +2,8 @@
 // Created by RobMa on 19/12/2020.
 //
 
-#ifndef TURBOHIKER_ENTITY_H
-#define TURBOHIKER_ENTITY_H
+#ifndef TURBOHIKER_SCENENODE_H
+#define TURBOHIKER_SCENENODE_H
 
 #include "Removable.h"
 #include "Renderable.h"
@@ -16,41 +16,39 @@
 
 namespace turboHiker {
 
-class PhysicsComponent;
 class RenderComponent;
-class InputComponent;
 class BoundingBox;
 
 /**
  * Fundamental object to the game. Can be decoration
  */
-class Entity : public Updatable, public Renderable, public Removable
+class SceneNode : public Updatable, public Renderable, public Removable
 {
 
 public:
-        typedef std::unique_ptr<Entity> SceneNodePtr;
+        typedef std::unique_ptr<SceneNode> SceneNodePtr;
 
-        Entity(const Vector2d& initialLocation, std::unique_ptr<BoundingBox> mBoundingBox,
+        SceneNode(const Vector2d& initialLocation, std::unique_ptr<BoundingBox> mBoundingBox,
                std::unique_ptr<RenderComponent> renderComponent);
 
-        Entity();
+        SceneNode();
 
         void update(seconds dt) final;
 
         void render() const final;
 
         void attachChild(SceneNodePtr child);
-        SceneNodePtr detachChild(const Entity& gameObject);
+        SceneNodePtr detachChild(const SceneNode& gameObject);
         bool hasChildren();
 
         const Vector2d& getLocation() const;
         void setLocation(const Vector2d& newLocation);
 
-        void handleCollision(const Entity& entity);
+        void handleCollision(const SceneNode& entity);
 
         bool hasBoundingBox() const;
 
-        bool collidesWith(const Entity& entity) const;
+        bool collidesWith(const SceneNode& entity) const;
 
         // TODO make this type-safe
         virtual unsigned int getCategory() const;
@@ -67,7 +65,7 @@ private:
          * Some checks have been done already before this function got called;
          * @param entity: the entity it is colliding with
          */
-        virtual void handleCollisionInternal(const Entity& entity);
+        virtual void handleCollisionInternal(const SceneNode& entity);
 
 protected:
         /**
@@ -79,7 +77,7 @@ protected:
         std::unique_ptr<BoundingBox> mBoundingBox;
 
 private:
-        Entity* mParent;
+        SceneNode* mParent;
         std::vector<SceneNodePtr> mChildren;
 
         /**
@@ -89,4 +87,4 @@ private:
 };
 } // namespace turboHiker
 
-#endif // TURBOHIKER_ENTITY_H
+#endif // TURBOHIKER_SCENENODE_H

@@ -12,7 +12,7 @@
 
 #include <iostream>
 
-turboHiker::World::World() : mSceneGraph(std::make_unique<Entity>()), mEntityFactory(nullptr) {}
+turboHiker::World::World() : mSceneGraph(std::make_unique<SceneNode>()), mEntityFactory(nullptr) {}
 
 void turboHiker::World::update(Updatable::seconds dt) { mSceneGraph->update(dt); }
 

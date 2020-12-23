@@ -5,10 +5,10 @@
 #ifndef TURBOHIKER_MOVABLEENTITY_H
 #define TURBOHIKER_MOVABLEENTITY_H
 
-#include "Entity.h"
+#include "SceneNode.h"
 
 namespace turboHiker {
-class MovableEntity : public Entity
+class MovableEntity : public SceneNode
 {
 
 public:

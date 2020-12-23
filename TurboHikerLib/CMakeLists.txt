@@ -9,8 +9,8 @@ set(SRC
         src/turboHiker/utils/NonCopyable.h
         src/turboHiker/World.cpp
         src/turboHiker/World.h
-        src/turboHiker/entities/Entity.cpp
-        src/turboHiker/entities/Entity.h
+        src/turboHiker/entities/SceneNode.cpp
+        src/turboHiker/entities/SceneNode.h
         src/turboHiker/utils/maths/Transform.cpp
         src/turboHiker/utils/maths/Transform.h
         src/turboHiker/utils/maths/Vector2d.cpp

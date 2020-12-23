@@ -4,13 +4,13 @@
 
 #include "EntityFactorySFML.h"
 
-#include "ShapeRenderComponent.h"
 #include "BoundingBox.h"
-#include "Vector2d.h"
-#include "Entity.h"
 #include "MovableEntity.h"
-#include <memory>
 #include "SFML/Graphics/CircleShape.hpp"
+#include "SceneNode.h"
+#include "ShapeRenderComponent.h"
+#include "Vector2d.h"
+#include <memory>
 
 using namespace turboHiker;
 
@@ -19,7 +19,7 @@ turboHikerSFML::EntityFactorySFML::EntityFactorySFML(turboHikerSFML::WindowRende
 {
 }
 
-std::unique_ptr<Entity> turboHikerSFML::EntityFactorySFML::createTestCircle(const Vector2d& location,
+std::unique_ptr<SceneNode> turboHikerSFML::EntityFactorySFML::createTestCircle(const Vector2d& location,
                                                                             const Vector2d& initialVelocity) const
 {
 

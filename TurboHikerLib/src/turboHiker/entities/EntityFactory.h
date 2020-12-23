@@ -5,7 +5,7 @@
 #ifndef TURBOHIKER_ENTITYFACTORY_H
 #define TURBOHIKER_ENTITYFACTORY_H
 
-#include "Entity.h"
+#include "SceneNode.h"
 #include "WorldLocation.h"
 
 namespace turboHiker {
@@ -18,7 +18,7 @@ class EntityFactory
 {
 
 public:
-        virtual std::unique_ptr<Entity> createTestCircle(const Vector2d& location,
+        virtual std::unique_ptr<SceneNode> createTestCircle(const Vector2d& location,
                                                          const Vector2d& initialVelocity) const = 0;
 };
 } // namespace turboHiker

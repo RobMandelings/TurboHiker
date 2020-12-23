@@ -2,7 +2,7 @@
 // Created by RobMa on 19/12/2020.
 //
 
-#include "Entity.h"
+#include "SceneNode.h"
 
 #include <algorithm>
 #include <cassert>
@@ -19,21 +19,21 @@
 
 namespace turboHiker {
 
-Entity::Entity(const Vector2d& initialLocation, std::unique_ptr<BoundingBox> mBoundingBox,
+SceneNode::SceneNode(const Vector2d& initialLocation, std::unique_ptr<BoundingBox> mBoundingBox,
                std::unique_ptr<RenderComponent> renderComponent)
     : mParent(nullptr), mLocation(initialLocation), mBoundingBox(std::move(mBoundingBox)),
       mRenderComponent(std::move(renderComponent))
 {
 }
 
-Entity::Entity() : Entity(Vector2d(0, 0), nullptr, nullptr) {}
+SceneNode::SceneNode() : SceneNode(Vector2d(0, 0), nullptr, nullptr) {}
 
-void Entity::attachChild(Entity::SceneNodePtr child)
+void SceneNode::attachChild(SceneNode::SceneNodePtr child)
 {
         child->mParent = this;
         mChildren.push_back(std::move(child));
 }
-Entity::SceneNodePtr Entity::detachChild(const Entity& gameObject)
+SceneNode::SceneNodePtr SceneNode::detachChild(const SceneNode& gameObject)
 {
         auto found = std::find_if(mChildren.begin(), mChildren.end(),
                                   [&gameObject](SceneNodePtr& p) { return p.get() == &gameObject; });
@@ -45,9 +45,9 @@ Entity::SceneNodePtr Entity::detachChild(const Entity& gameObject)
 
         return result;
 }
-bool Entity::hasChildren() { return !mChildren.empty(); }
+bool SceneNode::hasChildren() { return !mChildren.empty(); }
 
-void Entity::update(Updatable::seconds dt)
+void SceneNode::update(Updatable::seconds dt)
 {
 
         updateCurrent(dt);
@@ -61,47 +61,47 @@ void Entity::update(Updatable::seconds dt)
         updateChildren(dt);
 }
 
-void Entity::updateCurrent(Updatable::seconds dt)
+void SceneNode::updateCurrent(Updatable::seconds dt)
 {
         // Do nothing by default
 }
-void Entity::updateChildren(Updatable::seconds dt)
+void SceneNode::updateChildren(Updatable::seconds dt)
 {
         for (const SceneNodePtr& child : mChildren) {
                 child->update(dt);
         }
 }
 
-void Entity::render() const
+void SceneNode::render() const
 {
         renderCurrent();
         renderChildren();
 }
 
-void Entity::renderCurrent() const
+void SceneNode::renderCurrent() const
 {
         if (mRenderComponent) {
                 mRenderComponent->render();
         }
 }
 
-void Entity::renderChildren() const
+void SceneNode::renderChildren() const
 {
         for (const SceneNodePtr& gameObjectPtr : mChildren) {
                 gameObjectPtr->render();
         }
 }
 
-void Entity::handleCollision(const Entity& entity)
+void SceneNode::handleCollision(const SceneNode& entity)
 {
         if (collidesWith(entity)) {
                 handleCollisionInternal(entity);
         }
 }
 
-unsigned int Entity::getCategory() const { return Category::Scene; }
-bool Entity::hasBoundingBox() const { return mBoundingBox != nullptr; }
-bool Entity::collidesWith(const Entity& entity) const
+unsigned int SceneNode::getCategory() const { return Category::Scene; }
+bool SceneNode::hasBoundingBox() const { return mBoundingBox != nullptr; }
+bool SceneNode::collidesWith(const SceneNode& entity) const
 {
         if (&entity != this && hasBoundingBox() && entity.hasBoundingBox()) {
                 // TODO implement collision detection with other entity
@@ -111,13 +111,13 @@ bool Entity::collidesWith(const Entity& entity) const
         return false;
 }
 
-void Entity::handleCollisionInternal(const Entity& entity)
+void SceneNode::handleCollisionInternal(const SceneNode& entity)
 {
         assert(collidesWith(entity));
         assert(hasBoundingBox());
         // Do nothing by default, needs to be handled by the specific entity
 }
 
-const Vector2d& Entity::getLocation() const { return mLocation; }
-void Entity::setLocation(const Vector2d& newLocation) { mLocation = newLocation; }
+const Vector2d& SceneNode::getLocation() const { return mLocation; }
+void SceneNode::setLocation(const Vector2d& newLocation) { mLocation = newLocation; }
 } // namespace turboHiker

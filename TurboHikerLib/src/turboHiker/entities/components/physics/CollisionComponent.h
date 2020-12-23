@@ -9,7 +9,7 @@
 
 namespace turboHiker {
 
-class Entity;
+class SceneNode;
 
 class CollisionComponent
 {
@@ -17,10 +17,10 @@ class CollisionComponent
 public:
         CollisionComponent(const BoundingBox& boundingBox);
 
-        void handleCollision(const Entity& entity);
+        void handleCollision(const SceneNode& entity);
 
         // TODO implement
-        bool collidesWith(const Entity& entity);
+        bool collidesWith(const SceneNode& entity);
 
         const BoundingBox& getBoundingBox() const;
 

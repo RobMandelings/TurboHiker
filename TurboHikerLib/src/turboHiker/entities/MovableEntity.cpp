@@ -10,7 +10,7 @@ turboHiker::MovableEntity::MovableEntity(const turboHiker::Vector2d& initialLoca
                                          std::unique_ptr<BoundingBox> mBoundingBox,
                                          std::unique_ptr<RenderComponent> renderComponent,
                                          const turboHiker::Vector2d& mVelocity)
-    : Entity(initialLocation, std::move(mBoundingBox), std::move(renderComponent)), mVelocity(mVelocity)
+    : SceneNode(initialLocation, std::move(mBoundingBox), std::move(renderComponent)), mVelocity(mVelocity)
 {
 }
 

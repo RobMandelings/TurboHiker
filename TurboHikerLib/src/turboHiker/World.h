@@ -5,9 +5,9 @@
 #ifndef TURBOHIKER_WORLD_H
 #define TURBOHIKER_WORLD_H
 
-#include "Entity.h"
 #include "EntityFactory.h"
 #include "Renderable.h"
+#include "SceneNode.h"
 #include "Updatable.h"
 
 #include "InputComponent.h"
@@ -36,7 +36,7 @@ private:
         /**
          * This is Main Game Object of the world, it contains all sub game objects (can be entities, decorations,...)
          */
-        std::unique_ptr<Entity> mSceneGraph;
+        std::unique_ptr<SceneNode> mSceneGraph;
 
         std::unique_ptr<EntityFactory> mEntityFactory;
 };

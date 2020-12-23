@@ -19,7 +19,7 @@ turboHiker::PhysicsComponent::PhysicsComponent(const Vector2d& initialLocation,
 
 void turboHiker::PhysicsComponent::update(turboHiker::Updatable::seconds dt) {}
 
-void turboHiker::PhysicsComponent::handleCollision(const turboHiker::Entity& entity)
+void turboHiker::PhysicsComponent::handleCollision(const turboHiker::SceneNode& entity)
 {
         if (mCollisionComponent->collidesWith(entity)) {
                 mCollisionComponent->handleCollision(entity);

@@ -14,7 +14,7 @@ namespace turboHiker {
 
 class CollisionComponent;
 class Vector2d;
-class Entity;
+class SceneNode;
 
 class PhysicsComponent : public Updatable
 {
@@ -23,7 +23,7 @@ public:
         PhysicsComponent(const Vector2d& initialLocation, std::unique_ptr<CollisionComponent> collisionComponent);
         void update(seconds dt) override;
 
-        void handleCollision(const Entity& entity);
+        void handleCollision(const SceneNode& entity);
 
         const Vector2d& getLocation() const;
 
