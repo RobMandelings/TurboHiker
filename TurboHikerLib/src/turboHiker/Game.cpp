@@ -9,7 +9,7 @@
 #include <iostream>
 #include <thread>
 
-turboHiker::Game::Game(std::chrono::duration<double> timePerFrame, std::unique_ptr<World>& world)
+turboHiker::Game::Game(std::chrono::duration<double> timePerFrame, std::unique_ptr<World> world)
     : m_timePerFrame(timePerFrame), mWorld(std::move(world))
 {
 }

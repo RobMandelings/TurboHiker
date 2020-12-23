@@ -14,7 +14,7 @@
 
 namespace turboHikerSFML {
 // Maybe its better to extend from RenderWindow
-class WindowHandler : WindowDrawer
+class WindowHandler : public WindowDrawer
 {
 public:
         WindowHandler();

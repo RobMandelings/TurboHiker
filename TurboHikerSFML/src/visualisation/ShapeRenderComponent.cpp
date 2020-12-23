@@ -11,4 +11,5 @@ turboHikerSFML::ShapeRenderComponent::ShapeRenderComponent(turboHikerSFML::Windo
 }
 void turboHikerSFML::ShapeRenderComponent::draw(const turboHiker::Vector2d& worldLocation) const {
         drawOnWindow(*mShape, worldLocation);
+
 }

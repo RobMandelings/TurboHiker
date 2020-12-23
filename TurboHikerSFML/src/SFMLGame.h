@@ -16,7 +16,7 @@ class SFMLGame : public turboHiker::Game
 {
 private:
 public:
-        SFMLGame(const std::chrono::duration<double>& timePerFrame, std::unique_ptr<turboHiker::World>& world);
+        SFMLGame(const std::chrono::duration<double>& timePerFrame);
         void stopRunning() override;
         bool isRunning() const override;
 

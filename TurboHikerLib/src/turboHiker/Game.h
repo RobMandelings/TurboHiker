@@ -13,7 +13,7 @@ class Game
 {
 
 public:
-        Game(std::chrono::duration<double> timePerFrame, std::unique_ptr<World>& world);
+        Game(std::chrono::duration<double> timePerFrame, std::unique_ptr<World> world);
 
         /**
          * Starts and maintains the Game Loop

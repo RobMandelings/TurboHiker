@@ -12,10 +12,8 @@
 
 #include <iostream>
 
-turboHiker::World::World(std::unique_ptr<EntityFactory> entityFactory) : mEntityFactory(std::move(entityFactory))
-{
-        buildWorld();
-}
+turboHiker::World::World() : mEntityFactory(nullptr)
+{}
 
 void turboHiker::World::update(Updatable::seconds dt)
 {
@@ -34,8 +32,13 @@ void turboHiker::World::draw() const {
 
 void turboHiker::World::buildWorld()
 {
+        assert(mEntityFactory != nullptr && "Entityfactory not set: no way to create new entities");
         // Pre-condition
         assert(mMainEntities.empty() && "The world is already built!");
 
         mMainEntities.push_back(mEntityFactory->createStaticHiker(Vector2d(20, 50)));
+}
+
+void turboHiker::World::setEntityFactory(std::unique_ptr<EntityFactory> entityFactory) {
+        mEntityFactory = std::move(entityFactory);
 }

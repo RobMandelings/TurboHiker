@@ -22,14 +22,16 @@ class World : private Updatable, private Drawable
 {
 
 public:
-        World(std::unique_ptr<EntityFactory> entityFactory);
+        World();
 
         void update(seconds dt) override;
         void draw() const override;
 
-private:
+        void setEntityFactory(std::unique_ptr<EntityFactory> entityFactory);
 
         void buildWorld();
+
+private:
 
         /**
          * This is Main Game Object of the world, it contains all sub game objects (can be entities, decorations,...)

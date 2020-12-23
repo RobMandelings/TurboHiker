@@ -14,7 +14,7 @@ class WorldLocation;
 
 namespace turboHikerSFML {
 
-class RenderComponentSFML : turboHiker::RenderComponent
+class RenderComponentSFML : public turboHiker::RenderComponent
 {
 public:
         explicit RenderComponentSFML(WindowDrawer& windowDrawer);

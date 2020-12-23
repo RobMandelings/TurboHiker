@@ -6,13 +6,16 @@
 #define TURBOHIKER_SHAPERENDERCOMPONENT_H
 
 #include "RenderComponentSFML.h"
-#include "Vector2d.h"
-#include "WorldLocation.h"
 #include <SFML/Graphics/Shape.hpp>
 #include <memory>
 
+namespace turboHiker {
+class Vector2d;
+class WorldLocation;
+}
+
 namespace turboHikerSFML {
-class ShapeRenderComponent : RenderComponentSFML
+class ShapeRenderComponent : public RenderComponentSFML
 {
 
 public:

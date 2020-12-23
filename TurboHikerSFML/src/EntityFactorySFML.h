@@ -18,10 +18,19 @@ class Entity;
  */
 namespace turboHikerSFML {
 
+class WindowDrawer;
+
 class EntityFactorySFML : public turboHiker::EntityFactory
 {
 
+public:
+        EntityFactorySFML(WindowDrawer& mWindowDrawer);
+
         std::unique_ptr<turboHiker::Entity> createStaticHiker(const turboHiker::Vector2d& location) const override;
+
+private:
+
+        WindowDrawer& mWindowDrawer;
 };
 } // namespace turboHikerSFML
 

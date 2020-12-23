@@ -4,11 +4,14 @@
 
 #include "SFMLGame.h"
 
+#include "EntityFactorySFML.h"
+
 using namespace turboHikerSFML;
 
-SFMLGame::SFMLGame(const std::chrono::duration<double>& timePerFrame, std::unique_ptr<turboHiker::World>& world)
-    : Game(timePerFrame, world), mWindowHandler()
+SFMLGame::SFMLGame(const std::chrono::duration<double>& timePerFrame) : Game(timePerFrame, std::make_unique<turboHiker::World>()), mWindowHandler()
 {
+        mWorld->setEntityFactory(std::make_unique<EntityFactorySFML>(mWindowHandler));
+        mWorld->buildWorld();
 }
 
 void SFMLGame::processEvents() { mWindowHandler.processEvents(); }
