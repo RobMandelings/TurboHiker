@@ -2,11 +2,11 @@
 // Created by RobMa on 23/12/2020.
 //
 
-#include "MovableEntity.h"
+#include "Entity.h"
 #include "BoundingBox.h"
 #include "RenderComponent.h"
 
-turboHiker::MovableEntity::MovableEntity(const turboHiker::Vector2d& initialLocation,
+turboHiker::Entity::Entity(const turboHiker::Vector2d& initialLocation,
                                          std::unique_ptr<BoundingBox> mBoundingBox,
                                          std::unique_ptr<RenderComponent> renderComponent,
                                          const turboHiker::Vector2d& mVelocity)
@@ -14,11 +14,11 @@ turboHiker::MovableEntity::MovableEntity(const turboHiker::Vector2d& initialLoca
 {
 }
 
-void turboHiker::MovableEntity::setVelocity(const turboHiker::Vector2d& newVelocity) {
+void turboHiker::Entity::setVelocity(const turboHiker::Vector2d& newVelocity) {
         mVelocity = newVelocity;
 }
-void turboHiker::MovableEntity::accelerate(const turboHiker::Vector2d& acceleration) {
+void turboHiker::Entity::accelerate(const turboHiker::Vector2d& acceleration) {
         mVelocity += acceleration;
 }
 
-void turboHiker::MovableEntity::updateCurrent(turboHiker::Updatable::seconds dt) { mLocation += mVelocity * dt; }
+void turboHiker::Entity::updateCurrent(turboHiker::Updatable::seconds dt) { mLocation += mVelocity * dt; }

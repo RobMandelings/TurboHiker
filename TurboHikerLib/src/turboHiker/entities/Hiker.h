@@ -5,12 +5,12 @@
 #ifndef TURBOHIKER_HIKER_H
 #define TURBOHIKER_HIKER_H
 
-#include "MovableEntity.h"
+#include "Entity.h"
 
 namespace turboHiker {
 /** An SceneNode which only takes an InputComponent and RenderComponent. The MovingPhysicsComponent is created inside here
  */
-class Hiker : public MovableEntity
+class Hiker : public Entity
 {
 
 public:

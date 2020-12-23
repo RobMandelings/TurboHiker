@@ -5,7 +5,7 @@
 #include "EntityFactorySFML.h"
 
 #include "BoundingBox.h"
-#include "MovableEntity.h"
+#include "Entity.h"
 #include "SFML/Graphics/CircleShape.hpp"
 #include "SceneNode.h"
 #include "ShapeRenderComponent.h"
@@ -28,6 +28,6 @@ std::unique_ptr<SceneNode> turboHikerSFML::EntityFactorySFML::createTestCircle(c
 
         std::unique_ptr<ShapeRenderComponent> shapeRenderComponent = std::make_unique<ShapeRenderComponent>(mWindowDrawer, std::move(shape));
 
-        return std::make_unique<MovableEntity>(Vector2d(50, 50), nullptr, std::move(shapeRenderComponent), Vector2d(35, 2));
+        return std::make_unique<Entity>(Vector2d(50, 50), nullptr, std::move(shapeRenderComponent), Vector2d(35, 2));
 
 }

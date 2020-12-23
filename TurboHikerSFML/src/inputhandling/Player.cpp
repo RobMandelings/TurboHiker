@@ -1,6 +1,6 @@
 #include "Player.h"
 #include "CommandQueue.h"
-#include "MovableEntity.h"
+#include "Entity.h"
 
 #include <algorithm>
 #include <map>
@@ -13,7 +13,7 @@ struct MovableEntityMover
 {
         MovableEntityMover(float vx, float vy) : velocity(vx, vy) {}
 
-        void operator()(turboHiker::MovableEntity& movableEntity, Updatable::seconds) const {
+        void operator()(turboHiker::Entity& movableEntity, Updatable::seconds) const {
                 movableEntity.accelerate(velocity); }
 
         turboHiker::Vector2d velocity;
@@ -86,10 +86,10 @@ void Player::initializeActions()
 {
         const float playerSpeed = 20.f;
 
-        mActionBinding[MoveLeft].action = derivedAction<MovableEntity>(MovableEntityMover(-playerSpeed, 0.f));
-        mActionBinding[MoveRight].action = derivedAction<MovableEntity>(MovableEntityMover(+playerSpeed, 0.f));
-        mActionBinding[MoveUp].action = derivedAction<MovableEntity>(MovableEntityMover(0.f, -playerSpeed));
-        mActionBinding[MoveDown].action = derivedAction<MovableEntity>(MovableEntityMover(0.f, +playerSpeed));
+        mActionBinding[MoveLeft].action = derivedAction<Entity>(MovableEntityMover(-playerSpeed, 0.f));
+        mActionBinding[MoveRight].action = derivedAction<Entity>(MovableEntityMover(+playerSpeed, 0.f));
+        mActionBinding[MoveUp].action = derivedAction<Entity>(MovableEntityMover(0.f, -playerSpeed));
+        mActionBinding[MoveDown].action = derivedAction<Entity>(MovableEntityMover(0.f, +playerSpeed));
 }
 
 bool Player::isRealtimeAction(Action action)
