@@ -16,10 +16,10 @@ namespace turboHiker {
 class EmptyRenderComponent : public RenderComponent
 {
 public:
-        void update(const Updatable::seconds& dt, const Vector2d& worldLocation) override;
+        void update(const Updatable::seconds& dt, const Vector2d& worldLocation) override{};
 
-        void render() const override;
+        void render() const override{};
 };
-}
+} // namespace turboHiker
 
 #endif // TURBOHIKER_EMPTYRENDERCOMPONENT_H

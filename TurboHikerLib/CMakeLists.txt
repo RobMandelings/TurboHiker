@@ -31,7 +31,6 @@ set(SRC
         src/turboHiker/entities/components/InputComponent.h
         src/turboHiker/entities/components/physics/MovingPhysicsComponent.cpp
         src/turboHiker/entities/components/physics/MovingPhysicsComponent.h
-        src/turboHiker/entities/components/EmptyRenderComponent.cpp
         src/turboHiker/entities/components/EmptyRenderComponent.h
         src/turboHiker/entities/components/physics/CollisionComponent.cpp
         src/turboHiker/entities/components/physics/CollisionComponent.h
