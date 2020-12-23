@@ -19,8 +19,6 @@ public:
         MyRenderWindow(const sf::VideoMode& mode, const sf::String& title, unsigned int style = sf::Style::Default,
                        const sf::ContextSettings& settings = sf::ContextSettings());
 
-
-
 private:
         void renderOnWindow(const sf::Drawable& drawable) override;
 };

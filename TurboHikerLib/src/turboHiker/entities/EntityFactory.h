@@ -19,7 +19,10 @@ class EntityFactory
 
 public:
         virtual std::unique_ptr<SceneNode> createTestCircle(const Vector2d& location,
-                                                         const Vector2d& initialVelocity) const = 0;
+                                                            const Vector2d& initialVelocity) const = 0;
+
+        virtual std::unique_ptr<SceneNode> createHiker(const Vector2d& location, const Vector2d& initialVelocity,
+                                                       bool playerControlled) const = 0;
 };
 } // namespace turboHiker
 

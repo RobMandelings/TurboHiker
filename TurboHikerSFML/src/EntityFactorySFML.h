@@ -28,6 +28,9 @@ public:
 
         std::unique_ptr<turboHiker::SceneNode> createTestCircle(const turboHiker::Vector2d& location,
                                                  const turboHiker::Vector2d& initialVelocity) const override;
+        std::unique_ptr<turboHiker::SceneNode> createHiker(const turboHiker::Vector2d& location,
+                                               const turboHiker::Vector2d& initialVelocity,
+                                               bool playerControlled) const override;
 
 private:
         DrawableRenderer& mWindowRenderer;
