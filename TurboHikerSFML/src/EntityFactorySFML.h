@@ -26,7 +26,8 @@ class EntityFactorySFML : public turboHiker::EntityFactory
 public:
         EntityFactorySFML(WindowDrawer& mWindowDrawer);
 
-        std::unique_ptr<turboHiker::Entity> createStaticHiker(const turboHiker::Vector2d& location) const override;
+        std::unique_ptr<turboHiker::Entity> createTestCircle(const turboHiker::Vector2d& location,
+                                                 const turboHiker::Vector2d& initialVelocity) const override;
 
 private:
 

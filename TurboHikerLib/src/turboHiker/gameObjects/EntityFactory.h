@@ -18,7 +18,8 @@ class EntityFactory
 {
 
 public:
-        virtual std::unique_ptr<Entity> createStaticHiker(const Vector2d& location) const = 0;
+        virtual std::unique_ptr<Entity> createTestCircle(const Vector2d& location,
+                                                         const Vector2d& initialVelocity) const = 0;
 };
 } // namespace turboHiker
 

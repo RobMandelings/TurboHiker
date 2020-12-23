@@ -22,13 +22,14 @@ turboHikerSFML::EntityFactorySFML::EntityFactorySFML(turboHikerSFML::WindowDrawe
 {
 }
 
-std::unique_ptr<Entity> turboHikerSFML::EntityFactorySFML::createStaticHiker(const Vector2d& location) const
+std::unique_ptr<Entity> turboHikerSFML::EntityFactorySFML::createTestCircle(const Vector2d& location,
+                                                                            const Vector2d& initialVelocity) const
 {
 
         std::unique_ptr<CollisionComponent> collisionComponent = std::make_unique<CollisionComponent>(BoundingBox(0, 0, 0, 0));
         // Implement
         std::unique_ptr<MovingPhysicsComponent> movingPhysicsComponent =
-            std::make_unique<MovingPhysicsComponent>(location, std::move(collisionComponent), Vector2d(3.0, -5.0));
+            std::make_unique<MovingPhysicsComponent>(location, std::move(collisionComponent), Vector2d(initialVelocity.x, initialVelocity.y));
         std::unique_ptr<InputComponent> inputComponent = std::make_unique<InputComponent>();
 
         std::unique_ptr<sf::Shape> shape = std::make_unique<sf::CircleShape>(50.0f);

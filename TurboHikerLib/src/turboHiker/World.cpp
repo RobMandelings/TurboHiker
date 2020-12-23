@@ -36,7 +36,8 @@ void turboHiker::World::buildWorld()
         // Pre-condition
         assert(mMainEntities.empty() && "The world is already built!");
 
-        mMainEntities.push_back(mEntityFactory->createStaticHiker(Vector2d(20, 50)));
+        mMainEntities.push_back(mEntityFactory->createTestCircle(Vector2d(20, 50), Vector2d(5, 10)));
+        mMainEntities.push_back(mEntityFactory->createTestCircle(Vector2d(50, 50), Vector2d(2, -5)));
 }
 
 void turboHiker::World::setEntityFactory(std::unique_ptr<EntityFactory> entityFactory) {
