@@ -24,5 +24,5 @@ void turboHikerSFML::ShapeRenderComponent::update(const turboHiker::Updatable::s
 
 void turboHikerSFML::ShapeRenderComponent::render() const
 {
-        drawOnWindow(*mShape);
+        renderOnWindow(*mShape);
 }

@@ -19,10 +19,7 @@ class RenderComponentSFML : public turboHiker::RenderComponent
 public:
         explicit RenderComponentSFML(WindowRenderer& windowDrawer);
 
-public:
-        void renderOnWindow(sf::Sprite& drawable) const;
-
-        void drawOnWindow(sf::Shape& drawable) const;
+        void renderOnWindow(const sf::Drawable& drawable) const;
 
 private:
         WindowRenderer& mWindowDrawer;

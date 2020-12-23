@@ -24,8 +24,6 @@ class WindowRenderer
 
 public:
         /** Draws an SFML Drawable Object on the window */
-        virtual void renderOnWindow(sf::Sprite& drawable) = 0;
-
-        virtual void renderOnWindow(sf::Shape& drawable) = 0;
+        virtual void renderOnWindow(const sf::Drawable& drawable) = 0;
 };
 } // namespace turboHikerSFML

@@ -5,9 +5,6 @@
 #include "SpriteRenderComponent.h"
 
 #include <utility>
-void turboHikerSFML::SpriteRenderComponent::render() const
-{ renderOnWindow(*mShape);
-}
 turboHikerSFML::SpriteRenderComponent::SpriteRenderComponent(WindowRenderer& windowDrawer, const sf::Sprite& sprite)
     : RenderComponentSFML(windowDrawer), mShape(std::make_unique<sf::Sprite>(sprite))
 {
@@ -17,3 +14,5 @@ void turboHikerSFML::SpriteRenderComponent::update(const turboHiker::Updatable::
 {
         mShape->setPosition(float(currentWorldLocation.x), float(currentWorldLocation.y));
 }
+
+void turboHikerSFML::SpriteRenderComponent::render() const { renderOnWindow(*mShape); }

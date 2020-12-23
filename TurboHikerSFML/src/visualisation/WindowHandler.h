@@ -27,9 +27,8 @@ public:
 
         void closeWindow();
 
-        void renderOnWindow(sf::Sprite& sprite) override;
+        void renderOnWindow(const sf::Drawable& drawable) override;
 
-        void renderOnWindow(sf::Shape& drawable) override;
 public:
         const sf::RenderWindow& getWindow() const;
 
