@@ -27,7 +27,7 @@ std::unique_ptr<SceneNode> turboHikerSFML::EntityFactorySFML::createTestCircle(c
         shape->setFillColor(sf::Color(100, 0, 0));
 
         std::unique_ptr<ShapeRenderComponent> shapeRenderComponent =
-            std::make_unique<ShapeRenderComponent>(mWindowRenderer, std::move(shape));
+            std::make_unique<ShapeRenderComponent>(mWindowRenderer, std::move(shape), 100);
 
         return std::make_unique<Entity>(location, nullptr, std::move(shapeRenderComponent), initialVelocity);
 }
@@ -37,10 +37,10 @@ std::unique_ptr<SceneNode> turboHikerSFML::EntityFactorySFML::createHiker(const 
                                                                           bool playerControlled) const
 {
         std::unique_ptr<sf::Shape> shape = std::make_unique<sf::CircleShape>(50.0f);
-        shape->setFillColor(sf::Color(100, 0, 0));
+        shape->setFillColor(sf::Color(100, 0, 200));
 
         std::unique_ptr<ShapeRenderComponent> shapeRenderComponent =
-            std::make_unique<ShapeRenderComponent>(mWindowRenderer, std::move(shape));
+            std::make_unique<ShapeRenderComponent>(mWindowRenderer, std::move(shape), 100);
 
         return std::make_unique<Hiker>(location, nullptr, std::move(shapeRenderComponent), initialVelocity,
                                        playerControlled);

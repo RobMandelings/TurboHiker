@@ -19,7 +19,7 @@ class ShapeRenderComponent : public RenderComponentSFML
 {
 
 public:
-        ShapeRenderComponent(DrawableRenderer& windowDrawer, std::unique_ptr<sf::Shape> shape);
+        ShapeRenderComponent(DrawableRenderer& windowDrawer, std::unique_ptr<sf::Shape> shape, double speed);
 
         void update(const turboHiker::Updatable::seconds& dt,
                     const turboHiker::Vector2d& currentWorldLocation) override;
@@ -30,6 +30,8 @@ private:
         std::unique_ptr<sf::Shape> mShape;
 
         bool goingDown;
+        double speed;
+        double summedDt;
 };
 } // namespace turboHikerSFML
 

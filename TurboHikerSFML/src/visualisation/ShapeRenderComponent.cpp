@@ -6,9 +6,9 @@
 
 #include "SFML/Graphics/Shape.hpp"
 
-turboHikerSFML::ShapeRenderComponent::ShapeRenderComponent(turboHikerSFML::DrawableRenderer& windowDrawer,
-                                                           std::unique_ptr<sf::Shape> shape)
-    : RenderComponentSFML(windowDrawer), mShape(std::move(shape)), goingDown(false)
+turboHikerSFML::ShapeRenderComponent::ShapeRenderComponent(DrawableRenderer& windowDrawer,
+                                                           std::unique_ptr<sf::Shape> shape, double speed)
+    : RenderComponentSFML(windowDrawer), mShape(std::move(shape)), goingDown(false), speed(speed), summedDt(0)
 {
 }
 
@@ -24,10 +24,12 @@ void turboHikerSFML::ShapeRenderComponent::update(const turboHiker::Updatable::s
                 goingDown = false;
         }
 
-        mShape->setFillColor(sf::Color(mShape->getFillColor().r + (goingDown ? -1 : 1), mShape->getFillColor().g, mShape->getFillColor().b));
+        std::cout << int((goingDown ? -1 : 1) * speed) << std::endl;
+
+        // One second has passed
+        mShape->setFillColor(sf::Color(mShape->getFillColor().r + int((goingDown ? -1 : 1) * speed * dt.count()),
+                                       mShape->getFillColor().g, mShape->getFillColor().b));
+        summedDt = 0;
 }
 
-void turboHikerSFML::ShapeRenderComponent::render() const
-{
-        renderOnWindow(*mShape);
-}
+void turboHikerSFML::ShapeRenderComponent::render() const { renderOnWindow(*mShape); }
