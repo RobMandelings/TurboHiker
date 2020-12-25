@@ -31,7 +31,7 @@ void turboHiker::World::buildWorld()
 {
         assert(mEntityFactory != nullptr && "Entityfactory not set: no way to create new entities");
 
-        mSceneGraph.attachChild(mEntityFactory->createTestCircle(Vector2d(0, 49), Vector2d(0, 0)));
+        //mSceneGraph.attachChild(mEntityFactory->createTestCircle(Vector2d(0, 49), Vector2d(0, 0)));
         // mSceneGraph.attachChild(mEntityFactory->createTestCircle(Vector2d(50, 50), Vector2d(0, 0)));
 
         mSceneGraph.attachChild(mEntityFactory->createHiker(Vector2d(20, 0), Vector2d(0, 0), true));

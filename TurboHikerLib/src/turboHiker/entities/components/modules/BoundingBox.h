@@ -9,7 +9,7 @@ class BoundingBox
 {
 
 public:
-        BoundingBox(double left, double top, double width, double height);
+        BoundingBox(double left, double bottom, double width, double height);
 
         double getLeft() const;
         double getTop() const;
@@ -22,7 +22,7 @@ public:
 
 private:
         double mLeft;
-        double mTop;
+        double mBottom;
         double mWidth;
         double mHeight;
 };

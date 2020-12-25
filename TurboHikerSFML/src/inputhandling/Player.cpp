@@ -88,8 +88,8 @@ void Player::initializeActions()
 
         mActionBinding[MoveLeft].action = derivedAction<Entity>(MovableEntityMover(-playerSpeed, 0.f));
         mActionBinding[MoveRight].action = derivedAction<Entity>(MovableEntityMover(+playerSpeed, 0.f));
-        mActionBinding[MoveUp].action = derivedAction<Entity>(MovableEntityMover(0.f, -playerSpeed));
-        mActionBinding[MoveDown].action = derivedAction<Entity>(MovableEntityMover(0.f, +playerSpeed));
+        mActionBinding[MoveUp].action = derivedAction<Entity>(MovableEntityMover(0.f, +playerSpeed));
+        mActionBinding[MoveDown].action = derivedAction<Entity>(MovableEntityMover(0.f, -playerSpeed));
 }
 
 bool Player::isRealtimeAction(Action action)
