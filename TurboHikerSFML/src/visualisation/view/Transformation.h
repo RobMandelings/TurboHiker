@@ -6,10 +6,18 @@
 #define TURBOHIKER_TRANSFORMATION_H
 
 #include "WorldView.h"
+#include "WindowSize.h"
 
+#include <SFML/Graphics/Rect.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/System.hpp>
+#include <memory>
 #include <mutex>
 #include <utility>
-#include <memory>
+
+namespace turboHiker {
+class BoundingBox;
+}
 
 namespace turboHikerSFML {
 
@@ -17,33 +25,41 @@ class Transformation
 {
 
 public:
-
         Transformation(Transformation& other) = delete;
 
         void operator=(const Transformation&) = delete;
 
         static const Transformation& get();
 
-        void initWorldView(const WorldView& worldView);
+        void initialize(const WorldView& worldView, const WindowSize& windowSize);
 
         WorldView& getWorldView() const;
 
-private:
+        WindowSize& getWindowSize() const;
 
+        sf::Vector2f convertWorldCoordinatesToPixelValues(const turboHiker::Vector2d& worldCoordinates) const;
+
+        sf::FloatRect convertWorldBoundingBoxToVisualBoundingBox(const turboHiker::BoundingBox& worldBoundingBox) const;
+
+        turboHiker::BoundingBox convertVisualBoundingBoxToWorldBoundingBox(
+            const sf::FloatRect& visualBoundingBox) const;
+
+private:
         explicit Transformation();
 
 private:
-
-        static Transformation mInstance;
+        static Transformation* mInstance;
 
         static std::mutex mMutex;
 
+        bool initialized() const;
+
         std::unique_ptr<WorldView> mWorldView;
 
+        std::unique_ptr<WindowSize> mWindowSize;
 };
 
 std::mutex Transformation::mMutex;
-
 
 } // namespace turboHikerSFML
 

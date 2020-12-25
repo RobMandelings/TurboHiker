@@ -39,7 +39,7 @@ set(SRC
         src/visualisation/ShapeRenderComponent.cpp
         src/visualisation/ShapeRenderComponent.h
         src/inputhandling/Player.cpp
-        src/inputhandling/Player.h src/visualisation/MyRenderWindow.cpp src/visualisation/MyRenderWindow.h src/visualisation/view/WorldView.cpp src/visualisation/view/WorldView.h)
+        src/inputhandling/Player.h src/visualisation/MyRenderWindow.cpp src/visualisation/MyRenderWindow.h src/visualisation/view/WorldView.cpp src/visualisation/view/WorldView.h src/visualisation/view/WindowSize.cpp src/visualisation/view/WindowSize.h)
 
 include_directories(
         ${SFML_INCLUDE_DIR}

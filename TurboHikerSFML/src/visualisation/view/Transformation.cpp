@@ -4,27 +4,37 @@
 
 #include "Transformation.h"
 
+#include "BoundingBox.h"
 #include <cassert>
 
+using namespace turboHiker;
 using namespace turboHikerSFML;
 
-Transformation::Transformation() : mWorldView(nullptr) {}
+Transformation::Transformation() : mWorldView(nullptr), mWindowSize(nullptr) {}
+
+void Transformation::initialize(const WorldView& worldView, const WindowSize& windowSize)
+{
+        mWorldView = std::make_unique<WorldView>(worldView);
+        mWindowSize = std::make_unique<WindowSize>(windowSize);
+}
 
 const Transformation& Transformation::get()
 {
         std::lock_guard<std::mutex> lock(mMutex);
+
         static Transformation instance;
 
         return instance;
 }
 
-void Transformation::initWorldView(const WorldView& worldView)
-{
-        assert(mWorldView == nullptr && "WorldView is already initialized");
-        mWorldView = std::make_unique<WorldView>(worldView);
-}
+bool Transformation::initialized() const { return mWorldView != nullptr && mWindowSize != nullptr; }
+
 WorldView& Transformation::getWorldView() const
 {
-        assert(mWorldView != nullptr && "WorldView is not yet initialized!");
+        assert(initialized() && "Transformation singleton not yet initialized with required values (View and window)!");
         return *mWorldView;
+}
+
+WindowSize& Transformation::getWindowSize() const {
+        return *mWindowSize;
 }
