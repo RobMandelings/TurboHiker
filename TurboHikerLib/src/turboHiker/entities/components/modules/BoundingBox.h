@@ -18,6 +18,8 @@ public:
         double getWidth() const;
         double getHeight() const;
 
+        bool empty() const;
+
 private:
         double mLeft;
         double mTop;

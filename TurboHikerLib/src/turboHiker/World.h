@@ -10,6 +10,7 @@
 #include "SceneNode.h"
 #include "Updatable.h"
 
+#include "BoundingBox.h"
 #include "RenderComponent.h"
 
 #include "CommandQueue.h"
@@ -22,7 +23,7 @@ class World : private Updatable, private Renderable
 {
 
 public:
-        World();
+        World(const BoundingBox& worldBorders);
 
         void update(seconds dt) override;
         void render() const override;
@@ -32,6 +33,8 @@ public:
         CommandQueue& getCommandQueue();
 
         void buildWorld();
+
+        const BoundingBox& getWorldBorders() const;
 
 private:
 
@@ -43,6 +46,8 @@ private:
         CommandQueue mCommandQueue;
 
         std::unique_ptr<EntityFactory> mEntityFactory;
+
+        const turboHiker::BoundingBox mWorldBorders;
 };
 } // namespace turboHiker
 

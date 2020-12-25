@@ -4,6 +4,7 @@
 
 #include "ShapeRenderComponent.h"
 
+#include "Transformation.h"
 #include "SFML/Graphics/Shape.hpp"
 
 turboHikerSFML::ShapeRenderComponent::ShapeRenderComponent(DrawableRenderer& windowDrawer,
@@ -16,7 +17,9 @@ void turboHikerSFML::ShapeRenderComponent::update(const turboHiker::Updatable::s
                                                   const turboHiker::Vector2d& currentWorldLocation)
 {
 
-        mShape->setPosition(float(currentWorldLocation.x), float(currentWorldLocation.y));
+        sf::Vector2f pixelCoordinates = Transformation::get().convertWorldCoordinatesToPixelCoordinates(currentWorldLocation);
+
+        mShape->setPosition(pixelCoordinates.x, pixelCoordinates.y);
 
         if (mShape->getFillColor().r == 255) {
                 goingDown = true;

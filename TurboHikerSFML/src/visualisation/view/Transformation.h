@@ -7,6 +7,7 @@
 
 #include "WorldView.h"
 #include "WindowSize.h"
+#include "BoundingBox.h"
 
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -31,7 +32,8 @@ public:
 
         static Transformation& get();
 
-        void initialize(const WorldView& worldView, const WindowSize& windowSize);
+        void initialize(const WorldView& worldView, const WindowSize& windowSize,
+                        const turboHiker::BoundingBox& worldBorders);
 
         WorldView& getWorldView() const;
 
@@ -57,6 +59,9 @@ private:
         std::unique_ptr<WorldView> mWorldView;
 
         std::unique_ptr<WindowSize> mWindowSize;
+
+        /** Needed to translate the definition of what is the top of the world and what is the bottom */
+        turboHiker::BoundingBox mWorldBorders;
 };
 
 } // namespace turboHikerSFML

@@ -10,7 +10,7 @@
 using namespace turboHiker;
 using namespace turboHikerSFML;
 
-Transformation::Transformation() : mWorldView(nullptr), mWindowSize(nullptr) {}
+Transformation::Transformation() : mWorldView(nullptr), mWindowSize(nullptr), mWorldBorders(0, 0, 0, 0) {}
 
 Transformation& Transformation::get()
 {
@@ -21,14 +21,16 @@ Transformation& Transformation::get()
         return instance;
 }
 
-void Transformation::initialize(const WorldView& worldView, const WindowSize& windowSize)
+void Transformation::initialize(const WorldView& worldView, const WindowSize& windowSize,
+                                const BoundingBox& worldBorders)
 {
         std::cout << "Initializing!" << std::endl;
         mWorldView = std::make_unique<WorldView>(worldView);
         mWindowSize = std::make_unique<WindowSize>(windowSize);
+        mWorldBorders = worldBorders;
 }
 
-bool Transformation::initialized() const { return mWorldView != nullptr && mWindowSize != nullptr; }
+bool Transformation::initialized() const { return mWorldView != nullptr && mWindowSize != nullptr && !mWorldBorders.empty(); }
 
 WorldView& Transformation::getWorldView() const
 {
@@ -46,7 +48,7 @@ sf::Vector2f Transformation::convertWorldCoordinatesToPixelCoordinates(const Vec
 {
         sf::Vector2f pixelCoordinates(
             worldCoordinates.x * (getWindowSize().getWidth() / getWorldView().getWorldXSize()),
-            worldCoordinates.y * (getWindowSize().getHeight() / getWorldView().getWorldYSize()));
+            (mWorldBorders.getTop() - worldCoordinates.y) * (getWindowSize().getHeight() / getWorldView().getWorldYSize()));
 
         return pixelCoordinates;
 }
