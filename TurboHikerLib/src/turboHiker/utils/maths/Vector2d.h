@@ -21,9 +21,11 @@ struct Vector2d
          * @param seconds
          * @return
          */
-        Vector2d operator*(std::chrono::duration<double> seconds);
-
+        Vector2d operator*(std::chrono::duration<double> seconds) const;
         Vector2d operator*(double scalar) const;
+
+        Vector2d& operator*=(std::chrono::duration<double> seconds);
+        Vector2d& operator*=(double scalar);
 
         Vector2d operator+(const Vector2d& vector2D) const;
         Vector2d operator-(const Vector2d& vector2D) const;

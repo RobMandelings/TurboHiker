@@ -12,12 +12,6 @@ using namespace turboHikerSFML;
 
 Transformation::Transformation() : mWorldView(nullptr), mWindowSize(nullptr) {}
 
-void Transformation::initialize(const WorldView& worldView, const WindowSize& windowSize)
-{
-        mWorldView = std::make_unique<WorldView>(worldView);
-        mWindowSize = std::make_unique<WindowSize>(windowSize);
-}
-
 const Transformation& Transformation::get()
 {
         std::lock_guard<std::mutex> lock(mMutex);
@@ -25,6 +19,12 @@ const Transformation& Transformation::get()
         static Transformation instance;
 
         return instance;
+}
+
+void Transformation::initialize(const WorldView& worldView, const WindowSize& windowSize)
+{
+        mWorldView = std::make_unique<WorldView>(worldView);
+        mWindowSize = std::make_unique<WindowSize>(windowSize);
 }
 
 bool Transformation::initialized() const { return mWorldView != nullptr && mWindowSize != nullptr; }
@@ -36,5 +36,11 @@ WorldView& Transformation::getWorldView() const
 }
 
 WindowSize& Transformation::getWindowSize() const {
+        assert(initialized());
         return *mWindowSize;
+}
+
+sf::Vector2f Transformation::convertWorldCoordinatesToPixelValues(const Vector2d& worldCoordinates) const
+{
+        return worldCoordinates
 }
