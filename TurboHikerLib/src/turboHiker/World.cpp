@@ -36,6 +36,7 @@ void turboHiker::World::buildWorld()
 
 void turboHiker::World::setEntityFactory(std::unique_ptr<EntityFactory> entityFactory)
 {
+        assert(mEntityFactory == nullptr && "Entity factory can only be set once");
         mEntityFactory = std::move(entityFactory);
 }
 
