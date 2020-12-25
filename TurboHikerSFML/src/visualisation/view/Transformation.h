@@ -37,7 +37,7 @@ public:
 
         WindowSize& getWindowSize() const;
 
-        sf::Vector2f convertWorldCoordinatesToPixelValues(const turboHiker::Vector2d& worldCoordinates) const;
+        sf::Vector2f convertWorldCoordinatesToPixelCoordinates(const turboHiker::Vector2d& worldCoordinates) const;
 
         sf::FloatRect convertWorldBoundingBoxToVisualBoundingBox(const turboHiker::BoundingBox& worldBoundingBox) const;
 
@@ -47,12 +47,12 @@ public:
 private:
         explicit Transformation();
 
+        bool initialized() const;
+
 private:
         static Transformation* mInstance;
 
         static std::mutex mMutex;
-
-        bool initialized() const;
 
         std::unique_ptr<WorldView> mWorldView;
 

@@ -40,7 +40,9 @@ WindowSize& Transformation::getWindowSize() const {
         return *mWindowSize;
 }
 
-sf::Vector2f Transformation::convertWorldCoordinatesToPixelValues(const Vector2d& worldCoordinates) const
+sf::Vector2f Transformation::convertWorldCoordinatesToPixelCoordinates(const Vector2d& worldCoordinates) const
 {
-        return worldCoordinates
+        sf::Vector2f pixelCoordinates(worldCoordinates.x * (getWindowSize().getWidth() / getWorldView().getWorldXSize()), worldCoordinates.y * (getWindowSize().getHeight() / getWorldView().getWorldYSize()));
+
+        return pixelCoordinates;
 }
