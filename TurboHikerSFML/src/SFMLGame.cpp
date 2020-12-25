@@ -4,6 +4,7 @@
 
 #include "SFMLGame.h"
 
+#include "Transformation.h"
 #include "BoundingBox.h"
 #include "World.h"
 
@@ -17,6 +18,7 @@ SFMLGame::SFMLGame(const std::chrono::duration<double>& timePerFrame)
 {
         mWorld->setEntityFactory(std::make_unique<EntityFactorySFML>(mWindow));
         mWorld->buildWorld();
+        Transformation::get().initialize(WorldView(50.0, 50.0, Vector2d(20, 20)), WindowSize(mWindow.getSize().x, mWindow.getSize().y));
 }
 
 void SFMLGame::processInput()

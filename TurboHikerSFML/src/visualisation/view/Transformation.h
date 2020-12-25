@@ -29,7 +29,7 @@ public:
 
         void operator=(const Transformation&) = delete;
 
-        static const Transformation& get();
+        static Transformation& get();
 
         void initialize(const WorldView& worldView, const WindowSize& windowSize);
 
@@ -58,8 +58,6 @@ private:
 
         std::unique_ptr<WindowSize> mWindowSize;
 };
-
-std::mutex Transformation::mMutex;
 
 } // namespace turboHikerSFML
 

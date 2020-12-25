@@ -48,6 +48,7 @@ include_directories(
         src/interfaces/
         src/visualComponents/
         src/visualisation/
+        src/visualisation/view/
         src/inputhandling/
 )
 

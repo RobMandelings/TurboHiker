@@ -12,7 +12,7 @@ using namespace turboHikerSFML;
 
 Transformation::Transformation() : mWorldView(nullptr), mWindowSize(nullptr) {}
 
-const Transformation& Transformation::get()
+Transformation& Transformation::get()
 {
         std::lock_guard<std::mutex> lock(mMutex);
 
@@ -23,6 +23,7 @@ const Transformation& Transformation::get()
 
 void Transformation::initialize(const WorldView& worldView, const WindowSize& windowSize)
 {
+        std::cout << "Initializing!" << std::endl;
         mWorldView = std::make_unique<WorldView>(worldView);
         mWindowSize = std::make_unique<WindowSize>(windowSize);
 }
@@ -35,14 +36,19 @@ WorldView& Transformation::getWorldView() const
         return *mWorldView;
 }
 
-WindowSize& Transformation::getWindowSize() const {
+WindowSize& Transformation::getWindowSize() const
+{
         assert(initialized());
         return *mWindowSize;
 }
 
 sf::Vector2f Transformation::convertWorldCoordinatesToPixelCoordinates(const Vector2d& worldCoordinates) const
 {
-        sf::Vector2f pixelCoordinates(worldCoordinates.x * (getWindowSize().getWidth() / getWorldView().getWorldXSize()), worldCoordinates.y * (getWindowSize().getHeight() / getWorldView().getWorldYSize()));
+        sf::Vector2f pixelCoordinates(
+            worldCoordinates.x * (getWindowSize().getWidth() / getWorldView().getWorldXSize()),
+            worldCoordinates.y * (getWindowSize().getHeight() / getWorldView().getWorldYSize()));
 
         return pixelCoordinates;
 }
+
+std::mutex Transformation::mMutex;
