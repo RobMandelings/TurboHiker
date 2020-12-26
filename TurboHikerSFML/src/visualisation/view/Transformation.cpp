@@ -67,8 +67,8 @@ void Transformation::scaleWorldCoordinatesToPixelCoordinates(sf::Vector2f& trans
 {
         translatedWorldCoordinates.x =
             translatedWorldCoordinates.x * (getWindowSize().getWidth() / getWorldView().getWorldXSize());
-        translatedWorldCoordinates.y = (mWorldBorders.getTop() - translatedWorldCoordinates.y) *
-                                       (getWindowSize().getHeight() / getWorldView().getWorldYSize());
+        translatedWorldCoordinates.y = mWindowSize->getHeight() - (translatedWorldCoordinates.y *
+                                       float(getWindowSize().getHeight()) / getWorldView().getWorldYSize());
 }
 
 std::mutex Transformation::mMutex;

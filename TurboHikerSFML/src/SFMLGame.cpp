@@ -43,12 +43,14 @@ void SFMLGame::processInput()
                         mWindow.setView(sf::View(visibleArea));
                         const WindowSize& previousWindowSize = Transformation::get().getWindowSize();
 
-                        std::cout << mWindow.getPosition().x << std::endl;
-
                         double newWorldViewWidth = double(event.size.width) / previousWindowSize.getWidth() *
                                                    Transformation::get().getWorldView().getWorldXSize();
                         double newWorldViewHeight = double(event.size.height) / previousWindowSize.getHeight() *
                                                     Transformation::get().getWorldView().getWorldYSize();
+
+
+                        Transformation::get().getWorldView().setWorldViewCenter(
+                            Vector2d(newWorldViewWidth / 2, newWorldViewHeight / 2));
 
                         Transformation::get().getWorldView().setWorldXSize(newWorldViewWidth);
                         Transformation::get().getWorldView().setWorldYSize(newWorldViewHeight);
