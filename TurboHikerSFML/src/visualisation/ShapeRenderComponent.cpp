@@ -17,9 +17,13 @@ void turboHikerSFML::ShapeRenderComponent::update(const turboHiker::Updatable::s
                                                   const turboHiker::Vector2d& currentWorldLocation)
 {
 
+        const turboHiker::Vector2d worldViewCenter = Transformation::get().getWorldView().getWorldViewCenter();
+
+        Transformation::get().getWorldView().setWorldViewCenter(turboHiker::Vector2d(worldViewCenter.x + 0.1 + dt.count(), worldViewCenter.y + 2 * dt.count()));
+
         sf::Vector2f pixelCoordinates = Transformation::get().convertWorldCoordinatesToPixelCoordinates(currentWorldLocation);
 
-        mShape->setPosition(pixelCoordinates.x, pixelCoordinates.y - mShape->getGlobalBounds().height / 2);
+        mShape->setPosition(pixelCoordinates.x - mShape->getGlobalBounds().width / 2, pixelCoordinates.y - mShape->getGlobalBounds().height / 2);
 
         if (mShape->getFillColor().r == 255) {
                 goingDown = true;

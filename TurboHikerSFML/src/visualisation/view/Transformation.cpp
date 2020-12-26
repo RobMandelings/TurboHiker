@@ -30,7 +30,10 @@ void Transformation::initialize(const WorldView& worldView, const WindowSize& wi
         mWorldBorders = worldBorders;
 }
 
-bool Transformation::initialized() const { return mWorldView != nullptr && mWindowSize != nullptr && !mWorldBorders.empty(); }
+bool Transformation::initialized() const
+{
+        return mWorldView != nullptr && mWindowSize != nullptr && !mWorldBorders.empty();
+}
 
 WorldView& Transformation::getWorldView() const
 {
@@ -46,11 +49,26 @@ WindowSize& Transformation::getWindowSize() const
 
 sf::Vector2f Transformation::convertWorldCoordinatesToPixelCoordinates(const Vector2d& worldCoordinates) const
 {
-        sf::Vector2f pixelCoordinates(
-            worldCoordinates.x * (getWindowSize().getWidth() / getWorldView().getWorldXSize()),
-            (mWorldBorders.getTop() - worldCoordinates.y) * (getWindowSize().getHeight() / getWorldView().getWorldYSize()));
+
+        const Vector2d& worldViewCenter = getWorldView().getWorldViewCenter();
+
+        // These are the translated world coordinates, where the center of view has been taken into account as well
+        sf::Vector2f pixelCoordinates =
+            sf::Vector2f(worldCoordinates.x - (worldViewCenter.x - (getWorldView().getWorldXSize() / 2)),
+                         worldCoordinates.y - (worldViewCenter.y - (getWorldView().getWorldYSize() / 2)));
+
+        // Scale these translated world coordinates to their corresponding pixel values
+        scaleWorldCoordinatesToPixelCoordinates(pixelCoordinates);
 
         return pixelCoordinates;
+}
+
+void Transformation::scaleWorldCoordinatesToPixelCoordinates(sf::Vector2f& translatedWorldCoordinates) const
+{
+        translatedWorldCoordinates.x =
+            translatedWorldCoordinates.x * (getWindowSize().getWidth() / getWorldView().getWorldXSize());
+        translatedWorldCoordinates.y = (mWorldBorders.getTop() - translatedWorldCoordinates.y) *
+                                       (getWindowSize().getHeight() / getWorldView().getWorldYSize());
 }
 
 std::mutex Transformation::mMutex;

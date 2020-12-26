@@ -5,9 +5,9 @@
 #ifndef TURBOHIKER_TRANSFORMATION_H
 #define TURBOHIKER_TRANSFORMATION_H
 
-#include "WorldView.h"
-#include "WindowSize.h"
 #include "BoundingBox.h"
+#include "WindowSize.h"
+#include "WorldView.h"
 
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -41,12 +41,22 @@ public:
 
         sf::Vector2f convertWorldCoordinatesToPixelCoordinates(const turboHiker::Vector2d& worldCoordinates) const;
 
+        turboHiker::Vector2d translateWorldCoordinatesWithCenterOfView(const turboHiker::Vector2d& worldCoordinates);
+
         sf::FloatRect convertWorldBoundingBoxToVisualBoundingBox(const turboHiker::BoundingBox& worldBoundingBox) const;
 
         turboHiker::BoundingBox convertVisualBoundingBoxToWorldBoundingBox(
             const sf::FloatRect& visualBoundingBox) const;
 
 private:
+        /**
+         * Converts the given worldCoordinates to its corresponding pixel values of the screen, assuming that these
+         * world coordinates have already been translated by the center of view
+         * @param translatedWorldCoordinates
+         * @return
+         */
+        void scaleWorldCoordinatesToPixelCoordinates(sf::Vector2f& translatedWorldCoordinates) const;
+
         explicit Transformation();
 
         bool initialized() const;
