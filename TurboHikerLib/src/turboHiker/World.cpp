@@ -34,7 +34,7 @@ void turboHiker::World::buildWorld()
         //mSceneGraph.attachChild(mEntityFactory->createTestCircle(Vector2d(0, 49), Vector2d(0, 0)));
         // mSceneGraph.attachChild(mEntityFactory->createTestCircle(Vector2d(50, 50), Vector2d(0, 0)));
 
-        mSceneGraph.attachChild(mEntityFactory->createHiker(Vector2d(20, 0), Vector2d(0, 0), true));
+        mSceneGraph.attachChild(mEntityFactory->createHiker(Vector2d(25, 25), Vector2d(0, 0), true));
 }
 
 void turboHiker::World::setEntityFactory(std::unique_ptr<EntityFactory> entityFactory)

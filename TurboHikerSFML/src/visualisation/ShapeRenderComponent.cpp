@@ -17,9 +17,9 @@ void turboHikerSFML::ShapeRenderComponent::update(const turboHiker::Updatable::s
                                                   const turboHiker::Vector2d& currentWorldLocation)
 {
 
-        const turboHiker::Vector2d worldViewCenter = Transformation::get().getWorldView().getWorldViewCenter();
+        const turboHiker::Vector2d& worldViewCenter = Transformation::get().getWorldView().getWorldViewCenter();
 
-        Transformation::get().getWorldView().setWorldViewCenter(turboHiker::Vector2d(worldViewCenter.x + 0.1 + dt.count(), worldViewCenter.y + 2 * dt.count()));
+        Transformation::get().getWorldView().setWorldViewCenter(turboHiker::Vector2d(worldViewCenter.x + 3 * dt.count(), worldViewCenter.y + 3 * dt.count()));
 
         sf::Vector2f pixelCoordinates = Transformation::get().convertWorldCoordinatesToPixelCoordinates(currentWorldLocation);
 
