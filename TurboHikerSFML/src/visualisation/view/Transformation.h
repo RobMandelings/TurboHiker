@@ -41,14 +41,6 @@ public:
 
         sf::Vector2f convertWorldCoordinatesToPixelCoordinates(const turboHiker::Vector2d& worldCoordinates) const;
 
-        turboHiker::Vector2d translateWorldCoordinatesWithCenterOfView(const turboHiker::Vector2d& worldCoordinates);
-
-        sf::FloatRect convertWorldBoundingBoxToVisualBoundingBox(const turboHiker::BoundingBox& worldBoundingBox) const;
-
-        turboHiker::BoundingBox convertVisualBoundingBoxToWorldBoundingBox(
-            const sf::FloatRect& visualBoundingBox) const;
-
-private:
         /**
          * Converts the given worldCoordinates to its corresponding pixel values of the screen, assuming that these
          * world coordinates have already been translated by the center of view
@@ -56,6 +48,11 @@ private:
          * @return
          */
         void scaleWorldCoordinatesToPixelCoordinates(sf::Vector2f& translatedWorldCoordinates) const;
+
+        turboHiker::BoundingBox convertWorldBoundingBoxToVisualBoundingBox(
+            const turboHiker::BoundingBox& worldBoundingBox) const;
+
+private:
 
         explicit Transformation();
 

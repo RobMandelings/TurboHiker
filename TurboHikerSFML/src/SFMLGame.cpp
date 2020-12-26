@@ -18,9 +18,9 @@ SFMLGame::SFMLGame(const std::chrono::duration<double>& timePerFrame, const Boun
       mWindow(sf::VideoMode(500, 500), "TurboHiker")
 {
         mWorld->setEntityFactory(std::make_unique<EntityFactorySFML>(mWindow));
-        mWorld->buildWorld();
         Transformation::get().initialize(WorldView(50.0, 50.0, Vector2d(25, 25)),
                                          WindowSize(mWindow.getSize().x, mWindow.getSize().y), worldBorders);
+        mWorld->buildWorld();
 }
 
 void SFMLGame::processInput()
@@ -48,12 +48,13 @@ void SFMLGame::processInput()
                         double newWorldViewHeight = double(event.size.height) / previousWindowSize.getHeight() *
                                                     Transformation::get().getWorldView().getWorldYSize();
 
+                        Transformation::get().getWorldView().setWorldViewCenter(Vector2d(
+                            Transformation::get().getWorldView().getWorldViewCenter().x, newWorldViewHeight / 2));
 
-                        Transformation::get().getWorldView().setWorldViewCenter(
-                            Vector2d(Transformation::get().getWorldView().getWorldViewCenter().x, newWorldViewHeight / 2));
-
-                        Transformation::get().getWorldView().setWorldXSize(newWorldViewWidth);
-                        Transformation::get().getWorldView().setWorldYSize(newWorldViewHeight);
+                        // You can proportionally see more of the world now (proportionally to the pixels more you can
+                        // see). Thus the distances between pixel mappings stay the same
+                        Transformation::get().getWorldView().setWidth(newWorldViewWidth);
+                        Transformation::get().getWorldView().setHeight(newWorldViewHeight);
                         // Change the window size in the transformation singleton so the conversion to pixels is altered
                         // as well
                         Transformation::get().getWindowSize().setWidth(int(event.size.width));

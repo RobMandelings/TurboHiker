@@ -32,6 +32,8 @@ public:
                                                const turboHiker::Vector2d& initialVelocity,
                                                bool playerControlled) const override;
 
+        std::unique_ptr<turboHiker::SceneNode> createBackgroundRectangle(const turboHiker::BoundingBox& worldBorders) const override;
+
 private:
         DrawableRenderer& mWindowRenderer;
 };

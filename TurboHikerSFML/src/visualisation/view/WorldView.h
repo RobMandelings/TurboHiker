@@ -13,9 +13,9 @@ class WorldView
 public:
         WorldView(double initialWorldXSize, double initialWorldYSize, const turboHiker::Vector2d& initialWorldViewCenter);
         double getWorldXSize() const;
-        void setWorldXSize(double worldXSize);
+        void setWidth(double worldXSize);
         double getWorldYSize() const;
-        void setWorldYSize(double worldYSize);
+        void setHeight(double worldYSize);
         const turboHiker::Vector2d& getWorldViewCenter() const;
         void setWorldViewCenter(const turboHiker::Vector2d& worldViewCenter);
 
