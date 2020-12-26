@@ -7,9 +7,9 @@
 #include <algorithm>
 #include <cassert>
 
+#include "BoundingBox.h"
 #include "CollisionComponent.h"
 #include "RenderComponent.h"
-#include "BoundingBox.h"
 
 #include "Command.h"
 
@@ -32,12 +32,18 @@ SceneNode::SceneNode() : SceneNode(Vector2d(0, 0), nullptr, nullptr) {}
 void SceneNode::attachChild(SceneNode::SceneNodePtr child)
 {
         child->mParent = this;
+        onChildAttached(*child);
         mChildren.push_back(std::move(child));
 }
-SceneNode::SceneNodePtr SceneNode::detachChild(const SceneNode& gameObject)
+
+void SceneNode::onChildAttached(const SceneNode& child)
+{
+        // Do nothing by default
+}
+SceneNode::SceneNodePtr SceneNode::detachChild(const SceneNode& child)
 {
         auto found = std::find_if(mChildren.begin(), mChildren.end(),
-                                  [&gameObject](SceneNodePtr& p) { return p.get() == &gameObject; });
+                                  [&child](SceneNodePtr& p) { return p.get() == &child; });
         assert(found != mChildren.end());
 
         SceneNodePtr result = std::move(*found);

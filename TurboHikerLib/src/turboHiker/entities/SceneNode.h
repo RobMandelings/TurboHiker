@@ -30,7 +30,7 @@ public:
         typedef std::unique_ptr<SceneNode> SceneNodePtr;
 
         SceneNode(const Vector2d& initialLocation, std::unique_ptr<BoundingBox> mBoundingBox,
-               std::unique_ptr<RenderComponent> renderComponent);
+                  std::unique_ptr<RenderComponent> renderComponent);
 
         SceneNode();
 
@@ -39,8 +39,15 @@ public:
         void render() const final;
 
         void attachChild(SceneNodePtr child);
-        SceneNodePtr detachChild(const SceneNode& gameObject);
+        SceneNodePtr detachChild(const SceneNode& child);
         bool hasChildren();
+
+        /**
+         * Called whenever a child is attached to the scene node. Can be overridden to do specific stuff when a child is
+         * added
+         * @param child
+         */
+        virtual void onChildAttached(const SceneNode& child);
 
         const Vector2d& getLocation() const;
         void setLocation(const Vector2d& newLocation);
