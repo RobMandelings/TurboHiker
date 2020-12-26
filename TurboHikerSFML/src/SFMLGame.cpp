@@ -50,7 +50,7 @@ void SFMLGame::processInput()
 
 
                         Transformation::get().getWorldView().setWorldViewCenter(
-                            Vector2d(newWorldViewWidth / 2, newWorldViewHeight / 2));
+                            Vector2d(Transformation::get().getWorldView().getWorldViewCenter().x, newWorldViewHeight / 2));
 
                         Transformation::get().getWorldView().setWorldXSize(newWorldViewWidth);
                         Transformation::get().getWorldView().setWorldYSize(newWorldViewHeight);
