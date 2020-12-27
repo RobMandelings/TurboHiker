@@ -27,6 +27,7 @@ public:
 
         void update(seconds dt) override;
         void render() const override;
+        void handleCollisions();
 
         void setEntityFactory(std::unique_ptr<EntityFactory> entityFactory);
 

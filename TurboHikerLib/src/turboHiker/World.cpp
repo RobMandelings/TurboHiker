@@ -10,6 +10,7 @@
 #include "PhysicsComponent.h"
 #include "RenderComponent.h"
 
+#include <set>
 #include <iostream>
 
 turboHiker::World::World(const BoundingBox& worldBorders)

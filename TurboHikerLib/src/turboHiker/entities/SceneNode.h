@@ -10,6 +10,7 @@
 #include "Updatable.h"
 
 #include <memory>
+#include <set>
 #include <vector>
 
 #include "Vector2d.h"
@@ -28,6 +29,7 @@ class SceneNode : public Updatable, public Renderable, public Removable
 
 public:
         typedef std::unique_ptr<SceneNode> SceneNodePtr;
+        typedef std::pair<SceneNode*, SceneNode*> Pair;
 
         SceneNode(const Vector2d& initialLocation, const Vector2d& boundingSize,
                   std::unique_ptr<RenderComponent> renderComponent);
@@ -54,7 +56,10 @@ public:
 
         void handleCollision(const SceneNode& entity);
 
-        bool collidesWith(const SceneNode& entity) const;
+        bool collidesWith(const SceneNode& other) const;
+
+        void checkSceneCollision(SceneNode& sceneGraph, std::set<Pair>& collisionPairs);
+        void checkNodeCollision(SceneNode& node, std::set<Pair>& collisionPairs);
 
         // TODO make this type-safe
         virtual unsigned int getCategory() const;
@@ -80,13 +85,14 @@ private:
         void setBoundingHeight(double height);
 
         /**
-         * Gets the current bounding box of the entity depending on its bounding size and relative to its current location.
-         * Used for collision detection. The location is always centered in the middle of the bounding box.
+         * Gets the current bounding box of the entity depending on its bounding size and relative to its current
+         * location. Used for collision detection. The location is always centered in the middle of the bounding box.
          * @return
          */
         BoundingBox getBoundingBox() const;
 
         bool hasBoundingBox() const;
+
 protected:
         /**
          * The location of the entity. If its a child of another entity it is relative to the location of that entity.
@@ -105,6 +111,9 @@ private:
 
         Vector2d mBoundingSize;
 };
+
+bool collidesWith(const SceneNode& lhs, const SceneNode& rhs);
+
 } // namespace turboHiker
 
 #endif // TURBOHIKER_SCENENODE_H

@@ -6,6 +6,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <set>
 
 #include "BoundingBox.h"
 #include "CollisionComponent.h"
@@ -67,7 +68,7 @@ void SceneNode::update(Updatable::seconds dt)
 
         if (hasBoundingBox()) {
                 std::cout << getBoundingBox().getLeft() << std::endl;
-                //std::cout << getLocation().x << std::endl;
+                // std::cout << getLocation().x << std::endl;
         }
 
         updateChildren(dt);
@@ -122,12 +123,17 @@ BoundingBox SceneNode::getBoundingBox() const
 
 bool SceneNode::hasBoundingBox() const { return mBoundingSize.x != 0 && mBoundingSize.y != 0; }
 
-bool SceneNode::collidesWith(const SceneNode& entity) const
+bool SceneNode::collidesWith(const SceneNode& other) const
 {
-        if (&entity != this && hasBoundingBox() && entity.hasBoundingBox()) {
-                // TODO implement collision detection with other entity
-        } else {
-                return false;
+        if (&other != this && hasBoundingBox() && other.hasBoundingBox()) {
+
+                bool intersectsOnXAxis = this->getBoundingBox().getRight() >= other.getBoundingBox().getLeft() ||
+                                         this->getBoundingBox().getLeft() <= other.getBoundingBox().getRight();
+
+                bool intersectsOnYAxis = this->getBoundingBox().getBottom() < other.getBoundingBox().getTop() ||
+                                         this->getBoundingBox().getTop() > other.getBoundingBox().getBottom();
+
+                return intersectsOnXAxis && intersectsOnYAxis;
         }
         return false;
 }
@@ -137,6 +143,26 @@ void SceneNode::handleCollisionInternal(const SceneNode& entity)
         assert(collidesWith(entity));
         assert(hasBoundingBox());
         // Do nothing by default, needs to be handled by the specific entity
+}
+
+void SceneNode::checkSceneCollision(SceneNode& sceneGraph, std::set<Pair>& collisionPairs)
+{
+        checkNodeCollision(sceneGraph, collisionPairs);
+
+        for (const std::unique_ptr<SceneNode>& child : sceneGraph.mChildren) {
+                checkSceneCollision(*child, collisionPairs);
+        }
+}
+
+void SceneNode::checkNodeCollision(SceneNode& node, std::set<Pair>& collisionPairs)
+{
+        if (this->collidesWith(node) && !isMarkedForRemoval() && !node.isMarkedForRemoval()) {
+                collisionPairs.insert(std::minmax(this, &node));
+        }
+
+        for (const std::unique_ptr<SceneNode>& child : mChildren) {
+                child->checkNodeCollision(node, collisionPairs);
+        }
 }
 
 void SceneNode::setBoundingSize(const Vector2d& boundingSize)
@@ -162,4 +188,7 @@ void SceneNode::onCommand(const Command& command, seconds dt)
 
 const Vector2d& SceneNode::getLocation() const { return mLocation; }
 void SceneNode::setLocation(const Vector2d& newLocation) { mLocation = newLocation; }
+
+bool collidesWith(const SceneNode& lhs, const SceneNode& rhs) { return lhs.collidesWith(rhs); }
+
 } // namespace turboHiker
