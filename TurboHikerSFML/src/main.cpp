@@ -14,7 +14,7 @@ int main()
 {
 
 
-        SFMLGame game(std::chrono::duration<double>(1 / 60.0), turboHiker::BoundingBox(0, 0, 50, 50));
+        SFMLGame game(std::chrono::duration<double>(1 / 60.0), turboHiker::BoundingBox(0, 0, 100, 200));
         game.startRunning();
 
         return 0;

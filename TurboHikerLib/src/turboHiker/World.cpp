@@ -34,9 +34,9 @@ void turboHiker::World::buildWorld()
         //mSceneGraph.attachChild(mEntityFactory->createTestCircle(Vector2d(0, 49), Vector2d(0, 0)));
         // mSceneGraph.attachChild(mEntityFactory->createTestCircle(Vector2d(50, 50), Vector2d(0, 0)));
 
-        mSceneGraph.attachChild(mEntityFactory->createBackgroundRectangle(getWorldBorders()));
+        //mSceneGraph.attachChild(mEntityFactory->createBackgroundRectangle(getWorldBorders()));
 
-        mSceneGraph.attachChild(mEntityFactory->createHiker(Vector2d(25, 0), Vector2d(0, 0), true));
+        mSceneGraph.attachChild(mEntityFactory->createHiker(Vector2d(getWorldBorders().getWidth() / 2, 0), Vector2d(0, 0), true));
         //mSceneGraph.attachChild(mEntityFactory->createTestCircle(Vector2d(28, 28), Vector2d(0, 0)));
 }
 

@@ -14,3 +14,7 @@ void turboHikerSFML::RenderComponentSFML::renderOnWindow(const sf::Drawable& dra
 {
         mWindowDrawer.renderOnWindow(drawable);
 }
+
+void turboHikerSFML::RenderComponentSFML::onViewChange() const {
+        // Do nothing by default
+}

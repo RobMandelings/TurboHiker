@@ -42,8 +42,8 @@ void SceneNode::onChildAttached(const SceneNode& child)
 }
 SceneNode::SceneNodePtr SceneNode::detachChild(const SceneNode& child)
 {
-        auto found = std::find_if(mChildren.begin(), mChildren.end(),
-                                  [&child](SceneNodePtr& p) { return p.get() == &child; });
+        auto found =
+            std::find_if(mChildren.begin(), mChildren.end(), [&child](SceneNodePtr& p) { return p.get() == &child; });
         assert(found != mChildren.end());
 
         SceneNodePtr result = std::move(*found);
@@ -107,7 +107,17 @@ void SceneNode::handleCollision(const SceneNode& entity)
 }
 
 unsigned int SceneNode::getCategory() const { return Category::Scene; }
-bool SceneNode::hasBoundingBox() const { return mBoundingBox != nullptr; }
+
+BoundingBox SceneNode::getBoundingBox() const
+{
+        assert(hasBoundingBox());
+        return BoundingBox(getLocation().x - mBoundingSize.x / 2, getLocation().y - mBoundingSize.y / 2,
+                           getLocation().x + mBoundingSize.x / 2, getLocation().y + mBoundingSize.y);
+}
+
+bool SceneNode::hasBoundingBox() const {
+        return mBoundingSize.x != 0 && mBoundingSize.y != 0;
+}
 
 bool SceneNode::collidesWith(const SceneNode& entity) const
 {
@@ -126,6 +136,15 @@ void SceneNode::handleCollisionInternal(const SceneNode& entity)
         // Do nothing by default, needs to be handled by the specific entity
 }
 
+void SceneNode::setBoundingSize(const Vector2d& boundingSize)
+{
+        assert(boundingSize.x >= 0);
+        assert(boundingSize.y >= 0);
+        mBoundingSize = boundingSize;
+}
+void SceneNode::setBoundingWidth(double width) { setBoundingSize(Vector2d(width, getBoundingSize().y)); }
+void SceneNode::setBoundingHeight(double height) { setBoundingSize(Vector2d(getBoundingSize().x, height)); }
+
 void SceneNode::onCommand(const Command& command, seconds dt)
 {
         // Command current node, if category matches
@@ -140,4 +159,5 @@ void SceneNode::onCommand(const Command& command, seconds dt)
 
 const Vector2d& SceneNode::getLocation() const { return mLocation; }
 void SceneNode::setLocation(const Vector2d& newLocation) { mLocation = newLocation; }
+const Vector2d& SceneNode::getBoundingSize() const { return mBoundingSize; }
 } // namespace turboHiker

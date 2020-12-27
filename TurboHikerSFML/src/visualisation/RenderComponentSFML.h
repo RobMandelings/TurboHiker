@@ -21,6 +21,12 @@ public:
 
         void renderOnWindow(const sf::Drawable& drawable) const;
 
+        /**
+         * If you want to change the scale of the drawings or overall sizes depending on if the view changed (for
+         * example, if you want to apply zooming), implement this function.
+         */
+        virtual void onViewChange() const;
+
 private:
         DrawableRenderer& mWindowDrawer;
 };

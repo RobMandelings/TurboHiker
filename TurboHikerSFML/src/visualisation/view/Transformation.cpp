@@ -60,15 +60,17 @@ sf::Vector2f Transformation::convertWorldCoordinatesToPixelCoordinates(const Vec
         // Scale these translated world coordinates to their corresponding pixel values
         scaleWorldCoordinatesToPixelCoordinates(pixelCoordinates);
 
+        // The top of the screen is at y = 0, the bottom at mWindowSize.getHeight(). So the current pixel coordinates
+        // need to be converted to not appear upside-down
+        pixelCoordinates.y = float(mWindowSize->getHeight()) - pixelCoordinates.y;
+
         return pixelCoordinates;
 }
 
-void Transformation::scaleWorldCoordinatesToPixelCoordinates(sf::Vector2f& translatedWorldCoordinates) const
+void Transformation::scaleWorldCoordinatesToPixelCoordinates(sf::Vector2f& worldCoordinates) const
 {
-        translatedWorldCoordinates.x =
-            translatedWorldCoordinates.x * (getWindowSize().getWidth() / getWorldView().getWorldXSize());
-        translatedWorldCoordinates.y = mWindowSize->getHeight() - (translatedWorldCoordinates.y *
-                                       float(getWindowSize().getHeight()) / getWorldView().getWorldYSize());
+        worldCoordinates.x = worldCoordinates.x * (getWindowSize().getWidth() / getWorldView().getWorldXSize());
+        worldCoordinates.y = worldCoordinates.y * float(getWindowSize().getHeight()) / getWorldView().getWorldYSize();
 }
 
 std::mutex Transformation::mMutex;

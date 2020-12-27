@@ -22,6 +22,7 @@ class BoundingBox;
 
 namespace turboHikerSFML {
 
+// TODO implement scaling/zooming: draw the entities smaller or bigger depending on changes in view
 class Transformation
 {
 
@@ -44,10 +45,10 @@ public:
         /**
          * Converts the given worldCoordinates to its corresponding pixel values of the screen, assuming that these
          * world coordinates have already been translated by the center of view
-         * @param translatedWorldCoordinates
+         * @param worldCoordinates
          * @return
          */
-        void scaleWorldCoordinatesToPixelCoordinates(sf::Vector2f& translatedWorldCoordinates) const;
+        void scaleWorldCoordinatesToPixelCoordinates(sf::Vector2f& worldCoordinates) const;
 
         turboHiker::BoundingBox convertWorldBoundingBoxToVisualBoundingBox(
             const turboHiker::BoundingBox& worldBoundingBox) const;

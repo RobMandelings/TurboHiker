@@ -54,8 +54,6 @@ public:
 
         void handleCollision(const SceneNode& entity);
 
-        bool hasBoundingBox() const;
-
         bool collidesWith(const SceneNode& entity) const;
 
         // TODO make this type-safe
@@ -77,14 +75,24 @@ private:
          */
         virtual void handleCollisionInternal(const SceneNode& entity);
 
+        void setBoundingSize(const Vector2d& boundingSize);
+        void setBoundingWidth(double width);
+        void setBoundingHeight(double height);
+
+        /**
+         * Gets the current bounding box of the entity depending on its bounding size and relative to its current location.
+         * Used for collision detection. The location is always centered in the middle of the bounding box.
+         * @return
+         */
+        BoundingBox getBoundingBox() const;
+
+        bool hasBoundingBox() const;
 protected:
         /**
          * The location of the entity. If its a child of another entity it is relative to the location of that entity.
          * If it's the root, it is already the absolute location
          */
         Vector2d mLocation;
-
-        std::unique_ptr<BoundingBox> mBoundingBox;
 
 private:
         SceneNode* mParent;
@@ -94,6 +102,8 @@ private:
          * Used to render the node
          */
         std::unique_ptr<RenderComponent> mRenderComponent;
+
+        Vector2d mBoundingSize;
 };
 } // namespace turboHiker
 
