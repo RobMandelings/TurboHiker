@@ -8,7 +8,7 @@
 #include <iostream>
 #include <chrono>
 
-using namespace turboHikerSFML;
+using namespace turboHiker;
 
 int main()
 {

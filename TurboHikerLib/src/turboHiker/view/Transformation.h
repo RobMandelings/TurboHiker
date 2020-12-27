@@ -9,9 +9,6 @@
 #include "WindowSize.h"
 #include "WorldView.h"
 
-#include <SFML/Graphics/Rect.hpp>
-#include <SFML/Graphics/RenderWindow.hpp>
-#include <SFML/System.hpp>
 #include <memory>
 #include <mutex>
 #include <turboHiker/utils/maths/Vector2d.h>
@@ -23,7 +20,7 @@ class Vector2d;
 class Hiker;
 } // namespace turboHiker
 
-namespace turboHikerSFML {
+namespace turboHiker {
 
 using namespace turboHiker;
 
@@ -56,7 +53,7 @@ public:
 
         const WindowSize& getWindowSize() const;
 
-        sf::Vector2f convertWorldCoordinatesToPixelCoordinates(const turboHiker::Vector2d& worldCoordinates) const;
+        Vector2d convertWorldCoordinatesToPixelCoordinates(const turboHiker::Vector2d& worldCoordinates) const;
 
         /**
          * Converts the given worldCoordinates to its corresponding pixel values of the screen, assuming that these
@@ -64,7 +61,7 @@ public:
          * @param worldCoordinates
          * @return
          */
-        sf::Vector2f scaleWorldCoordinatesToPixelCoordinates(const Vector2d& worldCoordinates) const;
+        Vector2d scaleWorldCoordinatesToPixelCoordinates(const Vector2d& worldCoordinates) const;
 
         turboHiker::BoundingBox convertWorldBoundingBoxToVisualBoundingBox(
             const turboHiker::BoundingBox& worldBoundingBox) const;

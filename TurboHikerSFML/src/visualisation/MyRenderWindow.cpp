@@ -4,11 +4,11 @@
 
 #include "MyRenderWindow.h"
 
-turboHikerSFML::MyRenderWindow::MyRenderWindow(const sf::VideoMode& mode, const sf::String& title, unsigned int style,
+turboHiker::MyRenderWindow::MyRenderWindow(const sf::VideoMode& mode, const sf::String& title, unsigned int style,
                                const sf::ContextSettings& settings)
     : RenderWindow(mode, title, style, settings)
 {
 }
-void turboHikerSFML::MyRenderWindow::renderOnWindow(const sf::Drawable& drawable) {
+void turboHiker::MyRenderWindow::renderOnWindow(const sf::Drawable& drawable) {
         this->draw(drawable);
 }

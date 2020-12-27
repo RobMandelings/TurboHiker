@@ -7,7 +7,7 @@
 #include <string>
 
 using namespace turboHiker;
-using namespace turboHikerSFML;
+using namespace turboHiker;
 
 struct MovableEntityMover
 {

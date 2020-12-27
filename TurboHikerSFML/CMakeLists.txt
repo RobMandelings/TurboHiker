@@ -27,8 +27,8 @@ set(SRC
         src/utils/constants.h
         src/SFMLGame.cpp
         src/SFMLGame.h
-        src/visualisation/view/Transformation.cpp
-        src/visualisation/view/Transformation.h
+        ../TurboHikerLib/src/turboHiker/view/Transformation.cpp
+        ../TurboHikerLib/src/turboHiker/view/Transformation.h
         src/interfaces/DrawableRenderer.h
         src/EntityFactorySFML.cpp
         src/EntityFactorySFML.h
@@ -39,7 +39,7 @@ set(SRC
         src/visualisation/ShapeRenderComponent.cpp
         src/visualisation/ShapeRenderComponent.h
         src/inputhandling/Player.cpp
-        src/inputhandling/Player.h src/visualisation/MyRenderWindow.cpp src/visualisation/MyRenderWindow.h src/visualisation/view/WorldView.cpp src/visualisation/view/WorldView.h src/visualisation/view/WindowSize.cpp src/visualisation/view/WindowSize.h)
+        src/inputhandling/Player.h src/visualisation/MyRenderWindow.cpp src/visualisation/MyRenderWindow.h ../TurboHikerLib/src/turboHiker/view/WorldView.cpp ../TurboHikerLib/src/turboHiker/view/WorldView.h ../TurboHikerLib/src/turboHiker/view/WindowSize.cpp ../TurboHikerLib/src/turboHiker/view/WindowSize.h)
 
 include_directories(
         ${SFML_INCLUDE_DIR}
@@ -48,7 +48,6 @@ include_directories(
         src/interfaces/
         src/visualComponents/
         src/visualisation/
-        src/visualisation/view/
         src/inputhandling/
 )
 

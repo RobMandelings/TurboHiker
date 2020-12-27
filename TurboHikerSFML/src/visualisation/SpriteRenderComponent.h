@@ -8,7 +8,7 @@
 #include "RenderComponentSFML.h"
 #include <SFML/Graphics/Sprite.hpp>
 
-namespace turboHikerSFML {
+namespace turboHiker {
 class SpriteRenderComponent : RenderComponentSFML
 {
 

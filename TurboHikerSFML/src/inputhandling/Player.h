@@ -10,7 +10,7 @@ namespace turboHiker {
 class CommandQueue;
 }
 
-namespace turboHikerSFML {
+namespace turboHiker {
 class Player
 {
 public:

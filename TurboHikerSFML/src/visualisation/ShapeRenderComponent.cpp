@@ -7,20 +7,21 @@
 #include "SFML/Graphics/Shape.hpp"
 #include "Transformation.h"
 
-turboHikerSFML::ShapeRenderComponent::ShapeRenderComponent(DrawableRenderer& windowDrawer,
+turboHiker::ShapeRenderComponent::ShapeRenderComponent(DrawableRenderer& windowDrawer,
                                                            std::unique_ptr<sf::Shape> shape, double speed)
     : RenderComponentSFML(windowDrawer), mShape(std::move(shape)), goingDown(false), speed(speed), summedDt(0)
 {
 }
 
-void turboHikerSFML::ShapeRenderComponent::update(const turboHiker::Updatable::seconds& dt,
+void turboHiker::ShapeRenderComponent::update(const turboHiker::Updatable::seconds& dt,
                                                   const turboHiker::Vector2d& currentWorldLocation)
 {
 
-        sf::Vector2f pixelCoordinates =
+        Vector2d pixelCoordinates =
             Transformation::get().convertWorldCoordinatesToPixelCoordinates(currentWorldLocation);
 
-        mShape->setPosition(pixelCoordinates.x, pixelCoordinates.y);
+
+        mShape->setPosition(float(pixelCoordinates.x), float(pixelCoordinates.y));
 
         if (mShape->getFillColor().r == 255) {
                 goingDown = true;
@@ -34,4 +35,4 @@ void turboHikerSFML::ShapeRenderComponent::update(const turboHiker::Updatable::s
         summedDt = 0;
 }
 
-void turboHikerSFML::ShapeRenderComponent::render() const { renderOnWindow(*mShape); }
+void turboHiker::ShapeRenderComponent::render() const { renderOnWindow(*mShape); }

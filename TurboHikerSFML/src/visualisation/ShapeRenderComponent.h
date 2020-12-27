@@ -14,7 +14,7 @@ class Vector2d;
 class WorldLocation;
 } // namespace turboHiker
 
-namespace turboHikerSFML {
+namespace turboHiker {
 
 // TODO rezie shape depending on the current viewHeight and width.
 class ShapeRenderComponent : public RenderComponentSFML

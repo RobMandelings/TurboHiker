@@ -17,7 +17,7 @@ namespace turboHiker {
 class Vector2d;
 }
 
-namespace turboHikerSFML {
+namespace turboHiker {
 
 class DrawableRenderer
 {

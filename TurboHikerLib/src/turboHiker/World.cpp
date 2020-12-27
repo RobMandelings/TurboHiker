@@ -9,6 +9,7 @@
 #include "InputComponent.h"
 #include "PhysicsComponent.h"
 #include "RenderComponent.h"
+#include "Transformation.h"
 
 #include <iostream>
 #include <set>
@@ -22,12 +23,14 @@ turboHiker::World::World(const BoundingBox& worldBorders)
 
 void turboHiker::World::update(Updatable::seconds dt)
 {
+        assert(mPlayerHiker != nullptr);
         mSceneGraph.update(dt);
         while (!mCommandQueue.isEmpty()) {
                 mSceneGraph.onCommand(mCommandQueue.pop(), dt);
         }
 
         handleCollisions();
+        trackPlayer();
 }
 
 void turboHiker::World::render() const { mSceneGraph.render(); }
@@ -49,6 +52,13 @@ void turboHiker::World::buildWorld()
         mPlayerHiker = playerHiker.get();
         mSceneGraph.attachChild(std::move(playerHiker));
         // mSceneGraph.attachChild(mEntityFactory->createTestCircle(Vector2d(28, 28), Vector2d(0, 0)));
+}
+
+void World::trackPlayer() {
+        assert(mPlayerHiker != nullptr);
+
+        Transformation::get().setWorldViewCenter(mPlayerHiker->getLocation());
+
 }
 
 bool World::matchesCategories(SceneNode::Pair& colliders, Category::Type type1, Category::Type type2)

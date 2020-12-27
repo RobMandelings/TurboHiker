@@ -48,6 +48,7 @@ add_library(TurboHikerLib ${SRC})
 set(INCLUDE
         ${CMAKE_CURRENT_SOURCE_DIR}/src/
         ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/view/
         ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/utils/
         ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/interfaces/
         ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/entities/

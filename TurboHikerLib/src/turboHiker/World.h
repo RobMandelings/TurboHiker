@@ -38,6 +38,8 @@ public:
 
         void buildWorld();
 
+        void trackPlayer();
+
         const BoundingBox& getWorldBorders() const;
 
 private:

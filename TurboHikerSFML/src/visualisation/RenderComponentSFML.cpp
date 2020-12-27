@@ -8,13 +8,13 @@
 
 using namespace turboHiker;
 
-turboHikerSFML::RenderComponentSFML::RenderComponentSFML(DrawableRenderer& windowDrawer) : mWindowDrawer(windowDrawer) {}
+turboHiker::RenderComponentSFML::RenderComponentSFML(DrawableRenderer& windowDrawer) : mWindowDrawer(windowDrawer) {}
 
-void turboHikerSFML::RenderComponentSFML::renderOnWindow(const sf::Drawable& drawable) const
+void turboHiker::RenderComponentSFML::renderOnWindow(const sf::Drawable& drawable) const
 {
         mWindowDrawer.renderOnWindow(drawable);
 }
 
-void turboHikerSFML::RenderComponentSFML::onViewChange() const {
+void turboHiker::RenderComponentSFML::onViewChange() const {
         // Do nothing by default
 }

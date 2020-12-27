@@ -8,11 +8,11 @@
 #include "DrawableRenderer.h"
 #include <SFML/Graphics/RenderWindow.hpp>
 
-namespace turboHikerSFML {
+namespace turboHiker {
 /**
  * Just a RenderWindow that also implements DrawableRenderer so that RenderComponents can call renderOnWindow()
  */
-class MyRenderWindow : public sf::RenderWindow, public turboHikerSFML::DrawableRenderer
+class MyRenderWindow : public sf::RenderWindow, public turboHiker::DrawableRenderer
 {
 
 public:

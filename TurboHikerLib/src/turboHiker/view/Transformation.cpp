@@ -9,7 +9,7 @@
 #include <cmath>
 
 using namespace turboHiker;
-using namespace turboHikerSFML;
+using namespace turboHiker;
 
 Transformation::Transformation() : mWorldView(nullptr), mWindowSize(nullptr), mWorldBorders(0, 0, 0, 0) {}
 
@@ -107,7 +107,7 @@ const WindowSize& Transformation::getWindowSize() const
         return *mWindowSize;
 }
 
-sf::Vector2f Transformation::convertWorldCoordinatesToPixelCoordinates(const Vector2d& worldCoordinates) const
+Vector2d Transformation::convertWorldCoordinatesToPixelCoordinates(const Vector2d& worldCoordinates) const
 {
 
         assert(initialized());
@@ -120,7 +120,7 @@ sf::Vector2f Transformation::convertWorldCoordinatesToPixelCoordinates(const Vec
             worldCoordinates.y - (worldViewCenter.y - (mWorldView->getWorldViewHeight() / 2)));
 
         // Scale these translated world coordinates to their corresponding pixel values
-        sf::Vector2f pixelCoordinates = scaleWorldCoordinatesToPixelCoordinates(translatedWorldCoordinates);
+        Vector2d pixelCoordinates = scaleWorldCoordinatesToPixelCoordinates(translatedWorldCoordinates);
 
         // The top of the screen is at y = 0, the bottom at mWindowSize.getHeight(). So the current pixel coordinates
         // need to be converted to not appear upside-down
@@ -129,9 +129,9 @@ sf::Vector2f Transformation::convertWorldCoordinatesToPixelCoordinates(const Vec
         return pixelCoordinates;
 }
 
-sf::Vector2f Transformation::scaleWorldCoordinatesToPixelCoordinates(const Vector2d& worldCoordinates) const
+Vector2d Transformation::scaleWorldCoordinatesToPixelCoordinates(const Vector2d& worldCoordinates) const
 {
-        return sf::Vector2f(worldCoordinates.x * (getWindowSize().getWidth() / mWorldView->getWorldViewWidth()),
+        return Vector2d(worldCoordinates.x * (getWindowSize().getWidth() / mWorldView->getWorldViewWidth()),
                             worldCoordinates.y * float(getWindowSize().getHeight()) / mWorldView->getWorldViewHeight());
 }
 

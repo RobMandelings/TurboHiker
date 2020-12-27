@@ -13,7 +13,7 @@ namespace turboHiker {
 class World;
 }
 
-namespace turboHikerSFML {
+namespace turboHiker {
 class SFMLGame : public turboHiker::Game
 {
 private:
@@ -29,6 +29,6 @@ private:
         // TODO add initializeWindow method
 
         Player mPlayer;
-        turboHikerSFML::MyRenderWindow mWindow;
+        turboHiker::MyRenderWindow mWindow;
 };
 }

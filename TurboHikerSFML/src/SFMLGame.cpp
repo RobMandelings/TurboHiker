@@ -11,7 +11,7 @@
 #include "EntityFactorySFML.h"
 
 using namespace turboHiker;
-using namespace turboHikerSFML;
+using namespace turboHiker;
 
 SFMLGame::SFMLGame(const std::chrono::duration<double>& timePerFrame, const BoundingBox& worldBorders)
     : Game(timePerFrame, std::make_unique<turboHiker::World>(worldBorders)),
@@ -19,7 +19,7 @@ SFMLGame::SFMLGame(const std::chrono::duration<double>& timePerFrame, const Boun
 {
         mWorld->setEntityFactory(std::make_unique<EntityFactorySFML>(mWindow));
         Transformation::get().initialize(WindowSize(mWindow.getSize().x, mWindow.getSize().y), worldBorders);
-        Transformation::get().setWorldViewHeight(worldBorders.getHeight());
+        Transformation::get().setWorldViewHeight(worldBorders.getHeight() * 5);
         mWorld->buildWorld();
 }
 

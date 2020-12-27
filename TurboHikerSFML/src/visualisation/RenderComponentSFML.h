@@ -12,7 +12,7 @@ namespace turboHiker {
 class WorldLocation;
 }
 
-namespace turboHikerSFML {
+namespace turboHiker {
 
 class RenderComponentSFML : public turboHiker::RenderComponent
 {

@@ -6,7 +6,7 @@
 
 #include "Vector2d.h"
 
-namespace turboHikerSFML {
+namespace turboHiker {
 class WorldView
 {
 
