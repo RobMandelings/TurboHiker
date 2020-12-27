@@ -18,6 +18,8 @@ class SceneNode;
  */
 namespace turboHikerSFML {
 
+using namespace turboHiker;
+
 class DrawableRenderer;
 
 class EntityFactorySFML : public turboHiker::EntityFactory
@@ -28,9 +30,8 @@ public:
 
         std::unique_ptr<turboHiker::SceneNode> createTestCircle(const turboHiker::Vector2d& location,
                                                  const turboHiker::Vector2d& initialVelocity) const override;
-        std::unique_ptr<turboHiker::SceneNode> createHiker(const turboHiker::Vector2d& location,
-                                               const turboHiker::Vector2d& initialVelocity,
-                                               bool playerControlled) const override;
+        std::unique_ptr<SceneNode> createHiker(const Vector2d& location, const Vector2d& size,
+                                               const Vector2d& initialVelocity, bool playerControlled) const override;
 
         std::unique_ptr<turboHiker::SceneNode> createBackgroundRectangle(const turboHiker::BoundingBox& worldBorders) const override;
 

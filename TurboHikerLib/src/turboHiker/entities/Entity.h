@@ -16,7 +16,7 @@ class Entity : public SceneNode
 {
 
 public:
-        Entity(const Vector2d& initialLocation, std::unique_ptr<BoundingBox> mBoundingBox,
+        Entity(const Vector2d& initialLocation, const Vector2d& boundingSize,
                       std::unique_ptr<RenderComponent> renderComponent, const Vector2d& mVelocity);
 
         void setVelocity(const Vector2d& newVelocity);

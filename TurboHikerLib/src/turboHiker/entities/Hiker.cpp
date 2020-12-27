@@ -8,10 +8,10 @@
 #include "BoundingBox.h"
 #include "RenderComponent.h"
 
-turboHiker::Hiker::Hiker(const Vector2d& initialLocation, std::unique_ptr<BoundingBox> boundingBox,
+turboHiker::Hiker::Hiker(const Vector2d& initialLocation, const Vector2d& boundingSize,
                          std::unique_ptr<RenderComponent> renderComponent, const Vector2d& initialVelocity,
                          bool playerControlled)
-    : Entity(initialLocation, std::move(boundingBox), std::move(renderComponent), initialVelocity),
+    : Entity(initialLocation, boundingSize, std::move(renderComponent), initialVelocity),
       mPlayerControlled(playerControlled)
 {
 }

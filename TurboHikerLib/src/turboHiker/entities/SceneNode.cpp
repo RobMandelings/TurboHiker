@@ -20,14 +20,14 @@
 
 namespace turboHiker {
 
-SceneNode::SceneNode(const Vector2d& initialLocation, std::unique_ptr<BoundingBox> mBoundingBox,
+SceneNode::SceneNode(const Vector2d& initialLocation, const Vector2d& boundingSize,
                      std::unique_ptr<RenderComponent> renderComponent)
-    : mParent(nullptr), mLocation(initialLocation), mBoundingBox(std::move(mBoundingBox)),
+    : mParent(nullptr), mLocation(initialLocation), mBoundingSize(boundingSize),
       mRenderComponent(std::move(renderComponent))
 {
 }
 
-SceneNode::SceneNode() : SceneNode(Vector2d(0, 0), nullptr, nullptr) {}
+SceneNode::SceneNode() : SceneNode(Vector2d(0, 0), Vector2d(0, 0), nullptr) {}
 
 void SceneNode::attachChild(SceneNode::SceneNodePtr child)
 {
@@ -63,6 +63,10 @@ void SceneNode::update(Updatable::seconds dt)
                 // TODO improve to not use the absolute location directly
                 // TODO use getWorldLocation() function to get the absolute location
                 mRenderComponent->update(dt, getLocation());
+        }
+
+        if (hasBoundingBox()) {
+                std::cout << getBoundingBox().getLeft() << std::endl;
         }
 
         updateChildren(dt);
@@ -115,9 +119,7 @@ BoundingBox SceneNode::getBoundingBox() const
                            getLocation().x + mBoundingSize.x / 2, getLocation().y + mBoundingSize.y);
 }
 
-bool SceneNode::hasBoundingBox() const {
-        return mBoundingSize.x != 0 && mBoundingSize.y != 0;
-}
+bool SceneNode::hasBoundingBox() const { return mBoundingSize.x != 0 && mBoundingSize.y != 0; }
 
 bool SceneNode::collidesWith(const SceneNode& entity) const
 {
@@ -142,8 +144,8 @@ void SceneNode::setBoundingSize(const Vector2d& boundingSize)
         assert(boundingSize.y >= 0);
         mBoundingSize = boundingSize;
 }
-void SceneNode::setBoundingWidth(double width) { setBoundingSize(Vector2d(width, getBoundingSize().y)); }
-void SceneNode::setBoundingHeight(double height) { setBoundingSize(Vector2d(getBoundingSize().x, height)); }
+void SceneNode::setBoundingWidth(double width) { setBoundingSize(Vector2d(width, mBoundingSize.y)); }
+void SceneNode::setBoundingHeight(double height) { setBoundingSize(Vector2d(mBoundingSize.x, height)); }
 
 void SceneNode::onCommand(const Command& command, seconds dt)
 {
@@ -159,5 +161,4 @@ void SceneNode::onCommand(const Command& command, seconds dt)
 
 const Vector2d& SceneNode::getLocation() const { return mLocation; }
 void SceneNode::setLocation(const Vector2d& newLocation) { mLocation = newLocation; }
-const Vector2d& SceneNode::getBoundingSize() const { return mBoundingSize; }
 } // namespace turboHiker

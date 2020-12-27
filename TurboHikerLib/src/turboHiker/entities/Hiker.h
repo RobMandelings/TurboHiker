@@ -14,7 +14,7 @@ class Hiker : public Entity
 {
 
 public:
-        Hiker(const Vector2d& initialLocation, std::unique_ptr<BoundingBox> boundingBox,
+        Hiker(const Vector2d& initialLocation, const Vector2d& boundingSize,
               std::unique_ptr<RenderComponent> renderComponent, const Vector2d& initialVelocity, bool playerControlled);
         unsigned int getCategory() const override;
 

@@ -29,7 +29,7 @@ class SceneNode : public Updatable, public Renderable, public Removable
 public:
         typedef std::unique_ptr<SceneNode> SceneNodePtr;
 
-        SceneNode(const Vector2d& initialLocation, std::unique_ptr<BoundingBox> mBoundingBox,
+        SceneNode(const Vector2d& initialLocation, const Vector2d& boundingSize,
                   std::unique_ptr<RenderComponent> renderComponent);
 
         SceneNode();
