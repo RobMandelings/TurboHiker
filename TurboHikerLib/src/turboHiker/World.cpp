@@ -26,6 +26,8 @@ void turboHiker::World::update(Updatable::seconds dt)
         while (!mCommandQueue.isEmpty()) {
                 mSceneGraph.onCommand(mCommandQueue.pop(), dt);
         }
+
+        handleCollisions();
 }
 
 void turboHiker::World::render() const { mSceneGraph.render(); }
@@ -66,6 +68,7 @@ void turboHiker::World::handleCollisions()
         mSceneGraph.checkSceneCollision(mSceneGraph, collisionPairs);
 
         for (const SceneNode::Pair pair : collisionPairs) {
+                std::cout << "Something collides!" << std::endl;
         }
 }
 
