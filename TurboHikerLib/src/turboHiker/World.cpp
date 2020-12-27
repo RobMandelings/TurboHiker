@@ -10,8 +10,10 @@
 #include "PhysicsComponent.h"
 #include "RenderComponent.h"
 
-#include <set>
 #include <iostream>
+#include <set>
+
+using namespace turboHiker;
 
 turboHiker::World::World(const BoundingBox& worldBorders)
     : mSceneGraph(SceneNode()), mEntityFactory(nullptr), mWorldBorders(worldBorders)
@@ -32,14 +34,39 @@ void turboHiker::World::buildWorld()
 {
         assert(mEntityFactory != nullptr && "Entityfactory not set: no way to create new entities");
 
-        //mSceneGraph.attachChild(mEntityFactory->createTestCircle(Vector2d(0, 49), Vector2d(0, 0)));
+        // mSceneGraph.attachChild(mEntityFactory->createTestCircle(Vector2d(0, 49), Vector2d(0, 0)));
         // mSceneGraph.attachChild(mEntityFactory->createTestCircle(Vector2d(50, 50), Vector2d(0, 0)));
 
         mSceneGraph.attachChild(mEntityFactory->createBackgroundRectangle(getWorldBorders()));
 
         mSceneGraph.attachChild(mEntityFactory->createHiker(Vector2d(getWorldBorders().getWidth() / 2, 0),
                                                             Vector2d(10, 10), Vector2d(0, 0), true));
-        //mSceneGraph.attachChild(mEntityFactory->createTestCircle(Vector2d(28, 28), Vector2d(0, 0)));
+        // mSceneGraph.attachChild(mEntityFactory->createTestCircle(Vector2d(28, 28), Vector2d(0, 0)));
+}
+
+bool World::matchesCategories(SceneNode::Pair& colliders, Category::Type type1, Category::Type type2)
+{
+        unsigned int category1 = colliders.first->getCategory();
+        unsigned int category2 = colliders.second->getCategory();
+
+        // Make sure first pair entry has category type1 and second has type2
+        if (type1 & category1 && type2 & category2) {
+                return true;
+        } else if (type1 & category2 && type2 & category1) {
+                std::swap(colliders.first, colliders.second);
+                return true;
+        } else {
+                return false;
+        }
+}
+
+void turboHiker::World::handleCollisions()
+{
+        std::set<SceneNode::Pair> collisionPairs;
+        mSceneGraph.checkSceneCollision(mSceneGraph, collisionPairs);
+
+        for (const SceneNode::Pair pair : collisionPairs) {
+        }
 }
 
 void turboHiker::World::setEntityFactory(std::unique_ptr<EntityFactory> entityFactory)

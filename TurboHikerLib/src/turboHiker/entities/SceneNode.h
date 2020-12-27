@@ -57,6 +57,7 @@ public:
         void handleCollision(const SceneNode& entity);
 
         bool collidesWith(const SceneNode& other) const;
+        static bool collidesWith(const SceneNode& lhs, const SceneNode& rhs);
 
         void checkSceneCollision(SceneNode& sceneGraph, std::set<Pair>& collisionPairs);
         void checkNodeCollision(SceneNode& node, std::set<Pair>& collisionPairs);
@@ -111,8 +112,6 @@ private:
 
         Vector2d mBoundingSize;
 };
-
-bool collidesWith(const SceneNode& lhs, const SceneNode& rhs);
 
 } // namespace turboHiker
 

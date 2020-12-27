@@ -29,6 +29,8 @@ public:
         void render() const override;
         void handleCollisions();
 
+        static bool matchesCategories(SceneNode::Pair& colliders, Category::Type type1, Category::Type type2);
+
         void setEntityFactory(std::unique_ptr<EntityFactory> entityFactory);
 
         CommandQueue& getCommandQueue();

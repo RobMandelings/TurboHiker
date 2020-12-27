@@ -138,6 +138,8 @@ bool SceneNode::collidesWith(const SceneNode& other) const
         return false;
 }
 
+bool SceneNode::collidesWith(const SceneNode& lhs, const SceneNode& rhs) { return lhs.collidesWith(rhs); }
+
 void SceneNode::handleCollisionInternal(const SceneNode& entity)
 {
         assert(collidesWith(entity));
@@ -188,7 +190,5 @@ void SceneNode::onCommand(const Command& command, seconds dt)
 
 const Vector2d& SceneNode::getLocation() const { return mLocation; }
 void SceneNode::setLocation(const Vector2d& newLocation) { mLocation = newLocation; }
-
-bool collidesWith(const SceneNode& lhs, const SceneNode& rhs) { return lhs.collidesWith(rhs); }
 
 } // namespace turboHiker
