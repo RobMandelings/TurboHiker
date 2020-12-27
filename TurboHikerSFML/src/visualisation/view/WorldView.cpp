@@ -10,9 +10,9 @@ turboHikerSFML::WorldView::WorldView(double initialWorldXSize, double initialWor
 {
 }
 
-double turboHikerSFML::WorldView::getWorldXSize() const { return mWorldXSize; }
+double turboHikerSFML::WorldView::getWorldViewWidth() const { return mWorldXSize; }
 void turboHikerSFML::WorldView::setWidth(double worldXSize) { WorldView::mWorldXSize = worldXSize; }
-double turboHikerSFML::WorldView::getWorldYSize() const { return mWorldYSize; }
+double turboHikerSFML::WorldView::getWorldViewHeight() const { return mWorldYSize; }
 void turboHikerSFML::WorldView::setHeight(double worldYSize) { WorldView::mWorldYSize = worldYSize; }
 const turboHiker::Vector2d& turboHikerSFML::WorldView::getWorldViewCenter() const { return mWorldViewCenter; }
 void turboHikerSFML::WorldView::setWorldViewCenter(const turboHiker::Vector2d& worldViewCenter)

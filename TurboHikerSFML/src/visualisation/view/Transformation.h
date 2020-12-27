@@ -20,7 +20,7 @@
 namespace turboHiker {
 class BoundingBox;
 class Vector2d;
-}
+} // namespace turboHiker
 
 namespace turboHikerSFML {
 
@@ -37,12 +37,23 @@ public:
 
         static Transformation& get();
 
-        void initialize(const WorldView& worldView, const WindowSize& windowSize,
-                        const turboHiker::BoundingBox& worldBorders);
+        void initialize(const WindowSize& windowSize, const turboHiker::BoundingBox& worldBorders);
 
-        WorldView& getWorldView() const;
+        void setWorldViewHeight(double worldViewHeight);
 
-        WindowSize& getWindowSize() const;
+        void setWorldViewWidth(double worldViewWidth);
+
+        const Vector2d& getWorldViewCenter() const;
+
+        void setWorldViewCenter(const Vector2d& newCenter);
+
+        void setWorldViewCenterX(double x);
+
+        void setWorldViewCenterY(double y);
+
+        void setWindowSize(const WindowSize& newWindowSize);
+
+        const WindowSize& getWindowSize() const;
 
         sf::Vector2f convertWorldCoordinatesToPixelCoordinates(const turboHiker::Vector2d& worldCoordinates) const;
 
@@ -57,8 +68,14 @@ public:
         turboHiker::BoundingBox convertWorldBoundingBoxToVisualBoundingBox(
             const turboHiker::BoundingBox& worldBoundingBox) const;
 
-private:
+        /**
+         * Asserts that the world coordinates converted to the pixel coordinates are ratio 1:1, meaning that objects are
+         * not squeezed / stretched. E.g. If you can view more of the world in the width, the window must be wider as
+         * well. You should also be able to see more of the height of the world then.
+         */
+        bool checkOneToOneRatio() const;
 
+private:
         explicit Transformation();
 
         bool initialized() const;

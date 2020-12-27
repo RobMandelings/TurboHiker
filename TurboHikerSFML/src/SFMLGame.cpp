@@ -18,8 +18,7 @@ SFMLGame::SFMLGame(const std::chrono::duration<double>& timePerFrame, const Boun
       mWindow(sf::VideoMode(700, 500), "TurboHiker")
 {
         mWorld->setEntityFactory(std::make_unique<EntityFactorySFML>(mWindow));
-        Transformation::get().initialize(WorldView(worldBorders.getWidth(), 10.0, Vector2d(worldBorders.getWidth() / 2, 25)),
-                                         WindowSize(mWindow.getSize().x, mWindow.getSize().y), worldBorders);
+        Transformation::get().initialize(WindowSize(mWindow.getSize().x, mWindow.getSize().y), worldBorders);
         mWorld->buildWorld();
 }
 
@@ -43,22 +42,7 @@ void SFMLGame::processInput()
                         mWindow.setView(sf::View(visibleArea));
                         const WindowSize& previousWindowSize = Transformation::get().getWindowSize();
 
-                        double newWorldViewWidth = double(event.size.width) / previousWindowSize.getWidth() *
-                                                   Transformation::get().getWorldView().getWorldXSize();
-                        double newWorldViewHeight = double(event.size.height) / previousWindowSize.getHeight() *
-                                                    Transformation::get().getWorldView().getWorldYSize();
-
-                        Transformation::get().getWorldView().setWorldViewCenter(Vector2d(
-                            Transformation::get().getWorldView().getWorldViewCenter().x, newWorldViewHeight / 2));
-
-                        // You can proportionally see more of the world now (proportionally to the pixels more you can
-                        // see). Thus the distances between pixel mappings stay the same
-                        Transformation::get().getWorldView().setWidth(newWorldViewWidth);
-                        Transformation::get().getWorldView().setHeight(newWorldViewHeight);
-                        // Change the window size in the transformation singleton so the conversion to pixels is altered
-                        // as well
-                        Transformation::get().getWindowSize().setWidth(int(event.size.width));
-                        Transformation::get().getWindowSize().setHeight(int(event.size.height));
+                        Transformation::get().setWindowSize(WindowSize(int(event.size.width), int(event.size.height)));
                 }
         }
 

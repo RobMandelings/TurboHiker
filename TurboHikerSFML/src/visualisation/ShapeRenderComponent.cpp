@@ -17,7 +17,6 @@ void turboHikerSFML::ShapeRenderComponent::update(const turboHiker::Updatable::s
                                                   const turboHiker::Vector2d& currentWorldLocation)
 {
 
-        const turboHiker::Vector2d& worldViewCenter = Transformation::get().getWorldView().getWorldViewCenter();
         sf::Vector2f pixelCoordinates = Transformation::get().convertWorldCoordinatesToPixelCoordinates(currentWorldLocation);
 
         mShape->setPosition(pixelCoordinates.x, pixelCoordinates.y);
