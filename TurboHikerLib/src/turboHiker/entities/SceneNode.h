@@ -32,7 +32,7 @@ public:
         typedef std::pair<SceneNode*, SceneNode*> Pair;
 
         SceneNode(const Vector2d& initialLocation, const Vector2d& boundingSize,
-                  std::unique_ptr<RenderComponent> renderComponent);
+                  std::unique_ptr<RenderComponent> renderComponent, std::string  name = "SceneNode");
 
         SceneNode();
 
@@ -94,6 +94,9 @@ private:
 
         bool hasBoundingBox() const;
 
+public:
+        const std::string& getName() const;
+
 protected:
         /**
          * The location of the entity. If its a child of another entity it is relative to the location of that entity.
@@ -102,15 +105,18 @@ protected:
         Vector2d mLocation;
 
 private:
+
+        std::string mName;
+
         SceneNode* mParent;
         std::vector<SceneNodePtr> mChildren;
+
+        Vector2d mBoundingSize;
 
         /**
          * Used to render the node
          */
         std::unique_ptr<RenderComponent> mRenderComponent;
-
-        Vector2d mBoundingSize;
 };
 
 } // namespace turboHiker

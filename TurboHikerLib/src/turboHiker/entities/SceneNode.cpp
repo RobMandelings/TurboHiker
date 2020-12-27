@@ -18,17 +18,18 @@
 
 #include <iostream>
 #include <turboHiker/Category.h>
+#include <utility>
 
 namespace turboHiker {
 
 SceneNode::SceneNode(const Vector2d& initialLocation, const Vector2d& boundingSize,
-                     std::unique_ptr<RenderComponent> renderComponent)
+                     std::unique_ptr<RenderComponent> renderComponent, std::string name)
     : mParent(nullptr), mLocation(initialLocation), mBoundingSize(boundingSize),
-      mRenderComponent(std::move(renderComponent))
+      mRenderComponent(std::move(renderComponent)), mName(std::move(name))
 {
 }
 
-SceneNode::SceneNode() : SceneNode(Vector2d(0, 0), Vector2d(0, 0), nullptr) {}
+SceneNode::SceneNode() : SceneNode(Vector2d(0, 0), Vector2d(0, 0), nullptr, "SceneNode") {}
 
 void SceneNode::attachChild(SceneNode::SceneNodePtr child)
 {
@@ -127,13 +128,21 @@ bool SceneNode::collidesWith(const SceneNode& other) const
 {
         if (&other != this && hasBoundingBox() && other.hasBoundingBox()) {
 
-                bool intersectsOnXAxis = this->getBoundingBox().getRight() >= other.getBoundingBox().getLeft() ||
-                                         this->getBoundingBox().getLeft() <= other.getBoundingBox().getRight();
+                double val = this->getBoundingBox().getRight();
+                double val2 = other.getBoundingBox().getLeft();
 
-                bool intersectsOnYAxis = this->getBoundingBox().getBottom() < other.getBoundingBox().getTop() ||
-                                         this->getBoundingBox().getTop() > other.getBoundingBox().getBottom();
+                // Check if one rectangle is on the left side of the other
+                if (this->getBoundingBox().getLeft() > other.getBoundingBox().getRight() ||
+                    other.getBoundingBox().getLeft() > this->getBoundingBox().getRight()) {
+                        return false;
+                }
 
-                return intersectsOnXAxis && intersectsOnYAxis;
+                if (this->getBoundingBox().getBottom() > other.getBoundingBox().getTop() ||
+                    other.getBoundingBox().getBottom() > this->getBoundingBox().getTop()) {
+                        return false;
+                }
+
+                return true;
         }
         return false;
 }
@@ -158,7 +167,7 @@ void SceneNode::checkSceneCollision(SceneNode& sceneGraph, std::set<Pair>& colli
 
 void SceneNode::checkNodeCollision(SceneNode& node, std::set<Pair>& collisionPairs)
 {
-        if (this->collidesWith(node) && !isMarkedForRemoval() && !node.isMarkedForRemoval()) {
+        if (this != &node && this->collidesWith(node) && !isMarkedForRemoval() && !node.isMarkedForRemoval()) {
                 collisionPairs.insert(std::minmax(this, &node));
         }
 
@@ -190,5 +199,6 @@ void SceneNode::onCommand(const Command& command, seconds dt)
 
 const Vector2d& SceneNode::getLocation() const { return mLocation; }
 void SceneNode::setLocation(const Vector2d& newLocation) { mLocation = newLocation; }
+const std::string& SceneNode::getName() const { return mName; }
 
 } // namespace turboHiker

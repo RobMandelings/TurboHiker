@@ -7,8 +7,9 @@
 #include "RenderComponent.h"
 
 turboHiker::Entity::Entity(const turboHiker::Vector2d& initialLocation, const Vector2d& boundingSize,
-                           std::unique_ptr<RenderComponent> renderComponent, const turboHiker::Vector2d& mVelocity)
-    : SceneNode(initialLocation, boundingSize, std::move(renderComponent)), mVelocity(mVelocity)
+                           std::unique_ptr<RenderComponent> renderComponent, const turboHiker::Vector2d& mVelocity,
+                           const std::string& name)
+    : SceneNode(initialLocation, boundingSize, std::move(renderComponent), name), mVelocity(mVelocity)
 {
 }
 

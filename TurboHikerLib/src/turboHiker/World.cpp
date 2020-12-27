@@ -43,6 +43,9 @@ void turboHiker::World::buildWorld()
 
         mSceneGraph.attachChild(mEntityFactory->createHiker(Vector2d(getWorldBorders().getWidth() / 2, 0),
                                                             Vector2d(10, 10), Vector2d(0, 0), true));
+
+        mSceneGraph.attachChild(mEntityFactory->createHiker(Vector2d(getWorldBorders().getWidth() / 2, 0),
+                                                            Vector2d(7, 7), Vector2d(0, 0), false));
         // mSceneGraph.attachChild(mEntityFactory->createTestCircle(Vector2d(28, 28), Vector2d(0, 0)));
 }
 
@@ -68,7 +71,7 @@ void turboHiker::World::handleCollisions()
         mSceneGraph.checkSceneCollision(mSceneGraph, collisionPairs);
 
         for (const SceneNode::Pair pair : collisionPairs) {
-                std::cout << "Something collides!" << std::endl;
+                // TODO react, do something
         }
 }
 

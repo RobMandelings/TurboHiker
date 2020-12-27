@@ -37,7 +37,7 @@ std::unique_ptr<SceneNode> turboHikerSFML::EntityFactorySFML::createBackgroundRe
             std::make_unique<ShapeRenderComponent>(mWindowRenderer, std::move(shape), 0);
 
         return std::make_unique<SceneNode>(Vector2d(worldBorders.getWidth() / 2, worldBorders.getHeight() / 2),
-                                           Vector2d(0, 0), std::move(shapeRenderComponent));
+                                           Vector2d(0, 0), std::move(shapeRenderComponent), "BackgroundRectangle");
 }
 
 std::unique_ptr<SceneNode> turboHikerSFML::EntityFactorySFML::createTestCircle(const Vector2d& location,
@@ -50,7 +50,7 @@ std::unique_ptr<SceneNode> turboHikerSFML::EntityFactorySFML::createTestCircle(c
         std::unique_ptr<ShapeRenderComponent> shapeRenderComponent =
             std::make_unique<ShapeRenderComponent>(mWindowRenderer, std::move(shape), 100);
 
-        return std::make_unique<Entity>(location, Vector2d(0, 0), std::move(shapeRenderComponent), initialVelocity);
+        return std::make_unique<Entity>(location, Vector2d(0, 0), std::move(shapeRenderComponent), initialVelocity, "TestCircle");
 }
 
 std::unique_ptr<SceneNode> turboHikerSFML::EntityFactorySFML::createHiker(const Vector2d& location,
