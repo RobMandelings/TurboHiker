@@ -53,7 +53,7 @@ std::unique_ptr<SceneNode> turboHikerSFML::EntityFactorySFML::createTestCircle(c
         return std::make_unique<Entity>(location, Vector2d(0, 0), std::move(shapeRenderComponent), initialVelocity, "TestCircle");
 }
 
-std::unique_ptr<SceneNode> turboHikerSFML::EntityFactorySFML::createHiker(const Vector2d& location,
+std::unique_ptr<Hiker> turboHikerSFML::EntityFactorySFML::createHiker(const Vector2d& location,
                                                                           const Vector2d& size,
                                                                           const Vector2d& initialVelocity,
                                                                           bool playerControlled) const

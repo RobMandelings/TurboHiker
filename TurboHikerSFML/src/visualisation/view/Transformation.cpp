@@ -141,8 +141,6 @@ bool Transformation::checkOneToOneRatio() const
         double comparisonValue = std::abs((getWindowSize().getHeight() / double(mWindowSize->getWidth())) -
             (mWorldView->getWorldViewHeight() / mWorldView->getWorldViewWidth()));
 
-        std::cout << "Comparison: " << comparisonValue << std::endl;
-        std::cout << "Numeric: " << std::numeric_limits<double>::epsilon() * 10 << std::endl;
         // Normal epsilon as numeric limit was not good enough as this sometimes returned false even thought the ratio was 1:1. Epsilon * 10 is still safe to use
         return comparisonValue < std::numeric_limits<double>::epsilon() * 10;
 }

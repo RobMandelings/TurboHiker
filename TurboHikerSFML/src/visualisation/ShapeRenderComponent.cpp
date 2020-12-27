@@ -4,8 +4,8 @@
 
 #include "ShapeRenderComponent.h"
 
-#include "Transformation.h"
 #include "SFML/Graphics/Shape.hpp"
+#include "Transformation.h"
 
 turboHikerSFML::ShapeRenderComponent::ShapeRenderComponent(DrawableRenderer& windowDrawer,
                                                            std::unique_ptr<sf::Shape> shape, double speed)
@@ -17,7 +17,8 @@ void turboHikerSFML::ShapeRenderComponent::update(const turboHiker::Updatable::s
                                                   const turboHiker::Vector2d& currentWorldLocation)
 {
 
-        sf::Vector2f pixelCoordinates = Transformation::get().convertWorldCoordinatesToPixelCoordinates(currentWorldLocation);
+        sf::Vector2f pixelCoordinates =
+            Transformation::get().convertWorldCoordinatesToPixelCoordinates(currentWorldLocation);
 
         mShape->setPosition(pixelCoordinates.x, pixelCoordinates.y);
 

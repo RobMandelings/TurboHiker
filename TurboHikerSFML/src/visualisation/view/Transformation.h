@@ -20,6 +20,7 @@
 namespace turboHiker {
 class BoundingBox;
 class Vector2d;
+class Hiker;
 } // namespace turboHiker
 
 namespace turboHikerSFML {

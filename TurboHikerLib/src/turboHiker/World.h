@@ -16,6 +16,7 @@
 #include "CommandQueue.h"
 
 #include <memory>
+#include <turboHiker/entities/Hiker.h>
 
 namespace turboHiker {
 
@@ -40,6 +41,8 @@ public:
         const BoundingBox& getWorldBorders() const;
 
 private:
+
+        Hiker* mPlayerHiker;
 
         /**
          * This is Main Game Object of the world, it contains all sub game objects (can be entities, decorations,...)

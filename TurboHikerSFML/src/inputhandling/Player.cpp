@@ -13,8 +13,10 @@ struct MovableEntityMover
 {
         MovableEntityMover(float vx, float vy) : velocity(vx, vy) {}
 
-        void operator()(turboHiker::Entity& movableEntity, Updatable::seconds dt) const {
-                movableEntity.accelerate(velocity * dt.count()); }
+        void operator()(turboHiker::Entity& movableEntity, Updatable::seconds dt) const
+        {
+                movableEntity.accelerate(velocity * dt.count());
+        }
 
         turboHiker::Vector2d velocity;
 };

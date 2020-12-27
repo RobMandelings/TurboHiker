@@ -42,10 +42,12 @@ void turboHiker::World::buildWorld()
         mSceneGraph.attachChild(mEntityFactory->createBackgroundRectangle(getWorldBorders()));
 
         mSceneGraph.attachChild(mEntityFactory->createHiker(Vector2d(getWorldBorders().getWidth() / 2, 0),
-                                                            Vector2d(10, 10), Vector2d(0, 0), true));
-
-        mSceneGraph.attachChild(mEntityFactory->createHiker(Vector2d(getWorldBorders().getWidth() / 2, 0),
                                                             Vector2d(7, 7), Vector2d(0, 0), false));
+
+        std::unique_ptr<Hiker> playerHiker = mEntityFactory->createHiker(Vector2d(getWorldBorders().getWidth() / 2, 0),
+        Vector2d(10, 10), Vector2d(0, 0), true);
+        mPlayerHiker = playerHiker.get();
+        mSceneGraph.attachChild(std::move(playerHiker));
         // mSceneGraph.attachChild(mEntityFactory->createTestCircle(Vector2d(28, 28), Vector2d(0, 0)));
 }
 
