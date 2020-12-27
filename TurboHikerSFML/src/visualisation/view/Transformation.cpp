@@ -53,12 +53,12 @@ sf::Vector2f Transformation::convertWorldCoordinatesToPixelCoordinates(const Vec
         const Vector2d& worldViewCenter = getWorldView().getWorldViewCenter();
 
         // These are the translated world coordinates, where the center of view has been taken into account as well
-        sf::Vector2f pixelCoordinates =
-            sf::Vector2f(worldCoordinates.x - (worldViewCenter.x - (getWorldView().getWorldXSize() / 2)),
-                         worldCoordinates.y - (worldViewCenter.y - (getWorldView().getWorldYSize() / 2)));
+        Vector2d translatedWorldCoordinates(
+            worldCoordinates.x - (worldViewCenter.x - (getWorldView().getWorldXSize() / 2)),
+            worldCoordinates.y - (worldViewCenter.y - (getWorldView().getWorldYSize() / 2)));
 
         // Scale these translated world coordinates to their corresponding pixel values
-        scaleWorldCoordinatesToPixelCoordinates(pixelCoordinates);
+        sf::Vector2f pixelCoordinates = scaleWorldCoordinatesToPixelCoordinates(translatedWorldCoordinates);
 
         // The top of the screen is at y = 0, the bottom at mWindowSize.getHeight(). So the current pixel coordinates
         // need to be converted to not appear upside-down
@@ -67,10 +67,10 @@ sf::Vector2f Transformation::convertWorldCoordinatesToPixelCoordinates(const Vec
         return pixelCoordinates;
 }
 
-void Transformation::scaleWorldCoordinatesToPixelCoordinates(sf::Vector2f& worldCoordinates) const
+sf::Vector2f Transformation::scaleWorldCoordinatesToPixelCoordinates(const Vector2d& worldCoordinates) const
 {
-        worldCoordinates.x = worldCoordinates.x * (getWindowSize().getWidth() / getWorldView().getWorldXSize());
-        worldCoordinates.y = worldCoordinates.y * float(getWindowSize().getHeight()) / getWorldView().getWorldYSize();
+        return sf::Vector2f(worldCoordinates.x * (getWindowSize().getWidth() / getWorldView().getWorldXSize()),
+                            worldCoordinates.y * float(getWindowSize().getHeight()) / getWorldView().getWorldYSize());
 }
 
 std::mutex Transformation::mMutex;

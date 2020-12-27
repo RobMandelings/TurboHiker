@@ -67,6 +67,7 @@ void SceneNode::update(Updatable::seconds dt)
 
         if (hasBoundingBox()) {
                 std::cout << getBoundingBox().getLeft() << std::endl;
+                //std::cout << getLocation().x << std::endl;
         }
 
         updateChildren(dt);

@@ -14,13 +14,17 @@
 #include <SFML/System.hpp>
 #include <memory>
 #include <mutex>
+#include <turboHiker/utils/maths/Vector2d.h>
 #include <utility>
 
 namespace turboHiker {
 class BoundingBox;
+class Vector2d;
 }
 
 namespace turboHikerSFML {
+
+using namespace turboHiker;
 
 // TODO implement scaling/zooming: draw the entities smaller or bigger depending on changes in view
 class Transformation
@@ -48,7 +52,7 @@ public:
          * @param worldCoordinates
          * @return
          */
-        void scaleWorldCoordinatesToPixelCoordinates(sf::Vector2f& worldCoordinates) const;
+        sf::Vector2f scaleWorldCoordinatesToPixelCoordinates(const Vector2d& worldCoordinates) const;
 
         turboHiker::BoundingBox convertWorldBoundingBoxToVisualBoundingBox(
             const turboHiker::BoundingBox& worldBoundingBox) const;
