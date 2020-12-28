@@ -58,16 +58,21 @@ bool SceneNode::hasChildren() { return !mChildren.empty(); }
 
 void SceneNode::update(Updatable::seconds dt)
 {
-
         updateCurrent(dt);
+        updateChildren(dt);
+}
+
+void SceneNode::updateRenderComponents(Updatable::seconds dt) const
+{
         if (mRenderComponent) {
                 // Update the render component so it can alter its RenderState / Representation / ...
                 // TODO improve to not use the absolute location directly
                 // TODO use getWorldLocation() function to get the absolute location
                 mRenderComponent->update(dt, getLocation());
         }
-
-        updateChildren(dt);
+        for (const SceneNodePtr& child : mChildren) {
+                child->updateRenderComponents(dt);
+        }
 }
 
 void SceneNode::updateCurrent(Updatable::seconds dt)

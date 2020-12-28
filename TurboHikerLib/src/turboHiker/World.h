@@ -38,7 +38,7 @@ public:
 
         void buildWorld();
 
-        void trackPlayer();
+        void trackPlayer() const;
 
         const BoundingBox& getWorldBorders() const;
 

@@ -7,11 +7,13 @@
 
 #include "BoundingBox.h"
 #include "RenderComponent.h"
+#include "Transformation.h"
 
 turboHiker::Hiker::Hiker(const Vector2d& initialLocation, const Vector2d& boundingSize,
                          std::unique_ptr<RenderComponent> renderComponent, const Vector2d& initialVelocity,
                          bool playerControlled)
-    : Entity(initialLocation, boundingSize, std::move(renderComponent), initialVelocity, playerControlled ? "PlayerHiker" : "Hiker"),
+    : Entity(initialLocation, boundingSize, std::move(renderComponent), initialVelocity,
+             playerControlled ? "PlayerHiker" : "Hiker"),
       mPlayerControlled(playerControlled)
 {
 }

@@ -37,6 +37,7 @@ public:
         SceneNode();
 
         void update(seconds dt) final;
+        void updateRenderComponents(seconds dt) const;
 
         void render() const final;
 
@@ -67,8 +68,10 @@ public:
 
         void onCommand(const Command& command, seconds dt);
 
-private:
+protected:
         virtual void updateCurrent(seconds dt);
+
+private:
         void updateChildren(seconds dt);
 
         void renderCurrent() const;
