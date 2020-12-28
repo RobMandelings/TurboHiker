@@ -7,31 +7,35 @@
 #include "SFML/Graphics/Shape.hpp"
 #include "Transformation.h"
 
-turboHiker::ShapeRenderComponent::ShapeRenderComponent(DrawableRenderer& windowDrawer,
-                                                           std::unique_ptr<sf::Shape> shape, double speed)
-    : RenderComponentSFML(windowDrawer), mShape(std::move(shape)), goingDown(false), speed(speed), summedDt(0)
+turboHiker::ShapeRenderComponent::ShapeRenderComponent(DrawableRenderer& windowDrawer, std::unique_ptr<sf::Shape> shape,
+                                                       double speed)
+    : RenderComponentSFML(windowDrawer), mShape(std::move(shape)),
+      mCurrentColor(mShape->getFillColor().r / 255.0, mShape->getFillColor().g / 255.0, mShape->getFillColor().b / 255.0),
+      goingDown(false), mSpeed(speed), summedDt(0)
 {
 }
 
 void turboHiker::ShapeRenderComponent::update(const turboHiker::Updatable::seconds& dt,
-                                                  const turboHiker::Vector2d& currentWorldLocation)
+                                              const turboHiker::Vector2d& currentWorldLocation)
 {
 
         Vector2d pixelCoordinates =
             Transformation::get().convertWorldCoordinatesToPixelCoordinates(currentWorldLocation);
 
-
         mShape->setPosition(float(pixelCoordinates.x), float(pixelCoordinates.y));
 
-        if (mShape->getFillColor().r == 255) {
+        if (mCurrentColor.getRed() == 1) {
                 goingDown = true;
-        } else if (mShape->getFillColor().r == 0) {
+        } else if (mCurrentColor.getRed() == 0) {
                 goingDown = false;
         }
 
+        if (mSpeed > 0) {
+                mCurrentColor.setRed(mCurrentColor.getRed() + (goingDown ? -1 : 1) * mSpeed * dt.count());
+        }
+
         // One second has passed
-        mShape->setFillColor(sf::Color(mShape->getFillColor().r + int((goingDown ? -1 : 1) * speed * dt.count()),
-                                       mShape->getFillColor().g, mShape->getFillColor().b));
+        mShape->setFillColor(mCurrentColor.getSFMLColor());
         summedDt = 0;
 }
 

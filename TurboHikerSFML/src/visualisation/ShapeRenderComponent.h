@@ -5,6 +5,7 @@
 #ifndef TURBOHIKER_SHAPERENDERCOMPONENT_H
 #define TURBOHIKER_SHAPERENDERCOMPONENT_H
 
+#include "Color.h"
 #include "RenderComponentSFML.h"
 #include <SFML/Graphics/Shape.hpp>
 #include <memory>
@@ -30,9 +31,10 @@ public:
 
 private:
         std::unique_ptr<sf::Shape> mShape;
+        turboHikerSFML::Color mCurrentColor;
 
         bool goingDown;
-        double speed;
+        double mSpeed;
         double summedDt;
 };
 } // namespace turboHikerSFML

@@ -39,7 +39,7 @@ set(SRC
         src/visualisation/ShapeRenderComponent.cpp
         src/visualisation/ShapeRenderComponent.h
         src/inputhandling/Player.cpp
-        src/inputhandling/Player.h src/visualisation/MyRenderWindow.cpp src/visualisation/MyRenderWindow.h ../TurboHikerLib/src/turboHiker/view/WorldView.cpp ../TurboHikerLib/src/turboHiker/view/WorldView.h ../TurboHikerLib/src/turboHiker/view/WindowSize.cpp ../TurboHikerLib/src/turboHiker/view/WindowSize.h)
+        src/inputhandling/Player.h src/visualisation/MyRenderWindow.cpp src/visualisation/MyRenderWindow.h ../TurboHikerLib/src/turboHiker/view/WorldView.cpp ../TurboHikerLib/src/turboHiker/view/WorldView.h ../TurboHikerLib/src/turboHiker/view/WindowSize.cpp ../TurboHikerLib/src/turboHiker/view/WindowSize.h src/visualisation/Color.cpp src/visualisation/Color.h)
 
 include_directories(
         ${SFML_INCLUDE_DIR}

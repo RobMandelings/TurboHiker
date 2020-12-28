@@ -63,11 +63,11 @@ std::unique_ptr<Hiker> turboHiker::EntityFactorySFML::createHiker(const Vector2d
 
         std::unique_ptr<sf::Shape> shape = std::make_unique<sf::CircleShape>(
             Transformation::get().scaleWorldCoordinatesToPixelCoordinates(size).x / 2);
-        shape->setFillColor(sf::Color(100, 0, 200));
+        shape->setFillColor(sf::Color(0, 0, 0));
         shape->setOrigin(shape->getGlobalBounds().width / 2, shape->getGlobalBounds().height / 2);
 
         std::unique_ptr<ShapeRenderComponent> shapeRenderComponent =
-            std::make_unique<ShapeRenderComponent>(mWindowRenderer, std::move(shape), 100);
+            std::make_unique<ShapeRenderComponent>(mWindowRenderer, std::move(shape), 1);
 
         return std::make_unique<Hiker>(location, size, std::move(shapeRenderComponent), initialVelocity,
                                        playerControlled);
