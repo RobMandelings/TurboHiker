@@ -21,15 +21,8 @@ turboHiker::World::World(const BoundingBox& worldBorders)
 {
 }
 
-void World::updateWorld(Updatable::seconds dt) {
-        update(dt);
-}
-
-void World::renderWorld() const {
-        this->render();
-}
-
-void World::updateCurrent(Updatable::seconds dt) {
+void World::updateCurrent(Updatable::seconds dt)
+{
         // Update the center of view so the player is tracked in the middle
         trackPlayer();
         // Now update the render components. Make sure to update it after the Transformation singleton has altered its
@@ -51,8 +44,8 @@ void turboHiker::World::buildWorld()
 
         attachChild(mEntityFactory->createBackgroundRectangle(getWorldBorders()));
 
-        attachChild(mEntityFactory->createHiker(Vector2d(getWorldBorders().getWidth() / 2, 0),
-                                                            Vector2d(7, 7), Vector2d(0, 0), false));
+        attachChild(mEntityFactory->createHiker(Vector2d(getWorldBorders().getWidth() / 2, 0), Vector2d(7, 7),
+                                                Vector2d(0, 0), false));
 
         std::unique_ptr<Hiker> playerHiker = mEntityFactory->createHiker(Vector2d(getWorldBorders().getWidth() / 2, 0),
                                                                          Vector2d(10, 10), Vector2d(0, 0), true);

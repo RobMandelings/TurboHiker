@@ -52,7 +52,7 @@ void SFMLGame::processInput()
 void SFMLGame::render()
 {
         mWindow.clear();
-        mWorld->renderWorld();
+        mWorld->render();
         mWindow.display();
 }
 

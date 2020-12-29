@@ -24,11 +24,11 @@ class World : private SceneNode
 {
 
 public:
+
+        using SceneNode::update;
+        using SceneNode::render;
+
         World(const BoundingBox& worldBorders);
-
-        void updateWorld(Updatable::seconds dt);
-
-        void renderWorld() const;
 
         void handleCollisions();
 
