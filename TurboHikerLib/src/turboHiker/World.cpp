@@ -17,27 +17,30 @@
 using namespace turboHiker;
 
 turboHiker::World::World(const BoundingBox& worldBorders)
-    : mSceneGraph(SceneNode()), mEntityFactory(nullptr), mWorldBorders(worldBorders)
+    : mPlayerHiker(nullptr), mEntityFactory(nullptr), mWorldBorders(worldBorders)
 {
 }
 
-void turboHiker::World::update(Updatable::seconds dt)
-{
-        assert(mPlayerHiker != nullptr);
-        mSceneGraph.update(dt);
+void World::updateWorld(Updatable::seconds dt) {
+        update(dt);
+}
+
+void World::renderWorld() const {
+        this->render();
+}
+
+void World::updateCurrent(Updatable::seconds dt) {
         // Update the center of view so the player is tracked in the middle
         trackPlayer();
         // Now update the render components. Make sure to update it after the Transformation singleton has altered its
         // view (due to trackPlayer).
-        mSceneGraph.updateRenderComponents(dt);
+        updateRenderComponents(dt);
         while (!mCommandQueue.isEmpty()) {
-                mSceneGraph.onCommand(mCommandQueue.pop(), dt);
+                onCommand(mCommandQueue.pop(), dt);
         }
 
         handleCollisions();
 }
-
-void turboHiker::World::render() const { mSceneGraph.render(); }
 
 void turboHiker::World::buildWorld()
 {
@@ -46,15 +49,15 @@ void turboHiker::World::buildWorld()
         // mSceneGraph.attachChild(mEntityFactory->createTestCircle(Vector2d(0, 49), Vector2d(0, 0)));
         // mSceneGraph.attachChild(mEntityFactory->createTestCircle(Vector2d(50, 50), Vector2d(0, 0)));
 
-        mSceneGraph.attachChild(mEntityFactory->createBackgroundRectangle(getWorldBorders()));
+        attachChild(mEntityFactory->createBackgroundRectangle(getWorldBorders()));
 
-        mSceneGraph.attachChild(mEntityFactory->createHiker(Vector2d(getWorldBorders().getWidth() / 2, 0),
+        attachChild(mEntityFactory->createHiker(Vector2d(getWorldBorders().getWidth() / 2, 0),
                                                             Vector2d(7, 7), Vector2d(0, 0), false));
 
         std::unique_ptr<Hiker> playerHiker = mEntityFactory->createHiker(Vector2d(getWorldBorders().getWidth() / 2, 0),
                                                                          Vector2d(10, 10), Vector2d(0, 0), true);
         mPlayerHiker = playerHiker.get();
-        mSceneGraph.attachChild(std::move(playerHiker));
+        attachChild(std::move(playerHiker));
         // mSceneGraph.attachChild(mEntityFactory->createTestCircle(Vector2d(28, 28), Vector2d(0, 0)));
 }
 
@@ -83,7 +86,7 @@ bool World::matchesCategories(SceneNode::Pair& colliders, Category::Type type1, 
 void turboHiker::World::handleCollisions()
 {
         std::set<SceneNode::Pair> collisionPairs;
-        mSceneGraph.checkSceneCollision(mSceneGraph, collisionPairs);
+        this->checkSceneCollision(*this, collisionPairs);
 
         for (const SceneNode::Pair pair : collisionPairs) {
                 // TODO react, do something

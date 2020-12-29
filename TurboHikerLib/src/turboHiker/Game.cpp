@@ -41,5 +41,5 @@ void turboHiker::Game::startRunning()
         }
 }
 
-void turboHiker::Game::update() { mWorld->update(getTimeStep()); }
+void turboHiker::Game::update() { mWorld->updateWorld(getTimeStep()); }
 const std::chrono::duration<double>& turboHiker::Game::getTimeStep() const { return m_timePerFrame; }

@@ -58,8 +58,8 @@ bool SceneNode::hasChildren() { return !mChildren.empty(); }
 
 void SceneNode::update(Updatable::seconds dt)
 {
-        updateCurrent(dt);
         updateChildren(dt);
+        updateCurrent(dt);
 }
 
 void SceneNode::updateRenderComponents(Updatable::seconds dt) const
@@ -88,8 +88,8 @@ void SceneNode::updateChildren(Updatable::seconds dt)
 
 void SceneNode::render() const
 {
-        renderCurrent();
         renderChildren();
+        renderCurrent();
 }
 
 void SceneNode::renderCurrent() const

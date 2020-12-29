@@ -39,8 +39,6 @@ public:
         void update(seconds dt) final;
         void updateRenderComponents(seconds dt) const;
 
-        void render() const final;
-
         void attachChild(SceneNodePtr child);
         SceneNodePtr detachChild(const SceneNode& child);
         bool hasChildren();
@@ -68,6 +66,7 @@ public:
 
         void onCommand(const Command& command, seconds dt);
 
+        void render() const final;
 protected:
         virtual void updateCurrent(seconds dt);
 

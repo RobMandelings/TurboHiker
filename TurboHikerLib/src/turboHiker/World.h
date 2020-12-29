@@ -20,14 +20,16 @@
 
 namespace turboHiker {
 
-class World : private Updatable, private Renderable
+class World : private SceneNode
 {
 
 public:
         World(const BoundingBox& worldBorders);
 
-        void update(seconds dt) override;
-        void render() const override;
+        void updateWorld(Updatable::seconds dt);
+
+        void renderWorld() const;
+
         void handleCollisions();
 
         static bool matchesCategories(SceneNode::Pair& colliders, Category::Type type1, Category::Type type2);
@@ -43,13 +45,11 @@ public:
         const BoundingBox& getWorldBorders() const;
 
 private:
+        void updateCurrent(seconds dt) override;
+
+private:
 
         Hiker* mPlayerHiker;
-
-        /**
-         * This is Main Game Object of the world, it contains all sub game objects (can be entities, decorations,...)
-         */
-        SceneNode mSceneGraph;
 
         CommandQueue mCommandQueue;
 
