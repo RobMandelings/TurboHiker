@@ -27,3 +27,12 @@ Once this is done, everything should be set up and you should able to startRunni
 
 Maybe also add an update() in the render component for usage in animations and such, or to change the sprite being used depending on the physical state of an entity,...
 Make sure the actions and commands are in a separate class (maybe divide into Player and PlayerSFML).
+
+# Important 'features' / coding designs used
+
+Component pattern for rendering: illustrated well with animations
+
+Sophisticated view system: moving center, scaling,resizing of window
+
+Custom amount of lanes
+

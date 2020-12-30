@@ -71,9 +71,8 @@ void World::trackPlayer() const
         double newWorldViewCenterX;
 
         if (Transformation::get().getWorldView().getWorldViewWidth() >= mWorldBorders.getWidth()) {
-                newWorldViewCenterX = Transformation::get().getWorldView().getWorldViewWidth() / 2;
+                newWorldViewCenterX = getWorldBorders().getWidth() / 2;
         } else {
-                std::cout << "Nope" << Transformation::get().getWorldView().getWorldViewWidth() << std::endl;
                 newWorldViewCenterX = mPlayerHiker->getLocation().x;
         }
 
