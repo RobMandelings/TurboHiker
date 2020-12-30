@@ -8,5 +8,6 @@ enum Type
         Scene = 1 << 0,
         PlayerHiker = 1 << 1,
         Hiker = 1 << 2,
+        World = 1 << 3
 };
 } // namespace turboHiker

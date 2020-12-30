@@ -60,6 +60,10 @@ void Transformation::setWorldViewHeight(double worldViewHeight)
         mWorldView->setHeight(worldViewHeight);
         assert(checkOneToOneRatio());
 }
+
+const WorldView& Transformation::getWorldView() const {
+        return *mWorldView;
+}
 void Transformation::setWorldViewCenter(const Vector2d& newCenter)
 {
         assert(initialized() && "Transformation singleton not yet initialized with required values (View and window)!");

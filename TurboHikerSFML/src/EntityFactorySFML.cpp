@@ -33,17 +33,19 @@ std::unique_ptr<SceneNode> turboHiker::EntityFactorySFML::createLane(const Bound
             sf::Vector2f(laneRectangleSizeInPixels.x, laneRectangleSizeInPixels.y));
         laneShape->setOrigin(laneShape->getGlobalBounds().width / 2, laneShape->getGlobalBounds().height / 2);
 
-        laneShape->setFillColor(sf::Color::Green);
+        laneShape->setFillColor(sf::Color(200, 200, 200));
         std::unique_ptr<ShapeRenderComponent> shapeRenderComponent =
             std::make_unique<ShapeRenderComponent>(mWindowRenderer, std::move(laneShape), 0);
 
+        // Bounding sizes always have their center at the origin. So if you have a width of 50, the bounding size would be 25
         std::unique_ptr<SceneNode> lane =
             std::make_unique<SceneNode>(Vector2d(laneDimensions.getLeft() + laneDimensions.getWidth() / 2,
                                                  laneDimensions.getBottom() + laneDimensions.getHeight() / 2),
-                                        Vector2d(0, 0), std::move(shapeRenderComponent), "Lane");
+                                        Vector2d(laneDimensions.getWidth() / 2, laneDimensions.getHeight() / 2), std::move(shapeRenderComponent), "Lane");
 
         Vector2d borderRectangleSizeInPixels = Transformation::get().scaleWorldCoordinatesToPixelCoordinates(
             Vector2d(laneDimensions.getWidth() / 50, laneDimensions.getHeight()));
+
         std::unique_ptr<sf::RectangleShape> borderShape = std::make_unique<sf::RectangleShape>(
             sf::Vector2f(borderRectangleSizeInPixels.x, borderRectangleSizeInPixels.y));
         borderShape->setOrigin(borderShape->getGlobalBounds().width / 2, borderShape->getGlobalBounds().height / 2);

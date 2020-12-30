@@ -22,6 +22,8 @@ public:
 
         void setVelocity(const Vector2d& newVelocity);
 
+        Vector2d getVelocity() const;
+
         void accelerate(const Vector2d& acceleration);
 
 protected:

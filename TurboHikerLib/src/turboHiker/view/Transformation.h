@@ -41,6 +41,8 @@ public:
 
         void setWorldViewWidth(double worldViewWidth);
 
+        const WorldView& getWorldView() const;
+
         const Vector2d& getWorldViewCenter() const;
 
         void setWorldViewCenter(const Vector2d& newCenter);

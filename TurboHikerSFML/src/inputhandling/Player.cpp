@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "CommandQueue.h"
 #include "Entity.h"
+#include "World.h"
 
 #include <algorithm>
 #include <map>
@@ -9,16 +10,34 @@
 using namespace turboHiker;
 using namespace turboHiker;
 
-struct MovableEntityMover
+struct HikerSpeed
 {
-        MovableEntityMover(float vx, float vy) : velocity(vx, vy) {}
+        HikerSpeed(double velocity) : mVelocity(velocity) {}
 
         void operator()(turboHiker::Entity& movableEntity, Updatable::seconds dt) const
         {
-                movableEntity.accelerate(velocity * dt.count());
+                movableEntity.setVelocity(Vector2d(movableEntity.getVelocity().x, mVelocity));
         }
 
-        turboHiker::Vector2d velocity;
+        double mVelocity;
+};
+
+class LaneMover
+{
+
+public:
+        explicit LaneMover(bool moveRight) : mMoveRight(moveRight) {}
+
+        void operator()(turboHiker::World& world, Updatable::seconds dt) const
+        {
+                int newLane = world.getPlayerHiker().getCurrentLane() + (mMoveRight ? 1 : -1);
+                if (newLane >= 0 && newLane < world.getAmountOfLanes()) {
+                        world.putHikerOnLane(world.getPlayerHiker(), newLane);
+                }
+        }
+
+private:
+        bool mMoveRight;
 };
 
 Player::Player()
@@ -31,12 +50,6 @@ Player::Player()
 
         // Set initial action bindings
         initializeActions();
-
-        for (auto& pair : mActionBinding) {
-                // Make sure that all commands (from the action binding) are destined for the player. Other categories
-                // should not receive this command.
-                pair.second.category = turboHiker::Category::PlayerHiker;
-        }
 }
 
 void Player::handleEvent(const sf::Event& event, CommandQueue& commands)
@@ -86,12 +99,17 @@ sf::Keyboard::Key Player::getAssignedKey(Action action) const
 
 void Player::initializeActions()
 {
-        const float playerSpeed = 5.f;
+        const float playerSpeed = 100.f;
 
-        mActionBinding[MoveLeft].action = derivedAction<Entity>(MovableEntityMover(-playerSpeed, 0.f));
-        mActionBinding[MoveRight].action = derivedAction<Entity>(MovableEntityMover(+playerSpeed, 0.f));
-        mActionBinding[MoveUp].action = derivedAction<Entity>(MovableEntityMover(0.f, +playerSpeed));
-        mActionBinding[MoveDown].action = derivedAction<Entity>(MovableEntityMover(0.f, -playerSpeed));
+        mActionBinding[MoveLeft].category = turboHiker::Category::World;
+        mActionBinding[MoveRight].category = turboHiker::Category::World;
+        mActionBinding[MoveUp].category = turboHiker::Category::PlayerHiker;
+        mActionBinding[MoveDown].category = turboHiker::Category::PlayerHiker;
+
+        mActionBinding[MoveLeft].action = derivedAction<World>(LaneMover(false));
+        mActionBinding[MoveRight].action = derivedAction<World>(LaneMover(true));
+        mActionBinding[MoveUp].action = derivedAction<Entity>(HikerSpeed(playerSpeed));
+        mActionBinding[MoveDown].action = derivedAction<Entity>(HikerSpeed(playerSpeed / 3));
 }
 
 bool Player::isRealtimeAction(Action action)
@@ -101,7 +119,7 @@ bool Player::isRealtimeAction(Action action)
         case MoveRight:
         case MoveDown:
         case MoveUp:
-                return true;
+                return false;
 
         default:
                 return false;

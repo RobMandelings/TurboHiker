@@ -20,13 +20,10 @@
 
 namespace turboHiker {
 
-class World : private SceneNode
+class World : public SceneNode
 {
 
 public:
-
-        using SceneNode::update;
-        using SceneNode::render;
 
         World(int nrLanes, double laneWidth, double laneHeight,
               std::unique_ptr<turboHiker::EntityFactory> entityFactory);
@@ -48,6 +45,9 @@ public:
         void trackPlayer() const;
 
         const BoundingBox& getWorldBorders() const;
+
+        Hiker& getPlayerHiker() const;
+        unsigned int getCategory() const override;
 
 private:
         void updateCurrent(seconds dt) override;

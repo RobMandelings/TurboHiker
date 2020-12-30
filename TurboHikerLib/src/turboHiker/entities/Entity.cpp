@@ -14,6 +14,10 @@ turboHiker::Entity::Entity(const turboHiker::Vector2d& initialLocation, const Ve
 }
 
 void turboHiker::Entity::setVelocity(const turboHiker::Vector2d& newVelocity) { mVelocity = newVelocity; }
+
+turboHiker::Vector2d turboHiker::Entity::getVelocity() const {
+        return mVelocity;
+}
 void turboHiker::Entity::accelerate(const turboHiker::Vector2d& acceleration) { mVelocity += acceleration; }
 
 void turboHiker::Entity::updateCurrent(turboHiker::Updatable::seconds dt) { mLocation += mVelocity * dt; }

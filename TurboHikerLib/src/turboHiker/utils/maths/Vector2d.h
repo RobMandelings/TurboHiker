@@ -33,10 +33,11 @@ struct Vector2d
         Vector2d& operator+=(const Vector2d& vector2D);
         Vector2d& operator-=(const Vector2d& vector2D);
 
-        friend std::ostream& operator<<(std::ostream& os, const Vector2d& vector2D);
-
 
 };
+
+    std::ostream& operator<<(std::ostream& os, const Vector2d& vector2D);
+
 } // namespace turboHiker
 
 #endif // TURBOHIKER_VECTOR2D_H
