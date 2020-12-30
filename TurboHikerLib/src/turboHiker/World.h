@@ -24,9 +24,7 @@ class World : public SceneNode
 {
 
 public:
-
-        World(int nrLanes, double laneWidth, double laneHeight,
-              std::unique_ptr<turboHiker::EntityFactory> entityFactory);
+        World(int nrLanes, double laneWidth, double laneHeight);
 
         void handleCollisions();
 

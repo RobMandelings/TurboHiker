@@ -17,10 +17,8 @@
 
 using namespace turboHiker;
 
-turboHiker::World::World(int nrLanes, double laneWidth, double laneHeight,
-                         std::unique_ptr<turboHiker::EntityFactory> entityFactory)
-    : mPlayerHiker(nullptr), mWorldBorders(BoundingBox(0, 0, nrLanes * laneWidth, laneHeight)),
-      mEntityFactory(std::move(entityFactory))
+turboHiker::World::World(int nrLanes, double laneWidth, double laneHeight)
+    : mPlayerHiker(nullptr), mWorldBorders(BoundingBox(0, 0, nrLanes * laneWidth, laneHeight))
 {
 }
 
@@ -72,11 +70,10 @@ void World::trackPlayer() const
 
         double newWorldViewCenterX;
 
-        if (Transformation::get().getWorldView().getWorldViewWidth() * 2 >= mWorldBorders.getWidth()) {
-                std::cout << Transformation::get().getWorldView().getWorldViewWidth() << std::endl;
+        if (Transformation::get().getWorldView().getWorldViewWidth() >= mWorldBorders.getWidth()) {
                 newWorldViewCenterX = Transformation::get().getWorldView().getWorldViewWidth() / 2;
         } else {
-                std::cout << Transformation::get().getWorldView().getWorldViewWidth() << std::endl;
+                std::cout << "Nope" << Transformation::get().getWorldView().getWorldViewWidth() << std::endl;
                 newWorldViewCenterX = mPlayerHiker->getLocation().x;
         }
 

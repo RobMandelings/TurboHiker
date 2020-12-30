@@ -19,7 +19,7 @@ class SFMLGame : public turboHiker::Game
 {
 private:
 public:
-        SFMLGame(const std::chrono::duration<double>& timePerFrame, const turboHiker::BoundingBox& worldBorders);
+        SFMLGame(const std::chrono::duration<double>& timePerFrame);
         void stopRunning() override;
         bool isRunning() const override;
 
