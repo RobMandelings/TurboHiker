@@ -18,7 +18,12 @@ public:
               std::unique_ptr<RenderComponent> renderComponent, const Vector2d& initialVelocity, bool playerControlled);
         unsigned int getCategory() const override;
 
+        int getCurrentLane() const;
+        void setCurrentLane(int currentLane);
+
 private:
+
+        int mCurrentLane;
 
         bool mPlayerControlled;
 };

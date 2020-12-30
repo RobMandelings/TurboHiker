@@ -22,3 +22,5 @@ unsigned int turboHiker::Hiker::getCategory() const
 {
         return mPlayerControlled ? Category::PlayerHiker : Category::Hiker;
 }
+int turboHiker::Hiker::getCurrentLane() const { return mCurrentLane; }
+void turboHiker::Hiker::setCurrentLane(int currentLane) { mCurrentLane = currentLane; }

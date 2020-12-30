@@ -16,8 +16,10 @@
 
 using namespace turboHiker;
 
-turboHiker::World::World(const BoundingBox& worldBorders)
-    : mPlayerHiker(nullptr), mEntityFactory(nullptr), mWorldBorders(worldBorders)
+turboHiker::World::World(int nrLanes, double laneWidth, double laneHeight,
+                         std::unique_ptr<turboHiker::EntityFactory> entityFactory)
+    : mPlayerHiker(nullptr), mWorldBorders(BoundingBox(0, 0, nrLanes * laneWidth, laneHeight)),
+      mEntityFactory(std::move(entityFactory))
 {
 }
 
@@ -35,14 +37,18 @@ void World::updateCurrent(Updatable::seconds dt)
         handleCollisions();
 }
 
-void turboHiker::World::buildWorld()
+void turboHiker::World::buildWorld(int nrLanes)
 {
         assert(mEntityFactory != nullptr && "Entityfactory not set: no way to create new entities");
 
         // mSceneGraph.attachChild(mEntityFactory->createTestCircle(Vector2d(0, 49), Vector2d(0, 0)));
         // mSceneGraph.attachChild(mEntityFactory->createTestCircle(Vector2d(50, 50), Vector2d(0, 0)));
 
-        attachChild(mEntityFactory->createBackgroundRectangle(getWorldBorders()));
+        for (int lane = 0; lane < nrLanes + 0; lane++) {
+                attachChild(mEntityFactory->createLane(
+                    BoundingBox(getWorldBorders().getLeft() + getWorldBorders().getWidth() / nrLanes * lane, getWorldBorders().getBottom(),
+                                getWorldBorders().getWidth() / nrLanes * (lane + 1), getWorldBorders().getHeight())));
+        }
 
         attachChild(mEntityFactory->createHiker(Vector2d(getWorldBorders().getWidth() / 2, 0), Vector2d(7, 7),
                                                 Vector2d(0, 0), false));
@@ -94,3 +100,15 @@ void turboHiker::World::setEntityFactory(std::unique_ptr<EntityFactory> entityFa
 
 turboHiker::CommandQueue& turboHiker::World::getCommandQueue() { return mCommandQueue; }
 const turboHiker::BoundingBox& turboHiker::World::getWorldBorders() const { return mWorldBorders; }
+
+void World::putHikerOnLane(Hiker& hiker, int laneIndex)
+{
+
+        SceneNode& lane = *mLanes.at(laneIndex);
+        assert(lane.hasBoundingBox());
+
+        hiker.setLocation(
+            Vector2d(lane.getBoundingBox().getLeft() + lane.getBoundingBox().getWidth() / 2, hiker.getLocation().y));
+}
+
+int World::getAmountOfLanes() const { return mLanes.size(); }

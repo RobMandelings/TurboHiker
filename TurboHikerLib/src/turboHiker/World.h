@@ -28,7 +28,8 @@ public:
         using SceneNode::update;
         using SceneNode::render;
 
-        World(const BoundingBox& worldBorders);
+        World(int nrLanes, double laneWidth, double laneHeight,
+              std::unique_ptr<turboHiker::EntityFactory> entityFactory);
 
         void handleCollisions();
 
@@ -38,7 +39,11 @@ public:
 
         CommandQueue& getCommandQueue();
 
-        void buildWorld();
+        void putHikerOnLane(Hiker& hiker, int laneIndex);
+
+        int getAmountOfLanes() const;
+
+        void buildWorld(int nrLanes);
 
         void trackPlayer() const;
 
@@ -50,6 +55,8 @@ private:
 private:
 
         Hiker* mPlayerHiker;
+
+        std::vector<SceneNode*> mLanes;
 
         CommandQueue mCommandQueue;
 

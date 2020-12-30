@@ -43,13 +43,6 @@ public:
         SceneNodePtr detachChild(const SceneNode& child);
         bool hasChildren();
 
-        /**
-         * Called whenever a child is attached to the scene node. Can be overridden to do specific stuff when a child is
-         * added
-         * @param child
-         */
-        virtual void onChildAttached(const SceneNode& child);
-
         const Vector2d& getLocation() const;
         void setLocation(const Vector2d& newLocation);
 
@@ -87,6 +80,9 @@ private:
         void setBoundingWidth(double width);
         void setBoundingHeight(double height);
 
+public:
+        const std::string& getName() const;
+
         /**
          * Gets the current bounding box of the entity depending on its bounding size and relative to its current
          * location. Used for collision detection. The location is always centered in the middle of the bounding box.
@@ -95,9 +91,6 @@ private:
         BoundingBox getBoundingBox() const;
 
         bool hasBoundingBox() const;
-
-public:
-        const std::string& getName() const;
 
 protected:
         /**

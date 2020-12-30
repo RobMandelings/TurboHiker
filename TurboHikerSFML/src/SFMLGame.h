@@ -11,6 +11,7 @@
 
 namespace turboHiker {
 class World;
+class EntityFactory;
 }
 
 namespace turboHiker {
@@ -28,7 +29,8 @@ private:
 
         // TODO add initializeWindow method
 
-        Player mPlayer;
         turboHiker::MyRenderWindow mWindow;
+
+        Player mPlayer;
 };
 }

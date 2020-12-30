@@ -34,14 +34,9 @@ SceneNode::SceneNode() : SceneNode(Vector2d(0, 0), Vector2d(0, 0), nullptr, "Sce
 void SceneNode::attachChild(SceneNode::SceneNodePtr child)
 {
         child->mParent = this;
-        onChildAttached(*child);
         mChildren.push_back(std::move(child));
 }
 
-void SceneNode::onChildAttached(const SceneNode& child)
-{
-        // Do nothing by default
-}
 SceneNode::SceneNodePtr SceneNode::detachChild(const SceneNode& child)
 {
         auto found =

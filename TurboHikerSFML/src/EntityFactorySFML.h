@@ -33,7 +33,7 @@ public:
         std::unique_ptr<Hiker> createHiker(const Vector2d& location, const Vector2d& size,
                                                const Vector2d& initialVelocity, bool playerControlled) const override;
 
-        std::unique_ptr<turboHiker::SceneNode> createBackgroundRectangle(const turboHiker::BoundingBox& worldBorders) const override;
+        std::unique_ptr<turboHiker::SceneNode> createLane(const turboHiker::BoundingBox& laneDimensions) const override;
 
 private:
         DrawableRenderer& mWindowRenderer;

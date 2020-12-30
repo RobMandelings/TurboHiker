@@ -20,7 +20,7 @@ class EntityFactory
 
 public:
 
-        virtual std::unique_ptr<SceneNode> createBackgroundRectangle(const BoundingBox& worldBorders) const = 0;
+        virtual std::unique_ptr<SceneNode> createLane(const BoundingBox& laneDimensions) const = 0;
 
         virtual std::unique_ptr<SceneNode> createTestCircle(const Vector2d& location,
                                                             const Vector2d& initialVelocity) const = 0;
