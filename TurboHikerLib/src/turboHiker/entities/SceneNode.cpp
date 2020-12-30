@@ -83,8 +83,8 @@ void SceneNode::updateChildren(Updatable::seconds dt)
 
 void SceneNode::render() const
 {
-        renderChildren();
         renderCurrent();
+        renderChildren();
 }
 
 void SceneNode::renderCurrent() const

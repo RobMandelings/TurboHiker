@@ -23,37 +23,42 @@ turboHiker::EntityFactorySFML::EntityFactorySFML(turboHiker::DrawableRenderer& m
 {
 }
 
-std::unique_ptr<SceneNode> turboHiker::EntityFactorySFML::createLane(
-    const BoundingBox& laneDimensions) const
+std::unique_ptr<SceneNode> turboHiker::EntityFactorySFML::createLane(const BoundingBox& laneDimensions) const
 {
 
         Vector2d laneRectangleSizeInPixels = Transformation::get().scaleWorldCoordinatesToPixelCoordinates(
             Vector2d(laneDimensions.getWidth(), laneDimensions.getHeight()));
 
-        std::unique_ptr<sf::RectangleShape> shape =
-            std::make_unique<sf::RectangleShape>(sf::Vector2f(laneRectangleSizeInPixels.x, laneRectangleSizeInPixels.y));
-        shape->setOrigin(shape->getGlobalBounds().width / 2, shape->getGlobalBounds().height / 2);
+        std::unique_ptr<sf::RectangleShape> laneShape = std::make_unique<sf::RectangleShape>(
+            sf::Vector2f(laneRectangleSizeInPixels.x, laneRectangleSizeInPixels.y));
+        laneShape->setOrigin(laneShape->getGlobalBounds().width / 2, laneShape->getGlobalBounds().height / 2);
 
+        laneShape->setFillColor(sf::Color::Green);
         std::unique_ptr<ShapeRenderComponent> shapeRenderComponent =
-            std::make_unique<ShapeRenderComponent>(mWindowRenderer, std::move(shape), 0);
+            std::make_unique<ShapeRenderComponent>(mWindowRenderer, std::move(laneShape), 0);
 
-        std::unique_ptr<SceneNode> lane = std::make_unique<SceneNode>(Vector2d(laneDimensions.getWidth() / 2, laneDimensions.getHeight() / 2),
-                                                                      Vector2d(0, 0), std::move(shapeRenderComponent), "Lane");
+        std::unique_ptr<SceneNode> lane =
+            std::make_unique<SceneNode>(Vector2d(laneDimensions.getLeft() + laneDimensions.getWidth() / 2,
+                                                 laneDimensions.getBottom() + laneDimensions.getHeight() / 2),
+                                        Vector2d(0, 0), std::move(shapeRenderComponent), "Lane");
 
-        Vector2d borderRectangleSizeInPixels = Transformation::get().scaleWorldCoordinatesToPixelCoordinates(Vector2d(laneDimensions.getLeft() + laneDimensions.getWidth() / 10, laneDimensions.getHeight()));
-        std::unique_ptr<sf::RectangleShape> borderShape =
-            std::make_unique<sf::RectangleShape>(sf::Vector2f(borderRectangleSizeInPixels.x, borderRectangleSizeInPixels.y));
+        Vector2d borderRectangleSizeInPixels = Transformation::get().scaleWorldCoordinatesToPixelCoordinates(
+            Vector2d(laneDimensions.getWidth() / 50, laneDimensions.getHeight()));
+        std::unique_ptr<sf::RectangleShape> borderShape = std::make_unique<sf::RectangleShape>(
+            sf::Vector2f(borderRectangleSizeInPixels.x, borderRectangleSizeInPixels.y));
         borderShape->setOrigin(borderShape->getGlobalBounds().width / 2, borderShape->getGlobalBounds().height / 2);
+        borderShape->setFillColor(sf::Color::Cyan);
 
         std::unique_ptr<ShapeRenderComponent> borderShapeRenderComponent =
-            std::make_unique<ShapeRenderComponent>(mWindowRenderer, std::move(shape), 0);
-        std::unique_ptr<SceneNode> laneBorder = std::make_unique<SceneNode>(Vector2d(laneDimensions.getWidth() / 2, laneDimensions.getHeight() / 2),
-                                                                      Vector2d(0, 0), std::move(shapeRenderComponent), "LaneBorder");
+            std::make_unique<ShapeRenderComponent>(mWindowRenderer, std::move(borderShape), 0);
+        std::unique_ptr<SceneNode> laneBorder = std::make_unique<SceneNode>(
+            Vector2d(laneDimensions.getLeft() + borderRectangleSizeInPixels.x / 2.0, laneDimensions.getHeight() / 2),
+            Vector2d(0, 0), std::move(borderShapeRenderComponent), "LaneBorder");
         lane->attachChild(std::move(laneBorder));
 
         return lane;
 
-        //return ;
+        // return ;
 }
 
 std::unique_ptr<SceneNode> turboHiker::EntityFactorySFML::createTestCircle(const Vector2d& location,

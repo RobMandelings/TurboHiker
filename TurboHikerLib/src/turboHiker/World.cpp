@@ -47,7 +47,7 @@ void turboHiker::World::buildWorld(int nrLanes)
         for (int lane = 0; lane < nrLanes + 0; lane++) {
                 attachChild(mEntityFactory->createLane(
                     BoundingBox(getWorldBorders().getLeft() + getWorldBorders().getWidth() / nrLanes * lane, getWorldBorders().getBottom(),
-                                getWorldBorders().getWidth() / nrLanes * (lane + 1), getWorldBorders().getHeight())));
+                                getWorldBorders().getWidth() / nrLanes, getWorldBorders().getHeight())));
         }
 
         attachChild(mEntityFactory->createHiker(Vector2d(getWorldBorders().getWidth() / 2, 0), Vector2d(7, 7),
