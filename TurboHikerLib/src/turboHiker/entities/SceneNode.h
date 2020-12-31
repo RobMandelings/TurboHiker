@@ -32,7 +32,7 @@ public:
         typedef std::pair<SceneNode*, SceneNode*> Pair;
 
         SceneNode(const Vector2d& initialLocation, const Vector2d& boundingSize,
-                  std::unique_ptr<RenderComponent> renderComponent, std::string  name = "SceneNode");
+                  std::unique_ptr<RenderComponent> renderComponent, std::string name = "SceneNode");
 
         SceneNode();
         SceneNode(const SceneNode& other);

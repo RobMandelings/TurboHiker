@@ -1,5 +1,7 @@
 project(TurboHikerLib)
 
+set(CMAKE_CXX_STANDARD 17)
+
 set(SRC
         src/turboHiker/Game.cpp
         src/turboHiker/utils/constants.h

@@ -26,8 +26,8 @@ public:
 
         void accelerate(const Vector2d& acceleration);
 
-protected:
-        void updateCurrent(seconds dt) override;
+        void update(seconds dt) override;
+
 private:
 
         Vector2d mVelocity;

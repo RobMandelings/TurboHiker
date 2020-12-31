@@ -20,4 +20,4 @@ turboHiker::Vector2d turboHiker::Entity::getVelocity() const {
 }
 void turboHiker::Entity::accelerate(const turboHiker::Vector2d& acceleration) { mVelocity += acceleration; }
 
-void turboHiker::Entity::updateCurrent(turboHiker::Updatable::seconds dt) { mLocation += mVelocity * dt; }
+void turboHiker::Entity::update(turboHiker::Updatable::seconds dt) { mLocation += mVelocity * dt; }
