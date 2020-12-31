@@ -34,8 +34,6 @@ void turboHiker::HikerRenderComponent::update(const turboHiker::Updatable::secon
         Vector2d pixelCoordinates =
             Transformation::get().convertWorldCoordinatesToPixelCoordinates(currentWorldLocation);
 
-        std::cout << "JepJep: " << pixelCoordinates << std::endl;
-
         mHikerShape.setPosition(float(pixelCoordinates.x), float(pixelCoordinates.y));
 
         if (mCurrentColor.getRed() == 1) {
@@ -50,6 +48,14 @@ void turboHiker::HikerRenderComponent::update(const turboHiker::Updatable::secon
 
         // One second has passed
         mHikerShape.setFillColor(mCurrentColor.getSFMLColor());
+
+//        std::cout << "Red " << (int) mHikerShape.getFillColor().r << std::endl;
+//        std::cout << (int) mHikerShape.getFillColor().g << std::endl;
+//        std::cout << (int) mHikerShape.getFillColor().b << std::endl;
+
+        std::cout << "Red " << (int) mCurrentColor.getRed() << std::endl;
+        std::cout << "" << (int) mCurrentColor.getGreen() << std::endl;
+        std::cout << "" << (int) mCurrentColor.getBlue() << std::endl;
         summedDt = 0;
 }
 

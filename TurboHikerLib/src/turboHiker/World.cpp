@@ -41,6 +41,10 @@ void World::update(Updatable::seconds dt) {
 
 }
 
+void World::renderWorld() {
+        mSceneGraph.render();
+}
+
 void turboHiker::World::buildWorld(int nrLanes)
 {
         assert(mEntityFactory != nullptr && "Entityfactory not set: no way to create new entities");
@@ -67,7 +71,7 @@ void turboHiker::World::buildWorld(int nrLanes)
         putHikerOnLane(*mPlayerHiker, 2);
         attachChild(std::move(playerHiker));*/
 
-        mSceneGraph.setPlayerHiker(mEntityFactory->createHiker(Vector2d(getWorldBorders().getWidth() / 2, 50),
+        mSceneGraph.setPlayerHiker(mEntityFactory->createHiker(Vector2d(mWorldBorders.getWidth() / 2, 50),
                                                                Vector2d(10, 10), Vector2d(0, 0)));
         // mSceneGraph.attachChild(mEntityFactory->createTestCircle(Vector2d(28, 28), Vector2d(0, 0)));
 }

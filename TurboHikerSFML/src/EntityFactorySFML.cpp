@@ -72,8 +72,7 @@ Hiker turboHiker::EntityFactorySFML::createHiker(const Vector2d& location, const
 
         std::unique_ptr<HikerRenderComponent> hikerRenderer = std::make_unique<HikerRenderComponent>(
             mWindowRenderer, 1, float(Transformation::get().scaleWorldCoordinatesToPixelCoordinates(size).x / 2),
-            sf::Color::Red);
-
+            sf::Color(255, 0, 0));
 
 
         return Hiker(location, size, std::move(hikerRenderer), initialVelocity);

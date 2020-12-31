@@ -21,6 +21,7 @@
 
 namespace turboHiker {
 
+// TODO don't make a SceneNode anymore
 class World : public SceneNode
 {
 
@@ -48,6 +49,7 @@ public:
         Hiker& getPlayerHiker() const;
         unsigned int getCategory() const override;
         void update(seconds dt) override;
+        void renderWorld();
 
 private:
 
