@@ -9,6 +9,7 @@
 #include "Renderable.h"
 #include "SceneNode.h"
 #include "Updatable.h"
+#include "SceneGraph.h"
 
 #include "BoundingBox.h"
 #include "RenderComponent.h"
@@ -52,9 +53,10 @@ private:
 
 private:
 
-        Hiker* mPlayerHiker;
-
-        std::vector<SceneNode*> mLanes;
+        /**
+         * Contains all the SceneNodes that are present in the world, except for the world itself
+         */
+        SceneGraph mSceneGraph;
 
         CommandQueue mCommandQueue;
 

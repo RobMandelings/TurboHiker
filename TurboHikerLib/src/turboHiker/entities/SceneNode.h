@@ -36,6 +36,8 @@ public:
 
         SceneNode();
 
+        SceneNode(const SceneNode& other);
+
         void update(seconds dt) final;
         void updateRenderComponents(seconds dt) const;
 

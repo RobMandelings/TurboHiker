@@ -17,6 +17,12 @@ class RenderComponent
 {
 
 public:
+
+        /**
+         * Clones the render component
+         * @return the cloned render component
+         */
+        virtual std::unique_ptr<RenderComponent> clone() = 0;
         /**
          * Updates the RenderComponent to do updates based on deltaTime or state of the sceneNode or just update the
          * location of where the image should be drawn
@@ -30,5 +36,7 @@ public:
          * visualisation library you use (Such as SFML)
          */
         virtual void render() const = 0;
+
+        virtual ~RenderComponent() = default;
 };
 } // namespace turboHiker

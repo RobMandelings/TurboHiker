@@ -31,6 +31,11 @@ SceneNode::SceneNode(const Vector2d& initialLocation, const Vector2d& boundingSi
 
 SceneNode::SceneNode() : SceneNode(Vector2d(0, 0), Vector2d(0, 0), nullptr, "SceneNode") {}
 
+SceneNode::SceneNode(const SceneNode& other) : mBoundingSize(other.mBoundingSize), mLocation(other.mLocation)
+{
+        mRenderComponent = std::move(other.mRenderComponent->clone());
+}
+
 void SceneNode::attachChild(SceneNode::SceneNodePtr child)
 {
         child->mParent = this;
@@ -195,5 +200,3 @@ void SceneNode::onCommand(const Command& command, seconds dt)
 const Vector2d& SceneNode::getLocation() const { return mLocation; }
 void SceneNode::setLocation(const Vector2d& newLocation) { mLocation = newLocation; }
 const std::string& SceneNode::getName() const { return mName; }
-
-} // namespace turboHiker
