@@ -69,6 +69,7 @@ void World::trackPlayer() const
         assert(mPlayerHiker != nullptr);
 
         double newWorldViewCenterX;
+        double newWorldViewCenterY = Transformation::get().getWorldViewCenter().y;
 
         if (Transformation::get().getWorldView().getWorldViewWidth() >= mWorldBorders.getWidth()) {
                 newWorldViewCenterX = getWorldBorders().getWidth() / 2;
@@ -76,7 +77,11 @@ void World::trackPlayer() const
                 newWorldViewCenterX = mPlayerHiker->getLocation().x;
         }
 
-        Transformation::get().setWorldViewCenter(Vector2d(newWorldViewCenterX, mPlayerHiker->getLocation().y));
+        if (mPlayerHiker->getLocation().y > Transformation::get().getWorldViewCenter().y) {
+                newWorldViewCenterY = mPlayerHiker->getLocation().y;
+        }
+
+        Transformation::get().setWorldViewCenter(Vector2d(newWorldViewCenterX, newWorldViewCenterY));
 }
 
 bool World::matchesCategories(SceneNode::Pair& colliders, Category::Type type1, Category::Type type2)

@@ -11,8 +11,6 @@ set(SRC
         src/turboHiker/World.h
         src/turboHiker/entities/SceneNode.cpp
         src/turboHiker/entities/SceneNode.h
-        src/turboHiker/utils/maths/Transform.cpp
-        src/turboHiker/utils/maths/Transform.h
         src/turboHiker/utils/maths/Vector2d.cpp
         src/turboHiker/utils/maths/Vector2d.h
         src/turboHiker/interfaces/Updatable.h
