@@ -29,7 +29,7 @@ void World::updateCurrent(Updatable::seconds dt)
         trackPlayer();
         // Now update the render components. Make sure to update it after the Transformation singleton has altered its
         // view (due to trackPlayer).
-        updateRenderComponents(dt);
+        updateRenderComponent(dt);
         while (!mCommandQueue.isEmpty()) {
                 onCommand(mCommandQueue.pop(), dt);
         }

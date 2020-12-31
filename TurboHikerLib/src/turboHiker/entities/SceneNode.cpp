@@ -20,12 +20,12 @@
 #include <turboHiker/Category.h>
 #include <utility>
 
-namespace turboHiker {
+using namespace turboHiker;
 
 SceneNode::SceneNode(const Vector2d& initialLocation, const Vector2d& boundingSize,
                      std::unique_ptr<RenderComponent> renderComponent, std::string name)
-    : mParent(nullptr), mLocation(initialLocation), mBoundingSize(boundingSize),
-      mRenderComponent(std::move(renderComponent)), mName(std::move(name))
+    : mLocation(initialLocation), mBoundingSize(boundingSize), mRenderComponent(std::move(renderComponent)),
+      mName(std::move(name))
 {
 }
 
@@ -36,84 +36,26 @@ SceneNode::SceneNode(const SceneNode& other) : mBoundingSize(other.mBoundingSize
         mRenderComponent = std::move(other.mRenderComponent->clone());
 }
 
-void SceneNode::attachChild(SceneNode::SceneNodePtr child)
-{
-        child->mParent = this;
-        mChildren.push_back(std::move(child));
-}
-
-SceneNode::SceneNodePtr SceneNode::detachChild(const SceneNode& child)
-{
-        auto found =
-            std::find_if(mChildren.begin(), mChildren.end(), [&child](SceneNodePtr& p) { return p.get() == &child; });
-        assert(found != mChildren.end());
-
-        SceneNodePtr result = std::move(*found);
-        result->mParent = nullptr;
-        mChildren.erase(found);
-
-        return result;
-}
-bool SceneNode::hasChildren() { return !mChildren.empty(); }
-
 void SceneNode::update(Updatable::seconds dt)
-{
-        updateChildren(dt);
-        updateCurrent(dt);
-}
-
-void SceneNode::updateRenderComponents(Updatable::seconds dt) const
-{
-        if (mRenderComponent) {
-                // Update the render component so it can alter its RenderState / Representation / ...
-                // TODO improve to not use the absolute location directly
-                // TODO use getWorldLocation() function to get the absolute location
-                mRenderComponent->update(dt, getLocation());
-        }
-        for (const SceneNodePtr& child : mChildren) {
-                child->updateRenderComponents(dt);
-        }
-}
-
-void SceneNode::updateCurrent(Updatable::seconds dt)
 {
         // Do nothing by default
 }
-void SceneNode::updateChildren(Updatable::seconds dt)
+
+void turboHiker::SceneNode::updateRenderComponent(Updatable::seconds dt) const
 {
-        for (const SceneNodePtr& child : mChildren) {
-                child->update(dt);
+        if (mRenderComponent) {
+                mRenderComponent->update(dt, getLocation());
         }
 }
 
-void SceneNode::render() const
-{
-        renderCurrent();
-        renderChildren();
-}
-
-void SceneNode::renderCurrent() const
+void turboHiker::SceneNode::render() const
 {
         if (mRenderComponent) {
                 mRenderComponent->render();
         }
 }
 
-void SceneNode::renderChildren() const
-{
-        for (const SceneNodePtr& gameObjectPtr : mChildren) {
-                gameObjectPtr->render();
-        }
-}
-
-void SceneNode::handleCollision(const SceneNode& entity)
-{
-        if (collidesWith(entity)) {
-                handleCollisionInternal(entity);
-        }
-}
-
-unsigned int SceneNode::getCategory() const { return Category::Scene; }
+unsigned int turboHiker::SceneNode::getCategory() const { return Category::Scene; }
 
 BoundingBox SceneNode::getBoundingBox() const
 {
@@ -147,32 +89,10 @@ bool SceneNode::collidesWith(const SceneNode& other) const
         return false;
 }
 
-bool SceneNode::collidesWith(const SceneNode& lhs, const SceneNode& rhs) { return lhs.collidesWith(rhs); }
-
-void SceneNode::handleCollisionInternal(const SceneNode& entity)
-{
-        assert(collidesWith(entity));
-        assert(hasBoundingBox());
-        // Do nothing by default, needs to be handled by the specific entity
-}
-
-void SceneNode::checkSceneCollision(SceneNode& sceneGraph, std::set<Pair>& collisionPairs)
-{
-        checkNodeCollision(sceneGraph, collisionPairs);
-
-        for (const std::unique_ptr<SceneNode>& child : sceneGraph.mChildren) {
-                checkSceneCollision(*child, collisionPairs);
-        }
-}
-
-void SceneNode::checkNodeCollision(SceneNode& node, std::set<Pair>& collisionPairs)
+void SceneNode::checkForCollisionWith(SceneNode& node, std::set<Pair>& collisionPairs)
 {
         if (this != &node && this->collidesWith(node) && !isMarkedForRemoval() && !node.isMarkedForRemoval()) {
                 collisionPairs.insert(std::minmax(this, &node));
-        }
-
-        for (const std::unique_ptr<SceneNode>& child : mChildren) {
-                child->checkNodeCollision(node, collisionPairs);
         }
 }
 
@@ -187,14 +107,9 @@ void SceneNode::setBoundingHeight(double height) { setBoundingSize(Vector2d(mBou
 
 void SceneNode::onCommand(const Command& command, seconds dt)
 {
-        // Command current node, if category matches
+        // Execute the command for this node, if the category matches the category defined in the command
         if (command.category & getCategory())
                 command.action(*this, dt);
-
-        // Command children
-        for (std::unique_ptr<SceneNode>& child : mChildren) {
-                child->onCommand(command, dt);
-        }
 }
 
 const Vector2d& SceneNode::getLocation() const { return mLocation; }

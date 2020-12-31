@@ -35,48 +35,26 @@ public:
                   std::unique_ptr<RenderComponent> renderComponent, std::string  name = "SceneNode");
 
         SceneNode();
-
         SceneNode(const SceneNode& other);
 
-        void update(seconds dt) final;
-        void updateRenderComponents(seconds dt) const;
+        virtual void update(seconds dt) override;
+        void updateRenderComponent(seconds dt) const;
 
-        void attachChild(SceneNodePtr child);
-        SceneNodePtr detachChild(const SceneNode& child);
-        bool hasChildren();
+        void render() const override;
 
         const Vector2d& getLocation() const;
         void setLocation(const Vector2d& newLocation);
 
-        void handleCollision(const SceneNode& entity);
-
         bool collidesWith(const SceneNode& other) const;
-        static bool collidesWith(const SceneNode& lhs, const SceneNode& rhs);
 
-        void checkSceneCollision(SceneNode& sceneGraph, std::set<Pair>& collisionPairs);
-        void checkNodeCollision(SceneNode& node, std::set<Pair>& collisionPairs);
+        void checkForCollisionWith(SceneNode& node, std::set<Pair>& collisionPairs);
 
         // TODO make this type-safe
         virtual unsigned int getCategory() const;
 
         void onCommand(const Command& command, seconds dt);
 
-        void render() const final;
-protected:
-        virtual void updateCurrent(seconds dt);
-
 private:
-        void updateChildren(seconds dt);
-
-        void renderCurrent() const;
-        void renderChildren() const;
-
-        /**
-         * This function can be overriden. Called by the handleCollision() method that can be accessed from outside.
-         * Some checks have been done already before this function got called;
-         * @param entity: the entity it is colliding with
-         */
-        virtual void handleCollisionInternal(const SceneNode& entity);
 
         void setBoundingSize(const Vector2d& boundingSize);
         void setBoundingWidth(double width);
@@ -96,17 +74,13 @@ public:
 
 protected:
         /**
-         * The location of the entity. If its a child of another entity it is relative to the location of that entity.
-         * If it's the root, it is already the absolute location
+         * The location of the entity.
          */
         Vector2d mLocation;
 
 private:
 
         std::string mName;
-
-        SceneNode* mParent;
-        std::vector<SceneNodePtr> mChildren;
 
         Vector2d mBoundingSize;
 
