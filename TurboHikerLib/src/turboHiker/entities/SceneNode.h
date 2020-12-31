@@ -31,6 +31,7 @@ public:
         typedef std::unique_ptr<SceneNode> SceneNodePtr;
         typedef std::pair<SceneNode*, SceneNode*> Pair;
 
+        // TODO maybe use std::optional instead, although its experimental?
         SceneNode(const Vector2d& initialLocation, const Vector2d& boundingSize,
                   std::unique_ptr<RenderComponent> renderComponent, std::string name = "SceneNode");
 

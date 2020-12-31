@@ -10,17 +10,11 @@
 #include "Transformation.h"
 
 turboHiker::Hiker::Hiker(const Vector2d& initialLocation, const Vector2d& boundingSize,
-                         std::unique_ptr<RenderComponent> renderComponent, const Vector2d& initialVelocity,
-                         bool playerControlled)
-    : Entity(initialLocation, boundingSize, std::move(renderComponent), initialVelocity,
-             playerControlled ? "PlayerHiker" : "Hiker"),
-      mPlayerControlled(playerControlled)
+                         std::unique_ptr<RenderComponent> renderComponent, const Vector2d& initialVelocity)
+    : Entity(initialLocation, boundingSize, std::move(renderComponent), initialVelocity, "Hiker")
 {
 }
 
-unsigned int turboHiker::Hiker::getCategory() const
-{
-        return mPlayerControlled ? Category::PlayerHiker : Category::Hiker;
-}
+unsigned int turboHiker::Hiker::getCategory() const { return Category::Hiker; }
 int turboHiker::Hiker::getCurrentLane() const { return mCurrentLane; }
 void turboHiker::Hiker::setCurrentLane(int currentLane) { mCurrentLane = currentLane; }

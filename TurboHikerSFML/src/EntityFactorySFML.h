@@ -28,12 +28,10 @@ class EntityFactorySFML : public turboHiker::EntityFactory
 public:
         EntityFactorySFML(DrawableRenderer& mWindowDrawer);
 
-        std::unique_ptr<turboHiker::SceneNode> createTestCircle(const turboHiker::Vector2d& location,
-                                                 const turboHiker::Vector2d& initialVelocity) const override;
-        std::unique_ptr<Hiker> createHiker(const Vector2d& location, const Vector2d& size,
-                                               const Vector2d& initialVelocity, bool playerControlled) const override;
+        Hiker createHiker(const Vector2d& location, const Vector2d& size,
+                          const Vector2d& initialVelocity) const override;
 
-        std::unique_ptr<turboHiker::SceneNode> createLane(const turboHiker::BoundingBox& laneDimensions) const override;
+        SceneNode createLane(const turboHiker::BoundingBox& laneDimensions) const override;
 
 private:
         DrawableRenderer& mWindowRenderer;

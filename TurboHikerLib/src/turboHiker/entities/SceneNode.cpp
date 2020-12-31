@@ -29,6 +29,9 @@ SceneNode::SceneNode(const Vector2d& initialLocation, const Vector2d& boundingSi
 {
 }
 
+// TODO remove as well
+SceneNode::SceneNode() : SceneNode(Vector2d(0, 0), Vector2d(0, 0), nullptr, "World") {}
+
 SceneNode::SceneNode(const SceneNode& other) : mBoundingSize(other.mBoundingSize), mLocation(other.mLocation)
 {
         mRenderComponent = std::move(other.mRenderComponent->clone());

@@ -47,9 +47,7 @@ public:
 
         Hiker& getPlayerHiker() const;
         unsigned int getCategory() const override;
-
-private:
-        void updateCurrent(seconds dt) override;
+        void update(seconds dt) override;
 
 private:
 

@@ -5,9 +5,9 @@
 #ifndef TURBOHIKER_ENTITYFACTORY_H
 #define TURBOHIKER_ENTITYFACTORY_H
 
+#include "Hiker.h"
 #include "SceneNode.h"
 #include "WorldLocation.h"
-#include "Hiker.h"
 
 namespace turboHiker {
 
@@ -19,15 +19,10 @@ class EntityFactory
 {
 
 public:
+        virtual SceneNode createLane(const BoundingBox& laneDimensions) const = 0;
 
-        virtual std::unique_ptr<SceneNode> createLane(const BoundingBox& laneDimensions) const = 0;
-
-        virtual std::unique_ptr<SceneNode> createTestCircle(const Vector2d& location,
-                                                            const Vector2d& initialVelocity) const = 0;
-
-        virtual std::unique_ptr<Hiker> createHiker(const Vector2d& location, const Vector2d& size,
-                                                       const Vector2d& initialVelocity,
-                                                       bool playerControlled) const = 0;
+        virtual Hiker createHiker(const Vector2d& location, const Vector2d& size,
+                                  const Vector2d& initialVelocity) const = 0;
 };
 } // namespace turboHiker
 

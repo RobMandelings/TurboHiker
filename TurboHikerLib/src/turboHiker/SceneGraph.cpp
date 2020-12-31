@@ -6,6 +6,8 @@
 
 #include "Hiker.h"
 #include "SceneNode.h"
+#include "RenderComponent.h"
+#include <cassert>
 
 using namespace turboHiker;
 
@@ -24,6 +26,24 @@ void turboHiker::SceneGraph::update(turboHiker::Updatable::seconds dt)
 
         // Update the player hiker
         mPlayerHiker->update(dt);
+
+        // The lanes don't need to be updated at all
+}
+
+void SceneGraph::updateRenderComponents(Updatable::seconds dt)
+{
+        // Update all General SceneNodes
+        for (const std::unique_ptr<SceneNode>& sceneNode : mSceneNodes) {
+                sceneNode->updateRenderComponent(dt);
+        }
+
+        // Update all (other) hikers
+        for (const std::unique_ptr<Hiker>& competingHiker : mCompetingHikers) {
+                competingHiker->updateRenderComponent(dt);
+        }
+
+        // Update the player hiker
+        mPlayerHiker->updateRenderComponent(dt);
 
         // The lanes don't need to be updated at all
 }
@@ -50,11 +70,13 @@ void turboHiker::SceneGraph::render() const
         mPlayerHiker->render();
 }
 
-void SceneGraph::onCommand() {
+void SceneGraph::onCommand() {}
 
+turboHiker::Hiker& turboHiker::SceneGraph::getPlayerHiker() const
+{
+        assert(mPlayerHiker != nullptr && "Player not defined");
+        return *mPlayerHiker;
 }
-
-turboHiker::Hiker& turboHiker::SceneGraph::getPlayerHiker() const { return *mPlayerHiker; }
 
 const std::vector<std::unique_ptr<SceneNode>>& turboHiker::SceneGraph::getSceneNodes() const { return mSceneNodes; }
 
@@ -74,5 +96,8 @@ void SceneGraph::addCompetingHiker(const Hiker& competingHiker)
 {
         mCompetingHikers.push_back(std::make_unique<Hiker>(competingHiker));
 }
-void SceneGraph::setPlayerHiker(const Hiker& playerHiker) { mPlayerHiker = std::make_unique<Hiker>(playerHiker); }
+void SceneGraph::setPlayerHiker(const Hiker& playerHiker) {
+
+        mPlayerHiker = std::make_unique<Hiker>(playerHiker);
+}
 void SceneGraph::addLane(const SceneNode& lane) { mLanes.push_back(std::make_unique<SceneNode>(lane)); }

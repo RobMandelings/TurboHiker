@@ -26,7 +26,9 @@ class SceneGraph : Updatable, Renderable
 
 public:
         void update(seconds dt) override;
+        void updateRenderComponents(seconds dt);
         void render() const override;
+
         void onCommand();
 
         Hiker& getPlayerHiker() const;

@@ -37,8 +37,8 @@ set(SRC
         src/visualisation/SpriteRenderComponent.cpp
         src/visualisation/SpriteRenderComponent.h
         src/visualisation/RenderComponentSFML.cpp
-        src/visualisation/ShapeRenderComponent.cpp
-        src/visualisation/ShapeRenderComponent.h
+        src/visualisation/hikers/HikerRenderComponent.cpp
+        src/visualisation/hikers/HikerRenderComponent.h
         src/inputhandling/Player.cpp
         src/inputhandling/Player.h src/visualisation/MyRenderWindow.cpp src/visualisation/MyRenderWindow.h ../TurboHikerLib/src/turboHiker/view/WorldView.cpp ../TurboHikerLib/src/turboHiker/view/WorldView.h ../TurboHikerLib/src/turboHiker/view/WindowSize.cpp ../TurboHikerLib/src/turboHiker/view/WindowSize.h src/visualisation/Color.cpp src/visualisation/Color.h)
 
