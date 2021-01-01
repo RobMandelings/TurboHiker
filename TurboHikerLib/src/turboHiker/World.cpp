@@ -47,7 +47,6 @@ void World::update(Updatable::seconds dt)
 
         removeCompetingHikers();
         mSceneGraph.cleanupDeadObjects();
-
 }
 
 void World::renderWorld() { mSceneGraph.render(); }
@@ -81,8 +80,8 @@ void World::generateCompetingHikers(seconds dt)
         // TODO calculate chance based on the closeness to the finish
         // The chance of an enemy spawning in a second, on one of the lanes
         // TODO improve this rate to be more consistent
-        double spawnRate = 0.5 * dt.count();
-        assert(spawnRate >= 0 && spawnRate <= 1);
+        double spawnRate = 100 * dt.count();
+        //        assert(spawnRate >= 0 && spawnRate <= 1);
 
         bool enemyShouldSpawn = false;
         double randomNumber = Random::get().randomNumber();
@@ -94,13 +93,14 @@ void World::generateCompetingHikers(seconds dt)
 
         int previousChosenLane = 0;
 
+        // TODO no enemies are placed on lane 0
         if (enemyShouldSpawn) {
 
                 int chosenLane;
 
                 do {
-                        chosenLane =
-                            static_cast<int>(std::round(Random::get().randomNumber() * mSceneGraph.getAmountOfLanes()));
+                        chosenLane = static_cast<int>(
+                            std::round(Random::get().randomNumber() * (mSceneGraph.getAmountOfLanes() - 1)));
                 } while (chosenLane == previousChosenLane);
 
                 assert(chosenLane >= 0 && chosenLane < mSceneGraph.getAmountOfLanes());

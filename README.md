@@ -64,3 +64,5 @@ I also didn't like the idea of possible 'multiple ownerships' of SceneNodes, tha
 Transformation class is in the Game logic as the Game logic depends on it, for generating enemies for example.
 
 Feature: arbitrary speeds of the moving hikers, harder when getting closer to your goal
+
+Sophisticated view system helps with the following feature as well: automatic hiker removal when no longer necessary.
