@@ -60,3 +60,7 @@ weak ptrs, which will increase performance. This also removes the risk of creati
 turn creates more owners of a specific object while it should only be owned by one object.
 
 I also didn't like the idea of possible 'multiple ownerships' of SceneNodes, that's why it is safely handled in the SceneGraph object. The collecting of all children is maybe not the fastest operation, but it is safe though.
+
+Transformation class is in the Game logic as the Game logic depends on it, for generating enemies for example.
+
+Feature: arbitrary speeds of the moving hikers, harder when getting closer to your goal

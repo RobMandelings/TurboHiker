@@ -42,6 +42,8 @@ public:
 
         void buildWorld(int nrLanes);
 
+        void generateCompetingHikers(seconds dt);
+
         void trackPlayer() const;
 
         const BoundingBox& getWorldBorders() const;

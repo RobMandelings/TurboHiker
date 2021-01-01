@@ -7,12 +7,12 @@
 #include "BoundingBox.h"
 #include "Entity.h"
 #include "Hiker.h"
+#include "HikerRenderer.h"
+#include "LaneRenderer.h"
 #include "SFML/Graphics/CircleShape.hpp"
 #include "SceneNode.h"
 #include "Transformation.h"
 #include "Vector2d.h"
-#include "HikerRenderer.h"
-#include "LaneRenderer.h"
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <cassert>
 #include <memory>
@@ -42,7 +42,7 @@ SceneNode turboHiker::EntityFactorySFML::createLane(const BoundingBox& laneDimen
         return lane;
 }
 
-Hiker turboHiker::EntityFactorySFML::createHiker(const Vector2d& location, const Vector2d& size,
+Hiker turboHiker::EntityFactorySFML::createHiker(double yLocation, const Vector2d& size,
                                                  const Vector2d& initialVelocity, bool playerControlled) const
 {
         assert(size.x == size.y && "Must be a square in order for the shape to be a circle");
@@ -51,5 +51,5 @@ Hiker turboHiker::EntityFactorySFML::createHiker(const Vector2d& location, const
             mWindowRenderer, 1, float(Transformation::get().scaleWorldCoordinatesToPixelCoordinates(size).x / 2),
             sf::Color(255, 0, 0));
 
-        return Hiker(location, size, std::move(hikerRenderer), initialVelocity, playerControlled);
+        return Hiker(Vector2d(0, yLocation), size, std::move(hikerRenderer), initialVelocity, playerControlled);
 }

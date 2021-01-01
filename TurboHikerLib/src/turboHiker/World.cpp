@@ -9,9 +9,9 @@
 #include "Hiker.h"
 #include "InputComponent.h"
 #include "PhysicsComponent.h"
+#include "Random.h"
 #include "SceneNodeRenderer.h"
 #include "Transformation.h"
-#include "Random.h"
 
 #include <iostream>
 #include <set>
@@ -39,12 +39,11 @@ void World::update(Updatable::seconds dt)
                 Command command = mCommandQueue.pop();
                 onCommand(command, dt);
                 mSceneGraph.onCommand(command, dt);
-
         }
 
         handleCollisions();
 
-        std::cout << Random::get().randomNumber() << std::endl;
+        generateCompetingHikers(dt);
 }
 
 void World::renderWorld() { mSceneGraph.render(); }
@@ -62,10 +61,52 @@ void turboHiker::World::buildWorld(int nrLanes)
                 mSceneGraph.addLane(currentLane);
         }
 
-        mSceneGraph.setPlayerHiker(mEntityFactory->createHiker(Vector2d(mWorldBorders.getWidth() / 2, 50),
-                                                               Vector2d(10, 10), Vector2d(0, 0), true));
+        mSceneGraph.setPlayerHiker(mEntityFactory->createHiker(0, Vector2d(10, 10), Vector2d(0, 0), true));
 
         putHikerOnLane(mSceneGraph.getPlayerHiker(), 2);
+}
+
+void World::generateCompetingHikers(seconds dt)
+{
+
+        double playerSight =
+            Transformation::get().getWorldViewCenter().y + Transformation::get().getWorldView().getWorldViewHeight();
+
+        // We want the enemies to spawn on the fly as the player moves
+
+        // TODO calculate chance based on the closeness to the finish
+        // The chance of an enemy spawning in a second, on one of the lanes
+        double spawnRate = 0.5 * dt.count();
+        assert(spawnRate >= 0 && spawnRate <= 1);
+
+        bool enemyShouldSpawn = false;
+        double randomNumber = Random::get().randomNumber();
+
+        // An enemy should spawn
+        if (randomNumber < spawnRate) {
+                enemyShouldSpawn = true;
+        }
+
+        int previousChosenLane = 0;
+
+        if (enemyShouldSpawn) {
+
+                int chosenLane;
+
+                do {
+                        chosenLane = static_cast<int>(std::round(Random::get().randomNumber() * mSceneGraph.getLanes().size()));
+                } while (chosenLane == previousChosenLane);
+
+                assert(chosenLane >= 0 && chosenLane < mSceneGraph.getLanes().size());
+
+                Vector2d size(10, 10);
+
+                Hiker hiker = mEntityFactory->createHiker(playerSight + size.y, size, Vector2d(0, 0), false);
+                putHikerOnLane(hiker, chosenLane);
+                mSceneGraph.addCompetingHiker(hiker);
+
+                previousChosenLane = chosenLane;
+        }
 }
 
 void World::trackPlayer() const

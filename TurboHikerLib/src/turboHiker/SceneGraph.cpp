@@ -67,11 +67,19 @@ void SceneGraph::setPlayerHiker(const Hiker& playerHiker) {
 }
 void SceneGraph::addLane(const SceneNode& lane) { mLanes.push_back(std::make_unique<SceneNode>(lane)); }
 
+/**
+ * The order of how to children are put in here is important, as this implies that category will be drawn on top of / behind the other
+ */
 std::vector<std::reference_wrapper<SceneNode>> SceneGraph::getChildren() const
 {
         assert(mPlayerHiker && "Player is not initialized");
 
         std::vector<std::reference_wrapper<SceneNode>> children;
+
+        children.reserve(mLanes.size());
+        for (const std::unique_ptr<SceneNode>& currentLane : mLanes) {
+                children.emplace_back(*currentLane);
+        }
 
         children.reserve(mSceneNodes.size());
         for (const std::unique_ptr<SceneNode>& currentSceneNode : mSceneNodes) {
@@ -81,11 +89,6 @@ std::vector<std::reference_wrapper<SceneNode>> SceneGraph::getChildren() const
         children.reserve(mCompetingHikers.size());
         for (const std::unique_ptr<Hiker>& currentCompetingHiker : mCompetingHikers) {
                 children.emplace_back(*currentCompetingHiker);
-        }
-
-        children.reserve(mLanes.size());
-        for (const std::unique_ptr<SceneNode>& currentLane : mLanes) {
-                children.emplace_back(*currentLane);
         }
 
         children.emplace_back(*mPlayerHiker);

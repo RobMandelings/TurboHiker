@@ -28,7 +28,7 @@ class EntityFactorySFML : public turboHiker::EntityFactory
 public:
         EntityFactorySFML(DrawableRenderer& mWindowDrawer);
 
-        Hiker createHiker(const Vector2d& location, const Vector2d& size, const Vector2d& initialVelocity,
+        Hiker createHiker(double yLocation, const Vector2d& size, const Vector2d& initialVelocity,
                           bool playerControlled) const override;
 
         SceneNode createLane(const turboHiker::BoundingBox& laneDimensions) const override;

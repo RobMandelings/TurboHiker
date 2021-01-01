@@ -49,6 +49,8 @@ public:
         void addLane(const SceneNode& lane);
 
 private:
+
+        // TODO improve performance so the list is only updated whenever something is updated in one of the other lists
         /**
          * Private method as it should only be used internally as a helper function, and this list may not be kept alive
          * outside to avoid any invalidated references to objects that are removed / destroyed.
