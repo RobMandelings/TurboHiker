@@ -6,7 +6,7 @@
 
 #include "Hiker.h"
 #include "SceneNode.h"
-#include "RenderComponent.h"
+#include "SceneNodeRenderer.h"
 #include <cassert>
 
 using namespace turboHiker;
@@ -19,9 +19,13 @@ void turboHiker::SceneGraph::update(turboHiker::Updatable::seconds dt)
                 sceneNode->update(dt);
         }
 
-        // Update all (other) hikers
+        // Update all (other) renderers
         for (const std::unique_ptr<Hiker>& competingHiker : mCompetingHikers) {
                 competingHiker->update(dt);
+        }
+
+        for (const std::unique_ptr<SceneNode>& currentLane : mLanes) {
+                currentLane->update(dt);
         }
 
         // Update the player hiker
@@ -37,9 +41,13 @@ void SceneGraph::updateRenderComponents(Updatable::seconds dt)
                 sceneNode->updateRenderComponent(dt);
         }
 
-        // Update all (other) hikers
+        // Update all (other) renderers
         for (const std::unique_ptr<Hiker>& competingHiker : mCompetingHikers) {
                 competingHiker->updateRenderComponent(dt);
+        }
+
+        for (const std::unique_ptr<SceneNode>& currentLane : mLanes) {
+                currentLane->updateRenderComponent(dt);
         }
 
         // Update the player hiker
@@ -61,7 +69,7 @@ void turboHiker::SceneGraph::render() const
                 sceneNode->render();
         }
 
-        // Render all competing hikers
+        // Render all competing renderers
         for (const std::unique_ptr<Hiker>& competingHiker : mCompetingHikers) {
                 competingHiker->render();
         }

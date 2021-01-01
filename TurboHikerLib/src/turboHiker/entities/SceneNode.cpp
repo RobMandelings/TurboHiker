@@ -10,7 +10,7 @@
 
 #include "BoundingBox.h"
 #include "CollisionComponent.h"
-#include "RenderComponent.h"
+#include "SceneNodeRenderer.h"
 
 #include "Command.h"
 
@@ -23,7 +23,7 @@
 using namespace turboHiker;
 
 SceneNode::SceneNode(const Vector2d& initialLocation, const Vector2d& boundingSize,
-                     std::unique_ptr<RenderComponent> renderComponent, std::string name)
+                     std::unique_ptr<SceneNodeRenderer> renderComponent, std::string name)
     : mLocation(initialLocation), mBoundingSize(boundingSize), mRenderComponent(std::move(renderComponent)),
       mName(std::move(name))
 {

@@ -57,7 +57,7 @@ private:
 
         /**
          * Competing Hikers that are currently present in the world. They stand on one of the tracks present in this
-         * world as well. These hikers are applicable for collision detection as well.
+         * world as well. These renderers are applicable for collision detection as well.
          */
         std::vector<std::unique_ptr<Hiker>> mCompetingHikers;
 

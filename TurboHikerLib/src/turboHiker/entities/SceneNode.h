@@ -17,7 +17,7 @@
 
 namespace turboHiker {
 
-class RenderComponent;
+class SceneNodeRenderer;
 class BoundingBox;
 class Command;
 
@@ -33,7 +33,7 @@ public:
 
         // TODO maybe use std::optional instead, although its experimental?
         SceneNode(const Vector2d& initialLocation, const Vector2d& boundingSize,
-                  std::unique_ptr<RenderComponent> renderComponent, std::string name = "SceneNode");
+                  std::unique_ptr<SceneNodeRenderer> renderComponent, std::string name = "SceneNode");
 
         SceneNode();
         SceneNode(const SceneNode& other);
@@ -88,7 +88,7 @@ private:
         /**
          * Used to render the node
          */
-        std::unique_ptr<RenderComponent> mRenderComponent;
+        std::unique_ptr<SceneNodeRenderer> mRenderComponent;
 };
 
 } // namespace turboHiker

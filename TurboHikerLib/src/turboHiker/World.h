@@ -12,7 +12,7 @@
 #include "SceneGraph.h"
 
 #include "BoundingBox.h"
-#include "RenderComponent.h"
+#include "SceneNodeRenderer.h"
 
 #include "CommandQueue.h"
 

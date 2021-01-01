@@ -6,11 +6,11 @@
 #include <turboHiker/Category.h>
 
 #include "BoundingBox.h"
-#include "RenderComponent.h"
+#include "SceneNodeRenderer.h"
 #include "Transformation.h"
 
 turboHiker::Hiker::Hiker(const Vector2d& initialLocation, const Vector2d& boundingSize,
-                         std::unique_ptr<RenderComponent> renderComponent, const Vector2d& initialVelocity)
+                         std::unique_ptr<SceneNodeRenderer> renderComponent, const Vector2d& initialVelocity)
     : Entity(initialLocation, boundingSize, std::move(renderComponent), initialVelocity, "Hiker")
 {
 }

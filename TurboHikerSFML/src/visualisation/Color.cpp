@@ -6,7 +6,11 @@
 #include <cmath>
 
 namespace turboHikerSFML {
-Color::Color(double red, double green, double blue) : mRed(red), mGreen(green), mBlue(blue) {}
+Color::Color(double red, double green, double blue) : mRed(0), mGreen(0), mBlue(0) {
+        setRed(red);
+        setGreen(green);
+        setBlue(blue);
+}
 
 void Color::setRed(double red)
 {
@@ -35,11 +39,19 @@ void Color::setBlue(double blue)
                 mBlue = 0;
         }
 }
+
+
 double Color::getRed() const { return mRed; }
 double Color::getGreen() const { return mGreen; }
 double Color::getBlue() const { return mBlue; }
 sf::Color Color::getSFMLColor() const
 {
         return sf::Color(std::round(mRed * 255), std::round(mGreen * 255), std::round(mBlue * 255));
+}
+
+void Color::setColor(const sf::Color& color) {
+        setRed(color.r / 255.0);
+        setGreen(color.g / 255.0);
+        setBlue(color.b / 255.0);
 }
 } // namespace turboHikerSFML

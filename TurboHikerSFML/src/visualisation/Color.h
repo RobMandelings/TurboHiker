@@ -19,6 +19,8 @@ public:
 
         void setBlue(double blue);
 
+        void setColor(const sf::Color& color);
+
         double getRed() const;
 
         double getGreen() const;

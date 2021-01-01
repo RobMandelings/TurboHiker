@@ -9,7 +9,7 @@
 #include "Hiker.h"
 #include "InputComponent.h"
 #include "PhysicsComponent.h"
-#include "RenderComponent.h"
+#include "SceneNodeRenderer.h"
 #include "Transformation.h"
 
 #include <iostream>
@@ -22,12 +22,14 @@ turboHiker::World::World(int nrLanes, double laneWidth, double laneHeight)
 {
 }
 
-void World::update(Updatable::seconds dt) {
+void World::update(Updatable::seconds dt)
+{
 
         mSceneGraph.update(dt);
-        //        std::cout << mPlayerHiker->getLocation() << std::endl;
+
         // Update the center of view so the player is tracked in the middle
         trackPlayer();
+
         // Now update the render components. Make sure to update it after the Transformation singleton has altered its
         // view (due to trackPlayer).
         mSceneGraph.updateRenderComponents(dt);
@@ -38,42 +40,27 @@ void World::update(Updatable::seconds dt) {
         }
 
         handleCollisions();
-
 }
 
-void World::renderWorld() {
-        mSceneGraph.render();
-}
+void World::renderWorld() { mSceneGraph.render(); }
 
 void turboHiker::World::buildWorld(int nrLanes)
 {
         assert(mEntityFactory != nullptr && "Entityfactory not set: no way to create new entities");
 
-        // mSceneGraph.attachChild(mEntityFactory->createTestCircle(Vector2d(0, 49), Vector2d(0, 0)));
-        // mSceneGraph.attachChild(mEntityFactory->createTestCircle(Vector2d(50, 50), Vector2d(0, 0)));
-
-        /**for (int lane = 0; lane < nrLanes + 0; lane++) {
-                std::unique_ptr<SceneNode> currentLane = mEntityFactory->createLane(
+        for (int lane = 0; lane < nrLanes + 0; lane++) {
+                SceneNode currentLane = mEntityFactory->createLane(
                     BoundingBox(getWorldBorders().getLeft() + getWorldBorders().getWidth() / nrLanes * lane,
                                 getWorldBorders().getBottom(), getWorldBorders().getWidth() / nrLanes,
                                 getWorldBorders().getHeight()));
-                mSceneGraph.addLane()
-                mLanes.push_back(currentLane.get());
-                attachChild(std::move(currentLane));
+
+                mSceneGraph.addLane(currentLane);
         }
 
-        attachChild(
-            mEntityFactory->createHiker(Vector2d(getWorldBorders().getWidth() / 2, 0), Vector2d(7, 7), Vector2d(0, 0)));
+        // putHikerOnLane(*mPlayerHiker, 2);
 
-        std::unique_ptr<Hiker> playerHiker = mEntityFactory->createHiker(Vector2d(getWorldBorders().getWidth() / 2, 0),
-                                                                         Vector2d(10, 10), Vector2d(0, 0));
-        mPlayerHiker = playerHiker.get();
-        putHikerOnLane(*mPlayerHiker, 2);
-        attachChild(std::move(playerHiker));*/
-
-        mSceneGraph.setPlayerHiker(mEntityFactory->createHiker(Vector2d(mWorldBorders.getWidth() / 2, 50),
-                                                               Vector2d(10, 10), Vector2d(0, 0)));
-        // mSceneGraph.attachChild(mEntityFactory->createTestCircle(Vector2d(28, 28), Vector2d(0, 0)));
+        mSceneGraph.setPlayerHiker(
+            mEntityFactory->createHiker(Vector2d(mWorldBorders.getWidth() / 2, 50), Vector2d(10, 10), Vector2d(0, 0)));
 }
 
 void World::trackPlayer() const

@@ -8,14 +8,14 @@
 #include "Entity.h"
 
 namespace turboHiker {
-/** An SceneNode which only takes an InputComponent and RenderComponent. The MovingPhysicsComponent is created inside here
+/** An SceneNode which only takes an InputComponent and SceneNodeRenderer. The MovingPhysicsComponent is created inside here
  */
 class Hiker : public Entity
 {
 
 public:
         Hiker(const Vector2d& initialLocation, const Vector2d& boundingSize,
-              std::unique_ptr<RenderComponent> renderComponent, const Vector2d& initialVelocity);
+              std::unique_ptr<SceneNodeRenderer> renderComponent, const Vector2d& initialVelocity);
         unsigned int getCategory() const override;
 
         int getCurrentLane() const;
