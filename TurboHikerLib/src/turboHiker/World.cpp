@@ -11,6 +11,7 @@
 #include "PhysicsComponent.h"
 #include "SceneNodeRenderer.h"
 #include "Transformation.h"
+#include "Random.h"
 
 #include <iostream>
 #include <set>
@@ -42,6 +43,8 @@ void World::update(Updatable::seconds dt)
         }
 
         handleCollisions();
+
+        std::cout << Random::get().randomNumber() << std::endl;
 }
 
 void World::renderWorld() { mSceneGraph.render(); }

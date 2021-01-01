@@ -41,7 +41,7 @@ set(SRC
         src/turboHiker/Command.cpp
         src/turboHiker/Command.h
         src/turboHiker/CommandQueue.h
-        src/turboHiker/CommandQueue.cpp src/turboHiker/SceneGraph.cpp src/turboHiker/SceneGraph.h)
+        src/turboHiker/CommandQueue.cpp src/turboHiker/SceneGraph.cpp src/turboHiker/SceneGraph.h src/turboHiker/utils/Random.cpp src/turboHiker/utils/Random.h)
 
 add_library(TurboHikerLib ${SRC})
 

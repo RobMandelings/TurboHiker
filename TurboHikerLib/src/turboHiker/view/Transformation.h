@@ -81,7 +81,6 @@ private:
         bool initialized() const;
 
 private:
-        static Transformation* mInstance;
 
         static std::mutex mMutex;
 
