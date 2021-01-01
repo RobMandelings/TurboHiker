@@ -44,6 +44,7 @@ void SceneGraph::cleanupDeadObjects()
         while (sceneNodeIt != mSceneNodes.end()) {
 
                 if ((*sceneNodeIt)->isMarkedForRemoval()) {
+                        std::cout << "Marked" << std::endl;
                         sceneNodeIt = mSceneNodes.erase(sceneNodeIt);
                 } else {
                         sceneNodeIt++;
@@ -65,7 +66,7 @@ void SceneGraph::cleanupDeadObjects()
 
         while (competingHikersIt != mCompetingHikers.end()) {
 
-                if (!(*competingHikersIt).lock()) {
+                if ((*competingHikersIt).lock() == nullptr) {
                         competingHikersIt = mCompetingHikers.erase(competingHikersIt);
                 } else {
                         competingHikersIt++;

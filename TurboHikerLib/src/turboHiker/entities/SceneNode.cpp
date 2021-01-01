@@ -113,6 +113,8 @@ void SceneNode::onCommand(const Command& command, seconds dt)
                 command.action(*this, dt);
 }
 
+const Vector2d& SceneNode::getSize() const { return mBoundingSize; }
+
 const Vector2d& SceneNode::getLocation() const { return mLocation; }
 void SceneNode::setLocation(const Vector2d& newLocation) { mLocation = newLocation; }
 const std::string& SceneNode::getName() const { return mName; }

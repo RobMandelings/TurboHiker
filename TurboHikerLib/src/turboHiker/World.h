@@ -21,7 +21,6 @@
 
 namespace turboHiker {
 
-// TODO don't make a SceneNode anymore
 class World : public SceneNode
 {
 
@@ -43,6 +42,7 @@ public:
         void buildWorld(int nrLanes);
 
         void generateCompetingHikers(seconds dt);
+        void removeCompetingHikers();
 
         void trackPlayer() const;
 

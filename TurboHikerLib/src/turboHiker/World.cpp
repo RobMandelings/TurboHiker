@@ -44,6 +44,10 @@ void World::update(Updatable::seconds dt)
         }
 
         handleCollisions();
+
+        removeCompetingHikers();
+        mSceneGraph.cleanupDeadObjects();
+
 }
 
 void World::renderWorld() { mSceneGraph.render(); }
@@ -95,7 +99,8 @@ void World::generateCompetingHikers(seconds dt)
                 int chosenLane;
 
                 do {
-                        chosenLane = static_cast<int>(std::round(Random::get().randomNumber() * mSceneGraph.getAmountOfLanes()));
+                        chosenLane =
+                            static_cast<int>(std::round(Random::get().randomNumber() * mSceneGraph.getAmountOfLanes()));
                 } while (chosenLane == previousChosenLane);
 
                 assert(chosenLane >= 0 && chosenLane < mSceneGraph.getAmountOfLanes());
@@ -118,6 +123,22 @@ void World::generateCompetingHikers(seconds dt)
                 }
 
                 previousChosenLane = chosenLane;
+        }
+}
+
+void World::removeCompetingHikers()
+{
+
+        double outOfViewYCoord =
+            Transformation::get().getWorldViewCenter().y - Transformation::get().getWorldView().getWorldViewHeight();
+
+        for (int i = 0; i < mSceneGraph.getAmountOfCompetingHikers(); i++) {
+                Hiker& competingHiker = mSceneGraph.getCompetingHiker(i);
+
+                // If the hikers fall out of the world, it is time to remove them
+                if (competingHiker.getLocation().y - competingHiker.getSize().y < outOfViewYCoord) {
+                        competingHiker.markForRemoval();
+                }
         }
 }
 

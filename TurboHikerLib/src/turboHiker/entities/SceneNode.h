@@ -55,6 +55,8 @@ public:
 
         void onCommand(const Command& command, seconds dt);
 
+        const Vector2d& getSize() const;
+
 private:
 
         void setBoundingSize(const Vector2d& boundingSize);
