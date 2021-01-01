@@ -35,8 +35,10 @@ void World::update(Updatable::seconds dt)
         mSceneGraph.updateRenderComponents(dt);
 
         while (!mCommandQueue.isEmpty()) {
-                onCommand(mCommandQueue.pop(), dt);
-                // TODO commands for the children as well
+                Command command = mCommandQueue.pop();
+                onCommand(command, dt);
+                mSceneGraph.onCommand(command, dt);
+
         }
 
         handleCollisions();
@@ -57,10 +59,10 @@ void turboHiker::World::buildWorld(int nrLanes)
                 mSceneGraph.addLane(currentLane);
         }
 
-        // putHikerOnLane(*mPlayerHiker, 2);
+        mSceneGraph.setPlayerHiker(mEntityFactory->createHiker(Vector2d(mWorldBorders.getWidth() / 2, 50),
+                                                               Vector2d(10, 10), Vector2d(0, 0), true));
 
-        mSceneGraph.setPlayerHiker(
-            mEntityFactory->createHiker(Vector2d(mWorldBorders.getWidth() / 2, 50), Vector2d(10, 10), Vector2d(0, 0)));
+        putHikerOnLane(mSceneGraph.getPlayerHiker(), 2);
 }
 
 void World::trackPlayer() const
@@ -123,17 +125,12 @@ Hiker& World::getPlayerHiker() const { return mSceneGraph.getPlayerHiker(); }
 void World::putHikerOnLane(Hiker& hiker, int laneIndex)
 {
 
-        /*assert(laneIndex < getAmountOfLanes() && laneIndex >= 0);
-        SceneNode& lane = *mLanes.at(laneIndex);
+        assert(laneIndex < getAmountOfLanes() && laneIndex >= 0);
+        SceneNode& lane = *mSceneGraph.getLanes().at(laneIndex);
         assert(lane.hasBoundingBox());
 
-        std::cout << "Left: " << lane.getBoundingBox().getLeft() << std::endl;
-        std::cout << "Width: " << lane.getBoundingBox().getWidth() << std::endl;
-        std::cout << "Location: " << lane.getBoundingBox().getLeft() + (lane.getBoundingBox().getWidth() / 2.0)
-                  << std::endl;
-
         hiker.setLocation(Vector2d(lane.getLocation().x, hiker.getLocation().y));
-        hiker.setCurrentLane(laneIndex);*/
+        hiker.setCurrentLane(laneIndex);
 }
 
 int World::getAmountOfLanes() const { return mSceneGraph.getLanes().size(); }

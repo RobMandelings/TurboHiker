@@ -21,8 +21,8 @@ class EntityFactory
 public:
         virtual SceneNode createLane(const BoundingBox& laneDimensions) const = 0;
 
-        virtual Hiker createHiker(const Vector2d& location, const Vector2d& size,
-                                  const Vector2d& initialVelocity) const = 0;
+        virtual Hiker createHiker(const Vector2d& location, const Vector2d& size, const Vector2d& initialVelocity,
+                                  bool playerControlled) const = 0;
 };
 } // namespace turboHiker
 

@@ -14,71 +14,27 @@ using namespace turboHiker;
 // TODO is there a way that all fields present in this sceneGraph is updated?
 void turboHiker::SceneGraph::update(turboHiker::Updatable::seconds dt)
 {
-        // Update all General SceneNodes
-        for (const std::unique_ptr<SceneNode>& sceneNode : mSceneNodes) {
-                sceneNode->update(dt);
-        }
 
-        // Update all (other) renderers
-        for (const std::unique_ptr<Hiker>& competingHiker : mCompetingHikers) {
-                competingHiker->update(dt);
+        for (const std::reference_wrapper<SceneNode>& child : getChildren()) {
+                child.get().update(dt);
         }
-
-        for (const std::unique_ptr<SceneNode>& currentLane : mLanes) {
-                currentLane->update(dt);
-        }
-
-        // Update the player hiker
-        mPlayerHiker->update(dt);
 
         // The lanes don't need to be updated at all
 }
 
 void SceneGraph::updateRenderComponents(Updatable::seconds dt)
 {
-        // Update all General SceneNodes
-        for (const std::unique_ptr<SceneNode>& sceneNode : mSceneNodes) {
-                sceneNode->updateRenderComponent(dt);
+        for (const std::reference_wrapper<SceneNode>& child : getChildren()) {
+                child.get().updateRenderComponent(dt);
         }
-
-        // Update all (other) renderers
-        for (const std::unique_ptr<Hiker>& competingHiker : mCompetingHikers) {
-                competingHiker->updateRenderComponent(dt);
-        }
-
-        for (const std::unique_ptr<SceneNode>& currentLane : mLanes) {
-                currentLane->updateRenderComponent(dt);
-        }
-
-        // Update the player hiker
-        mPlayerHiker->updateRenderComponent(dt);
-
-        // The lanes don't need to be updated at all
 }
 
 void turboHiker::SceneGraph::render() const
 {
-
-        // Render the lanes (background basically)
-        for (const std::unique_ptr<SceneNode>& lane : mLanes) {
-                lane->render();
+        for (const std::reference_wrapper<SceneNode>& child : getChildren()) {
+                child.get().render();
         }
-
-        // Render all general SceneNodes
-        for (const std::unique_ptr<SceneNode>& sceneNode : mSceneNodes) {
-                sceneNode->render();
-        }
-
-        // Render all competing renderers
-        for (const std::unique_ptr<Hiker>& competingHiker : mCompetingHikers) {
-                competingHiker->render();
-        }
-
-        // Finally render the player hiker
-        mPlayerHiker->render();
 }
-
-void SceneGraph::onCommand() {}
 
 turboHiker::Hiker& turboHiker::SceneGraph::getPlayerHiker() const
 {
@@ -106,6 +62,40 @@ void SceneGraph::addCompetingHiker(const Hiker& competingHiker)
 }
 void SceneGraph::setPlayerHiker(const Hiker& playerHiker) {
 
+        assert(playerHiker.isPlayerControlled());
         mPlayerHiker = std::make_unique<Hiker>(playerHiker);
 }
 void SceneGraph::addLane(const SceneNode& lane) { mLanes.push_back(std::make_unique<SceneNode>(lane)); }
+
+std::vector<std::reference_wrapper<SceneNode>> SceneGraph::getChildren() const
+{
+        assert(mPlayerHiker && "Player is not initialized");
+
+        std::vector<std::reference_wrapper<SceneNode>> children;
+
+        children.reserve(mSceneNodes.size());
+        for (const std::unique_ptr<SceneNode>& currentSceneNode : mSceneNodes) {
+                children.emplace_back(*currentSceneNode);
+        }
+
+        children.reserve(mCompetingHikers.size());
+        for (const std::unique_ptr<Hiker>& currentCompetingHiker : mCompetingHikers) {
+                children.emplace_back(*currentCompetingHiker);
+        }
+
+        children.reserve(mLanes.size());
+        for (const std::unique_ptr<SceneNode>& currentLane : mLanes) {
+                children.emplace_back(*currentLane);
+        }
+
+        children.emplace_back(*mPlayerHiker);
+
+        return children;
+}
+
+void SceneGraph::onCommand(const Command& command, std::chrono::duration<double> dt)
+{
+        for (const std::reference_wrapper<SceneNode>& child : getChildren()) {
+                child.get().onCommand(command, dt);
+        }
+}

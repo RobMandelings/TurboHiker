@@ -58,3 +58,5 @@ any decoration on top of those lanes are rendered (the basic SceneNodes). Then t
 its best to render on top of everything) render the player. It also removes the requirement of using shared ptrs and
 weak ptrs, which will increase performance. This also removes the risk of creating copies of the shared ptrs which in
 turn creates more owners of a specific object while it should only be owned by one object.
+
+I also didn't like the idea of possible 'multiple ownerships' of SceneNodes, that's why it is safely handled in the SceneGraph object. The collecting of all children is maybe not the fastest operation, but it is safe though.

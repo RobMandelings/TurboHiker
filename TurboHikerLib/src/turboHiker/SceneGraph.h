@@ -14,6 +14,7 @@ namespace turboHiker {
 class SceneNode;
 class Hiker;
 class PlayerHiker;
+class Command;
 
 /**
  * Container class which holds and keeps track of (updating, rendering,...) all SceneNodes present in the world, except
@@ -21,7 +22,7 @@ class PlayerHiker;
  * more safety regarding the 'getting derived references for SceneNodes'. It delegates it update request to the
  * children, and removes them if necessary.
  */
-class SceneGraph : Updatable, Renderable
+class SceneGraph : public Updatable, public Renderable
 {
 
 public:
@@ -29,9 +30,9 @@ public:
         void updateRenderComponents(seconds dt);
         void render() const override;
 
-        void onCommand();
-
         Hiker& getPlayerHiker() const;
+
+        void onCommand(const Command& command, std::chrono::duration<double> dt);
 
         const std::vector<std::unique_ptr<SceneNode>>& getSceneNodes() const;
 
@@ -48,6 +49,12 @@ public:
         void addLane(const SceneNode& lane);
 
 private:
+        /**
+         * Private method as it should only be used internally as a helper function, and this list may not be kept alive
+         * outside to avoid any invalidated references to objects that are removed / destroyed.
+         * @return
+         */
+        std::vector<std::reference_wrapper<SceneNode>> getChildren() const;
         /**
          * Basic SceneNodes that make up the world. They can be everything derived from SceneNode as well. SceneNodes
          * who update, render and do everything on their own can be put in here, as no special references /

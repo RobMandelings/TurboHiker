@@ -43,7 +43,7 @@ SceneNode turboHiker::EntityFactorySFML::createLane(const BoundingBox& laneDimen
 }
 
 Hiker turboHiker::EntityFactorySFML::createHiker(const Vector2d& location, const Vector2d& size,
-                                                 const Vector2d& initialVelocity) const
+                                                 const Vector2d& initialVelocity, bool playerControlled) const
 {
         assert(size.x == size.y && "Must be a square in order for the shape to be a circle");
 
@@ -51,5 +51,5 @@ Hiker turboHiker::EntityFactorySFML::createHiker(const Vector2d& location, const
             mWindowRenderer, 1, float(Transformation::get().scaleWorldCoordinatesToPixelCoordinates(size).x / 2),
             sf::Color(255, 0, 0));
 
-        return Hiker(location, size, std::move(hikerRenderer), initialVelocity);
+        return Hiker(location, size, std::move(hikerRenderer), initialVelocity, playerControlled);
 }

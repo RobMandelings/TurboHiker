@@ -13,7 +13,7 @@ turboHikerSFML::LaneRenderer::LaneRenderer(DrawableRenderer& windowDrawer, const
 {
         mLane = createLane(dimensions);
         mLeftBorder = createLeftBorder(dimensions);
-        mRightBorder = createRightBorder(dimensions);
+        //mRightBorder = createRightBorder(dimensions);
 }
 
 std::unique_ptr<SceneNodeRenderer> turboHikerSFML::LaneRenderer::clone()
