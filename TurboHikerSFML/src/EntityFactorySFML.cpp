@@ -42,14 +42,33 @@ SceneNode turboHiker::EntityFactorySFML::createLane(const BoundingBox& laneDimen
         return lane;
 }
 
-Hiker turboHiker::EntityFactorySFML::createHiker(double yLocation, const Vector2d& size,
-                                                 const Vector2d& initialVelocity, bool playerControlled) const
+Hiker turboHiker::EntityFactorySFML::createPlayerHiker(double yLocation, const Vector2d& size) const
 {
         assert(size.x == size.y && "Must be a square in order for the shape to be a circle");
 
         std::unique_ptr<HikerRenderer> hikerRenderer = std::make_unique<HikerRenderer>(
             mWindowRenderer, 1, float(Transformation::get().scaleWorldCoordinatesToPixelCoordinates(size).x / 2),
+            sf::Color(0, 0, 255));
+
+        return Hiker(Vector2d(0, yLocation), size, std::move(hikerRenderer), Vector2d(0, 0), true);
+}
+Hiker EntityFactorySFML::createStaticHiker(double yLocation, const Vector2d& size) const
+{
+        assert(size.x == size.y && "Must be a square in order for the shape to be a circle");
+
+        std::unique_ptr<HikerRenderer> hikerRenderer = std::make_unique<HikerRenderer>(
+            mWindowRenderer, 1, float(Transformation::get().scaleWorldCoordinatesToPixelCoordinates(size).x / 2),
+            sf::Color(0, 255, 0));
+
+        return Hiker(Vector2d(0, yLocation), size, std::move(hikerRenderer), Vector2d(0, 0), false);
+}
+Hiker EntityFactorySFML::createMovingHiker(double yLocation, const Vector2d& size, const Vector2d& velocity) const
+{
+        assert(size.x == size.y && "Must be a square in order for the shape to be a circle");
+
+        std::unique_ptr<HikerRenderer> hikerRenderer = std::make_unique<HikerRenderer>(
+            mWindowRenderer, 1.5, float(Transformation::get().scaleWorldCoordinatesToPixelCoordinates(size).x / 2),
             sf::Color(255, 0, 0));
 
-        return Hiker(Vector2d(0, yLocation), size, std::move(hikerRenderer), initialVelocity, playerControlled);
+        return Hiker(Vector2d(0, yLocation), size, std::move(hikerRenderer), velocity, false);
 }

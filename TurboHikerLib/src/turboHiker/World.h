@@ -38,7 +38,7 @@ public:
 
         void putHikerOnLane(Hiker& hiker, int laneIndex);
 
-        int getAmountOfLanes() const;
+        unsigned int getAmountOfLanes() const;
 
         void buildWorld(int nrLanes);
 

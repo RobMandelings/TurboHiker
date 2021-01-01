@@ -4,6 +4,7 @@
 
 #include "SceneGraph.h"
 
+#include "BoundingBox.h"
 #include "Hiker.h"
 #include "SceneNode.h"
 #include "SceneNodeRenderer.h"
@@ -15,8 +16,8 @@ using namespace turboHiker;
 void turboHiker::SceneGraph::update(turboHiker::Updatable::seconds dt)
 {
 
-        for (const std::reference_wrapper<SceneNode>& child : getChildren()) {
-                child.get().update(dt);
+        for (const std::shared_ptr<SceneNode>& sceneNode : mSceneNodes) {
+                sceneNode->update(dt);
         }
 
         // The lanes don't need to be updated at all
@@ -24,81 +25,115 @@ void turboHiker::SceneGraph::update(turboHiker::Updatable::seconds dt)
 
 void SceneGraph::updateRenderComponents(Updatable::seconds dt)
 {
-        for (const std::reference_wrapper<SceneNode>& child : getChildren()) {
-                child.get().updateRenderComponent(dt);
+        for (const std::shared_ptr<SceneNode>& sceneNode : mSceneNodes) {
+                sceneNode->updateRenderComponent(dt);
         }
 }
 
 void turboHiker::SceneGraph::render() const
 {
-        for (const std::reference_wrapper<SceneNode>& child : getChildren()) {
-                child.get().render();
+        for (const std::shared_ptr<SceneNode>& sceneNode : mSceneNodes) {
+                sceneNode->render();
+        }
+}
+
+void SceneGraph::cleanupDeadObjects()
+{
+
+        auto sceneNodeIt = mSceneNodes.begin();
+        while (sceneNodeIt != mSceneNodes.end()) {
+
+                if ((*sceneNodeIt)->isMarkedForRemoval()) {
+                        sceneNodeIt = mSceneNodes.erase(sceneNodeIt);
+                } else {
+                        sceneNodeIt++;
+                }
+        }
+
+        auto lanesIt = mLanes.begin();
+
+        while (lanesIt != mLanes.end()) {
+
+                if (!(*lanesIt).lock()) {
+                        lanesIt = mLanes.erase(lanesIt);
+                } else {
+                        lanesIt++;
+                }
+        }
+
+        auto competingHikersIt = mCompetingHikers.begin();
+
+        while (competingHikersIt != mCompetingHikers.end()) {
+
+                if (!(*competingHikersIt).lock()) {
+                        competingHikersIt = mCompetingHikers.erase(competingHikersIt);
+                } else {
+                        competingHikersIt++;
+                }
+        }
+
+        if (!mPlayerHiker.lock()) {
+                mPlayerHiker.reset();
         }
 }
 
 turboHiker::Hiker& turboHiker::SceneGraph::getPlayerHiker() const
 {
-        assert(mPlayerHiker != nullptr && "Player not defined");
-        return *mPlayerHiker;
+        assert(mPlayerHiker.lock() && "Player not defined");
+        return *mPlayerHiker.lock();
 }
 
-const std::vector<std::unique_ptr<SceneNode>>& turboHiker::SceneGraph::getSceneNodes() const { return mSceneNodes; }
-
-const std::vector<std::unique_ptr<Hiker>>& turboHiker::SceneGraph::getCompetingHikers() const
+unsigned int SceneGraph::getAmountOfSceneNodes() const { return mSceneNodes.size(); }
+unsigned int SceneGraph::getAmountOfLanes() const { return mLanes.size(); }
+unsigned int SceneGraph::getAmountOfCompetingHikers() const { return mCompetingHikers.size(); }
+SceneNode& SceneGraph::getSceneNode(unsigned int index) const
 {
-        return mCompetingHikers;
+        assert(index < mSceneNodes.size());
+        assert(mSceneNodes.at(index));
+        return *mSceneNodes.at(index);
 }
-
-const std::vector<std::unique_ptr<SceneNode>>& SceneGraph::getLanes() const { return mLanes; }
-
+Hiker& SceneGraph::getCompetingHiker(unsigned int index) const
+{
+        assert(index < mCompetingHikers.size());
+        assert(mCompetingHikers.at(index).lock());
+        return *mCompetingHikers.at(index).lock();
+}
+SceneNode& SceneGraph::getLane(unsigned int index) const
+{
+        assert(index < mLanes.size());
+        assert(mLanes.at(index).lock());
+        return *mLanes.at(index).lock();
+}
 void SceneGraph::addSceneNode(const SceneNode& sceneNode)
 {
-        mSceneNodes.push_back(std::make_unique<SceneNode>(sceneNode));
+        mSceneNodes.push_back(std::make_shared<SceneNode>(sceneNode));
 }
 
 void SceneGraph::addCompetingHiker(const Hiker& competingHiker)
 {
-        mCompetingHikers.push_back(std::make_unique<Hiker>(competingHiker));
+        std::shared_ptr<Hiker> competingHikerPtr = std::make_shared<Hiker>(competingHiker);
+        mSceneNodes.push_back(competingHikerPtr);
+        mCompetingHikers.push_back(competingHikerPtr);
 }
-void SceneGraph::setPlayerHiker(const Hiker& playerHiker) {
-
-        assert(playerHiker.isPlayerControlled());
-        mPlayerHiker = std::make_unique<Hiker>(playerHiker);
-}
-void SceneGraph::addLane(const SceneNode& lane) { mLanes.push_back(std::make_unique<SceneNode>(lane)); }
-
-/**
- * The order of how to children are put in here is important, as this implies that category will be drawn on top of / behind the other
- */
-std::vector<std::reference_wrapper<SceneNode>> SceneGraph::getChildren() const
+void SceneGraph::setPlayerHiker(const Hiker& playerHiker)
 {
-        assert(mPlayerHiker && "Player is not initialized");
-
-        std::vector<std::reference_wrapper<SceneNode>> children;
-
-        children.reserve(mLanes.size());
-        for (const std::unique_ptr<SceneNode>& currentLane : mLanes) {
-                children.emplace_back(*currentLane);
-        }
-
-        children.reserve(mSceneNodes.size());
-        for (const std::unique_ptr<SceneNode>& currentSceneNode : mSceneNodes) {
-                children.emplace_back(*currentSceneNode);
-        }
-
-        children.reserve(mCompetingHikers.size());
-        for (const std::unique_ptr<Hiker>& currentCompetingHiker : mCompetingHikers) {
-                children.emplace_back(*currentCompetingHiker);
-        }
-
-        children.emplace_back(*mPlayerHiker);
-
-        return children;
+        assert(playerHiker.isPlayerControlled());
+        std::shared_ptr<Hiker> playerHikerPtr = std::make_shared<Hiker>(playerHiker);
+        mSceneNodes.push_back(playerHikerPtr);
+        mPlayerHiker = playerHikerPtr;
+}
+void SceneGraph::addLane(const SceneNode& lane)
+{
+        assert(lane.getBoundingBox().getWidth() > 0 && lane.getBoundingBox().getHeight() > 0);
+        std::shared_ptr<SceneNode> lanePtr = std::make_shared<SceneNode>(lane);
+        mSceneNodes.push_back(lanePtr);
+        mLanes.push_back(lanePtr);
 }
 
 void SceneGraph::onCommand(const Command& command, std::chrono::duration<double> dt)
 {
-        for (const std::reference_wrapper<SceneNode>& child : getChildren()) {
-                child.get().onCommand(command, dt);
+
+        for (const std::shared_ptr<SceneNode>& sceneNode : mSceneNodes) {
+                sceneNode->onCommand(command, dt);
         }
 }

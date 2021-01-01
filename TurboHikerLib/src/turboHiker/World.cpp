@@ -26,6 +26,8 @@ turboHiker::World::World(int nrLanes, double laneWidth, double laneHeight)
 void World::update(Updatable::seconds dt)
 {
 
+        generateCompetingHikers(dt);
+
         mSceneGraph.update(dt);
 
         // Update the center of view so the player is tracked in the middle
@@ -42,8 +44,6 @@ void World::update(Updatable::seconds dt)
         }
 
         handleCollisions();
-
-        generateCompetingHikers(dt);
 }
 
 void World::renderWorld() { mSceneGraph.render(); }
@@ -61,7 +61,7 @@ void turboHiker::World::buildWorld(int nrLanes)
                 mSceneGraph.addLane(currentLane);
         }
 
-        mSceneGraph.setPlayerHiker(mEntityFactory->createHiker(0, Vector2d(10, 10), Vector2d(0, 0), true));
+        mSceneGraph.setPlayerHiker(mEntityFactory->createPlayerHiker(0, Vector2d(10, 10)));
 
         putHikerOnLane(mSceneGraph.getPlayerHiker(), 2);
 }
@@ -76,6 +76,7 @@ void World::generateCompetingHikers(seconds dt)
 
         // TODO calculate chance based on the closeness to the finish
         // The chance of an enemy spawning in a second, on one of the lanes
+        // TODO improve this rate to be more consistent
         double spawnRate = 0.5 * dt.count();
         assert(spawnRate >= 0 && spawnRate <= 1);
 
@@ -94,16 +95,27 @@ void World::generateCompetingHikers(seconds dt)
                 int chosenLane;
 
                 do {
-                        chosenLane = static_cast<int>(std::round(Random::get().randomNumber() * mSceneGraph.getLanes().size()));
+                        chosenLane = static_cast<int>(std::round(Random::get().randomNumber() * mSceneGraph.getAmountOfLanes()));
                 } while (chosenLane == previousChosenLane);
 
-                assert(chosenLane >= 0 && chosenLane < mSceneGraph.getLanes().size());
+                assert(chosenLane >= 0 && chosenLane < mSceneGraph.getAmountOfLanes());
 
                 Vector2d size(10, 10);
 
-                Hiker hiker = mEntityFactory->createHiker(playerSight + size.y, size, Vector2d(0, 0), false);
-                putHikerOnLane(hiker, chosenLane);
-                mSceneGraph.addCompetingHiker(hiker);
+                // If true, spawn a static hiker, false: spawn a moving hiker
+                bool spawnStatic = static_cast<int>(std::round(Random::get().randomNumber())) == 1;
+
+                double yLocation = playerSight + size.y;
+
+                if (spawnStatic) {
+                        Hiker hiker = mEntityFactory->createStaticHiker(yLocation, size);
+                        putHikerOnLane(hiker, chosenLane);
+                        mSceneGraph.addCompetingHiker(hiker);
+                } else {
+                        Hiker hiker = mEntityFactory->createMovingHiker(yLocation, size, Vector2d(0, -50));
+                        putHikerOnLane(hiker, chosenLane);
+                        mSceneGraph.addCompetingHiker(hiker);
+                }
 
                 previousChosenLane = chosenLane;
         }
@@ -170,13 +182,13 @@ void World::putHikerOnLane(Hiker& hiker, int laneIndex)
 {
 
         assert(laneIndex < getAmountOfLanes() && laneIndex >= 0);
-        SceneNode& lane = *mSceneGraph.getLanes().at(laneIndex);
+        SceneNode& lane = mSceneGraph.getLane(laneIndex);
         assert(lane.hasBoundingBox());
 
         hiker.setLocation(Vector2d(lane.getLocation().x, hiker.getLocation().y));
         hiker.setCurrentLane(laneIndex);
 }
 
-int World::getAmountOfLanes() const { return mSceneGraph.getLanes().size(); }
+unsigned int World::getAmountOfLanes() const { return mSceneGraph.getAmountOfLanes(); }
 
 unsigned int World::getCategory() const { return turboHiker::Category::World; }
