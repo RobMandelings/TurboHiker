@@ -68,7 +68,8 @@ void turboHiker::World::buildWorld(int nrLanes)
 
         putHikerOnLane(mSceneGraph.getPlayerHiker(), 2);
 
-        mPreviousLaneEnemySpawned = static_cast<int>(std::round(Random::get().randomNumber() * (mSceneGraph.getAmountOfLanes() - 1)));
+        mPreviousLaneEnemySpawned =
+            static_cast<int>(std::round(Random::get().randomNumber() * (mSceneGraph.getAmountOfLanes() - 1)));
 }
 
 void World::generateCompetingHikers(seconds dt)
@@ -98,8 +99,13 @@ void World::generateCompetingHikers(seconds dt)
                 int chosenLane;
 
                 do {
-                        chosenLane = static_cast<int>(
-                            std::round(Random::get().randomNumber() * (mSceneGraph.getAmountOfLanes() - 1)));
+                        chosenLane =
+                            static_cast<int>((-1 + Random::get().randomNumber() * (mSceneGraph.getAmountOfLanes() + 2)));
+                        if (chosenLane < 0) {
+                                chosenLane = 0;
+                        } else if (chosenLane == mSceneGraph.getAmountOfLanes()) {
+                                chosenLane = static_cast<int>(mSceneGraph.getAmountOfLanes()) - 1;
+                        }
                 } while (chosenLane == mPreviousLaneEnemySpawned);
 
                 assert(chosenLane >= 0 && chosenLane < mSceneGraph.getAmountOfLanes());
