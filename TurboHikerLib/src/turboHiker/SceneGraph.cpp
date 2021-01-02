@@ -44,7 +44,6 @@ void SceneGraph::cleanupDeadObjects()
         while (sceneNodeIt != mSceneNodes.end()) {
 
                 if ((*sceneNodeIt)->isMarkedForRemoval()) {
-                        std::cout << "Marked" << std::endl;
                         sceneNodeIt = mSceneNodes.erase(sceneNodeIt);
                 } else {
                         sceneNodeIt++;

@@ -65,6 +65,8 @@ private:
         std::unique_ptr<EntityFactory> mEntityFactory;
 
         const turboHiker::BoundingBox mWorldBorders;
+
+        int mPreviousLaneEnemySpawned;
 };
 } // namespace turboHiker
 
