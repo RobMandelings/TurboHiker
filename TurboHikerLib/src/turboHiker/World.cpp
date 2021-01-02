@@ -100,12 +100,7 @@ void World::generateCompetingHikers(seconds dt)
 
                 do {
                         chosenLane =
-                            static_cast<int>((-1 + Random::get().randomNumber() * (mSceneGraph.getAmountOfLanes() + 2)));
-                        if (chosenLane < 0) {
-                                chosenLane = 0;
-                        } else if (chosenLane == mSceneGraph.getAmountOfLanes()) {
-                                chosenLane = static_cast<int>(mSceneGraph.getAmountOfLanes()) - 1;
-                        }
+                            static_cast<int>(Random::get().randomNumber() * (mSceneGraph.getAmountOfLanes() - 0.01));
                 } while (chosenLane == mPreviousLaneEnemySpawned);
 
                 assert(chosenLane >= 0 && chosenLane < mSceneGraph.getAmountOfLanes());
