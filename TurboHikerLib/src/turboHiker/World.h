@@ -7,9 +7,9 @@
 
 #include "EntityFactory.h"
 #include "Renderable.h"
+#include "SceneGraph.h"
 #include "SceneNode.h"
 #include "Updatable.h"
-#include "SceneGraph.h"
 
 #include "BoundingBox.h"
 #include "SceneNodeRenderer.h"
@@ -29,13 +29,16 @@ public:
 
         void handleCollisions();
 
-        static bool matchesCategories(SceneNode::Pair& colliders, Category::Type type1, Category::Type type2);
+        static bool matchesCategories(SceneGraph::SceneNodePair& colliders,
+            Category::Type type1, Category::Type type2);
 
         void setEntityFactory(std::unique_ptr<EntityFactory> entityFactory);
 
         CommandQueue& getCommandQueue();
 
         void putHikerOnLane(Hiker& hiker, int laneIndex);
+
+        void hikerYelled(Hiker& hiker, double yellDistance);
 
         unsigned int getAmountOfLanes() const;
 
@@ -54,7 +57,6 @@ public:
         void renderWorld();
 
 private:
-
         /**
          * Contains all the SceneNodes that are present in the world, except for the world itself
          */

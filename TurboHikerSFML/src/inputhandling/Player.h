@@ -20,6 +20,7 @@ public:
                 MoveRight,
                 MoveUp,
                 MoveDown,
+                YellAtHiker,
                 ActionCount
         };
 

@@ -28,12 +28,10 @@ class SceneNode : public Updatable, public Renderable, public Removable
 {
 
 public:
-        typedef std::unique_ptr<SceneNode> SceneNodePtr;
-        typedef std::pair<SceneNode*, SceneNode*> Pair;
 
         // TODO maybe use std::optional instead, although its experimental?
         SceneNode(const Vector2d& initialLocation, const Vector2d& boundingSize,
-                  std::unique_ptr<SceneNodeRenderer> renderComponent, std::string name = "SceneNode");
+                  std::unique_ptr<SceneNodeRenderer> renderComponent, std::string name);
 
         SceneNode();
         SceneNode(const SceneNode& other);
@@ -48,7 +46,7 @@ public:
 
         bool collidesWith(const SceneNode& other) const;
 
-        void checkForCollisionWith(SceneNode& node, std::set<Pair>& collisionPairs);
+        bool collidesWith(const BoundingBox& boundingBox) const;
 
         // TODO make this type-safe
         virtual unsigned int getCategory() const;

@@ -36,7 +36,7 @@ SceneNode turboHiker::EntityFactorySFML::createLane(const BoundingBox& laneDimen
 
         SceneNode lane(Vector2d(laneDimensions.getLeft() + laneDimensions.getWidth() / 2,
                                 laneDimensions.getBottom() + laneDimensions.getHeight() / 2),
-                       Vector2d(laneDimensions.getWidth() / 2, laneDimensions.getHeight() / 2), std::move(laneRenderer),
+                       Vector2d(0, 0), std::move(laneRenderer),
                        "Lane");
 
         return lane;
@@ -50,7 +50,7 @@ Hiker turboHiker::EntityFactorySFML::createPlayerHiker(double yLocation, const V
             mWindowRenderer, 1, float(Transformation::get().scaleWorldCoordinatesToPixelCoordinates(size).x / 2),
             sf::Color(0, 0, 255));
 
-        return Hiker(Vector2d(0, yLocation), size, std::move(hikerRenderer), Vector2d(0, 0), true);
+        return Hiker(Vector2d(0, yLocation), size, std::move(hikerRenderer), Vector2d(0, 0), true, "Player Hiker");
 }
 Hiker EntityFactorySFML::createStaticHiker(double yLocation, const Vector2d& size) const
 {
@@ -60,7 +60,7 @@ Hiker EntityFactorySFML::createStaticHiker(double yLocation, const Vector2d& siz
             mWindowRenderer, 1, float(Transformation::get().scaleWorldCoordinatesToPixelCoordinates(size).x / 2),
             sf::Color(0, 255, 0));
 
-        return Hiker(Vector2d(0, yLocation), size, std::move(hikerRenderer), Vector2d(0, 0), false);
+        return Hiker(Vector2d(0, yLocation), size, std::move(hikerRenderer), Vector2d(0, 0), false, "Static Hiker");
 }
 Hiker EntityFactorySFML::createMovingHiker(double yLocation, const Vector2d& size, const Vector2d& velocity) const
 {
@@ -70,5 +70,5 @@ Hiker EntityFactorySFML::createMovingHiker(double yLocation, const Vector2d& siz
             mWindowRenderer, 1.5, float(Transformation::get().scaleWorldCoordinatesToPixelCoordinates(size).x / 2),
             sf::Color(255, 0, 0));
 
-        return Hiker(Vector2d(0, yLocation), size, std::move(hikerRenderer), velocity, false);
+        return Hiker(Vector2d(0, yLocation), size, std::move(hikerRenderer), velocity, false, "Moving Hiker");
 }

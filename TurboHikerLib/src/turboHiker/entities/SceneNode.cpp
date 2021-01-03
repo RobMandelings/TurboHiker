@@ -32,7 +32,8 @@ SceneNode::SceneNode(const Vector2d& initialLocation, const Vector2d& boundingSi
 // TODO remove as well
 SceneNode::SceneNode() : SceneNode(Vector2d(0, 0), Vector2d(0, 0), nullptr, "World") {}
 
-SceneNode::SceneNode(const SceneNode& other) : mBoundingSize(other.mBoundingSize), mLocation(other.mLocation)
+SceneNode::SceneNode(const SceneNode& other)
+    : mBoundingSize(other.mBoundingSize), mLocation(other.mLocation), mName(other.mName)
 {
         mRenderComponent = std::move(other.mRenderComponent->clone());
 }
@@ -60,9 +61,8 @@ unsigned int turboHiker::SceneNode::getCategory() const { return Category::Scene
 
 BoundingBox SceneNode::getBoundingBox() const
 {
-        assert(hasBoundingBox());
         return BoundingBox(getLocation().x - mBoundingSize.x / 2, getLocation().y - mBoundingSize.y / 2,
-                           getLocation().x + mBoundingSize.x / 2, getLocation().y + mBoundingSize.y);
+                           mBoundingSize.x, mBoundingSize.y);
 }
 
 bool SceneNode::hasBoundingBox() const { return mBoundingSize.x != 0 && mBoundingSize.y != 0; }
@@ -70,31 +70,25 @@ bool SceneNode::hasBoundingBox() const { return mBoundingSize.x != 0 && mBoundin
 bool SceneNode::collidesWith(const SceneNode& other) const
 {
         if (&other != this && hasBoundingBox() && other.hasBoundingBox()) {
-
-                double val = this->getBoundingBox().getRight();
-                double val2 = other.getBoundingBox().getLeft();
-
-                // Check if one rectangle is on the left side of the other
-                if (this->getBoundingBox().getLeft() > other.getBoundingBox().getRight() ||
-                    other.getBoundingBox().getLeft() > this->getBoundingBox().getRight()) {
-                        return false;
-                }
-
-                if (this->getBoundingBox().getBottom() > other.getBoundingBox().getTop() ||
-                    other.getBoundingBox().getBottom() > this->getBoundingBox().getTop()) {
-                        return false;
-                }
-
-                return true;
+                return collidesWith(other.getBoundingBox());
         }
         return false;
 }
 
-void SceneNode::checkForCollisionWith(SceneNode& node, std::set<Pair>& collisionPairs)
+bool SceneNode::collidesWith(const BoundingBox& boundingBox) const
 {
-        if (this != &node && this->collidesWith(node) && !isMarkedForRemoval() && !node.isMarkedForRemoval()) {
-                collisionPairs.insert(std::minmax(this, &node));
+        // Check if one rectangle is on the left side of the other
+        if (this->getBoundingBox().getLeft() > boundingBox.getRight() ||
+            boundingBox.getLeft() > this->getBoundingBox().getRight()) {
+                return false;
         }
+
+        if (this->getBoundingBox().getBottom() > boundingBox.getTop() ||
+            boundingBox.getBottom() > this->getBoundingBox().getTop()) {
+                return false;
+        }
+
+        return true;
 }
 
 void SceneNode::setBoundingSize(const Vector2d& boundingSize)

@@ -8,6 +8,7 @@
 #include "Hiker.h"
 #include "SceneNode.h"
 #include "SceneNodeRenderer.h"
+#include <algorithm>
 #include <cassert>
 
 using namespace turboHiker;
@@ -77,6 +78,42 @@ void SceneGraph::cleanupDeadObjects()
         }
 }
 
+bool SceneGraph::spaceOccupiedBy(const BoundingBox& boundingBox, const Category::Type& category)
+{
+
+        for (const std::shared_ptr<SceneNode>& sceneNode : mSceneNodes) {
+                if (sceneNode->getCategory() & category) {
+                        if (sceneNode->collidesWith(boundingBox)) {
+                                return true;
+                        }
+                }
+        }
+        return false;
+}
+
+std::set<turboHiker::SceneGraph::SceneNodePair> SceneGraph::findCollisionPairs() const
+{
+
+        std::set<SceneNodePair> collisionPairs;
+
+        for (const std::shared_ptr<SceneNode>& sceneNode1 : mSceneNodes) {
+
+                for (const std::shared_ptr<SceneNode>& sceneNode2 : mSceneNodes) {
+
+                        // Skip if they are the same
+                        if (&sceneNode1 == &sceneNode2)
+                                continue;
+
+                        if (sceneNode1->collidesWith(*sceneNode2)) {
+
+                                collisionPairs.insert(std::minmax(sceneNode1, sceneNode2));
+                        }
+                }
+        }
+
+        return collisionPairs;
+}
+
 turboHiker::Hiker& turboHiker::SceneGraph::getPlayerHiker() const
 {
         assert(mPlayerHiker.lock() && "Player not defined");
@@ -124,7 +161,6 @@ void SceneGraph::setPlayerHiker(const Hiker& playerHiker)
 }
 void SceneGraph::addLane(const SceneNode& lane)
 {
-        assert(lane.getBoundingBox().getWidth() > 0 && lane.getBoundingBox().getHeight() > 0);
         std::shared_ptr<SceneNode> lanePtr = std::make_shared<SceneNode>(lane);
         mSceneNodes.push_back(lanePtr);
         mLanes.push_back(lanePtr);

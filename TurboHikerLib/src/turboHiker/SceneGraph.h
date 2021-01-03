@@ -8,6 +8,8 @@
 #include "Updatable.h"
 #include <memory>
 #include <vector>
+#include <set>
+#include "Category.h"
 
 namespace turboHiker {
 
@@ -15,6 +17,7 @@ class SceneNode;
 class Hiker;
 class PlayerHiker;
 class Command;
+class BoundingBox;
 
 /**
  * Container class which holds and keeps track of (updating, rendering,...) all SceneNodes present in the world, except
@@ -26,10 +29,17 @@ class SceneGraph : public Updatable, public Renderable
 {
 
 public:
+
+        typedef std::pair<std::shared_ptr<SceneNode>, std::shared_ptr<SceneNode>> SceneNodePair;
+
         void update(seconds dt) override;
         void updateRenderComponents(seconds dt);
         void render() const override;
         void cleanupDeadObjects();
+
+        std::set<SceneNodePair> findCollisionPairs() const;
+
+        bool spaceOccupiedBy(const BoundingBox& boundingBox, const Category::Type& category);
 
         void onCommand(const Command& command, std::chrono::duration<double> dt);
 

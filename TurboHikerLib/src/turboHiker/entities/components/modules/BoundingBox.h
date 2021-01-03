@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include <ostream>
 namespace turboHiker {
 class BoundingBox
 {
@@ -26,4 +27,7 @@ private:
         double mWidth;
         double mHeight;
 };
+
+std::ostream& operator<<(std::ostream& ostream, const BoundingBox& boundingBox);
+
 } // namespace turboHiker

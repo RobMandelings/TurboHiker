@@ -19,3 +19,9 @@ bool turboHiker::BoundingBox::empty() const
 {
         return getBottom() == 0 && getLeft() == 0 && getWidth() == 0 && getHeight() == 0;
 }
+
+std::ostream& turboHiker::operator<<(std::ostream& os, const turboHiker::BoundingBox& boundingBox)
+{
+        return os << "(" << boundingBox.getLeft() << ", " << boundingBox.getBottom() << ", " << boundingBox.getWidth()
+                  << ", " << boundingBox.getHeight() << ")";
+}

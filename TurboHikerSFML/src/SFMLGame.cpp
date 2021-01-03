@@ -20,7 +20,7 @@ SFMLGame::SFMLGame(const std::chrono::duration<double>& timePerFrame)
         mWorld->setEntityFactory(std::make_unique<EntityFactorySFML>(mWindow));
         Transformation::get().initialize(WindowSize(mWindow.getSize().x, mWindow.getSize().y), this->mWorld->getWorldBorders());
         //Transformation::get().setWorldViewWidth(this->mWorld->getWorldBorders().getWidth());
-        Transformation::get().setWorldViewWidth(this->mWorld->getWorldBorders().getWidth() * 3);
+        Transformation::get().setWorldViewWidth(this->mWorld->getWorldBorders().getWidth());
         Transformation::get().setWorldViewCenterY(Transformation::get().getWorldView().getWorldViewHeight() / 2);
         mWorld->buildWorld(4);
 }

@@ -40,6 +40,23 @@ private:
         bool mMoveRight;
 };
 
+class YellAtHikerCommand
+{
+
+public:
+        explicit YellAtHikerCommand(double distance) : mDistance(distance) {}
+
+        void operator()(turboHiker::World& world, Updatable::seconds dt) const
+        {
+                world.hikerYelled(world.getPlayerHiker(), mDistance);
+        }
+
+private:
+
+        double mDistance;
+
+};
+
 Player::Player()
 {
         // Set initial key bindings
@@ -47,6 +64,7 @@ Player::Player()
         mKeyBinding[sf::Keyboard::Right] = MoveRight;
         mKeyBinding[sf::Keyboard::Up] = MoveUp;
         mKeyBinding[sf::Keyboard::Down] = MoveDown;
+        mKeyBinding[sf::Keyboard::Space] = YellAtHiker;
 
         // Set initial action bindings
         initializeActions();
@@ -105,11 +123,13 @@ void Player::initializeActions()
         mActionBinding[MoveRight].category = turboHiker::Category::World;
         mActionBinding[MoveUp].category = turboHiker::Category::PlayerHiker;
         mActionBinding[MoveDown].category = turboHiker::Category::PlayerHiker;
+        mActionBinding[YellAtHiker].category = turboHiker::Category::World;
 
         mActionBinding[MoveLeft].action = derivedAction<World>(LaneMover(false));
         mActionBinding[MoveRight].action = derivedAction<World>(LaneMover(true));
         mActionBinding[MoveUp].action = derivedAction<Entity>(HikerSpeed(playerSpeed));
         mActionBinding[MoveDown].action = derivedAction<Entity>(HikerSpeed(playerSpeed / 3));
+        mActionBinding[YellAtHiker].action = derivedAction<World>(YellAtHikerCommand(10));
 }
 
 bool Player::isRealtimeAction(Action action)
