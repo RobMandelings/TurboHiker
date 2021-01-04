@@ -5,11 +5,12 @@
 #include "World.h"
 #include <cassert>
 
-#include "Hiker.h"
+#include "Command.h"
 #include "Random.h"
 #include "SceneNodeRenderer.h"
 #include "Transformation.h"
-#include "Command.h"
+#include "Hiker.h"
+#include "PlayerHiker.h"
 
 #include <set>
 
@@ -49,12 +50,14 @@ void World::render() const { mSceneGraph.render(); }
 
 void World::onCommand(const Command& command, Updatable::seconds dt)
 {
-        if (command.category == GameCategory::GameWorld) {
-                command.action(*this, dt);
-        } else {
-                assert((!(command.category & GameCategory::GameWorld)) &&
-                       "World should be an only category and may not be included within other categories");
-                mSceneGraph.onCommand(command, dt);
+        if (command.whenToExecute == mHikeStatus) {
+                if (command.category == GameCategory::GameWorld) {
+                        command.action(*this, dt);
+                } else {
+                        assert((!(command.category & GameCategory::GameWorld)) &&
+                               "World should be an only category and may not be included within other categories");
+                        mSceneGraph.onCommand(command, dt);
+                }
         }
 }
 
@@ -71,7 +74,7 @@ void turboHiker::World::buildWorld(int nrLanes)
                 mSceneGraph.addLane(currentLane);
         }
 
-        mSceneGraph.setPlayerHiker(mEntityFactory->createPlayerHiker(0, Vector2d(20, 20)));
+        mSceneGraph.setPlayerHiker(mEntityFactory->createPlayerHiker(0, Vector2d(20, 20), 5, 400));
 
         putHikerOnLane(mSceneGraph.getPlayerHiker(), 2);
 
@@ -118,7 +121,7 @@ void World::generateCompetingHikers(seconds dt)
 
                 if (!mSceneGraph.spaceOccupiedBy(
                         BoundingBox(xLocation - size.x / 2, yLocation - size.y / 2, size.x, size.y),
-                        GameCategory::CompetingHiker)) {
+                        GameCategory::GameHiker)) {
 
                         // If true, spawn a static hiker, false: spawn a moving hiker
                         bool spawnStatic = static_cast<int>(std::round(Random::get().randomNumber())) == 1;
@@ -195,7 +198,7 @@ void turboHiker::World::handleCollisions()
 
         for (auto pair : collisionPairs) {
 
-                if (matchesCategories(pair, GameCategory::PlayerHiker, GameCategory::CompetingHiker)) {
+                if (matchesCategories(pair, GameCategory::GamePlayerHiker, GameCategory::GameHiker)) {
 
                         std::shared_ptr<Hiker> playerHiker = std::static_pointer_cast<Hiker>(pair.first);
 
@@ -265,3 +268,15 @@ void World::hikerYelled(Hiker& hiker, double yellDistance)
 }
 
 unsigned int World::getAmountOfLanes() const { return mSceneGraph.getAmountOfLanes(); }
+HikeStatus World::getHikeStatus() const { return mHikeStatus; }
+
+void World::startHiking() {
+        assert(mHikeStatus == HikeStatus::BeforeHiking);
+        mHikeStatus = HikeStatus::WhilstHiking;
+}
+
+void World::resetHike() {
+        assert(mHikeStatus == HikeStatus::AfterHiking);
+
+        mHikeStatus = HikeStatus::BeforeHiking;
+}

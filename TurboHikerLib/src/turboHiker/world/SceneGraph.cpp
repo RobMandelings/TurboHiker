@@ -5,9 +5,10 @@
 #include "SceneGraph.h"
 
 #include "BoundingBox.h"
-#include "Hiker.h"
 #include "SceneNode.h"
 #include "SceneNodeRenderer.h"
+#include "Hiker.h"
+#include "PlayerHiker.h"
 #include <algorithm>
 #include <cassert>
 
@@ -114,7 +115,7 @@ std::set<turboHiker::SceneGraph::SceneNodePair> SceneGraph::findCollisionPairs()
         return collisionPairs;
 }
 
-turboHiker::Hiker& turboHiker::SceneGraph::getPlayerHiker() const
+turboHiker::PlayerHiker& turboHiker::SceneGraph::getPlayerHiker() const
 {
         assert(mPlayerHiker.lock() && "Player not defined");
         return *mPlayerHiker.lock();
@@ -152,10 +153,9 @@ void SceneGraph::addCompetingHiker(const Hiker& competingHiker)
         mSceneNodes.push_back(competingHikerPtr);
         mCompetingHikers.push_back(competingHikerPtr);
 }
-void SceneGraph::setPlayerHiker(const Hiker& playerHiker)
+void SceneGraph::setPlayerHiker(const PlayerHiker& playerHiker)
 {
-        assert(playerHiker.isPlayerControlled());
-        std::shared_ptr<Hiker> playerHikerPtr = std::make_shared<Hiker>(playerHiker);
+        std::shared_ptr<PlayerHiker> playerHikerPtr = std::make_shared<PlayerHiker>(playerHiker);
         mSceneNodes.push_back(playerHikerPtr);
         mPlayerHiker = playerHikerPtr;
 }

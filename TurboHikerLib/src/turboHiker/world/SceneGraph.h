@@ -49,7 +49,7 @@ public:
 
         unsigned int getAmountOfCompetingHikers() const;
 
-        Hiker& getPlayerHiker() const;
+        PlayerHiker& getPlayerHiker() const;
 
         SceneNode& getSceneNode(unsigned int index) const;
 
@@ -61,7 +61,7 @@ public:
 
         void addCompetingHiker(const Hiker& competingHiker);
 
-        void setPlayerHiker(const Hiker& playerHiker);
+        void setPlayerHiker(const PlayerHiker& playerHiker);
 
         void addLane(const SceneNode& lane);
 
@@ -79,7 +79,7 @@ private:
          */
         std::vector<std::weak_ptr<Hiker>> mCompetingHikers;
 
-        std::weak_ptr<Hiker> mPlayerHiker;
+        std::weak_ptr<PlayerHiker> mPlayerHiker;
 
         /**
          * The lanes that make up this world. These can be any SceneNodes though, as the visual representation depends

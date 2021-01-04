@@ -27,6 +27,7 @@ public:
         void accelerate(const Vector2d& acceleration);
 
         void update(seconds dt) override;
+        unsigned int getCategory() const override;
 
 private:
 

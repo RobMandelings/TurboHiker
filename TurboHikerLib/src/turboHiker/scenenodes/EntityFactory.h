@@ -6,6 +6,7 @@
 #define TURBOHIKER_ENTITYFACTORY_H
 
 #include "BoundingBox.h"
+#include <turboHiker/scenenodes/entities/PlayerHiker.h>
 
 namespace turboHiker {
 
@@ -23,7 +24,8 @@ class EntityFactory
 public:
         virtual SceneNode createLane(const BoundingBox& laneDimensions) const = 0;
 
-        virtual Hiker createPlayerHiker(double yLocation, const Vector2d& size) const = 0;
+        virtual PlayerHiker createPlayerHiker(double yLocation, const Vector2d& size, double slowSpeed,
+                                        double fastSpeed) const = 0;
 
         virtual Hiker createStaticHiker(double yLocation, const Vector2d& size) const = 0;
 

@@ -18,15 +18,13 @@ public:
         // TODO implement more safety so the hiker can only move up or down
         Hiker(const Vector2d& initialLocation, const Vector2d& boundingSize,
               std::unique_ptr<SceneNodeRenderer> renderComponent, const Vector2d& initialVelocity,
-              bool playerControlled, const std::string& name);
+              const std::string& name);
         unsigned int getCategory() const override;
 
         int getCurrentLane() const;
         void setCurrentLane(int currentLane);
 
         void onYelledAt();
-
-        bool isPlayerControlled() const;
 
 private:
 

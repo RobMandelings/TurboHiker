@@ -17,6 +17,7 @@ struct Command
 
         std::function<void(Commandable&, Updatable::seconds dt)> action;
         unsigned int category;
+        HikeStatus whenToExecute;
 };
 
 template <typename GameObject, typename Function>

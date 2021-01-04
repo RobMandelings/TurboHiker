@@ -55,7 +55,7 @@ void turboHiker::SceneNode::render() const
         }
 }
 
-unsigned int turboHiker::SceneNode::getCategory() const { return GameCategory::Scene; }
+unsigned int turboHiker::SceneNode::getCategory() const { return GameCategory::GameSceneNode; }
 
 BoundingBox SceneNode::getBoundingBox() const
 {

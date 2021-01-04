@@ -21,6 +21,8 @@ public:
                 MoveUp,
                 MoveDown,
                 YellAtHiker,
+                ResetHike,
+                StartHike,
                 ActionCount
         };
 

@@ -21,10 +21,10 @@ set(SRC
         src/turboHiker/scenenodes/components/SceneNodeRenderer.h
         src/turboHiker/scenenodes/components/BoundingBox.cpp
         src/turboHiker/scenenodes/components/BoundingBox.h
-        src/turboHiker/scenenodes/Hiker.cpp
-        src/turboHiker/scenenodes/Hiker.h
-        src/turboHiker/scenenodes/Entity.cpp
-        src/turboHiker/scenenodes/Entity.h
+        src/turboHiker/scenenodes/entities/Hiker.cpp
+        src/turboHiker/scenenodes/entities/Hiker.h
+        src/turboHiker/scenenodes/entities/Entity.cpp
+        src/turboHiker/scenenodes/entities/Entity.h
         src/turboHiker/Category.h
         src/turboHiker/commands/Command.cpp
         src/turboHiker/commands/Command.h
@@ -33,7 +33,7 @@ set(SRC
         src/turboHiker/world/SceneGraph.cpp
         src/turboHiker/world/SceneGraph.h
         src/turboHiker/utils/Random.cpp
-        src/turboHiker/utils/Random.h src/turboHiker/interfaces/Commandable.h)
+        src/turboHiker/utils/Random.h src/turboHiker/interfaces/Commandable.h src/turboHiker/scenenodes/entities/PlayerHiker.cpp src/turboHiker/scenenodes/entities/PlayerHiker.h)
 
 add_library(TurboHikerLib ${SRC})
 
@@ -45,6 +45,7 @@ set(INCLUDE
         ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/utils/maths/
         ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/interfaces/
         ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/scenenodes/
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/scenenodes/entities/
         ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/scenenodes/components/
         ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/commands/
         ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/stats/

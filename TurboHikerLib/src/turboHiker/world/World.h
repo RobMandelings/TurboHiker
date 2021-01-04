@@ -50,9 +50,14 @@ public:
 
         Hiker& getPlayerHiker() const;
         void update(seconds dt) override;
-        void renderWorld();
         void onCommand(const Command& command, Updatable::seconds dt) override;
         void render() const override;
+
+        HikeStatus getHikeStatus() const;
+
+        void startHiking();
+
+        void resetHike();
 
 private:
         /**
@@ -67,6 +72,8 @@ private:
         const turboHiker::BoundingBox mWorldBorders;
 
         int mPreviousLaneEnemySpawned;
+
+        HikeStatus mHikeStatus;
 };
 } // namespace turboHiker
 

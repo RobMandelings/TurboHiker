@@ -1,26 +1,27 @@
 #include "Player.h"
-#include "Entity.h"
-#include "turboHiker/commands/CommandQueue.h"
-#include "turboHiker/world/World.h"
-#include "Hiker.h"
+#include "CommandQueue.h"
+#include "World.h"
 
-#include <algorithm>
-#include <map>
-#include <string>
-
-using namespace turboHiker;
 using namespace turboHiker;
 
 struct HikerSpeed
 {
-        HikerSpeed(double velocity) : mVelocity(velocity) {}
+        HikerSpeed(bool fast) : mFast(fast) {}
 
-        void operator()(turboHiker::Entity& movableEntity, Updatable::seconds dt) const
+        void operator()(PlayerHiker& playerHiker, Updatable::seconds dt) const
         {
-                movableEntity.setVelocity(Vector2d(movableEntity.getVelocity().x, mVelocity));
+                if (mFast) {
+                        if (!playerHiker.goingFast()) {
+                                playerHiker.goFast();
+                        }
+                } else {
+                        if (playerHiker.goingFast()) {
+                                playerHiker.goSlow();
+                        }
+                }
         }
 
-        double mVelocity;
+        bool mFast;
 };
 
 class LaneMover
@@ -53,9 +54,24 @@ public:
         }
 
 private:
-
         double mDistance;
+};
 
+class StartHikeCommand
+{
+
+public:
+        StartHikeCommand() = default;
+
+        void operator()(turboHiker::World& world, Updatable::seconds dt) const { world.startHiking(); }
+};
+
+class ResetHikeCommand
+{
+public:
+        ResetHikeCommand() = default;
+
+        void operator()(turboHiker::World& world, Updatable::seconds dt) const { world.resetHike(); }
 };
 
 Player::Player()
@@ -66,6 +82,8 @@ Player::Player()
         mKeyBinding[sf::Keyboard::Up] = MoveUp;
         mKeyBinding[sf::Keyboard::Down] = MoveDown;
         mKeyBinding[sf::Keyboard::Space] = YellAtHiker;
+        mKeyBinding[sf::Keyboard::R] = ResetHike;
+        mKeyBinding[sf::Keyboard::S] = StartHike;
 
         // Set initial action bindings
         initializeActions();
@@ -122,15 +140,27 @@ void Player::initializeActions()
 
         mActionBinding[MoveLeft].category = turboHiker::GameCategory::GameWorld;
         mActionBinding[MoveRight].category = turboHiker::GameCategory::GameWorld;
-        mActionBinding[MoveUp].category = turboHiker::GameCategory::PlayerHiker;
-        mActionBinding[MoveDown].category = turboHiker::GameCategory::PlayerHiker;
         mActionBinding[YellAtHiker].category = turboHiker::GameCategory::GameWorld;
+        mActionBinding[MoveUp].category = turboHiker::GameCategory::GamePlayerHiker;
+        mActionBinding[MoveDown].category = turboHiker::GameCategory::GamePlayerHiker;
+        mActionBinding[MoveLeft].whenToExecute = HikeStatus::WhilstHiking;
+        mActionBinding[MoveRight].whenToExecute = HikeStatus::WhilstHiking;
+        mActionBinding[YellAtHiker].whenToExecute = HikeStatus::WhilstHiking;
+        mActionBinding[MoveUp].whenToExecute = HikeStatus::WhilstHiking;
+        mActionBinding[MoveDown].whenToExecute = HikeStatus::WhilstHiking;
+
+        mActionBinding[ResetHike].category = turboHiker::GameCategory::GameWorld;
+        mActionBinding[StartHike].category = turboHiker::GameCategory::GameWorld;
+        mActionBinding[ResetHike].whenToExecute = HikeStatus::AfterHiking;
+        mActionBinding[StartHike].whenToExecute = HikeStatus::BeforeHiking;
 
         mActionBinding[MoveLeft].action = derivedSceneNodeCommand<World>(LaneMover(false));
         mActionBinding[MoveRight].action = derivedSceneNodeCommand<World>(LaneMover(true));
-        mActionBinding[MoveUp].action = derivedSceneNodeCommand<Entity>(HikerSpeed(playerSpeed));
-        mActionBinding[MoveDown].action = derivedSceneNodeCommand<Entity>(HikerSpeed(playerSpeed / 3));
+        mActionBinding[MoveUp].action = derivedSceneNodeCommand<PlayerHiker>(HikerSpeed(true));
+        mActionBinding[MoveDown].action = derivedSceneNodeCommand<PlayerHiker>(HikerSpeed(false));
         mActionBinding[YellAtHiker].action = derivedSceneNodeCommand<World>(YellAtHikerCommand(10));
+        mActionBinding[ResetHike].action = derivedSceneNodeCommand<World>(ResetHikeCommand());
+        mActionBinding[StartHike].action = derivedSceneNodeCommand<World>(StartHikeCommand());
 }
 
 bool Player::isRealtimeAction(Action action)

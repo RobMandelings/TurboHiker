@@ -7,6 +7,7 @@
 
 #include "EntityFactory.h"
 #include <memory>
+#include <turboHiker/scenenodes/entities/PlayerHiker.h>
 
 namespace turboHiker {
 class SceneNode;
@@ -28,7 +29,8 @@ class EntityFactorySFML : public turboHiker::EntityFactory
 public:
         EntityFactorySFML(DrawableRenderer& mWindowDrawer);
 
-        Hiker createPlayerHiker(double yLocation, const Vector2d& size) const override;
+        PlayerHiker createPlayerHiker(double yLocation, const Vector2d& size, double slowSpeed,
+                                double fastSpeed) const override;
 
         Hiker createStaticHiker(double yLocation, const Vector2d& size) const override;
         Hiker createMovingHiker(double yLocation, const Vector2d& size, const Vector2d& velocity) const override;

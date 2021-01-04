@@ -5,6 +5,7 @@
 #include "Entity.h"
 #include "BoundingBox.h"
 #include "SceneNodeRenderer.h"
+#include <turboHiker/Category.h>
 
 turboHiker::Entity::Entity(const turboHiker::Vector2d& initialLocation, const Vector2d& boundingSize,
                            std::unique_ptr<SceneNodeRenderer> renderComponent, const turboHiker::Vector2d& mVelocity,
@@ -13,11 +14,11 @@ turboHiker::Entity::Entity(const turboHiker::Vector2d& initialLocation, const Ve
 {
 }
 
+unsigned int turboHiker::Entity::getCategory() const { return GameCategory::GameEntity; }
+
 void turboHiker::Entity::setVelocity(const turboHiker::Vector2d& newVelocity) { mVelocity = newVelocity; }
 
-turboHiker::Vector2d turboHiker::Entity::getVelocity() const {
-        return mVelocity;
-}
+turboHiker::Vector2d turboHiker::Entity::getVelocity() const { return mVelocity; }
 void turboHiker::Entity::accelerate(const turboHiker::Vector2d& acceleration) { mVelocity += acceleration; }
 
 void turboHiker::Entity::update(turboHiker::Updatable::seconds dt) { mLocation += mVelocity * dt; }
