@@ -1,7 +1,8 @@
 #include "Player.h"
-#include "CommandQueue.h"
 #include "Entity.h"
-#include "World.h"
+#include "turboHiker/commands/CommandQueue.h"
+#include "turboHiker/world/World.h"
+#include "Hiker.h"
 
 #include <algorithm>
 #include <map>
@@ -119,17 +120,17 @@ void Player::initializeActions()
 {
         const float playerSpeed = 100.f;
 
-        mActionBinding[MoveLeft].category = turboHiker::Category::World;
-        mActionBinding[MoveRight].category = turboHiker::Category::World;
-        mActionBinding[MoveUp].category = turboHiker::Category::PlayerHiker;
-        mActionBinding[MoveDown].category = turboHiker::Category::PlayerHiker;
-        mActionBinding[YellAtHiker].category = turboHiker::Category::World;
+        mActionBinding[MoveLeft].category = turboHiker::GameCategory::GameWorld;
+        mActionBinding[MoveRight].category = turboHiker::GameCategory::GameWorld;
+        mActionBinding[MoveUp].category = turboHiker::GameCategory::PlayerHiker;
+        mActionBinding[MoveDown].category = turboHiker::GameCategory::PlayerHiker;
+        mActionBinding[YellAtHiker].category = turboHiker::GameCategory::GameWorld;
 
-        mActionBinding[MoveLeft].action = derivedAction<World>(LaneMover(false));
-        mActionBinding[MoveRight].action = derivedAction<World>(LaneMover(true));
-        mActionBinding[MoveUp].action = derivedAction<Entity>(HikerSpeed(playerSpeed));
-        mActionBinding[MoveDown].action = derivedAction<Entity>(HikerSpeed(playerSpeed / 3));
-        mActionBinding[YellAtHiker].action = derivedAction<World>(YellAtHikerCommand(10));
+        mActionBinding[MoveLeft].action = derivedSceneNodeCommand<World>(LaneMover(false));
+        mActionBinding[MoveRight].action = derivedSceneNodeCommand<World>(LaneMover(true));
+        mActionBinding[MoveUp].action = derivedSceneNodeCommand<Entity>(HikerSpeed(playerSpeed));
+        mActionBinding[MoveDown].action = derivedSceneNodeCommand<Entity>(HikerSpeed(playerSpeed / 3));
+        mActionBinding[YellAtHiker].action = derivedSceneNodeCommand<World>(YellAtHikerCommand(10));
 }
 
 bool Player::isRealtimeAction(Action action)

@@ -6,7 +6,7 @@
 
 #include "BoundingBox.h"
 #include "Transformation.h"
-#include "World.h"
+#include "turboHiker/world/World.h"
 
 #include "EntityFactorySFML.h"
 
@@ -55,7 +55,7 @@ void SFMLGame::processInput()
 void SFMLGame::render()
 {
         mWindow.clear();
-        mWorld->renderWorld();
+        mWorld->render();
         mWindow.display();
 }
 

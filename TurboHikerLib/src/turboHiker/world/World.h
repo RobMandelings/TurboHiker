@@ -9,7 +9,6 @@
 #include "Renderable.h"
 #include "SceneGraph.h"
 #include "SceneNode.h"
-#include "Updatable.h"
 
 #include "BoundingBox.h"
 #include "SceneNodeRenderer.h"
@@ -17,11 +16,10 @@
 #include "CommandQueue.h"
 
 #include <memory>
-#include <turboHiker/entities/Hiker.h>
 
 namespace turboHiker {
 
-class World : public SceneNode
+class World : public Updatable, public Renderable, public Commandable
 {
 
 public:
@@ -29,8 +27,7 @@ public:
 
         void handleCollisions();
 
-        static bool matchesCategories(SceneGraph::SceneNodePair& colliders,
-            Category::Type type1, Category::Type type2);
+        static bool matchesCategories(SceneGraph::SceneNodePair& colliders, GameCategory type1, GameCategory type2);
 
         void setEntityFactory(std::unique_ptr<EntityFactory> entityFactory);
 
@@ -52,9 +49,10 @@ public:
         const BoundingBox& getWorldBorders() const;
 
         Hiker& getPlayerHiker() const;
-        unsigned int getCategory() const override;
         void update(seconds dt) override;
         void renderWorld();
+        void onCommand(const Command& command, Updatable::seconds dt) override;
+        void render() const override;
 
 private:
         /**

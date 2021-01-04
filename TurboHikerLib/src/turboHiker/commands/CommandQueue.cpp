@@ -1,4 +1,5 @@
 #include "CommandQueue.h"
+#include "Command.h"
 
 using namespace turboHiker;
 
@@ -9,7 +10,7 @@ void CommandQueue::push(const Command& command)
 
 Command CommandQueue::pop()
 {
-	Command command = mQueue.front();
+        Command command = mQueue.front();
 	mQueue.pop();
 	return command;
 }

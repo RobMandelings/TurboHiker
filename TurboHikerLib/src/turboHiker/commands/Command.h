@@ -9,20 +9,20 @@
 
 namespace turboHiker {
 
-class SceneNode;
+class Commandable;
 
 struct Command
 {
         Command();
 
-        std::function<void(SceneNode&, Updatable::seconds dt)> action;
+        std::function<void(Commandable&, Updatable::seconds dt)> action;
         unsigned int category;
 };
 
 template <typename GameObject, typename Function>
-std::function<void(SceneNode&, Updatable::seconds dt)> derivedAction(Function fn)
+std::function<void(Commandable&, Updatable::seconds dt)> derivedSceneNodeCommand(Function fn)
 {
-        return [=](SceneNode& node, Updatable::seconds dt) {
+        return [=](Commandable& node, Updatable::seconds dt) {
                 // Check if cast is safe
                 assert(dynamic_cast<GameObject*>(&node) != nullptr);
 

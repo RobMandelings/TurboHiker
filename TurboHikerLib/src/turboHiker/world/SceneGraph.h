@@ -39,7 +39,7 @@ public:
 
         std::set<SceneNodePair> findCollisionPairs() const;
 
-        bool spaceOccupiedBy(const BoundingBox& boundingBox, const Category::Type& category);
+        bool spaceOccupiedBy(const BoundingBox& boundingBox, const GameCategory& category);
 
         void onCommand(const Command& command, std::chrono::duration<double> dt);
 

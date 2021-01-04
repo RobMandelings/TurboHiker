@@ -24,7 +24,7 @@ namespace turboHiker {
 
 using namespace turboHiker;
 
-// TODO implement scaling/zooming: draw the entities smaller or bigger depending on changes in view
+// TODO implement scaling/zooming: draw the scenenodes smaller or bigger depending on changes in view
 class Transformation
 {
 

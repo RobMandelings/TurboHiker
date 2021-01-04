@@ -5,16 +5,12 @@
 #include "World.h"
 #include <cassert>
 
-#include "CollisionComponent.h"
 #include "Hiker.h"
-#include "InputComponent.h"
-#include "PhysicsComponent.h"
 #include "Random.h"
 #include "SceneNodeRenderer.h"
 #include "Transformation.h"
+#include "Command.h"
 
-#include <experimental/optional>
-#include <iostream>
 #include <set>
 
 using namespace turboHiker;
@@ -41,7 +37,6 @@ void World::update(Updatable::seconds dt)
         while (!mCommandQueue.isEmpty()) {
                 Command command = mCommandQueue.pop();
                 onCommand(command, dt);
-                mSceneGraph.onCommand(command, dt);
         }
 
         handleCollisions();
@@ -50,11 +45,22 @@ void World::update(Updatable::seconds dt)
         mSceneGraph.cleanupDeadObjects();
 }
 
-void World::renderWorld() { mSceneGraph.render(); }
+void World::render() const { mSceneGraph.render(); }
+
+void World::onCommand(const Command& command, Updatable::seconds dt)
+{
+        if (command.category == GameCategory::GameWorld) {
+                command.action(*this, dt);
+        } else {
+                assert((!(command.category & GameCategory::GameWorld)) &&
+                       "World should be an only category and may not be included within other categories");
+                mSceneGraph.onCommand(command, dt);
+        }
+}
 
 void turboHiker::World::buildWorld(int nrLanes)
 {
-        assert(mEntityFactory != nullptr && "Entityfactory not set: no way to create new entities");
+        assert(mEntityFactory != nullptr && "Entityfactory not set: no way to create new scenenodes");
 
         for (int lane = 0; lane < nrLanes + 0; lane++) {
                 SceneNode currentLane = mEntityFactory->createLane(
@@ -112,7 +118,7 @@ void World::generateCompetingHikers(seconds dt)
 
                 if (!mSceneGraph.spaceOccupiedBy(
                         BoundingBox(xLocation - size.x / 2, yLocation - size.y / 2, size.x, size.y),
-                        Category::Type::Hiker)) {
+                        GameCategory::CompetingHiker)) {
 
                         // If true, spawn a static hiker, false: spawn a moving hiker
                         bool spawnStatic = static_cast<int>(std::round(Random::get().randomNumber())) == 1;
@@ -167,7 +173,7 @@ void World::trackPlayer() const
         Transformation::get().setWorldViewCenter(Vector2d(newWorldViewCenterX, newWorldViewCenterY));
 }
 
-bool World::matchesCategories(SceneGraph::SceneNodePair& colliders, Category::Type type1, Category::Type type2)
+bool World::matchesCategories(SceneGraph::SceneNodePair& colliders, GameCategory type1, GameCategory type2)
 {
         unsigned int category1 = colliders.first->getCategory();
         unsigned int category2 = colliders.second->getCategory();
@@ -189,7 +195,7 @@ void turboHiker::World::handleCollisions()
 
         for (auto pair : collisionPairs) {
 
-                if (matchesCategories(pair, Category::PlayerHiker, Category::Hiker)) {
+                if (matchesCategories(pair, GameCategory::PlayerHiker, GameCategory::CompetingHiker)) {
 
                         std::shared_ptr<Hiker> playerHiker = std::static_pointer_cast<Hiker>(pair.first);
 
@@ -259,5 +265,3 @@ void World::hikerYelled(Hiker& hiker, double yellDistance)
 }
 
 unsigned int World::getAmountOfLanes() const { return mSceneGraph.getAmountOfLanes(); }
-
-unsigned int World::getCategory() const { return turboHiker::Category::World; }

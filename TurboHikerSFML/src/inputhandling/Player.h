@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Command.h"
+#include "turboHiker/commands/Command.h"
 
 #include <SFML/Window/Event.hpp>
 

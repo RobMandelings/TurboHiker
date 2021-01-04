@@ -2,11 +2,11 @@
 
 #include "SFMLGame.h"
 
-#include "World.h"
 #include "BoundingBox.h"
 #include "EntityFactorySFML.h"
-#include <iostream>
+#include "turboHiker/world/World.h"
 #include <chrono>
+#include <iostream>
 
 using namespace turboHiker;
 

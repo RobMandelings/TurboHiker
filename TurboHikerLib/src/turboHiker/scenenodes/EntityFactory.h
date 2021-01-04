@@ -5,14 +5,16 @@
 #ifndef TURBOHIKER_ENTITYFACTORY_H
 #define TURBOHIKER_ENTITYFACTORY_H
 
-#include "Hiker.h"
-#include "SceneNode.h"
-#include "WorldLocation.h"
+#include "BoundingBox.h"
 
 namespace turboHiker {
 
+class SceneNode;
+class Hiker;
+class Vector2d;
+
 /**
- * An Abstract Factory to create entities (Specific GameObjects). Their visual representation must be implemented by the
+ * An Abstract Factory to create scenenodes (Specific GameObjects). Their visual representation must be implemented by the
  * visualization library used (Such as SFML)
  */
 class EntityFactory

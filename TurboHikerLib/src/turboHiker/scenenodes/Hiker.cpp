@@ -20,7 +20,7 @@ turboHiker::Hiker::Hiker(const Vector2d& initialLocation, const Vector2d& boundi
 
 unsigned int turboHiker::Hiker::getCategory() const
 {
-        return mPlayerControlled ? Category::PlayerHiker : Category::Hiker;
+        return mPlayerControlled ? GameCategory::PlayerHiker : GameCategory::CompetingHiker;
 }
 int turboHiker::Hiker::getCurrentLane() const { return mCurrentLane; }
 void turboHiker::Hiker::setCurrentLane(int currentLane) { mCurrentLane = currentLane; }

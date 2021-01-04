@@ -8,23 +8,24 @@
 #include "Removable.h"
 #include "Renderable.h"
 #include "Updatable.h"
+#include "Commandable.h"
+#include "Vector2d.h"
 
 #include <memory>
 #include <set>
 #include <vector>
-
-#include "Vector2d.h"
 
 namespace turboHiker {
 
 class SceneNodeRenderer;
 class BoundingBox;
 class Command;
+class Vector2d;
 
 /**
  * Fundamental object to the game. Can be decoration
  */
-class SceneNode : public Updatable, public Renderable, public Removable
+class SceneNode : public Updatable, public Renderable, public Commandable, public Removable
 {
 
 public:
@@ -45,13 +46,11 @@ public:
         void setLocation(const Vector2d& newLocation);
 
         bool collidesWith(const SceneNode& other) const;
-
         bool collidesWith(const BoundingBox& boundingBox) const;
 
-        // TODO make this type-safe
         virtual unsigned int getCategory() const;
 
-        void onCommand(const Command& command, seconds dt);
+        void onCommand(const Command& command, seconds dt) override;
 
         const Vector2d& getSize() const;
 

@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Command.h"
-
 #include <queue>
 
 namespace turboHiker {
+
+class Command;
 
 /**
  * Just a wrapper around a queue which holds commands. The wrapper is useful because if you'd ever need to do something

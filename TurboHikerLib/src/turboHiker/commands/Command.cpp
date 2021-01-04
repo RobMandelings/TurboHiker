@@ -4,6 +4,6 @@ using namespace turboHiker;
 
 Command::Command()
 : action()
-, category(Category::None)
+, category(GameCategory::Scene)
 {
 }

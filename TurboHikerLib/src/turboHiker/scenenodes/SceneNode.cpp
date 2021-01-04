@@ -9,15 +9,13 @@
 #include <set>
 
 #include "BoundingBox.h"
-#include "CollisionComponent.h"
 #include "SceneNodeRenderer.h"
 
 #include "Command.h"
-
-#include "WorldLocation.h"
+#include "Category.h"
+#include "Vector2d.h"
 
 #include <iostream>
-#include <turboHiker/Category.h>
 #include <utility>
 
 using namespace turboHiker;
@@ -57,7 +55,7 @@ void turboHiker::SceneNode::render() const
         }
 }
 
-unsigned int turboHiker::SceneNode::getCategory() const { return Category::Scene; }
+unsigned int turboHiker::SceneNode::getCategory() const { return GameCategory::Scene; }
 
 BoundingBox SceneNode::getBoundingBox() const
 {
@@ -103,8 +101,9 @@ void SceneNode::setBoundingHeight(double height) { setBoundingSize(Vector2d(mBou
 void SceneNode::onCommand(const Command& command, seconds dt)
 {
         // Execute the command for this node, if the category matches the category defined in the command
-        if (command.category & getCategory())
+        if (command.category & getCategory()) {
                 command.action(*this, dt);
+        }
 }
 
 const Vector2d& SceneNode::getSize() const { return mBoundingSize; }

@@ -3,7 +3,6 @@
 //
 
 #include "SceneNodeRendererSFML.h"
-#include "WorldLocation.h"
 #include <SFML/Graphics/Drawable.hpp>
 
 using namespace turboHiker;

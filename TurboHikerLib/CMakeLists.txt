@@ -7,41 +7,33 @@ set(SRC
         src/turboHiker/utils/constants.h
         src/turboHiker/utils/Clock.cpp
         src/turboHiker/utils/Clock.h
-        src/turboHiker/utils/NonCopyable.cpp
-        src/turboHiker/utils/NonCopyable.h
-        src/turboHiker/World.cpp
-        src/turboHiker/World.h
-        src/turboHiker/entities/SceneNode.cpp
-        src/turboHiker/entities/SceneNode.h
+        src/turboHiker/world/World.cpp
+        src/turboHiker/world/World.h
+        src/turboHiker/scenenodes/SceneNode.cpp
+        src/turboHiker/scenenodes/SceneNode.h
         src/turboHiker/utils/maths/Vector2d.cpp
         src/turboHiker/utils/maths/Vector2d.h
         src/turboHiker/interfaces/Updatable.h
         src/turboHiker/interfaces/Renderable.h
-        src/turboHiker/Removable.h
-        src/turboHiker/Removable.cpp
-        src/turboHiker/entities/EntityFactory.h
-        src/turboHiker/entities/components/SceneNodeRenderer.h
-        src/turboHiker/entities/components/physics/PhysicsComponent.cpp
-        src/turboHiker/entities/components/physics/PhysicsComponent.h
-        src/turboHiker/entities/components/modules/WorldLocation.cpp
-        src/turboHiker/entities/components/modules/WorldLocation.h
-        src/turboHiker/entities/components/modules/BoundingBox.cpp
-        src/turboHiker/entities/components/modules/BoundingBox.h
-        src/turboHiker/entities/components/InputComponent.cpp
-        src/turboHiker/entities/components/InputComponent.h
-        src/turboHiker/entities/components/physics/MovingPhysicsComponent.cpp
-        src/turboHiker/entities/components/physics/MovingPhysicsComponent.h
-        src/turboHiker/entities/components/physics/CollisionComponent.cpp
-        src/turboHiker/entities/components/physics/CollisionComponent.h
-        src/turboHiker/entities/Hiker.cpp
-        src/turboHiker/entities/Hiker.h
-        src/turboHiker/entities/Entity.cpp
-        src/turboHiker/entities/Entity.h
+        src/turboHiker/interfaces/Removable.h
+        src/turboHiker/interfaces/Removable.cpp
+        src/turboHiker/scenenodes/EntityFactory.h
+        src/turboHiker/scenenodes/components/SceneNodeRenderer.h
+        src/turboHiker/scenenodes/components/BoundingBox.cpp
+        src/turboHiker/scenenodes/components/BoundingBox.h
+        src/turboHiker/scenenodes/Hiker.cpp
+        src/turboHiker/scenenodes/Hiker.h
+        src/turboHiker/scenenodes/Entity.cpp
+        src/turboHiker/scenenodes/Entity.h
         src/turboHiker/Category.h
-        src/turboHiker/Command.cpp
-        src/turboHiker/Command.h
-        src/turboHiker/CommandQueue.h
-        src/turboHiker/CommandQueue.cpp src/turboHiker/SceneGraph.cpp src/turboHiker/SceneGraph.h src/turboHiker/utils/Random.cpp src/turboHiker/utils/Random.h)
+        src/turboHiker/commands/Command.cpp
+        src/turboHiker/commands/Command.h
+        src/turboHiker/commands/CommandQueue.h
+        src/turboHiker/commands/CommandQueue.cpp
+        src/turboHiker/world/SceneGraph.cpp
+        src/turboHiker/world/SceneGraph.h
+        src/turboHiker/utils/Random.cpp
+        src/turboHiker/utils/Random.h src/turboHiker/interfaces/Commandable.h)
 
 add_library(TurboHikerLib ${SRC})
 
@@ -50,13 +42,13 @@ set(INCLUDE
         ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/
         ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/view/
         ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/utils/
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/interfaces/
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/entities/
         ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/utils/maths/
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/ecs/
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/entities/components/
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/entities/components/modules/
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/entities/components/physics/)
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/interfaces/
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/scenenodes/
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/scenenodes/components/
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/commands/
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/stats/
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/world/)
 
 target_include_directories(TurboHikerLib PUBLIC
         ${INCLUDE})

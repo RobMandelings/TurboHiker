@@ -78,7 +78,7 @@ void SceneGraph::cleanupDeadObjects()
         }
 }
 
-bool SceneGraph::spaceOccupiedBy(const BoundingBox& boundingBox, const Category::Type& category)
+bool SceneGraph::spaceOccupiedBy(const BoundingBox& boundingBox, const GameCategory& category)
 {
 
         for (const std::shared_ptr<SceneNode>& sceneNode : mSceneNodes) {
