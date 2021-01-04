@@ -3,6 +3,7 @@
 //
 
 #include "SFMLGame.h"
+#include <SFML/Graphics/Text.hpp>
 
 #include "BoundingBox.h"
 #include "Transformation.h"
@@ -18,8 +19,9 @@ SFMLGame::SFMLGame(const std::chrono::duration<double>& timePerFrame)
       mWindow(sf::VideoMode(1000, 700), "TurboHiker")
 {
         mWorld->setEntityFactory(std::make_unique<SceneNodeFactorySFML>(mWindow));
-        Transformation::get().initialize(WindowSize(mWindow.getSize().x, mWindow.getSize().y), this->mWorld->getWorldBorders());
-        //Transformation::get().setWorldViewWidth(this->mWorld->getWorldBorders().getWidth());
+        Transformation::get().initialize(WindowSize(mWindow.getSize().x, mWindow.getSize().y),
+                                         this->mWorld->getWorldBorders());
+        // Transformation::get().setWorldViewWidth(this->mWorld->getWorldBorders().getWidth());
         Transformation::get().setWorldViewWidth(this->mWorld->getWorldBorders().getWidth());
         Transformation::get().setWorldViewCenterY(Transformation::get().getWorldView().getWorldViewHeight() / 2);
         mWorld->buildWorld(4);
@@ -46,7 +48,8 @@ void SFMLGame::processInput()
                         const WindowSize& previousWindowSize = Transformation::get().getWindowSize();
 
                         Transformation::get().setWindowSize(WindowSize(int(event.size.width), int(event.size.height)));
-                        Transformation::get().setWorldViewCenterY(Transformation::get().getWorldView().getWorldViewHeight() / 2);
+                        Transformation::get().setWorldViewCenterY(
+                            Transformation::get().getWorldView().getWorldViewHeight() / 2);
                 }
         }
 
@@ -55,7 +58,19 @@ void SFMLGame::processInput()
 void SFMLGame::render()
 {
         mWindow.clear();
-        mWorld->render();
+        //mWorld->render();
+
+        WorldStats currentWorldStats = mWorld->getCurrentWorldStats();
+
+        sf::Text hikeStatusText;
+        hikeStatusText.setString(currentWorldStats.hikeStatus == HikeStatus::BeforeHiking ? "Before Hiking" : currentWorldStats.hikeStatus == HikeStatus::WhilstHiking ? "Whilst Hiking" : "After Hiking");
+
+        hikeStatusText.setString("Current Hike Status: " + hikeStatusText.getString());
+        std::cout << "Current string: " << hikeStatusText.getString().toAnsiString() << std::endl;
+        hikeStatusText.setPosition(100, 100);
+
+        mWindow.draw(hikeStatusText);
+
         mWindow.display();
 }
 

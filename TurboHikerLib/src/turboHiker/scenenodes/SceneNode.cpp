@@ -12,8 +12,8 @@
 #include "SceneNodeRenderer.h"
 
 #include "Command.h"
-#include "Category.h"
 #include "Vector2d.h"
+#include "enums.h"
 
 #include <iostream>
 #include <utility>

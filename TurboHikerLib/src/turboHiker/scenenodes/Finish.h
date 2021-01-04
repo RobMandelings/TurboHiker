@@ -8,7 +8,7 @@
 #endif // TURBOHIKER_FINISH_H
 
 #include "SceneNode.h"
-#include <turboHiker/Category.h>
+#include <turboHiker/enums.h>
 
 namespace turboHiker {
 class Finish : public SceneNode

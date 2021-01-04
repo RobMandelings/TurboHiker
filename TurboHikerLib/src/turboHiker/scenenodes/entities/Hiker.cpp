@@ -3,7 +3,7 @@
 //
 
 #include "Hiker.h"
-#include <turboHiker/Category.h>
+#include <turboHiker/enums.h>
 
 #include "Random.h"
 #include "SceneNodeRenderer.h"

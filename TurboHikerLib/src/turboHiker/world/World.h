@@ -14,6 +14,7 @@
 #include "SceneNodeRenderer.h"
 
 #include "CommandQueue.h"
+#include "WorldStats.h"
 
 #include <memory>
 
@@ -60,6 +61,8 @@ public:
         void resetHike();
 
         void endHike();
+
+        WorldStats getCurrentWorldStats();
 
 private:
         /**

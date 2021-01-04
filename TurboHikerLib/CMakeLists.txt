@@ -25,7 +25,7 @@ set(SRC
         src/turboHiker/scenenodes/entities/Hiker.h
         src/turboHiker/scenenodes/entities/Entity.cpp
         src/turboHiker/scenenodes/entities/Entity.h
-        src/turboHiker/Category.h
+        src/turboHiker/enums.h
         src/turboHiker/commands/Command.cpp
         src/turboHiker/commands/Command.h
         src/turboHiker/commands/CommandQueue.h
@@ -33,7 +33,7 @@ set(SRC
         src/turboHiker/world/SceneGraph.cpp
         src/turboHiker/world/SceneGraph.h
         src/turboHiker/utils/Random.cpp
-        src/turboHiker/utils/Random.h src/turboHiker/interfaces/Commandable.h src/turboHiker/scenenodes/entities/PlayerHiker.cpp src/turboHiker/scenenodes/entities/PlayerHiker.h src/turboHiker/scenenodes/Finish.h src/turboHiker/scenenodes/Finish.cpp)
+        src/turboHiker/utils/Random.h src/turboHiker/interfaces/Commandable.h src/turboHiker/scenenodes/entities/PlayerHiker.cpp src/turboHiker/scenenodes/entities/PlayerHiker.h src/turboHiker/scenenodes/Finish.h src/turboHiker/scenenodes/Finish.cpp src/turboHiker/world/WorldStats.cpp src/turboHiker/world/WorldStats.h)
 
 add_library(TurboHikerLib ${SRC})
 

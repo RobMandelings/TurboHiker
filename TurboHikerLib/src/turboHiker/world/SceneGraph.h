@@ -6,10 +6,10 @@
 
 #include "Renderable.h"
 #include "Updatable.h"
+#include "enums.h"
 #include <memory>
-#include <vector>
 #include <set>
-#include "Category.h"
+#include <vector>
 
 namespace turboHiker {
 

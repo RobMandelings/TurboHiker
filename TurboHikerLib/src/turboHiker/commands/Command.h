@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Category.h"
+#include "enums.h"
 
 #include "Updatable.h"
 #include <cassert>

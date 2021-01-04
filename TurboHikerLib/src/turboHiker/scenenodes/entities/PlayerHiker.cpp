@@ -3,8 +3,8 @@
 //
 
 #include "PlayerHiker.h"
-#include "Category.h"
 #include "SceneNodeRenderer.h"
+#include "enums.h"
 #include <cassert>
 
 turboHiker::PlayerHiker::PlayerHiker(const Vector2d& initialLocation, const Vector2d& boundingSize,

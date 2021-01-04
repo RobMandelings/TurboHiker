@@ -299,3 +299,5 @@ void World::endHike()
         mHikeStatus = HikeStatus::AfterHiking;
         mSceneGraph.getPlayerHiker().setVelocity(Vector2d(0, 0));
 }
+
+WorldStats World::getCurrentWorldStats() { return WorldStats(HikeStatus::BeforeHiking, 0, mSceneGraph.getPlayerHiker().goingFast()); }
