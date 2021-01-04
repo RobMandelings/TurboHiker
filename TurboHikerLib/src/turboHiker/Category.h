@@ -8,7 +8,8 @@ enum GameCategory
         GameEntity = 1u << 1u,
         GameHiker = 1u << 2u,
         GamePlayerHiker = 1u << 3u,
-        GameWorld = 1u << 4u
+        GameFinish = 1u << 4u,
+        GameWorld = 1u << 5u
 };
 
 enum class HikeStatus

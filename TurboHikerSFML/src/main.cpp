@@ -3,7 +3,7 @@
 #include "SFMLGame.h"
 
 #include "BoundingBox.h"
-#include "EntityFactorySFML.h"
+#include "SceneNodeFactorySFML.h"
 #include "turboHiker/world/World.h"
 #include <chrono>
 #include <iostream>

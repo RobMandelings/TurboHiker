@@ -9,6 +9,7 @@
 #include "SceneNodeRenderer.h"
 #include "Hiker.h"
 #include "PlayerHiker.h"
+#include "Finish.h"
 #include <algorithm>
 #include <cassert>
 
@@ -142,6 +143,11 @@ SceneNode& SceneGraph::getLane(unsigned int index) const
         assert(mLanes.at(index).lock());
         return *mLanes.at(index).lock();
 }
+
+Finish& SceneGraph::getFinish() const {
+        return *mFinish.lock();
+}
+
 void SceneGraph::addSceneNode(const SceneNode& sceneNode)
 {
         mSceneNodes.push_back(std::make_shared<SceneNode>(sceneNode));
@@ -164,6 +170,12 @@ void SceneGraph::addLane(const SceneNode& lane)
         std::shared_ptr<SceneNode> lanePtr = std::make_shared<SceneNode>(lane);
         mSceneNodes.push_back(lanePtr);
         mLanes.push_back(lanePtr);
+}
+
+void SceneGraph::addFinish(const Finish& finish) {
+        std::shared_ptr<Finish> finishPtr = std::make_shared<Finish>(finish);
+        mSceneNodes.push_back(finishPtr);
+        mFinish = finishPtr;
 }
 
 void SceneGraph::onCommand(const Command& command, std::chrono::duration<double> dt)

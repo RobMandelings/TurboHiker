@@ -5,10 +5,10 @@
 #ifndef TURBOHIKER_WORLD_H
 #define TURBOHIKER_WORLD_H
 
-#include "EntityFactory.h"
 #include "Renderable.h"
 #include "SceneGraph.h"
 #include "SceneNode.h"
+#include "SceneNodeFactory.h"
 
 #include "BoundingBox.h"
 #include "SceneNodeRenderer.h"
@@ -29,7 +29,7 @@ public:
 
         static bool matchesCategories(SceneGraph::SceneNodePair& colliders, GameCategory type1, GameCategory type2);
 
-        void setEntityFactory(std::unique_ptr<EntityFactory> entityFactory);
+        void setEntityFactory(std::unique_ptr<SceneNodeFactory> entityFactory);
 
         CommandQueue& getCommandQueue();
 
@@ -59,6 +59,8 @@ public:
 
         void resetHike();
 
+        void endHike();
+
 private:
         /**
          * Contains all the SceneNodes that are present in the world, except for the world itself
@@ -67,7 +69,7 @@ private:
 
         CommandQueue mCommandQueue;
 
-        std::unique_ptr<EntityFactory> mEntityFactory;
+        std::unique_ptr<SceneNodeFactory> mSceneNodeFactory;
 
         const turboHiker::BoundingBox mWorldBorders;
 

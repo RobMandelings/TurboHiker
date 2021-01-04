@@ -2,11 +2,12 @@
 // Created by RobMa on 21/12/2020.
 //
 
-#ifndef TURBOHIKER_ENTITYFACTORY_H
-#define TURBOHIKER_ENTITYFACTORY_H
+#ifndef TURBOHIKER_SCENENODEFACTORY_H
+#define TURBOHIKER_SCENENODEFACTORY_H
 
 #include "BoundingBox.h"
-#include <turboHiker/scenenodes/entities/PlayerHiker.h>
+#include "Finish.h"
+#include "PlayerHiker.h"
 
 namespace turboHiker {
 
@@ -18,11 +19,13 @@ class Vector2d;
  * An Abstract Factory to create scenenodes (Specific GameObjects). Their visual representation must be implemented by the
  * visualization library used (Such as SFML)
  */
-class EntityFactory
+class SceneNodeFactory
 {
 
 public:
         virtual SceneNode createLane(const BoundingBox& laneDimensions) const = 0;
+
+        virtual Finish createFinish(const BoundingBox& finishDimensions) const = 0;
 
         virtual PlayerHiker createPlayerHiker(double yLocation, const Vector2d& size, double slowSpeed,
                                         double fastSpeed) const = 0;
@@ -34,4 +37,4 @@ public:
 };
 } // namespace turboHiker
 
-#endif // TURBOHIKER_ENTITYFACTORY_H
+#endif // TURBOHIKER_SCENENODEFACTORY_H

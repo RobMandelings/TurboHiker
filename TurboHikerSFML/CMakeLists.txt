@@ -31,14 +31,14 @@ set(SRC
         ../TurboHikerLib/src/turboHiker/view/Transformation.cpp
         ../TurboHikerLib/src/turboHiker/view/Transformation.h
         src/interfaces/DrawableRenderer.h
-        src/EntityFactorySFML.cpp
-        src/EntityFactorySFML.h
+        src/SceneNodeFactorySFML.cpp
+        src/SceneNodeFactorySFML.h
         src/visualisation/SceneNodeRendererSFML.h
         src/visualisation/SceneNodeRendererSFML.cpp
         src/visualisation/renderers/HikerRenderer.cpp
         src/visualisation/renderers/HikerRenderer.h
         src/inputhandling/Player.cpp
-        src/inputhandling/Player.h src/visualisation/MyRenderWindow.cpp src/visualisation/MyRenderWindow.h ../TurboHikerLib/src/turboHiker/view/WorldView.cpp ../TurboHikerLib/src/turboHiker/view/WorldView.h ../TurboHikerLib/src/turboHiker/view/WindowSize.cpp ../TurboHikerLib/src/turboHiker/view/WindowSize.h src/visualisation/Color.cpp src/visualisation/Color.h src/visualisation/renderers/LaneRenderer.cpp src/visualisation/renderers/LaneRenderer.h)
+        src/inputhandling/Player.h src/visualisation/MyRenderWindow.cpp src/visualisation/MyRenderWindow.h ../TurboHikerLib/src/turboHiker/view/WorldView.cpp ../TurboHikerLib/src/turboHiker/view/WorldView.h ../TurboHikerLib/src/turboHiker/view/WindowSize.cpp ../TurboHikerLib/src/turboHiker/view/WindowSize.h src/visualisation/Color.cpp src/visualisation/Color.h src/visualisation/renderers/LaneRenderer.cpp src/visualisation/renderers/LaneRenderer.h src/visualisation/renderers/FinishRenderer.cpp src/visualisation/renderers/FinishRenderer.h)
 
 include_directories(
         ${SFML_INCLUDE_DIR}

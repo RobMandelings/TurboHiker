@@ -18,6 +18,7 @@ class Hiker;
 class PlayerHiker;
 class Command;
 class BoundingBox;
+class Finish;
 
 /**
  * Container class which holds and keeps track of (updating, rendering,...) all SceneNodes present in the world, except
@@ -57,6 +58,8 @@ public:
 
         SceneNode& getLane(unsigned int index) const;
 
+        Finish& getFinish() const;
+
         void addSceneNode(const SceneNode& sceneNode);
 
         void addCompetingHiker(const Hiker& competingHiker);
@@ -64,6 +67,8 @@ public:
         void setPlayerHiker(const PlayerHiker& playerHiker);
 
         void addLane(const SceneNode& lane);
+
+        void addFinish(const Finish& finish);
 
 private:
         /**
@@ -86,5 +91,7 @@ private:
          * on its implementation.
          */
         std::vector<std::weak_ptr<SceneNode>> mLanes;
+
+        std::weak_ptr<Finish> mFinish;
 };
 } // namespace turboHiker

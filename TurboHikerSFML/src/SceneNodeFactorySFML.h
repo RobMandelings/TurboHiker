@@ -2,10 +2,10 @@
 // Created by RobMa on 21/12/2020.
 //
 
-#ifndef TURBOHIKER_ENTITYFACTORYSFML_H
-#define TURBOHIKER_ENTITYFACTORYSFML_H
+#ifndef TURBOHIKER_SCENENODEFACTORYSFML_H
+#define TURBOHIKER_SCENENODEFACTORYSFML_H
 
-#include "EntityFactory.h"
+#include "SceneNodeFactory.h"
 #include <memory>
 #include <turboHiker/scenenodes/entities/PlayerHiker.h>
 
@@ -23,11 +23,11 @@ using namespace turboHiker;
 
 class DrawableRenderer;
 
-class EntityFactorySFML : public turboHiker::EntityFactory
+class SceneNodeFactorySFML : public turboHiker::SceneNodeFactory
 {
 
 public:
-        EntityFactorySFML(DrawableRenderer& mWindowDrawer);
+        SceneNodeFactorySFML(DrawableRenderer& mWindowDrawer);
 
         PlayerHiker createPlayerHiker(double yLocation, const Vector2d& size, double slowSpeed,
                                 double fastSpeed) const override;
@@ -36,10 +36,11 @@ public:
         Hiker createMovingHiker(double yLocation, const Vector2d& size, const Vector2d& velocity) const override;
 
         SceneNode createLane(const turboHiker::BoundingBox& laneDimensions) const override;
+        Finish createFinish(const BoundingBox& finishDimensions) const override;
 
 private:
         DrawableRenderer& mWindowRenderer;
 };
 } // namespace turboHikerSFML
 
-#endif // TURBOHIKER_ENTITYFACTORYSFML_H
+#endif // TURBOHIKER_SCENENODEFACTORYSFML_H

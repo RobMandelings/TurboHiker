@@ -11,7 +11,7 @@
 
 namespace turboHiker {
 class World;
-class EntityFactory;
+class SceneNodeFactory;
 }
 
 namespace turboHiker {
