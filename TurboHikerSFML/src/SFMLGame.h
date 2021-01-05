@@ -27,6 +27,8 @@ private:
         void processInput() override;
         void render() override;
 
+        void drawStatsOverlay();
+
         // TODO add initializeWindow method
 
         turboHiker::MyRenderWindow mWindow;

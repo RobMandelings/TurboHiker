@@ -17,7 +17,7 @@
 using namespace turboHiker;
 
 turboHiker::World::World(int nrLanes, double laneWidth, double laneHeight)
-    : mWorldBorders(BoundingBox(0, 0, nrLanes * laneWidth, laneHeight)), mPreviousLaneEnemySpawned(0)
+    : mWorldBorders(BoundingBox(0, 0, nrLanes * laneWidth, laneHeight)), mPreviousLaneEnemySpawned(0), mHikeStatus(HikeStatus::BeforeHiking)
 {
 }
 
@@ -281,6 +281,10 @@ void World::hikerYelled(Hiker& hiker, double yellDistance)
 unsigned int World::getAmountOfLanes() const { return mSceneGraph.getAmountOfLanes(); }
 HikeStatus World::getHikeStatus() const { return mHikeStatus; }
 
+unsigned int World::getAmountOfCompetingHikers() const {
+        return mSceneGraph.getAmountOfCompetingHikers();
+}
+
 void World::startHiking()
 {
         assert(mHikeStatus == HikeStatus::BeforeHiking);
@@ -300,4 +304,4 @@ void World::endHike()
         mSceneGraph.getPlayerHiker().setVelocity(Vector2d(0, 0));
 }
 
-WorldStats World::getCurrentWorldStats() { return WorldStats(HikeStatus::BeforeHiking, 0, mSceneGraph.getPlayerHiker().goingFast()); }
+WorldStats World::getCurrentWorldStats() { return WorldStats(mHikeStatus, 0, mSceneGraph.getPlayerHiker().goingFast()); }

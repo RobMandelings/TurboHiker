@@ -55,6 +55,7 @@ public:
         void render() const override;
 
         HikeStatus getHikeStatus() const;
+        unsigned int getAmountOfCompetingHikers() const;
 
         void startHiking();
 

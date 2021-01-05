@@ -6,6 +6,7 @@
 #include <SFML/Graphics/Text.hpp>
 
 #include "BoundingBox.h"
+#include "FontManager.h"
 #include "Transformation.h"
 #include "turboHiker/world/World.h"
 
@@ -58,21 +59,48 @@ void SFMLGame::processInput()
 void SFMLGame::render()
 {
         mWindow.clear();
-        //mWorld->render();
-
-        WorldStats currentWorldStats = mWorld->getCurrentWorldStats();
-
-        sf::Text hikeStatusText;
-        hikeStatusText.setString(currentWorldStats.hikeStatus == HikeStatus::BeforeHiking ? "Before Hiking" : currentWorldStats.hikeStatus == HikeStatus::WhilstHiking ? "Whilst Hiking" : "After Hiking");
-
-        hikeStatusText.setString("Current Hike Status: " + hikeStatusText.getString());
-        std::cout << "Current string: " << hikeStatusText.getString().toAnsiString() << std::endl;
-        hikeStatusText.setPosition(100, 100);
-
-        mWindow.draw(hikeStatusText);
+        mWorld->render();
+        drawStatsOverlay();
 
         mWindow.display();
 }
 
 void SFMLGame::stopRunning() { mWindow.close(); }
 bool SFMLGame::isRunning() const { return mWindow.isOpen(); }
+
+void SFMLGame::drawStatsOverlay()
+{
+
+        const sf::Font& arial = FontManager::get().getFont(Font::ARIAL);
+
+        std::vector<sf::Text> textsToDisplay;
+
+        sf::Text text;
+        text.setFont(arial);
+        text.setCharacterSize(15);
+
+        text.setString(mWorld->getHikeStatus() == HikeStatus::BeforeHiking   ? "Not Started"
+                                 : mWorld->getHikeStatus() == HikeStatus::WhilstHiking ? "Hiking"
+                                                                                       : "Finished");
+
+        text.setString("Current Hike Status: " + text.getString());
+        textsToDisplay.push_back(text);
+
+        text.setString("Player Speed: (X: " + std::to_string(mWorld->getPlayerHiker().getVelocity().x) + ", Y: " + std::to_string(mWorld->getPlayerHiker().getVelocity().y) + ")");
+        textsToDisplay.push_back(text);
+
+        text.setString("Player Location: (X: " + std::to_string(mWorld->getPlayerHiker().getLocation().x) + ", Y: " + std::to_string(mWorld->getPlayerHiker().getLocation().y) + ")");
+        textsToDisplay.push_back(text);
+
+        text.setString("Amount of competing hikers: " + std::to_string(mWorld->getAmountOfCompetingHikers()));
+        textsToDisplay.push_back(text);
+
+        float yLocation = 2;
+        for (sf::Text& currentTextToDisplay : textsToDisplay) {
+
+                currentTextToDisplay.setPosition(5, yLocation);
+                yLocation += static_cast<float>(currentTextToDisplay.getCharacterSize());
+                mWindow.draw(currentTextToDisplay);
+
+        }
+}
