@@ -16,15 +16,18 @@
 
 using namespace turboHiker;
 
-turboHiker::World::World(int nrLanes, double laneWidth, double laneHeight)
-    : mWorldBorders(BoundingBox(0, 0, nrLanes * laneWidth, laneHeight)), mPreviousLaneEnemySpawned(0), mHikeStatus(HikeStatus::BeforeHiking)
+turboHiker::World::World(int nrLanes, double laneWidth, double laneHeight, double basePointsRate)
+    : mWorldBorders(BoundingBox(0, 0, nrLanes * laneWidth, laneHeight)), mPreviousLaneEnemySpawned(0),
+      mHikeStatus(HikeStatus::BeforeHiking), mCurrentPoints(0), BASE_POINTS_RATE(basePointsRate)
 {
 }
 
 void World::update(Updatable::seconds dt)
 {
 
-        generateCompetingHikers(dt);
+        if (mHikeStatus == HikeStatus::WhilstHiking) {
+                generateCompetingHikers(dt);
+        }
 
         mSceneGraph.update(dt);
 
@@ -40,10 +43,15 @@ void World::update(Updatable::seconds dt)
                 onCommand(command, dt);
         }
 
-        handleCollisions();
+        if (mHikeStatus == HikeStatus::WhilstHiking) {
+                handleCollisions();
 
-        removeCompetingHikers();
-        mSceneGraph.cleanupDeadObjects();
+                updatePoints();
+                mCurrentPoints += BASE_POINTS_RATE * dt.count();
+
+                removeCompetingHikers();
+                mSceneGraph.cleanupDeadObjects();
+        }
 }
 
 void World::render() const { mSceneGraph.render(); }
@@ -77,8 +85,7 @@ void turboHiker::World::buildWorld(int nrLanes)
         mSceneGraph.addFinish(mSceneNodeFactory->createFinish(BoundingBox(
             getWorldBorders().getLeft(), getWorldBorders().getTop() - 500, getWorldBorders().getWidth(), 500)));
 
-        mSceneGraph.setPlayerHiker(
-            mSceneNodeFactory->createPlayerHiker(0, Vector2d(20, 20), 5, 100));
+        mSceneGraph.setPlayerHiker(mSceneNodeFactory->createPlayerHiker(0, Vector2d(20, 20), 5, 100));
 
         putHikerOnLane(mSceneGraph.getPlayerHiker(), 2);
 
@@ -123,7 +130,8 @@ void World::generateCompetingHikers(seconds dt)
                 double yLocation = playerSight + size.y;
                 double xLocation = mSceneGraph.getLane(chosenLane).getLocation().x;
 
-                if (xLocation >= mWorldBorders.getLeft() && xLocation <= mWorldBorders.getRight() && yLocation >= mWorldBorders.getBottom() && yLocation <= mWorldBorders.getTop()) {
+                if (xLocation >= mWorldBorders.getLeft() && xLocation <= mWorldBorders.getRight() &&
+                    yLocation >= mWorldBorders.getBottom() && yLocation <= mWorldBorders.getTop()) {
                         if (!mSceneGraph.spaceOccupiedBy(
                                 BoundingBox(xLocation - size.x / 2, yLocation - size.y / 2, size.x, size.y),
                                 GameCategory::GameHiker) &&
@@ -281,9 +289,17 @@ void World::hikerYelled(Hiker& hiker, double yellDistance)
 unsigned int World::getAmountOfLanes() const { return mSceneGraph.getAmountOfLanes(); }
 HikeStatus World::getHikeStatus() const { return mHikeStatus; }
 
-unsigned int World::getAmountOfCompetingHikers() const {
-        return mSceneGraph.getAmountOfCompetingHikers();
+unsigned int World::getAmountOfCompetingHikers() const { return mSceneGraph.getAmountOfCompetingHikers(); }
+
+void World::updatePoints() {
+
+        double currentPointsRate = BASE_POINTS_RATE;
+
 }
+
+double World::getPoints() const { return mCurrentPoints; }
+
+double World::getPointsRate() const { return BASE_POINTS_RATE; }
 
 void World::startHiking()
 {
@@ -304,4 +320,7 @@ void World::endHike()
         mSceneGraph.getPlayerHiker().setVelocity(Vector2d(0, 0));
 }
 
-WorldStats World::getCurrentWorldStats() { return WorldStats(mHikeStatus, 0, mSceneGraph.getPlayerHiker().goingFast()); }
+WorldStats World::getCurrentWorldStats()
+{
+        return WorldStats(mHikeStatus, 0, mSceneGraph.getPlayerHiker().goingFast());
+}

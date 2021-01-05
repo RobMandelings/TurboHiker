@@ -24,7 +24,7 @@ class World : public Updatable, public Renderable, public Commandable
 {
 
 public:
-        World(int nrLanes, double laneWidth, double laneHeight);
+        World(int nrLanes, double laneWidth, double laneHeight, double basePointsRate);
 
         void handleCollisions();
 
@@ -38,8 +38,6 @@ public:
 
         void hikerYelled(Hiker& hiker, double yellDistance);
 
-        unsigned int getAmountOfLanes() const;
-
         void buildWorld(int nrLanes);
 
         void generateCompetingHikers(seconds dt);
@@ -49,13 +47,19 @@ public:
 
         const BoundingBox& getWorldBorders() const;
 
-        Hiker& getPlayerHiker() const;
         void update(seconds dt) override;
         void onCommand(const Command& command, Updatable::seconds dt) override;
         void render() const override;
 
-        HikeStatus getHikeStatus() const;
+        unsigned int getAmountOfLanes() const;
         unsigned int getAmountOfCompetingHikers() const;
+        Hiker& getPlayerHiker() const;
+
+        HikeStatus getHikeStatus() const;
+
+        void updatePoints();
+        double getPoints() const;
+        double getPointsRate() const;
 
         void startHiking();
 
@@ -80,6 +84,10 @@ private:
         int mPreviousLaneEnemySpawned;
 
         HikeStatus mHikeStatus;
+
+        double mCurrentPoints;
+
+        const double BASE_POINTS_RATE;
 };
 } // namespace turboHiker
 

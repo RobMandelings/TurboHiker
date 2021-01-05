@@ -16,7 +16,7 @@ using namespace turboHiker;
 using namespace turboHiker;
 
 SFMLGame::SFMLGame(const std::chrono::duration<double>& timePerFrame)
-    : Game(timePerFrame, std::make_unique<turboHiker::World>(4, 50, 10000)),
+    : Game(timePerFrame, std::make_unique<turboHiker::World>(4, 50, 10000, 10)),
       mWindow(sf::VideoMode(1000, 700), "TurboHiker")
 {
         mWorld->setEntityFactory(std::make_unique<SceneNodeFactorySFML>(mWindow));
@@ -73,34 +73,49 @@ void SFMLGame::drawStatsOverlay()
 
         const sf::Font& arial = FontManager::get().getFont(Font::ARIAL);
 
-        std::vector<sf::Text> textsToDisplay;
+        std::vector<sf::Text> generalTextsToDisplay;
 
         sf::Text text;
         text.setFont(arial);
         text.setCharacterSize(15);
 
-        text.setString(mWorld->getHikeStatus() == HikeStatus::BeforeHiking   ? "Not Started"
-                                 : mWorld->getHikeStatus() == HikeStatus::WhilstHiking ? "Hiking"
-                                                                                       : "Finished");
+        text.setString(std::string("Current Hike Status: ") +
+                       (mWorld->getHikeStatus() == HikeStatus::BeforeHiking   ? "Not Started"
+                        : mWorld->getHikeStatus() == HikeStatus::WhilstHiking ? "Hiking"
+                                                                              : "Finished"));
 
-        text.setString("Current Hike Status: " + text.getString());
-        textsToDisplay.push_back(text);
+        generalTextsToDisplay.push_back(text);
 
-        text.setString("Player Speed: (X: " + std::to_string(mWorld->getPlayerHiker().getVelocity().x) + ", Y: " + std::to_string(mWorld->getPlayerHiker().getVelocity().y) + ")");
-        textsToDisplay.push_back(text);
+        text.setString("Player Speed: (X: " + std::to_string(mWorld->getPlayerHiker().getVelocity().x) +
+                       ", Y: " + std::to_string(mWorld->getPlayerHiker().getVelocity().y) + ")");
+        generalTextsToDisplay.push_back(text);
 
-        text.setString("Player Location: (X: " + std::to_string(mWorld->getPlayerHiker().getLocation().x) + ", Y: " + std::to_string(mWorld->getPlayerHiker().getLocation().y) + ")");
-        textsToDisplay.push_back(text);
+        text.setString("Player Location: (X: " + std::to_string(mWorld->getPlayerHiker().getLocation().x) +
+                       ", Y: " + std::to_string(mWorld->getPlayerHiker().getLocation().y) + ")");
+        generalTextsToDisplay.push_back(text);
 
         text.setString("Amount of competing hikers: " + std::to_string(mWorld->getAmountOfCompetingHikers()));
-        textsToDisplay.push_back(text);
+        generalTextsToDisplay.push_back(text);
 
         float yLocation = 2;
-        for (sf::Text& currentTextToDisplay : textsToDisplay) {
+        for (sf::Text& currentTextToDisplay : generalTextsToDisplay) {
 
                 currentTextToDisplay.setPosition(5, yLocation);
                 yLocation += static_cast<float>(currentTextToDisplay.getCharacterSize());
                 mWindow.draw(currentTextToDisplay);
+        }
 
+        std::vector<sf::Text> pointsTextsToDisplay;
+
+        text.setCharacterSize(20);
+        text.setString("Current Points: " + std::to_string(mWorld->getPoints()));
+        pointsTextsToDisplay.push_back(text);
+
+        float pointsYLocation = 2;
+        for (sf::Text& currentTextToDisplay : pointsTextsToDisplay) {
+
+                currentTextToDisplay.setPosition(mWindow.getSize().x - currentTextToDisplay.getGlobalBounds().width - 5, pointsYLocation);
+                yLocation += static_cast<float>(currentTextToDisplay.getCharacterSize());
+                mWindow.draw(currentTextToDisplay);
         }
 }
