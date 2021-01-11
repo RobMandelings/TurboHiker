@@ -224,8 +224,6 @@ void turboHiker::World::handleCollisions()
                         const std::shared_ptr<Hiker>& otherHiker = std::static_pointer_cast<Hiker>(pair.second);
 
                         otherHiker->markForRemoval();
-                        playerHiker->setLocation(Vector2d(otherHiker->getLocation().x,
-                                                          otherHiker->getLocation().y - otherHiker->getSize().y));
                         notify(Event::PLAYER_COLLIDED);
 
                 } else if (matchesCategories(pair, GameCategory::GamePlayerHiker, GameCategory::GameFinish)) {
