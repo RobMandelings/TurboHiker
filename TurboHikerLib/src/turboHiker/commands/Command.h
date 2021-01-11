@@ -1,8 +1,8 @@
 #pragma once
 
-#include "enums.h"
-
 #include "Updatable.h"
+#include "HikeStatus.h"
+
 #include <cassert>
 #include <chrono>
 #include <functional>

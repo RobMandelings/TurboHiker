@@ -6,7 +6,7 @@
 
 #include "Renderable.h"
 #include "Updatable.h"
-#include "enums.h"
+#include "GameCategory.h"
 #include <memory>
 #include <set>
 #include <vector>
@@ -14,6 +14,8 @@
 namespace turboHiker {
 
 class SceneNode;
+class StaticHiker;
+class RunningHiker;
 class Hiker;
 class PlayerHiker;
 class Command;
@@ -63,7 +65,8 @@ public:
 
         void addSceneNode(const SceneNode& sceneNode);
 
-        void addCompetingHiker(const Hiker& competingHiker);
+        void addStaticHiker(const StaticHiker& staticHiker);
+        void addRunningHiker(const RunningHiker& runningHiker);
 
         void setPlayerHiker(const PlayerHiker& playerHiker);
 

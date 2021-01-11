@@ -1,4 +1,5 @@
 #include "Command.h"
+#include "GameCategory.h"
 
 using namespace turboHiker;
 

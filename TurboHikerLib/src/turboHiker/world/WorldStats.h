@@ -5,7 +5,7 @@
 #ifndef TURBOHIKER_WORLDSTATS_H
 #define TURBOHIKER_WORLDSTATS_H
 
-#include "enums.h"
+#include "HikeStatus.h"
 
 namespace turboHiker {
 

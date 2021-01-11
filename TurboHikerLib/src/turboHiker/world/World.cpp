@@ -135,7 +135,7 @@ void World::generateCompetingHikers(seconds dt)
                     yLocation >= mWorldBorders.getBottom() && yLocation <= mWorldBorders.getTop()) {
                         if (!mSceneGraph.spaceOccupiedBy(
                                 BoundingBox(xLocation - size.x / 2, yLocation - size.y / 2, size.x, size.y),
-                                GameCategory::GameHiker) &&
+                                GameCategory::GameStaticHiker) &&
                             !mSceneGraph.spaceOccupiedBy(
                                 BoundingBox(xLocation - size.x / 2, yLocation - size.y / 2, size.x, size.y),
                                 GameCategory::GameFinish)) {
@@ -144,14 +144,14 @@ void World::generateCompetingHikers(seconds dt)
                                 bool spawnStatic = static_cast<int>(std::round(Random::get().randomNumber())) == 1;
 
                                 if (spawnStatic) {
-                                        Hiker hiker = mSceneNodeFactory->createStaticHiker(yLocation, size);
+                                        StaticHiker hiker = mSceneNodeFactory->createStaticHiker(yLocation, size);
                                         putHikerOnLane(hiker, chosenLane);
-                                        mSceneGraph.addCompetingHiker(hiker);
+                                        mSceneGraph.addStaticHiker(hiker);
                                 } else {
-                                        Hiker hiker =
+                                        RunningHiker hiker =
                                             mSceneNodeFactory->createMovingHiker(yLocation, size, Vector2d(0, -50));
                                         putHikerOnLane(hiker, chosenLane);
-                                        mSceneGraph.addCompetingHiker(hiker);
+                                        mSceneGraph.addRunningHiker(hiker);
                                 }
                         }
                 }
@@ -217,7 +217,7 @@ void turboHiker::World::handleCollisions()
 
         for (auto pair : collisionPairs) {
 
-                if (matchesCategories(pair, GameCategory::GamePlayerHiker, GameCategory::GameHiker)) {
+                if (matchesCategories(pair, GameCategory::GamePlayerHiker, GameCategory::GameStaticHiker) || matchesCategories(pair, GameCategory::GamePlayerHiker, GameCategory::GameRunningHiker)) {
 
                         std::shared_ptr<Hiker> playerHiker = std::static_pointer_cast<Hiker>(pair.first);
 

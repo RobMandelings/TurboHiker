@@ -19,12 +19,11 @@ public:
         Hiker(const Vector2d& location, const Vector2d& boundingSize, const Vector2d& velocity,
               const std::string& name);
 
-        unsigned int getCategory() const override;
         int getCurrentLane() const;
 
         void setCurrentLane(int currentLane);
 
-        void onYelledAt();
+        virtual void onYelledAt() = 0;
 
 private:
         int mCurrentLane;

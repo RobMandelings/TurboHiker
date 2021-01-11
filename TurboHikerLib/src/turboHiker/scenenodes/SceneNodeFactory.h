@@ -8,6 +8,8 @@
 #include "BoundingBox.h"
 #include "Finish.h"
 #include "PlayerHiker.h"
+#include <RunningHiker.h>
+#include <StaticHiker.h>
 
 namespace turboHiker {
 
@@ -30,9 +32,9 @@ public:
         virtual PlayerHiker createPlayerHiker(double yLocation, const Vector2d& size, double slowSpeed,
                                         double fastSpeed) const = 0;
 
-        virtual Hiker createStaticHiker(double yLocation, const Vector2d& size) const = 0;
+        virtual StaticHiker createStaticHiker(double yLocation, const Vector2d& size) const = 0;
 
-        virtual Hiker createMovingHiker(double yLocation, const Vector2d& size,
+        virtual RunningHiker createMovingHiker(double yLocation, const Vector2d& size,
                                         const Vector2d& velocity) const = 0;
 };
 } // namespace turboHiker

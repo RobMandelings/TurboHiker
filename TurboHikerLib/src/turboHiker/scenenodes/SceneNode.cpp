@@ -4,19 +4,14 @@
 
 #include "SceneNode.h"
 
-#include <algorithm>
 #include <cassert>
-#include <set>
 
 #include "BoundingBox.h"
 #include "Renderer.h"
 
 #include "Command.h"
 #include "Vector2d.h"
-#include "enums.h"
-
-#include <iostream>
-#include <utility>
+#include "GameCategory.h"
 
 using namespace turboHiker;
 

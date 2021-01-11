@@ -5,7 +5,7 @@
 #include "Entity.h"
 #include "BoundingBox.h"
 #include "Renderer.h"
-#include <turboHiker/enums.h>
+#include "GameCategory.h"
 
 turboHiker::Entity::Entity(const turboHiker::Vector2d& initialLocation, const Vector2d& boundingSize,
                            const turboHiker::Vector2d& mVelocity, const std::string& name)

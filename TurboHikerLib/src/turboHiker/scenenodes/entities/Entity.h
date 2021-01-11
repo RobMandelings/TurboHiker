@@ -28,9 +28,11 @@ public:
         void update(seconds dt) override;
         unsigned int getCategory() const override;
 
-private:
+protected:
 
         Vector2d mVelocity;
+
+private:
 
 };
 } // namespace turboHiker

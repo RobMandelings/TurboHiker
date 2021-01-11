@@ -3,9 +3,6 @@
 //
 
 #include "Hiker.h"
-#include <turboHiker/enums.h>
-
-#include "Random.h"
 #include "Renderer.h"
 #include "Transformation.h"
 
@@ -15,19 +12,6 @@ turboHiker::Hiker::Hiker(const Vector2d& location, const Vector2d& boundingSize,
 {
 }
 
-unsigned int turboHiker::Hiker::getCategory() const { return GameCategory::GameHiker; }
 int turboHiker::Hiker::getCurrentLane() const { return mCurrentLane; }
 
 void turboHiker::Hiker::setCurrentLane(int currentLane) { mCurrentLane = currentLane; }
-
-void turboHiker::Hiker::onYelledAt()
-{
-
-        bool successful = Random::get().randomNumber() < 0.5;
-
-        if (successful) {
-                if (!isMarkedForRemoval()) {
-                        markForRemoval();
-                }
-        }
-}

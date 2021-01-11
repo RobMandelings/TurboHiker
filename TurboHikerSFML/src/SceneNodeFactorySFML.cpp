@@ -9,6 +9,8 @@
 #include "HikerRenderer.h"
 #include "LaneRenderer.h"
 #include "PlayerHiker.h"
+#include "StaticHiker.h"
+#include "RunningHiker.h"
 #include "SceneNode.h"
 #include "Transformation.h"
 #include "Vector2d.h"
@@ -71,7 +73,7 @@ PlayerHiker turboHiker::SceneNodeFactorySFML::createPlayerHiker(double yLocation
 
         return playerHiker;
 }
-Hiker SceneNodeFactorySFML::createStaticHiker(double yLocation, const Vector2d& size) const
+StaticHiker SceneNodeFactorySFML::createStaticHiker(double yLocation, const Vector2d& size) const
 {
         assert(size.x == size.y && "Must be a square in order for the shape to be a circle");
 
@@ -79,11 +81,11 @@ Hiker SceneNodeFactorySFML::createStaticHiker(double yLocation, const Vector2d& 
             HikerRenderer(mWindowRenderer, 1, float(Transformation::get().scaleWorldCoordsToPixelCoords(size).x / 2),
                           sf::Color(0, 255, 0));
 
-        Hiker hiker(Vector2d(0, yLocation), size, Vector2d(0, 0), "Static Hiker");
-        hiker.setRenderer(hikerRenderer);
-        return hiker;
+        StaticHiker staticHiker(Vector2d(0, yLocation), size, "Static Hiker");
+        staticHiker.setRenderer(hikerRenderer);
+        return staticHiker;
 }
-Hiker SceneNodeFactorySFML::createMovingHiker(double yLocation, const Vector2d& size, const Vector2d& velocity) const
+RunningHiker SceneNodeFactorySFML::createMovingHiker(double yLocation, const Vector2d& size, const Vector2d& velocity) const
 {
         assert(size.x == size.y && "Must be a square in order for the shape to be a circle");
 
@@ -91,8 +93,8 @@ Hiker SceneNodeFactorySFML::createMovingHiker(double yLocation, const Vector2d& 
             HikerRenderer(mWindowRenderer, 1.5, float(Transformation::get().scaleWorldCoordsToPixelCoords(size).x / 2),
                           sf::Color(255, 0, 0));
 
-        Hiker hiker(Vector2d(0, yLocation), size, velocity, "Moving Hiker");
-        hiker.setRenderer(hikerRenderer);
+        RunningHiker runningHiker(Vector2d(0, yLocation), size, velocity, "Moving Hiker");
+        runningHiker.setRenderer(hikerRenderer);
 
-        return hiker;
+        return runningHiker;
 }

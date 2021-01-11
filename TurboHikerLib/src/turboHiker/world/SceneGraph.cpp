@@ -7,6 +7,8 @@
 #include "BoundingBox.h"
 #include "Finish.h"
 #include "Hiker.h"
+#include "StaticHiker.h"
+#include "RunningHiker.h"
 #include "PlayerHiker.h"
 #include "Renderer.h"
 #include "SceneNode.h"
@@ -160,12 +162,19 @@ void SceneGraph::addSceneNode(const SceneNode& sceneNode)
         mSceneNodes.push_back(std::make_shared<SceneNode>(sceneNode));
 }
 
-void SceneGraph::addCompetingHiker(const Hiker& competingHiker)
+void SceneGraph::addStaticHiker(const StaticHiker& competingHiker)
 {
-        std::shared_ptr<Hiker> competingHikerPtr = std::make_shared<Hiker>(competingHiker);
-        mSceneNodes.push_back(competingHikerPtr);
-        mCompetingHikers.push_back(competingHikerPtr);
+        std::shared_ptr<StaticHiker> staticHikerPtr = std::make_shared<StaticHiker>(competingHiker);
+        mSceneNodes.push_back(staticHikerPtr);
+        mCompetingHikers.push_back(staticHikerPtr);
 }
+
+void SceneGraph::addRunningHiker(const RunningHiker& runningHiker) {
+        std::shared_ptr<RunningHiker> runningHikerPtr = std::make_shared<RunningHiker>(runningHiker);
+        mSceneNodes.push_back(runningHikerPtr);
+        mCompetingHikers.push_back(runningHikerPtr);
+}
+
 void SceneGraph::setPlayerHiker(const PlayerHiker& playerHiker)
 {
         std::shared_ptr<PlayerHiker> playerHikerPtr = std::make_shared<PlayerHiker>(playerHiker);

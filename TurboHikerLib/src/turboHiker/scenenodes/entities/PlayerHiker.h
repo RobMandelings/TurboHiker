@@ -23,6 +23,7 @@ public:
         void goFast();
         void goSlow();
         unsigned int getCategory() const override;
+        void onYelledAt() override;
 
 private:
         double mFastSpeed;

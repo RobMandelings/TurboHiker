@@ -9,6 +9,7 @@
 #include "Renderable.h"
 #include "Updatable.h"
 #include "Vector2d.h"
+#include "Renderer.h"
 
 #include <memory>
 #include <set>
@@ -16,7 +17,6 @@
 
 namespace turboHiker {
 
-class Renderer;
 class BoundingBox;
 class Command;
 class Vector2d;
@@ -36,9 +36,9 @@ public:
         void update(seconds dt) override;
         void updateRenderComponent(seconds dt) const;
 
-        void onCommand(const Command& command, seconds dt) override;
+        void onCommand(const Command& command, seconds dt) final;
 
-        void render() const override;
+        void render() const final;
 
         bool collidesWith(const SceneNode& other) const;
         bool collidesWith(const BoundingBox& boundingBox) const;

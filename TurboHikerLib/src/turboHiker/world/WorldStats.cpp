@@ -3,9 +3,9 @@
 //
 
 #include "WorldStats.h"
-#include "enums.h"
+#include "HikeStatus.h"
 
-turboHiker::WorldStats::WorldStats(turboHiker::HikeStatus hikeStatus, int currentPoints, bool playerFast)
+turboHiker::WorldStats::WorldStats(HikeStatus hikeStatus, int currentPoints, bool playerFast)
     : hikeStatus(hikeStatus), points(currentPoints), playerFast(playerFast)
 {
 }
