@@ -133,6 +133,16 @@ void SFMLGame::drawStatsOverlay()
         text.setString("Current points: " + std::to_string(liveScore.getPointsAtFinish()));
         currentStatsToDisplay.push_back(text);
 
+        text.setString("High scores: ");
+        currentStatsToDisplay.push_back(text);
+
+        const std::vector<LiveScore>& highScores = mWorld->getHighScores().getHighScores();
+        for (int currentHighScore = 0; currentHighScore < highScores.size(); currentHighScore++) {
+                text.setString("High score " + std::to_string(currentHighScore + 1) + ": " +
+                               std::to_string(highScores.at(currentHighScore).getPointsAtFinish()));
+                currentStatsToDisplay.push_back(text);
+        }
+
         float pointsYLocation = 2;
         for (sf::Text& currentTextToDisplay : currentStatsToDisplay) {
 

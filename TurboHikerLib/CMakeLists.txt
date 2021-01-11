@@ -33,7 +33,19 @@ set(SRC
         src/turboHiker/world/SceneGraph.cpp
         src/turboHiker/world/SceneGraph.h
         src/turboHiker/utils/Random.cpp
-        src/turboHiker/utils/Random.h src/turboHiker/interfaces/Commandable.h src/turboHiker/scenenodes/entities/PlayerHiker.cpp src/turboHiker/scenenodes/entities/PlayerHiker.h src/turboHiker/scenenodes/Finish.h src/turboHiker/scenenodes/Finish.cpp src/turboHiker/world/WorldStats.cpp src/turboHiker/world/WorldStats.h src/turboHiker/interfaces/EventObserver.h src/turboHiker/LiveScore.cpp src/turboHiker/LiveScore.h src/turboHiker/interfaces/Observable.cpp src/turboHiker/interfaces/Observable.h)
+        src/turboHiker/utils/Random.h
+        src/turboHiker/interfaces/Commandable.h
+        src/turboHiker/scenenodes/entities/PlayerHiker.cpp
+        src/turboHiker/scenenodes/entities/PlayerHiker.h
+        src/turboHiker/scenenodes/Finish.h
+        src/turboHiker/scenenodes/Finish.cpp
+        src/turboHiker/world/WorldStats.cpp
+        src/turboHiker/world/WorldStats.h
+        src/turboHiker/interfaces/EventObserver.h
+        src/turboHiker/scoring/LiveScore.cpp
+        src/turboHiker/scoring/LiveScore.h
+        src/turboHiker/interfaces/Observable.cpp
+        src/turboHiker/interfaces/Observable.h src/turboHiker/scoring/HighScores.cpp src/turboHiker/scoring/HighScores.h)
 
 add_library(TurboHikerLib ${SRC})
 
@@ -49,7 +61,8 @@ set(INCLUDE
         ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/scenenodes/components/
         ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/commands/
         ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/stats/
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/world/)
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/world/
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/turboHiker/scoring/)
 
 target_include_directories(TurboHikerLib PUBLIC
         ${INCLUDE})

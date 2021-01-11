@@ -15,6 +15,7 @@
 #include "SceneNodeRenderer.h"
 
 #include "CommandQueue.h"
+#include "HighScores.h"
 #include "WorldStats.h"
 
 #include <memory>
@@ -65,6 +66,7 @@ public:
         void endHike();
 
         const LiveScore& getLiveScore() const;
+        const HighScores& getHighScores() const;
 
 private:
         /**
@@ -79,6 +81,7 @@ private:
         const turboHiker::BoundingBox mWorldBorders;
 
         std::shared_ptr<LiveScore> mLiveScore;
+        HighScores mHighscores;
 
         int mPreviousLaneEnemySpawned;
         HikeStatus mHikeStatus;

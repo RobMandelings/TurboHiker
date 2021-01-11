@@ -5,6 +5,7 @@
 #include "Game.h"
 
 #include "Clock.h"
+#include "LiveScore.h"
 #include <thread>
 
 #include "BoundingBox.h"

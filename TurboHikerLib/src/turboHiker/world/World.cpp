@@ -20,7 +20,7 @@ using namespace turboHiker;
 turboHiker::World::World(int nrLanes, double laneWidth, double laneHeight, double basePointsRate)
     : mWorldBorders(BoundingBox(0, 0, nrLanes * laneWidth, laneHeight)), mPreviousLaneEnemySpawned(0),
       mHikeStatus(HikeStatus::BeforeHiking),
-      mLiveScore(std::make_shared<LiveScore>(500, 50, 5000, std::chrono::duration<double>(30)))
+      mHighscores(3), mLiveScore(std::make_shared<LiveScore>(500, 50, 5000, std::chrono::duration<double>(30)))
 {
         addObserver(mLiveScore);
 }
@@ -93,8 +93,6 @@ void turboHiker::World::buildWorld(int nrLanes)
 
         mPreviousLaneEnemySpawned =
             static_cast<int>(std::round(Random::get().randomNumber() * (mSceneGraph.getAmountOfLanes() - 1)));
-
-        Transformation::get().setWorldViewCenterY(Transformation::get().getWorldView().getWorldViewHeight() / 2);
 
         mHikeStatus = HikeStatus::BeforeHiking;
 }
@@ -308,6 +306,9 @@ void World::resetHike()
 {
         assert(mHikeStatus == HikeStatus::AfterHiking);
         buildWorld(static_cast<int>(mSceneGraph.getAmountOfLanes()));
+        Transformation::get().setWorldViewCenterY(Transformation::get().getWorldView().getWorldViewHeight() / 2);
+
+        mHighscores.addScore(*mLiveScore);
         mLiveScore->reset();
 }
 
@@ -319,3 +320,4 @@ void World::endHike()
 }
 
 const LiveScore& World::getLiveScore() const { return *mLiveScore; }
+const HighScores& World::getHighScores() const { return mHighscores; }
