@@ -7,19 +7,22 @@
 
 #include "Command.h"
 #include "Hiker.h"
-#include "PlayerHiker.h"
+#include "LiveScore.h"
 #include "Random.h"
 #include "SceneNodeRenderer.h"
 #include "Transformation.h"
 
+#include <EventObserver.h>
 #include <set>
 
 using namespace turboHiker;
 
 turboHiker::World::World(int nrLanes, double laneWidth, double laneHeight, double basePointsRate)
     : mWorldBorders(BoundingBox(0, 0, nrLanes * laneWidth, laneHeight)), mPreviousLaneEnemySpawned(0),
-      mHikeStatus(HikeStatus::BeforeHiking), mCurrentPoints(0), BASE_POINTS_RATE(basePointsRate)
+      mHikeStatus(HikeStatus::BeforeHiking),
+      mLiveScore(std::make_shared<LiveScore>(20, 10, 500, std::chrono::duration<double>(30)))
 {
+        addObserver(mLiveScore);
 }
 
 void World::update(Updatable::seconds dt)
@@ -45,9 +48,6 @@ void World::update(Updatable::seconds dt)
 
         if (mHikeStatus == HikeStatus::WhilstHiking) {
                 handleCollisions();
-
-                updatePoints();
-                mCurrentPoints += BASE_POINTS_RATE * dt.count();
 
                 removeCompetingHikers();
                 mSceneGraph.cleanupDeadObjects();
@@ -220,11 +220,13 @@ void turboHiker::World::handleCollisions()
 
                         std::shared_ptr<Hiker> playerHiker = std::static_pointer_cast<Hiker>(pair.first);
 
-                        const std::shared_ptr<SceneNode>& otherHiker = pair.second;
-                        playerHiker->setVelocity(Vector2d(0, 0));
+                        const std::shared_ptr<Hiker>& otherHiker = std::static_pointer_cast<Hiker>(pair.second);
+
+                        otherHiker->markForRemoval();
                         playerHiker->setLocation(Vector2d(otherHiker->getLocation().x,
                                                           otherHiker->getLocation().y - otherHiker->getSize().y));
-                        // TODO decrease points
+                        notify(Event::PLAYER_COLLIDED);
+
                 } else if (matchesCategories(pair, GameCategory::GamePlayerHiker, GameCategory::GameFinish)) {
                         endHike();
                 }
@@ -283,6 +285,7 @@ void World::hikerYelled(Hiker& hiker, double yellDistance)
 
                 Hiker& hikerToYellAt = mSceneGraph.getCompetingHiker(closestHikerToYellAtIndex);
                 hikerToYellAt.onYelledAt();
+                notify(Event::YELLED_AT_HIKER);
         }
 }
 
@@ -291,19 +294,10 @@ HikeStatus World::getHikeStatus() const { return mHikeStatus; }
 
 unsigned int World::getAmountOfCompetingHikers() const { return mSceneGraph.getAmountOfCompetingHikers(); }
 
-void World::updatePoints() {
-
-        double currentPointsRate = BASE_POINTS_RATE;
-
-}
-
-double World::getPoints() const { return mCurrentPoints; }
-
-double World::getPointsRate() const { return BASE_POINTS_RATE; }
-
 void World::startHiking()
 {
         assert(mHikeStatus == HikeStatus::BeforeHiking);
+        notify(Event::PLAYER_STARTED);
         mHikeStatus = HikeStatus::WhilstHiking;
 }
 
@@ -317,10 +311,8 @@ void World::resetHike()
 void World::endHike()
 {
         mHikeStatus = HikeStatus::AfterHiking;
+        notify(Event::PLAYER_FINISHED);
         mSceneGraph.getPlayerHiker().setVelocity(Vector2d(0, 0));
 }
 
-WorldStats World::getCurrentWorldStats()
-{
-        return WorldStats(mHikeStatus, 0, mSceneGraph.getPlayerHiker().goingFast());
-}
+const LiveScore& World::getLiveScore() const { return *mLiveScore; }

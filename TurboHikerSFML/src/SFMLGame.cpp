@@ -7,8 +7,9 @@
 
 #include "BoundingBox.h"
 #include "FontManager.h"
+#include "LiveScore.h"
 #include "Transformation.h"
-#include "turboHiker/world/World.h"
+#include "World.h"
 
 #include "SceneNodeFactorySFML.h"
 
@@ -16,7 +17,7 @@ using namespace turboHiker;
 using namespace turboHiker;
 
 SFMLGame::SFMLGame(const std::chrono::duration<double>& timePerFrame)
-    : Game(timePerFrame, std::make_unique<turboHiker::World>(4, 50, 10000, 10)),
+    : Game(timePerFrame, std::make_unique<turboHiker::World>(4, 50, 2000, 10)),
       mWindow(sf::VideoMode(1000, 700), "TurboHiker")
 {
         mWorld->setEntityFactory(std::make_unique<SceneNodeFactorySFML>(mWindow));
@@ -105,17 +106,41 @@ void SFMLGame::drawStatsOverlay()
                 mWindow.draw(currentTextToDisplay);
         }
 
-        std::vector<sf::Text> pointsTextsToDisplay;
+        std::vector<sf::Text> currentStatsToDisplay;
 
         text.setCharacterSize(20);
-        text.setString("Current Points: " + std::to_string(mWorld->getPoints()));
-        pointsTextsToDisplay.push_back(text);
+        text.setString("Live Score and Stats: ");
+        currentStatsToDisplay.push_back(text);
+
+        const LiveScore& liveScore = mWorld->getLiveScore();
+
+        text.setString(
+            "Hike duration: " +
+            (mWorld->getHikeStatus() == HikeStatus::WhilstHiking || mWorld->getHikeStatus() == HikeStatus::AfterHiking
+                 ? (std::to_string(liveScore.getHikeDuration().count()))
+                 : "0") +
+            " seconds");
+        currentStatsToDisplay.push_back(text);
+
+        text.setString("Hikers yelled at: " + std::to_string(liveScore.getHikersYelledAt()));
+        currentStatsToDisplay.push_back(text);
+
+        text.setString("Hikers collided with: " + std::to_string(liveScore.getAmountOfCollisions()));
+        currentStatsToDisplay.push_back(text);
+
+        text.setString("Reference point rate: " + std::to_string(liveScore.getBasePointRate()) + " in " +
+                       std::to_string(liveScore.getReferenceDuration().count()) + " seconds");
+        currentStatsToDisplay.push_back(text);
+
+        text.setString("Current points: " + std::to_string(liveScore.getPointsAtFinish()));
+        currentStatsToDisplay.push_back(text);
 
         float pointsYLocation = 2;
-        for (sf::Text& currentTextToDisplay : pointsTextsToDisplay) {
+        for (sf::Text& currentTextToDisplay : currentStatsToDisplay) {
 
-                currentTextToDisplay.setPosition(mWindow.getSize().x - currentTextToDisplay.getGlobalBounds().width - 5, pointsYLocation);
-                yLocation += static_cast<float>(currentTextToDisplay.getCharacterSize());
+                currentTextToDisplay.setPosition(mWindow.getSize().x - currentTextToDisplay.getGlobalBounds().width - 5,
+                                                 pointsYLocation);
+                pointsYLocation += static_cast<float>(currentTextToDisplay.getCharacterSize());
                 mWindow.draw(currentTextToDisplay);
         }
 }

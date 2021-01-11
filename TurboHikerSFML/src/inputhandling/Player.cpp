@@ -136,7 +136,6 @@ sf::Keyboard::Key Player::getAssignedKey(Action action) const
 
 void Player::initializeActions()
 {
-        const float playerSpeed = 100.f;
 
         mActionBinding[MoveLeft].category = turboHiker::GameCategory::GameWorld;
         mActionBinding[MoveRight].category = turboHiker::GameCategory::GameWorld;
@@ -158,7 +157,7 @@ void Player::initializeActions()
         mActionBinding[MoveRight].action = derivedSceneNodeCommand<World>(LaneMover(true));
         mActionBinding[MoveUp].action = derivedSceneNodeCommand<PlayerHiker>(HikerSpeed(true));
         mActionBinding[MoveDown].action = derivedSceneNodeCommand<PlayerHiker>(HikerSpeed(false));
-        mActionBinding[YellAtHiker].action = derivedSceneNodeCommand<World>(YellAtHikerCommand(10));
+        mActionBinding[YellAtHiker].action = derivedSceneNodeCommand<World>(YellAtHikerCommand(20));
         mActionBinding[ResetHike].action = derivedSceneNodeCommand<World>(ResetHikeCommand());
         mActionBinding[StartHike].action = derivedSceneNodeCommand<World>(StartHikeCommand());
 }

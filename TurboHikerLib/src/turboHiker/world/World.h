@@ -5,6 +5,7 @@
 #ifndef TURBOHIKER_WORLD_H
 #define TURBOHIKER_WORLD_H
 
+#include "Observable.h"
 #include "Renderable.h"
 #include "SceneGraph.h"
 #include "SceneNode.h"
@@ -20,7 +21,9 @@
 
 namespace turboHiker {
 
-class World : public Updatable, public Renderable, public Commandable
+class LiveScore;
+
+class World : public Updatable, public Renderable, public Commandable, private Observable
 {
 
 public:
@@ -57,17 +60,11 @@ public:
 
         HikeStatus getHikeStatus() const;
 
-        void updatePoints();
-        double getPoints() const;
-        double getPointsRate() const;
-
         void startHiking();
-
         void resetHike();
-
         void endHike();
 
-        WorldStats getCurrentWorldStats();
+        const LiveScore& getLiveScore() const;
 
 private:
         /**
@@ -81,13 +78,10 @@ private:
 
         const turboHiker::BoundingBox mWorldBorders;
 
+        std::shared_ptr<LiveScore> mLiveScore;
+
         int mPreviousLaneEnemySpawned;
-
         HikeStatus mHikeStatus;
-
-        double mCurrentPoints;
-
-        const double BASE_POINTS_RATE;
 };
 } // namespace turboHiker
 
