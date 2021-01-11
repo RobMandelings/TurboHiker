@@ -282,7 +282,11 @@ void World::hikerYelled(Hiker& hiker, double yellDistance)
                 }
         }
 
+        std::cout << "Closest hiker to yell at index: " << closestHikerToYellAtIndex << std::endl;
+
         if (closestHikerToYellAtIndex != -1) {
+
+                std::cout << "Yells!" << std::endl;
 
                 Hiker& hikerToYellAt = mSceneGraph.getCompetingHiker(closestHikerToYellAtIndex);
                 hikerToYellAt.onYelledAt();
