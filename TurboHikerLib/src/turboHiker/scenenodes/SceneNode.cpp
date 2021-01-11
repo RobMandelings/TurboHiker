@@ -9,7 +9,7 @@
 #include <set>
 
 #include "BoundingBox.h"
-#include "SceneNodeRenderer.h"
+#include "Renderer.h"
 
 #include "Command.h"
 #include "Vector2d.h"
@@ -20,20 +20,19 @@
 
 using namespace turboHiker;
 
-SceneNode::SceneNode(const Vector2d& initialLocation, const Vector2d& boundingSize,
-                     std::unique_ptr<SceneNodeRenderer> renderComponent, std::string name)
-    : mLocation(initialLocation), mBoundingSize(boundingSize), mRenderComponent(std::move(renderComponent)),
-      mName(std::move(name))
+SceneNode::SceneNode(const Vector2d& initialLocation, const Vector2d& boundingSize, std::string name)
+    : mLocation(initialLocation), mSize(boundingSize), mRenderer(nullptr), mName(std::move(name))
 {
 }
 
 // TODO remove as well
-SceneNode::SceneNode() : SceneNode(Vector2d(0, 0), Vector2d(0, 0), nullptr, "World") {}
+SceneNode::SceneNode() : SceneNode(Vector2d(0, 0), Vector2d(0, 0), "World") {}
 
-SceneNode::SceneNode(const SceneNode& other)
-    : mBoundingSize(other.mBoundingSize), mLocation(other.mLocation), mName(other.mName)
+SceneNode::SceneNode(const SceneNode& other) : SceneNode(other.mLocation, other.mSize, other.mName)
 {
-        mRenderComponent = std::move(other.mRenderComponent->clone());
+        if (other.mRenderer != nullptr) {
+                mRenderer = std::move(other.mRenderer->clone());
+        }
 }
 
 void SceneNode::update(Updatable::seconds dt)
@@ -43,27 +42,25 @@ void SceneNode::update(Updatable::seconds dt)
 
 void turboHiker::SceneNode::updateRenderComponent(Updatable::seconds dt) const
 {
-        if (mRenderComponent) {
-                mRenderComponent->update(dt, getLocation());
+        if (mRenderer) {
+                mRenderer->update(dt, getLocation());
+        }
+}
+
+void SceneNode::onCommand(const Command& command, seconds dt)
+{
+        // Execute the command for this node, if the category matches the category defined in the command
+        if (command.category & getCategory()) {
+                command.action(*this, dt);
         }
 }
 
 void turboHiker::SceneNode::render() const
 {
-        if (mRenderComponent) {
-                mRenderComponent->render();
+        if (mRenderer) {
+                mRenderer->render();
         }
 }
-
-unsigned int turboHiker::SceneNode::getCategory() const { return GameCategory::GameSceneNode; }
-
-BoundingBox SceneNode::getBoundingBox() const
-{
-        return BoundingBox(getLocation().x - mBoundingSize.x / 2, getLocation().y - mBoundingSize.y / 2,
-                           mBoundingSize.x, mBoundingSize.y);
-}
-
-bool SceneNode::hasBoundingBox() const { return mBoundingSize.x != 0 && mBoundingSize.y != 0; }
 
 bool SceneNode::collidesWith(const SceneNode& other) const
 {
@@ -89,25 +86,27 @@ bool SceneNode::collidesWith(const BoundingBox& boundingBox) const
         return true;
 }
 
-void SceneNode::setBoundingSize(const Vector2d& boundingSize)
+const Vector2d& SceneNode::getLocation() const { return mLocation; }
+const std::string& SceneNode::getName() const { return mName; }
+const Vector2d& SceneNode::getSize() const { return mSize; }
+unsigned int turboHiker::SceneNode::getCategory() const { return GameCategory::GameSceneNode; }
+
+BoundingBox SceneNode::getBoundingBox() const
+{
+        return BoundingBox(getLocation().x - mSize.x / 2, getLocation().y - mSize.y / 2, mSize.x, mSize.y);
+}
+
+bool SceneNode::hasBoundingBox() const { return mSize.x != 0 && mSize.y != 0; }
+
+void SceneNode::setSize(const Vector2d& boundingSize)
 {
         assert(boundingSize.x >= 0);
         assert(boundingSize.y >= 0);
-        mBoundingSize = boundingSize;
-}
-void SceneNode::setBoundingWidth(double width) { setBoundingSize(Vector2d(width, mBoundingSize.y)); }
-void SceneNode::setBoundingHeight(double height) { setBoundingSize(Vector2d(mBoundingSize.x, height)); }
-
-void SceneNode::onCommand(const Command& command, seconds dt)
-{
-        // Execute the command for this node, if the category matches the category defined in the command
-        if (command.category & getCategory()) {
-                command.action(*this, dt);
-        }
+        mSize = boundingSize;
 }
 
-const Vector2d& SceneNode::getSize() const { return mBoundingSize; }
-
-const Vector2d& SceneNode::getLocation() const { return mLocation; }
+void SceneNode::setWidth(double width) { setSize(Vector2d(width, mSize.y)); }
+void SceneNode::setHeight(double height) { setSize(Vector2d(mSize.x, height)); }
 void SceneNode::setLocation(const Vector2d& newLocation) { mLocation = newLocation; }
-const std::string& SceneNode::getName() const { return mName; }
+
+void SceneNode::setRenderer(const Renderer& renderer) { mRenderer = renderer.clone(); }

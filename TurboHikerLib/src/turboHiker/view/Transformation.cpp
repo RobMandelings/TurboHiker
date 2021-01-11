@@ -124,7 +124,7 @@ Vector2d Transformation::convertWorldCoordinatesToPixelCoordinates(const Vector2
             worldCoordinates.y - (worldViewCenter.y - (mWorldView->getWorldViewHeight() / 2)));
 
         // Scale these translated world coordinates to their corresponding pixel values
-        Vector2d pixelCoordinates = scaleWorldCoordinatesToPixelCoordinates(translatedWorldCoordinates);
+        Vector2d pixelCoordinates = scaleWorldCoordsToPixelCoords(translatedWorldCoordinates);
 
         // The top of the screen is at y = 0, the bottom at mWindowSize.getHeight(). So the current pixel coordinates
         // need to be converted to not appear upside-down
@@ -133,7 +133,7 @@ Vector2d Transformation::convertWorldCoordinatesToPixelCoordinates(const Vector2
         return pixelCoordinates;
 }
 
-Vector2d Transformation::scaleWorldCoordinatesToPixelCoordinates(const Vector2d& worldCoordinates) const
+Vector2d Transformation::scaleWorldCoordsToPixelCoords(const Vector2d& worldCoordinates) const
 {
         return Vector2d(worldCoordinates.x * (getWindowSize().getWidth() / mWorldView->getWorldViewWidth()),
                             worldCoordinates.y * float(getWindowSize().getHeight()) / mWorldView->getWorldViewHeight());

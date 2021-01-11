@@ -12,7 +12,7 @@
 #include "SceneNodeFactory.h"
 
 #include "BoundingBox.h"
-#include "SceneNodeRenderer.h"
+#include "Renderer.h"
 
 #include "CommandQueue.h"
 #include "HighScores.h"

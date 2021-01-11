@@ -19,8 +19,7 @@ public:
 
 private:
 public:
-        Finish(const Vector2d& initialLocation, const Vector2d& boundingSize,
-               std::unique_ptr<SceneNodeRenderer> renderComponent, const std::string& name);
+        Finish(const Vector2d& initialLocation, const Vector2d& boundingSize, const std::string& name);
         unsigned int getCategory() const override;
 };
 } // namespace turboHiker

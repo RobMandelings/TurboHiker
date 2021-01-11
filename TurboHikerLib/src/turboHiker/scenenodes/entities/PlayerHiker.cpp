@@ -3,15 +3,14 @@
 //
 
 #include "PlayerHiker.h"
-#include "SceneNodeRenderer.h"
+#include "Renderer.h"
 #include "enums.h"
 #include <cassert>
 
 turboHiker::PlayerHiker::PlayerHiker(const Vector2d& initialLocation, const Vector2d& boundingSize,
-                                     std::unique_ptr<SceneNodeRenderer> renderComponent,
                                      const Vector2d& initialVelocity, const std::string& name, double slowSpeed,
                                      double fastSpeed)
-    : Hiker(initialLocation, boundingSize, std::move(renderComponent), initialVelocity, name), mSlowSpeed(slowSpeed),
+    : Hiker(initialLocation, boundingSize, initialVelocity, name), mSlowSpeed(slowSpeed),
       mFastSpeed(fastSpeed)
 {
 }

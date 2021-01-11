@@ -6,7 +6,7 @@
 #define TURBOHIKER_SCENENODERENDERERSFML_H
 
 #include "DrawableRenderer.h"
-#include "SceneNodeRenderer.h"
+#include "Renderer.h"
 
 namespace turboHiker {
 class WorldLocation;
@@ -14,7 +14,7 @@ class WorldLocation;
 
 namespace turboHikerSFML {
 
-class SceneNodeRendererSFML : public turboHiker::SceneNodeRenderer
+class SceneNodeRendererSFML : public turboHiker::Renderer
 {
 public:
         explicit SceneNodeRendererSFML(turboHiker::DrawableRenderer& windowDrawer);

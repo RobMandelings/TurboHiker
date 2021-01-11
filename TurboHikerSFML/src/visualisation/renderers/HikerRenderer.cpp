@@ -20,7 +20,7 @@ turboHikerSFML::HikerRenderer::HikerRenderer(DrawableRenderer& windowRenderer, d
         mCurrentColor.setColor(color);
 }
 
-std::unique_ptr<SceneNodeRenderer> turboHikerSFML::HikerRenderer::clone()
+std::unique_ptr<Renderer> turboHikerSFML::HikerRenderer::clone() const
 {
         return std::make_unique<HikerRenderer>(*this);
 }

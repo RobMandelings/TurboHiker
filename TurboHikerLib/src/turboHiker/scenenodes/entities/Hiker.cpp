@@ -6,21 +6,18 @@
 #include <turboHiker/enums.h>
 
 #include "Random.h"
-#include "SceneNodeRenderer.h"
+#include "Renderer.h"
 #include "Transformation.h"
 
-turboHiker::Hiker::Hiker(const Vector2d& initialLocation, const Vector2d& boundingSize,
-                         std::unique_ptr<SceneNodeRenderer> renderComponent, const Vector2d& initialVelocity,
+turboHiker::Hiker::Hiker(const Vector2d& location, const Vector2d& boundingSize, const Vector2d& velocity,
                          const std::string& name)
-    : Entity(initialLocation, boundingSize, std::move(renderComponent), initialVelocity, name)
+    : Entity(location, boundingSize, velocity, name)
 {
 }
 
-unsigned int turboHiker::Hiker::getCategory() const
-{
-        return GameCategory::GameHiker;
-}
+unsigned int turboHiker::Hiker::getCategory() const { return GameCategory::GameHiker; }
 int turboHiker::Hiker::getCurrentLane() const { return mCurrentLane; }
+
 void turboHiker::Hiker::setCurrentLane(int currentLane) { mCurrentLane = currentLane; }
 
 void turboHiker::Hiker::onYelledAt()

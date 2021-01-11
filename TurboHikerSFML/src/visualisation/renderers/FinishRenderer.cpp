@@ -13,9 +13,8 @@ turboHikerSFML::FinishRenderer::FinishRenderer(DrawableRenderer& windowDrawer, c
         mFinishShape = createFinish(dimensions);
 }
 
-std::unique_ptr<SceneNodeRenderer> turboHikerSFML::FinishRenderer::clone()
+std::unique_ptr<Renderer> turboHikerSFML::FinishRenderer::clone() const
 {
-
         return std::make_unique<FinishRenderer>(*this);
 }
 void turboHikerSFML::FinishRenderer::update(const turboHiker::Updatable::seconds& dt,

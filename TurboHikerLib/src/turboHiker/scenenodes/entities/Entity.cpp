@@ -4,13 +4,12 @@
 
 #include "Entity.h"
 #include "BoundingBox.h"
-#include "SceneNodeRenderer.h"
+#include "Renderer.h"
 #include <turboHiker/enums.h>
 
 turboHiker::Entity::Entity(const turboHiker::Vector2d& initialLocation, const Vector2d& boundingSize,
-                           std::unique_ptr<SceneNodeRenderer> renderComponent, const turboHiker::Vector2d& mVelocity,
-                           const std::string& name)
-    : SceneNode(initialLocation, boundingSize, std::move(renderComponent), name), mVelocity(mVelocity)
+                           const turboHiker::Vector2d& mVelocity, const std::string& name)
+    : SceneNode(initialLocation, boundingSize, name), mVelocity(mVelocity)
 {
 }
 

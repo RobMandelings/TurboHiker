@@ -63,7 +63,7 @@ public:
          * @param worldCoordinates
          * @return
          */
-        Vector2d scaleWorldCoordinatesToPixelCoordinates(const Vector2d& worldCoordinates) const;
+        Vector2d scaleWorldCoordsToPixelCoords(const Vector2d& worldCoordinates) const;
 
         turboHiker::BoundingBox convertWorldBoundingBoxToVisualBoundingBox(
             const turboHiker::BoundingBox& worldBoundingBox) const;

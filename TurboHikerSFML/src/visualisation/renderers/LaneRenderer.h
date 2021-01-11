@@ -15,7 +15,9 @@ class LaneRenderer : public turboHikerSFML::SceneNodeRendererSFML
 public:
         LaneRenderer(turboHiker::DrawableRenderer& windowDrawer, const sf::Vector2f& dimensions);
 private:
-        std::unique_ptr<SceneNodeRenderer> clone() override;
+
+        std::unique_ptr<Renderer> clone() const override;
+
         void update(const turboHiker::Updatable::seconds& dt,
                     const turboHiker::Vector2d& currentWorldLocation) override;
         void render() const override;

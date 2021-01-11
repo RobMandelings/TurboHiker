@@ -5,11 +5,11 @@
 #include "SceneGraph.h"
 
 #include "BoundingBox.h"
-#include "SceneNode.h"
-#include "SceneNodeRenderer.h"
+#include "Finish.h"
 #include "Hiker.h"
 #include "PlayerHiker.h"
-#include "Finish.h"
+#include "Renderer.h"
+#include "SceneNode.h"
 #include <algorithm>
 #include <cassert>
 

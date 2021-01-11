@@ -35,7 +35,7 @@ public:
 
         void render() const final;
 
-        std::unique_ptr<SceneNodeRenderer> clone() override;
+        std::unique_ptr<Renderer> clone() const override;
 
 private:
         sf::CircleShape mHikerShape;

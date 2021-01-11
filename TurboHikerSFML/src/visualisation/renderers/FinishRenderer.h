@@ -18,7 +18,7 @@ public:
 
 private:
 
-        std::unique_ptr<SceneNodeRenderer> clone() override;
+        std::unique_ptr<Renderer> clone() const override;
         void update(const turboHiker::Updatable::seconds& dt,
                     const turboHiker::Vector2d& currentWorldLocation) override;
         void render() const override;

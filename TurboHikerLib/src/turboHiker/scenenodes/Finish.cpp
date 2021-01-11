@@ -3,11 +3,10 @@
 //
 
 #include "Finish.h"
-#include "SceneNodeRenderer.h"
+#include "Renderer.h"
 
-turboHiker::Finish::Finish(const turboHiker::Vector2d& initialLocation, const turboHiker::Vector2d& boundingSize,
-                           std::unique_ptr<SceneNodeRenderer> renderComponent, const std::string& name)
-    : SceneNode(initialLocation, boundingSize, std::move(renderComponent), name)
+turboHiker::Finish::Finish(const Vector2d& initialLocation, const Vector2d& boundingSize, const std::string& name)
+    : SceneNode(initialLocation, boundingSize, name)
 {
 }
 

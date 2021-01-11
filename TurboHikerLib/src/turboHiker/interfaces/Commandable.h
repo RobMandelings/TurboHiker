@@ -2,10 +2,9 @@
 // Created by RobMa on 4/01/2021.
 //
 
-#ifndef TURBOHIKER_COMMANDABLE_H
-#define TURBOHIKER_COMMANDABLE_H
+#pragma once
 
-#endif // TURBOHIKER_COMMANDABLE_H
+#include "Updatable.h"
 
 namespace turboHiker {
 
@@ -17,4 +16,4 @@ class Commandable
 public:
         virtual void onCommand(const Command& command, Updatable::seconds dt) = 0;
 };
-}
+} // namespace turboHiker

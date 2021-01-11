@@ -12,8 +12,7 @@ class PlayerHiker : public Hiker
 {
 
 public:
-        PlayerHiker(const Vector2d& initialLocation, const Vector2d& boundingSize,
-                    std::unique_ptr<SceneNodeRenderer> renderComponent, const Vector2d& initialVelocity,
+        PlayerHiker(const Vector2d& initialLocation, const Vector2d& boundingSize, const Vector2d& initialVelocity,
                     const std::string& name, double slowSpeed, double fastSpeed);
 
         bool goingFast() const;
@@ -26,7 +25,6 @@ public:
         unsigned int getCategory() const override;
 
 private:
-
         double mFastSpeed;
         double mSlowSpeed;
 };

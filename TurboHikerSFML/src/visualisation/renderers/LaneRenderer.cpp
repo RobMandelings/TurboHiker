@@ -16,9 +16,8 @@ turboHikerSFML::LaneRenderer::LaneRenderer(DrawableRenderer& windowDrawer, const
         //mRightBorder = createRightBorder(dimensions);
 }
 
-std::unique_ptr<SceneNodeRenderer> turboHikerSFML::LaneRenderer::clone()
+std::unique_ptr<Renderer> turboHikerSFML::LaneRenderer::clone() const
 {
-
         return std::make_unique<LaneRenderer>(*this);
 }
 void turboHikerSFML::LaneRenderer::update(const turboHiker::Updatable::seconds& dt,

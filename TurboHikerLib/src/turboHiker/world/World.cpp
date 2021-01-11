@@ -9,7 +9,7 @@
 #include "Hiker.h"
 #include "LiveScore.h"
 #include "Random.h"
-#include "SceneNodeRenderer.h"
+#include "Renderer.h"
 #include "Transformation.h"
 
 #include <EventObserver.h>

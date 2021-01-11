@@ -18,7 +18,7 @@ set(SRC
         src/turboHiker/interfaces/Removable.h
         src/turboHiker/interfaces/Removable.cpp
         src/turboHiker/scenenodes/SceneNodeFactory.h
-        src/turboHiker/scenenodes/components/SceneNodeRenderer.h
+        src/turboHiker/scenenodes/components/Renderer.h
         src/turboHiker/scenenodes/components/BoundingBox.cpp
         src/turboHiker/scenenodes/components/BoundingBox.h
         src/turboHiker/scenenodes/entities/Hiker.cpp
@@ -45,7 +45,7 @@ set(SRC
         src/turboHiker/scoring/LiveScore.cpp
         src/turboHiker/scoring/LiveScore.h
         src/turboHiker/interfaces/Observable.cpp
-        src/turboHiker/interfaces/Observable.h src/turboHiker/scoring/HighScores.cpp src/turboHiker/scoring/HighScores.h)
+        src/turboHiker/interfaces/Observable.h src/turboHiker/scoring/HighScores.cpp src/turboHiker/scoring/HighScores.h src/turboHiker/scenenodes/entities/RunningHiker.cpp src/turboHiker/scenenodes/entities/RunningHiker.h)
 
 add_library(TurboHikerLib ${SRC})
 
