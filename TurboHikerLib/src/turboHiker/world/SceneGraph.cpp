@@ -15,6 +15,13 @@
 
 using namespace turboHiker;
 
+void SceneGraph::clear() {
+        for (const std::shared_ptr<SceneNode>& sceneNode : mSceneNodes) {
+                sceneNode->markForRemoval();
+        }
+        cleanupDeadObjects();
+}
+
 // TODO is there a way that all fields present in this sceneGraph is updated?
 void turboHiker::SceneGraph::update(turboHiker::Updatable::seconds dt)
 {

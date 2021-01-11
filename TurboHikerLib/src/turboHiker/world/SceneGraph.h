@@ -33,6 +33,7 @@ public:
 
         typedef std::pair<std::shared_ptr<SceneNode>, std::shared_ptr<SceneNode>> SceneNodePair;
 
+        void clear();
         void update(seconds dt) override;
         void updateRenderComponents(seconds dt);
         void render() const override;

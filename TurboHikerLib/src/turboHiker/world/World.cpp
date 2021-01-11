@@ -20,7 +20,7 @@ using namespace turboHiker;
 turboHiker::World::World(int nrLanes, double laneWidth, double laneHeight, double basePointsRate)
     : mWorldBorders(BoundingBox(0, 0, nrLanes * laneWidth, laneHeight)), mPreviousLaneEnemySpawned(0),
       mHikeStatus(HikeStatus::BeforeHiking),
-      mLiveScore(std::make_shared<LiveScore>(20, 10, 500, std::chrono::duration<double>(30)))
+      mLiveScore(std::make_shared<LiveScore>(500, 50, 5000, std::chrono::duration<double>(30)))
 {
         addObserver(mLiveScore);
 }
@@ -73,6 +73,8 @@ void turboHiker::World::buildWorld(int nrLanes)
 {
         assert(mSceneNodeFactory != nullptr && "Entityfactory not set: no way to create new scenenodes");
 
+        mSceneGraph.clear();
+
         for (int lane = 0; lane < nrLanes + 0; lane++) {
                 SceneNode currentLane = mSceneNodeFactory->createLane(
                     BoundingBox(getWorldBorders().getLeft() + getWorldBorders().getWidth() / nrLanes * lane,
@@ -85,12 +87,16 @@ void turboHiker::World::buildWorld(int nrLanes)
         mSceneGraph.addFinish(mSceneNodeFactory->createFinish(BoundingBox(
             getWorldBorders().getLeft(), getWorldBorders().getTop() - 500, getWorldBorders().getWidth(), 500)));
 
-        mSceneGraph.setPlayerHiker(mSceneNodeFactory->createPlayerHiker(0, Vector2d(20, 20), 5, 100));
+        mSceneGraph.setPlayerHiker(mSceneNodeFactory->createPlayerHiker(10, Vector2d(20, 20), 5, 100));
 
         putHikerOnLane(mSceneGraph.getPlayerHiker(), 2);
 
         mPreviousLaneEnemySpawned =
             static_cast<int>(std::round(Random::get().randomNumber() * (mSceneGraph.getAmountOfLanes() - 1)));
+
+        Transformation::get().setWorldViewCenterY(Transformation::get().getWorldView().getWorldViewHeight() / 2);
+
+        mHikeStatus = HikeStatus::BeforeHiking;
 }
 
 void World::generateCompetingHikers(seconds dt)
@@ -101,10 +107,7 @@ void World::generateCompetingHikers(seconds dt)
 
         // We want the enemies to spawn on the fly as the player moves
 
-        // TODO calculate chance based on the closeness to the finish
-        // The chance of an enemy spawning in a second, on one of the lanes
-        // TODO improve this rate to be more consistent
-        double spawnRate = 1 * dt.count();
+        double spawnRate = 5 * dt.count();
         //        assert(spawnRate >= 0 && spawnRate <= 1);
 
         bool enemyShouldSpawn = false;
@@ -304,8 +307,8 @@ void World::startHiking()
 void World::resetHike()
 {
         assert(mHikeStatus == HikeStatus::AfterHiking);
-
-        mHikeStatus = HikeStatus::BeforeHiking;
+        buildWorld(static_cast<int>(mSceneGraph.getAmountOfLanes()));
+        mLiveScore->reset();
 }
 
 void World::endHike()

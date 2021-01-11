@@ -55,3 +55,10 @@ std::chrono::duration<double> turboHiker::LiveScore::getHikeDuration() const
         // duration keeps on getting bigger until the player reached the finish
         return (mPlayerFinished ? mFinishHike : std::chrono::high_resolution_clock::now()) - mStartHike;
 }
+
+void turboHiker::LiveScore::reset() {
+        mPlayerFinished = false;
+        mPointsAtFinish = 0;
+        mAmountOfCollisions = 0;
+        mHikersYelledAt = 0;
+}

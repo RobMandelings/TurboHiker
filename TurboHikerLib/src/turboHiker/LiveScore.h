@@ -28,6 +28,8 @@ public:
         std::chrono::duration<double> getHikeDuration() const;
         int getPointsAtFinish() const;
 
+        void reset();
+
 private:
 
         int calculatePoints() const;
