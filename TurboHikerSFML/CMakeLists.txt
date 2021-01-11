@@ -13,8 +13,10 @@ list(APPEND CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}/lib/SFML")
 #list(APPEND CMAKE_INCLUDE_PATH "${CMAKE_INCLUDE_PATH}/include/SFML/")
 #list(APPEND CMAKE_LIBRARY_PATH "${CMAKE_SOURCE_DIR}/lib/SFML")
 
-# TODO make this optional. Depending on the system you want to startRunning it on, you might want to link to SFML using shared libraries instead of static
+if (WIN32)
 set(SFML_STATIC_LIBRARIES TRUE)
+endif()
+
 # Order does matter
 FIND_PACKAGE(SFML 2.4 COMPONENTS graphics window system REQUIRED)
 
