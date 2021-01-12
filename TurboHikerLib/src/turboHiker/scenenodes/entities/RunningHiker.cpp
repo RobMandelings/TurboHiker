@@ -19,6 +19,6 @@ void turboHiker::RunningHiker::onYelledAt()
         bool successful = Random::get().randomNumber() < 0.5;
 
         if (successful) {
-                mVelocity.y /= 2;
+                mVelocity.y /= 4;
         }
 }

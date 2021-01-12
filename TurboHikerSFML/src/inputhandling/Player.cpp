@@ -157,7 +157,7 @@ void Player::initializeActions()
         mActionBinding[MoveRight].action = derivedSceneNodeCommand<World>(LaneMover(true));
         mActionBinding[MoveUp].action = derivedSceneNodeCommand<PlayerHiker>(HikerSpeed(true));
         mActionBinding[MoveDown].action = derivedSceneNodeCommand<PlayerHiker>(HikerSpeed(false));
-        mActionBinding[YellAtHiker].action = derivedSceneNodeCommand<World>(YellAtHikerCommand(100));
+        mActionBinding[YellAtHiker].action = derivedSceneNodeCommand<World>(YellAtHikerCommand(500));
         mActionBinding[ResetHike].action = derivedSceneNodeCommand<World>(ResetHikeCommand());
         mActionBinding[StartHike].action = derivedSceneNodeCommand<World>(StartHikeCommand());
 }

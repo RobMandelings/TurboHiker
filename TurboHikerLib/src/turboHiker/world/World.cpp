@@ -17,7 +17,7 @@
 
 using namespace turboHiker;
 
-turboHiker::World::World(int nrLanes, double laneWidth, double laneHeight, double basePointsRate)
+turboHiker::World::World(int nrLanes, double laneWidth, double laneHeight)
     : mWorldBorders(BoundingBox(0, 0, nrLanes * laneWidth, laneHeight)), mPreviousLaneEnemySpawned(0),
       mHikeStatus(HikeStatus::BeforeHiking),
       mHighscores(3), mLiveScore(std::make_shared<LiveScore>(500, 50, 5000, std::chrono::duration<double>(30)))
@@ -85,9 +85,9 @@ void turboHiker::World::buildWorld(int nrLanes)
         }
 
         mSceneGraph.addFinish(mSceneNodeFactory->createFinish(BoundingBox(
-            getWorldBorders().getLeft(), getWorldBorders().getTop() - 500, getWorldBorders().getWidth(), 500)));
+            getWorldBorders().getLeft(), getWorldBorders().getTop() - 100, getWorldBorders().getWidth(), 100)));
 
-        mSceneGraph.setPlayerHiker(mSceneNodeFactory->createPlayerHiker(10, Vector2d(20, 20), 5, 100));
+        mSceneGraph.setPlayerHiker(mSceneNodeFactory->createPlayerHiker(10, Vector2d(20, 20), 50, 200));
 
         putHikerOnLane(mSceneGraph.getPlayerHiker(), 2);
 
@@ -105,7 +105,8 @@ void World::generateCompetingHikers(seconds dt)
 
         // We want the enemies to spawn on the fly as the player moves
 
-        double spawnRate = 5 * dt.count();
+        // The higher this number is, the more enemies will spawn per time unit. If the player is going fast, more enemies will spawn proportionally to the player's 'fast' speed versus the slow.
+        double spawnRate = 3 * (getPlayerHiker().goingFast() ? (getPlayerHiker().getFastSpeed() / getPlayerHiker().getSlowSpeed()) : 1) * dt.count();
         //        assert(spawnRate >= 0 && spawnRate <= 1);
 
         bool enemyShouldSpawn = false;
@@ -149,7 +150,7 @@ void World::generateCompetingHikers(seconds dt)
                                         mSceneGraph.addStaticHiker(hiker);
                                 } else {
                                         RunningHiker hiker =
-                                            mSceneNodeFactory->createMovingHiker(yLocation, size, Vector2d(0, -50));
+                                            mSceneNodeFactory->createMovingHiker(yLocation, size, Vector2d(0, -400));
                                         putHikerOnLane(hiker, chosenLane);
                                         mSceneGraph.addRunningHiker(hiker);
                                 }
@@ -241,7 +242,7 @@ void turboHiker::World::setEntityFactory(std::unique_ptr<SceneNodeFactory> entit
 turboHiker::CommandQueue& turboHiker::World::getCommandQueue() { return mCommandQueue; }
 const turboHiker::BoundingBox& turboHiker::World::getWorldBorders() const { return mWorldBorders; }
 
-Hiker& World::getPlayerHiker() const { return mSceneGraph.getPlayerHiker(); }
+PlayerHiker& World::getPlayerHiker() const { return mSceneGraph.getPlayerHiker(); }
 
 void World::putHikerOnLane(Hiker& hiker, int laneIndex)
 {

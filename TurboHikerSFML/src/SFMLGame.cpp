@@ -17,14 +17,15 @@ using namespace turboHiker;
 using namespace turboHiker;
 
 SFMLGame::SFMLGame(const std::chrono::duration<double>& timePerFrame)
-    : Game(timePerFrame, std::make_unique<turboHiker::World>(8, 50, 2000, 10)),
+    : Game(timePerFrame, std::make_unique<turboHiker::World>(12, 50, 6000)),
       mWindow(sf::VideoMode(1000, 700), "TurboHiker")
 {
         mWorld->setEntityFactory(std::make_unique<SceneNodeFactorySFML>(mWindow));
         Transformation::get().initialize(WindowSize(mWindow.getSize().x, mWindow.getSize().y),
                                          this->mWorld->getWorldBorders());
-        Transformation::get().setWorldViewWidth(this->mWorld->getWorldBorders().getWidth());
-        mWorld->buildWorld(8);
+        Transformation::get().setWorldViewHeight(500);
+        Transformation::get().setWorldViewCenterY(Transformation::get().getWorldView().getWorldViewHeight() / 2);
+        mWorld->buildWorld(12);
 }
 
 void SFMLGame::processInput()

@@ -28,7 +28,7 @@ class World : public Updatable, public Renderable, public Commandable, private O
 {
 
 public:
-        World(int nrLanes, double laneWidth, double laneHeight, double basePointsRate);
+        World(int nrLanes, double laneWidth, double laneHeight);
 
         void handleCollisions();
 
@@ -57,7 +57,7 @@ public:
 
         unsigned int getAmountOfLanes() const;
         unsigned int getAmountOfCompetingHikers() const;
-        Hiker& getPlayerHiker() const;
+        PlayerHiker& getPlayerHiker() const;
 
         HikeStatus getHikeStatus() const;
 
