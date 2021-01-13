@@ -46,7 +46,7 @@ sf::RectangleShape turboHikerSFML::LaneRenderer::createLane(const sf::Vector2f& 
 
         sf::RectangleShape lane = sf::RectangleShape(laneDimensions);
         lane.setOrigin(lane.getGlobalBounds().width / 2, lane.getGlobalBounds().height / 2);
-        lane.setFillColor(sf::Color(200, 200, 200));
+        lane.setFillColor(sf::Color(50, 50, 50));
         return lane;
 }
 sf::RectangleShape turboHikerSFML::LaneRenderer::createLeftBorder(const sf::Vector2f& laneDimensions)
@@ -56,7 +56,7 @@ sf::RectangleShape turboHikerSFML::LaneRenderer::createLeftBorder(const sf::Vect
 
         sf::RectangleShape leftBorder = sf::RectangleShape(sf::Vector2f(laneDimensions.x / 50, laneDimensions.y));
         leftBorder.setOrigin(mLane.getGlobalBounds().width / 2, mLane.getGlobalBounds().height / 2);
-        leftBorder.setFillColor(sf::Color::Cyan);
+        leftBorder.setFillColor(sf::Color::Red);
 
         return leftBorder;
 }

@@ -20,7 +20,7 @@ using namespace turboHiker;
 turboHiker::World::World(int nrLanes, double laneWidth, double laneHeight)
     : mWorldBorders(BoundingBox(0, 0, nrLanes * laneWidth, laneHeight)), mPreviousLaneEnemySpawned(0),
       mHikeStatus(HikeStatus::BeforeHiking),
-      mHighscores(3), mLiveScore(std::make_shared<LiveScore>(500, 50, 5000, std::chrono::duration<double>(30)))
+      mHighscores(3), mLiveScore(std::make_shared<LiveScore>(300, 5, 5000, std::chrono::duration<double>(30)))
 {
         addObserver(mLiveScore);
 }
@@ -150,7 +150,7 @@ void World::generateCompetingHikers(seconds dt)
                                         mSceneGraph.addStaticHiker(hiker);
                                 } else {
                                         RunningHiker hiker =
-                                            mSceneNodeFactory->createMovingHiker(yLocation, size, Vector2d(0, -400));
+                                            mSceneNodeFactory->createMovingHiker(yLocation, size, Vector2d(0, -300));
                                         putHikerOnLane(hiker, chosenLane);
                                         mSceneGraph.addRunningHiker(hiker);
                                 }

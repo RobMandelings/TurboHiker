@@ -12,7 +12,6 @@ Removable::Removable() : mMarkedForRemoval(false) {}
 
 void Removable::markForRemoval()
 {
-        assert(!isMarkedForRemoval() && "Object is already marked for removal");
         mMarkedForRemoval = true;
 }
 bool Removable::isMarkedForRemoval() const { return mMarkedForRemoval; }
