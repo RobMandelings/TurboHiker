@@ -68,7 +68,7 @@ sf::RectangleShape turboHikerSFML::LaneRenderer::createRightBorder(const sf::Vec
         sf::RectangleShape rightBorder = sf::RectangleShape(sf::Vector2f(laneDimensions.x / 50, laneDimensions.y));
         mRightBorder.setOrigin(-mLane.getGlobalBounds().width / 2, mLane.getGlobalBounds().height / 2);
         ;
-        rightBorder.setFillColor(sf::Color::Cyan);
+        rightBorder.setFillColor(sf::Color::Red);
 
         return rightBorder;
 }
