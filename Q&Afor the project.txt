@@ -23,3 +23,7 @@ Yes its required, mandatory logic feature
 All entities are part of your world
 
 So it is a good idea to create a simple settings class that takes a .ini file as input and then functiones as a data holder containing all those informations
+
+IMPROVED RENDERING SYSTEM
+
+https://gamedev.stackexchange.com/questions/62980/separating-game-data-logic-from-rendering
