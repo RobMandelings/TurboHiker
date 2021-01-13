@@ -107,7 +107,6 @@ void SFMLGame::drawStatsOverlay()
 
         std::vector<sf::Text> currentStatsToDisplay;
 
-        text.setCharacterSize(20);
         text.setString("Live Score and Stats: ");
         currentStatsToDisplay.push_back(text);
 
