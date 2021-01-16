@@ -12,8 +12,8 @@ using namespace turboHiker;
 turboHikerSFML::HikerRenderer::HikerRenderer(DrawableRenderer& windowRenderer, double animationSpeed,
                                                        float size, sf::Color color)
     : SceneNodeRendererSFML(windowRenderer), mHikerShape(sf::CircleShape(size)),
-      mCurrentColor(0, 0, 0), goingDown(false), mSpeed(animationSpeed),
-      summedDt(0)
+      mCurrentColor(0, 0, 0),
+      colorGoingDown(false), mSpeed(animationSpeed)
 {
         mHikerShape.setFillColor(color);
         mHikerShape.setOrigin(mHikerShape.getGlobalBounds().width / 2, mHikerShape.getGlobalBounds().height / 2);
@@ -35,19 +35,17 @@ void turboHikerSFML::HikerRenderer::update(const turboHiker::Updatable::seconds&
         mHikerShape.setPosition(float(pixelCoordinates.x), float(pixelCoordinates.y));
 
         if (mCurrentColor.getRed() == 1) {
-                goingDown = true;
+                colorGoingDown = true;
         } else if (mCurrentColor.getRed() == 0) {
-                goingDown = false;
+                colorGoingDown = false;
         }
 
         if (mSpeed > 0) {
-                mCurrentColor.setRed(mCurrentColor.getRed() + (goingDown ? -1 : 1) * mSpeed * dt.count());
+                mCurrentColor.setRed(mCurrentColor.getRed() + (colorGoingDown ? -1 : 1) * mSpeed * dt.count());
         }
 
         // One second has passed
         mHikerShape.setFillColor(mCurrentColor.getSFMLColor());
-
-        summedDt = 0;
 }
 
 void turboHikerSFML::HikerRenderer::render() const { renderOnWindow(mHikerShape); }

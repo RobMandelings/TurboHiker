@@ -49,12 +49,26 @@ public:
         std::unique_ptr<Renderer> clone() const override;
 
 private:
+
+        /**
+         * The shape representing the hiker
+         */
         sf::CircleShape mHikerShape;
+
+        /**
+         * The current color of the hiker
+         */
         turboHikerSFML::Color mCurrentColor;
 
-        bool goingDown;
+        /**
+         * Boolean to check whether or not the current color component is going darker or brighter
+         */
+        bool colorGoingDown;
+
+        /**
+         * The animation speed in colorvalue change / sec
+         */
         double mSpeed;
-        double summedDt;
 };
 } // namespace turboHiker
 

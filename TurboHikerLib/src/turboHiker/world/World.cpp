@@ -57,7 +57,7 @@ void World::render() const { mSceneGraph.render(); }
 
 void World::onCommand(const Command& command, Updatable::seconds dt)
 {
-        if (command.whenToExecute == mHikeStatus) {
+        if (command.whenToExecute & mHikeStatus) {
                 if (command.category == GameCategory::GameWorld) {
                         command.action(*this, dt);
                 } else {
@@ -86,9 +86,9 @@ void turboHiker::World::buildWorld(int nrLanes)
         mSceneGraph.setFinish(mSceneNodeFactory->createFinish(BoundingBox(
             getWorldBorders().getLeft(), getWorldBorders().getTop() - 100, getWorldBorders().getWidth(), 100)));
 
-        mSceneGraph.setPlayerHiker(mSceneNodeFactory->createPlayerHiker(10, Vector2d(20, 20), 50, 200));
+        mSceneGraph.setPlayerHiker(mSceneNodeFactory->createPlayerHiker(10, Vector2d(20, 20), 50, 350));
 
-        putHikerOnLane(mSceneGraph.getPlayerHiker(), 2);
+        putHikerOnLane(mSceneGraph.getPlayerHiker(), 2, true);
 
         mPreviousLaneEnemySpawned =
             static_cast<int>(std::round(Random::get().randomNumber() * (mSceneGraph.getAmountOfLanes() - 1)));
@@ -149,12 +149,12 @@ void World::generateCompetingHikers(seconds dt)
 
                                 if (spawnStatic) {
                                         StaticHiker hiker = mSceneNodeFactory->createStaticHiker(yLocation, size);
-                                        putHikerOnLane(hiker, chosenLane);
+                                        putHikerOnLane(hiker, chosenLane, true);
                                         mSceneGraph.addStaticHiker(hiker);
                                 } else {
                                         RunningHiker hiker =
                                             mSceneNodeFactory->createMovingHiker(yLocation, size, Vector2d(0, -300));
-                                        putHikerOnLane(hiker, chosenLane);
+                                        putHikerOnLane(hiker, chosenLane, true);
                                         mSceneGraph.addRunningHiker(hiker);
                                 }
                         }
@@ -248,13 +248,17 @@ const turboHiker::BoundingBox& turboHiker::World::getWorldBorders() const { retu
 
 PlayerHiker& World::getPlayerHiker() const { return mSceneGraph.getPlayerHiker(); }
 
-void World::putHikerOnLane(Hiker& hiker, int laneIndex)
+void World::putHikerOnLane(Hiker& hiker, int laneIndex, bool instantly)
 {
 
         assert(laneIndex < getAmountOfLanes() && laneIndex >= 0);
         SceneNode& lane = mSceneGraph.getLane(laneIndex);
 
-        hiker.setLocation(Vector2d(lane.getLocation().x, hiker.getLocation().y));
+        if (instantly) {
+                hiker.setLocation(Vector2d(lane.getLocation().x, hiker.getLocation().y));
+        } else {
+                hiker.setDestinationX(lane.getLocation().x);
+        }
         hiker.setCurrentLane(laneIndex);
 }
 
@@ -305,13 +309,14 @@ void World::startHiking()
         mHikeStatus = HikeStatus::WhilstHiking;
 }
 
-void World::resetHike()
+void World::resetHike(bool saveHighScore)
 {
-        assert(mHikeStatus == HikeStatus::AfterHiking);
         buildWorld(static_cast<int>(mSceneGraph.getAmountOfLanes()));
         Transformation::get().setWorldViewCenterY(Transformation::get().getWorldView().getWorldViewHeight() / 2);
 
-        mHighscores.addScore(*mScore);
+        if (saveHighScore) {
+                mHighscores.addScore(*mScore);
+        }
         mScore->reset();
 }
 

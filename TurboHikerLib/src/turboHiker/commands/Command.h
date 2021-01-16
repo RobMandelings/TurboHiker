@@ -38,7 +38,7 @@ struct Command
          * In which stage of the game (e.g. before the start of the game, whilst hiking, when finished a hike,...) the
          * command should be executed.
          */
-        HikeStatus whenToExecute;
+        unsigned int whenToExecute;
 };
 
 /**

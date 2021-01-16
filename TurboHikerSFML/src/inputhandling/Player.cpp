@@ -34,7 +34,7 @@ public:
         {
                 int newLane = world.getPlayerHiker().getCurrentLane() + (mMoveRight ? 1 : -1);
                 if (newLane >= 0 && newLane < world.getAmountOfLanes()) {
-                        world.putHikerOnLane(world.getPlayerHiker(), newLane);
+                        world.putHikerOnLane(world.getPlayerHiker(), newLane, false);
                 }
         }
 
@@ -71,7 +71,7 @@ class ResetHikeCommand
 public:
         ResetHikeCommand() = default;
 
-        void operator()(turboHiker::World& world, Updatable::seconds dt) const { world.resetHike(); }
+        void operator()(turboHiker::World& world, Updatable::seconds dt) const { world.resetHike(world.getHikeStatus() == AfterHiking); }
 };
 
 Player::Player()
@@ -150,7 +150,7 @@ void Player::initializeActions()
 
         mActionBinding[ResetHike].category = turboHiker::GameCategory::GameWorld;
         mActionBinding[StartHike].category = turboHiker::GameCategory::GameWorld;
-        mActionBinding[ResetHike].whenToExecute = HikeStatus::AfterHiking;
+        mActionBinding[ResetHike].whenToExecute = HikeStatus::WhilstHiking | HikeStatus::AfterHiking;
         mActionBinding[StartHike].whenToExecute = HikeStatus::BeforeHiking;
 
         mActionBinding[MoveLeft].action = derivedSceneNodeCommand<World>(LaneMover(false));

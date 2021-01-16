@@ -9,10 +9,10 @@ namespace turboHiker {
 /**
  * Represents the HikeStatus the world is currently in
  */
-enum class HikeStatus
+enum HikeStatus
 {
-        BeforeHiking,
-        WhilstHiking,
-        AfterHiking
+        BeforeHiking = 1u << 1,
+        WhilstHiking = 1u << 2,
+        AfterHiking = 1u << 3
 };
 }

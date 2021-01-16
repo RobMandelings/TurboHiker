@@ -13,10 +13,10 @@
 
 #include "BoundingBox.h"
 #include "Renderer.h"
+#include "HikeStatus.h"
 
 #include "CommandQueue.h"
 #include "HighScoreContainer.h"
-#include "WorldStats.h"
 
 #include <memory>
 
@@ -70,7 +70,7 @@ public:
          * @param hiker: the hiker to put on the lane
          * @param laneIndex: the lane index to put the hiker on
          */
-        void putHikerOnLane(Hiker& hiker, int laneIndex);
+        void putHikerOnLane(Hiker& hiker, int laneIndex, bool instantly);
 
         /**
          * Executed whenever a Hiker yelled. It checks for neighbouring hikers and if it finds one to yell at, that
@@ -160,7 +160,7 @@ public:
         /**
          * Resets the hike so that you can start over again. Also saves previous score if its a HighScore
          */
-        void resetHike();
+        void resetHike(bool saveHighScore);
 
         /**
          * Called whenever a finish is reached

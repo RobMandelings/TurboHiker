@@ -27,6 +27,10 @@ public:
         Hiker(const Vector2d& location, const Vector2d& size, const Vector2d& velocity,
               const std::string& name);
 
+        void update(seconds dt) override;
+
+        void setDestinationX(double destinationX);
+
         /**
          * Simple getter
          * @return which lane the hiker is currently at
@@ -45,6 +49,15 @@ public:
         virtual void onYelledAt() = 0;
 
 private:
+
+        bool destinationXReached() const;
+
+        double mAccelerationX;
+        double mMaxVelocityX;
+
+        bool mHasDestinationX;
+        double mDestinationX;
+
         /**
          * The current lane of the hiker
          */
