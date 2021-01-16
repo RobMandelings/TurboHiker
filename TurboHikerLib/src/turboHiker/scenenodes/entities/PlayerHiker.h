@@ -12,7 +12,7 @@ namespace turboHiker {
 /**
  * Hiker that represents the player. May either move faster, or slower
  */
-class PlayerHiker : protected Hiker
+class PlayerHiker : public Hiker
 {
 
 public:

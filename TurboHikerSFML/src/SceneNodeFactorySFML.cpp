@@ -51,7 +51,7 @@ Finish SceneNodeFactorySFML::createFinish(const BoundingBox& finishDimensions) c
         FinishRenderer finishRenderer =
             FinishRenderer(mWindowRenderer, sf::Vector2f(finishDimensionsInPixels.x, finishDimensionsInPixels.y));
 
-        Finish finish(<#initializer #>);
+        Finish finish(finishDimensions);
         finish.setRenderer(finishRenderer);
 
         return finish;

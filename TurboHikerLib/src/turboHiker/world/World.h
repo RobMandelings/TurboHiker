@@ -32,8 +32,7 @@ class World : public Updatable, public Renderable, public Commandable, private O
 {
 
 public:
-
-        World(int nrLanes, double laneWidth, double laneHeight);
+        World();
 
         void handleCollisions();
 
@@ -47,7 +46,7 @@ public:
 
         void hikerYelled(Hiker& hiker, double yellDistance);
 
-        void buildWorld(int nrLanes);
+        void buildWorld(int nrLanes, double laneWidth, double worldHeight);
 
         void generateCompetingHikers(seconds dt);
         void removeCompetingHikers();
@@ -83,7 +82,7 @@ private:
 
         std::unique_ptr<SceneNodeFactory> mSceneNodeFactory;
 
-        const turboHiker::BoundingBox mWorldBorders;
+        BoundingBox mWorldBorders;
 
         std::shared_ptr<Score> mLiveScore;
         HighScoreContainer mHighscores;

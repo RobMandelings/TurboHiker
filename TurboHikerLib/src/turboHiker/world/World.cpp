@@ -17,8 +17,8 @@
 
 using namespace turboHiker;
 
-turboHiker::World::World(int nrLanes, double laneWidth, double laneHeight)
-    : mWorldBorders(BoundingBox(0, 0, nrLanes * laneWidth, laneHeight)), mPreviousLaneEnemySpawned(0),
+turboHiker::World::World()
+    : mWorldBorders(BoundingBox::getEmptyBB()), mPreviousLaneEnemySpawned(0),
       mHikeStatus(HikeStatus::BeforeHiking),
       mHighscores(3), mLiveScore(std::make_shared<Score>(300, 5, 5000, std::chrono::duration<double>(30)))
 {
@@ -69,11 +69,13 @@ void World::onCommand(const Command& command, Updatable::seconds dt)
         }
 }
 
-void turboHiker::World::buildWorld(int nrLanes)
+void turboHiker::World::buildWorld(int nrLanes, double laneWidth, double worldHeight)
 {
-        assert(mSceneNodeFactory != nullptr && "Entityfactory not set: no way to create new scenenodes");
+        assert(mSceneNodeFactory != nullptr && "SceneNode Factory not set: no way to create new SceneNodes");
 
         mSceneGraph.clear();
+
+        mWorldBorders = BoundingBox(0, 0, laneWidth * nrLanes, worldHeight);
 
         for (int lane = 0; lane < nrLanes + 0; lane++) {
                 SceneNode currentLane = mSceneNodeFactory->createLane(
@@ -304,7 +306,7 @@ void World::startHiking()
 void World::resetHike()
 {
         assert(mHikeStatus == HikeStatus::AfterHiking);
-        buildWorld(static_cast<int>(mSceneGraph.getAmountOfLanes()));
+        buildWorld(static_cast<int>(mSceneGraph.getAmountOfLanes()), 0, 0);
         Transformation::get().setWorldViewCenterY(Transformation::get().getWorldView().getWorldViewHeight() / 2);
 
         mHighscores.addScore(*mLiveScore);
