@@ -107,8 +107,7 @@ void World::generateCompetingHikers(seconds dt)
         // The higher this number is, the more enemies will spawn per time unit. If the player is going fast, more
         // enemies will spawn proportionally to the player's 'fast' speed versus the slow.
         double spawnRate =
-            3 *
-            (getPlayerHiker().goingFast() ? (getPlayerHiker().getFastSpeed() / getPlayerHiker().getSlowSpeed()) : 1) *
+            2 * (getPlayerHiker().goingFast() ? (getPlayerHiker().getFastSpeed() / getPlayerHiker().getSlowSpeed()) : 1) *
             dt.count();
         //        assert(spawnRate >= 0 && spawnRate <= 1);
 
@@ -145,7 +144,7 @@ void World::generateCompetingHikers(seconds dt)
                                 GameCategory::GameFinish)) {
 
                                 // If true, spawn a static hiker, false: spawn a moving hiker
-                                bool spawnStatic = static_cast<int>(std::round(Random::get().randomNumber())) == 1;
+                                bool spawnStatic = Random::get().randomNumber() < 0.2;
 
                                 if (spawnStatic) {
                                         StaticHiker hiker = mSceneNodeFactory->createStaticHiker(yLocation, size);
