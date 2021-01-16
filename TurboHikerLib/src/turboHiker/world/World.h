@@ -24,10 +24,15 @@ namespace turboHiker {
 
 class Score;
 
+/**
+ * Contains the main game logic. Does all the updating, keeps track of a SceneGraphs, delegates render requests, keeps
+ * track of the CommandQueue and delegates the commands using the SceneGraph,...
+ */
 class World : public Updatable, public Renderable, public Commandable, private Observable
 {
 
 public:
+
         World(int nrLanes, double laneWidth, double laneHeight);
 
         void handleCollisions();

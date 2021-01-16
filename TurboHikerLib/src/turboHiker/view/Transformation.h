@@ -34,7 +34,6 @@ class Transformation
 {
 
 public:
-
         /**
          * Deleted the copy constructor as its a singleton
          */
@@ -63,7 +62,7 @@ public:
          * @param worldViewHeight: the new world view height
          */
         void setWorldViewHeight(double worldViewHeight);
-        
+
         /**
          * Sets the height of the world you can see, updating other values as well to keep the aspect ratio the same
          * @param worldViewHeight: the new world view height
@@ -94,12 +93,25 @@ public:
          */
         void setWorldViewCenterX(double x);
 
+        /**
+         * Sets the y coordinate center of view
+         * @param y: the y coordinate
+         */
         void setWorldViewCenterY(double y);
 
+        /**
+         * Sets the windowSize to its new size
+         */
         void setWindowSize(const WindowSize& windowSize);
 
+        /**
+         * Gets a reference to the current windowSize
+         */
         const WindowSize& getWindowSize() const;
 
+        /**
+         * Converts the world coordinates to the corresponding coordinates as pixels on the screen
+         */
         Vector2d convertWorldCoordinatesToPixelCoordinates(const turboHiker::Vector2d& worldCoordinates) const;
 
         /**
@@ -110,9 +122,6 @@ public:
          */
         Vector2d scaleWorldCoordsToPixelCoords(const Vector2d& worldCoordinates) const;
 
-        turboHiker::BoundingBox convertWorldBoundingBoxToVisualBoundingBox(
-            const turboHiker::BoundingBox& worldBoundingBox) const;
-
         /**
          * Asserts that the world coordinates converted to the pixel coordinates are ratio 1:1, meaning that objects are
          * not squeezed / stretched. E.g. If you can view more of the world in the width, the window must be wider as
@@ -121,21 +130,37 @@ public:
         bool checkOneToOneRatio() const;
 
 private:
+        /**
+         * Simple constructor. Private as its a singleton
+         */
         explicit Transformation();
 
+        /**
+         * Checks whether or not the transformation class has been initialized
+         * @return true if the transformation class has been initialized
+         */
         bool initialized() const;
 
 private:
+        /**
+         * Member variable to ensure mutual exclusion, in case we're working in a multithreading environment (or upgrade
+         * towards it)
+         */
         static std::mutex mMutex;
 
+        /**
+         * Ptr to the current view of the world
+         */
         std::unique_ptr<WorldView> mWorldView;
 
+        /**
+         * Ptr to the current windowSize
+         */
         std::unique_ptr<WindowSize> mWindowSize;
 
         /** Needed to translate the definition of what is the top of the world and what is the bottom */
         turboHiker::BoundingBox mWorldBorders;
 };
-
 } // namespace turboHiker
 
 #endif // TURBOHIKER_TRANSFORMATION_H

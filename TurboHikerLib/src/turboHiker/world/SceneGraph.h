@@ -33,12 +33,36 @@ class SceneGraph : public Updatable, public Renderable
 
 public:
 
+        /**
+         * Used for convenience if you would want to get a pair of two SceneNodes (for usage with collision detection, for example)
+         */
         typedef std::pair<std::shared_ptr<SceneNode>, std::shared_ptr<SceneNode>> SceneNodePair;
 
+        /**
+         * Removes all SceneNodes present in the SceneGraph
+         */
         void clear();
+
+        /**
+         * Update alle SceneNodes in this SceneGraph
+         * @param dt: the timestep
+         */
         void update(seconds dt) override;
+
+        /**
+         * Update all render components in this SceneGraph
+         * @param dt: the timestep
+         */
         void updateRenderComponents(seconds dt);
+
+        /**
+         * Render all SceneNodes present in this SceneGraph
+         */
         void render() const override;
+
+        /**
+         * Removes all SceneNodes that have been marked for removal (see documentation of SceneNode)
+         */
         void cleanupDeadObjects();
 
         std::set<SceneNodePair> findCollisionPairs() const;

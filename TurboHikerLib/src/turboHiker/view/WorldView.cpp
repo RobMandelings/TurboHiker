@@ -4,16 +4,16 @@
 
 #include "WorldView.h"
 
-turboHiker::WorldView::WorldView(double initialWorldXSize, double initialWorldYSize,
-                                     const turboHiker::Vector2d& initialWorldViewCenter)
-    : mWorldXSize(initialWorldXSize), mWorldYSize(initialWorldYSize), mWorldViewCenter(initialWorldViewCenter)
+turboHiker::WorldView::WorldView(double width, double height,
+                                     const turboHiker::Vector2d& worldViewCenter)
+    : mWidth(width), mHeight(height), mWorldViewCenter(worldViewCenter)
 {
 }
 
-double turboHiker::WorldView::getWorldViewWidth() const { return mWorldXSize; }
-void turboHiker::WorldView::setWidth(double worldXSize) { WorldView::mWorldXSize = worldXSize; }
-double turboHiker::WorldView::getWorldViewHeight() const { return mWorldYSize; }
-void turboHiker::WorldView::setHeight(double worldYSize) { WorldView::mWorldYSize = worldYSize; }
+double turboHiker::WorldView::getWorldViewWidth() const { return mWidth; }
+void turboHiker::WorldView::setWidth(double width) { WorldView::mWidth = width; }
+double turboHiker::WorldView::getWorldViewHeight() const { return mHeight; }
+void turboHiker::WorldView::setHeight(double height) { WorldView::mHeight = height; }
 const turboHiker::Vector2d& turboHiker::WorldView::getWorldViewCenter() const { return mWorldViewCenter; }
 void turboHiker::WorldView::setWorldViewCenter(const turboHiker::Vector2d& worldViewCenter)
 {
