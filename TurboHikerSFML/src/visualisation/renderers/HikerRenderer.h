@@ -12,7 +12,6 @@
 
 namespace turboHiker {
 class Vector2d;
-class WorldLocation;
 } // namespace turboHiker
 
 namespace turboHikerSFML {

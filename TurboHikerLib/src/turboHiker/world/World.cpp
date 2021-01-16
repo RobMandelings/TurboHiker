@@ -7,9 +7,9 @@
 
 #include "Command.h"
 #include "Hiker.h"
-#include "LiveScore.h"
 #include "Random.h"
 #include "Renderer.h"
+#include "Score.h"
 #include "Transformation.h"
 
 #include <EventObserver.h>
@@ -20,7 +20,7 @@ using namespace turboHiker;
 turboHiker::World::World(int nrLanes, double laneWidth, double laneHeight)
     : mWorldBorders(BoundingBox(0, 0, nrLanes * laneWidth, laneHeight)), mPreviousLaneEnemySpawned(0),
       mHikeStatus(HikeStatus::BeforeHiking),
-      mHighscores(3), mLiveScore(std::make_shared<LiveScore>(300, 5, 5000, std::chrono::duration<double>(30)))
+      mHighscores(3), mLiveScore(std::make_shared<Score>(300, 5, 5000, std::chrono::duration<double>(30)))
 {
         addObserver(mLiveScore);
 }
@@ -318,5 +318,5 @@ void World::endHike()
         mSceneGraph.getPlayerHiker().setVelocity(Vector2d(0, 0));
 }
 
-const LiveScore& World::getLiveScore() const { return *mLiveScore; }
-const HighScores& World::getHighScores() const { return mHighscores; }
+const Score& World::getLiveScore() const { return *mLiveScore; }
+const HighScoreContainer& World::getHighScores() const { return mHighscores; }

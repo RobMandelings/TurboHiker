@@ -8,7 +8,7 @@
 #include <memory>
 
 #include "BoundingBox.h"
-#include "LiveScore.h"
+#include "Score.h"
 
 namespace turboHiker {
 

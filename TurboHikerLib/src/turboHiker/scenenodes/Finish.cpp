@@ -3,11 +3,12 @@
 //
 
 #include "Finish.h"
-#include "Renderer.h"
+#include "BoundingBox.h"
 #include "GameCategory.h"
 
-turboHiker::Finish::Finish(const Vector2d& initialLocation, const Vector2d& boundingSize, const std::string& name)
-    : SceneNode(initialLocation, boundingSize, name)
+turboHiker::Finish::Finish(const BoundingBox& span)
+    : SceneNode(Vector2d(span.getLeft() + span.getWidth() / 2, span.getBottom() + span.getHeight() / 2),
+                Vector2d(span.getWidth(), span.getHeight()), "Finish")
 {
 }
 

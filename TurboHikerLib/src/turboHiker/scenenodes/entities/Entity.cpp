@@ -7,15 +7,15 @@
 #include "Renderer.h"
 #include "GameCategory.h"
 
-turboHiker::Entity::Entity(const turboHiker::Vector2d& initialLocation, const Vector2d& boundingSize,
-                           const turboHiker::Vector2d& mVelocity, const std::string& name)
-    : SceneNode(initialLocation, boundingSize, name), mVelocity(mVelocity)
+turboHiker::Entity::Entity(const turboHiker::Vector2d& location, const Vector2d& size,
+                           const turboHiker::Vector2d& velocity, const std::string& name)
+    : SceneNode(location, size, name), mVelocity(velocity)
 {
 }
 
 unsigned int turboHiker::Entity::getCategory() const { return GameCategory::GameEntity; }
 
-void turboHiker::Entity::setVelocity(const turboHiker::Vector2d& newVelocity) { mVelocity = newVelocity; }
+void turboHiker::Entity::setVelocity(const turboHiker::Vector2d& velocity) { mVelocity = velocity; }
 
 turboHiker::Vector2d turboHiker::Entity::getVelocity() const { return mVelocity; }
 void turboHiker::Entity::accelerate(const turboHiker::Vector2d& acceleration) { mVelocity += acceleration; }

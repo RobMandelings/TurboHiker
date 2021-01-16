@@ -4,8 +4,8 @@
 
 #include "Game.h"
 
-#include "Clock.h"
-#include "LiveScore.h"
+#include "Score.h"
+#include "Stopwatch.h"
 #include <thread>
 
 #include "BoundingBox.h"
@@ -24,8 +24,8 @@ turboHiker::Game::Game(std::chrono::duration<double> timePerFrame, std::unique_p
 void turboHiker::Game::startRunning()
 {
 
-        turboHiker::Clock clock2;
-        turboHiker::Clock clock;
+        turboHiker::Stopwatch clock2;
+        turboHiker::Stopwatch clock;
         std::chrono::duration<double> timeSinceLastUpdate = std::chrono::nanoseconds(0);
 
         // TODO Set max framerate (optionally) as well (For example: max 60FPS)

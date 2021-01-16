@@ -10,18 +10,15 @@
 #include "Renderer.h"
 
 #include "Command.h"
-#include "Vector2d.h"
 #include "GameCategory.h"
+#include "Vector2d.h"
 
 using namespace turboHiker;
 
-SceneNode::SceneNode(const Vector2d& initialLocation, const Vector2d& boundingSize, std::string name)
-    : mLocation(initialLocation), mSize(boundingSize), mRenderer(nullptr), mName(std::move(name))
+SceneNode::SceneNode(const Vector2d& location, const Vector2d& size, std::string name)
+    : mLocation(location), mSize(size), mRenderer(nullptr), mName(std::move(name))
 {
 }
-
-// TODO remove as well
-SceneNode::SceneNode() : SceneNode(Vector2d(0, 0), Vector2d(0, 0), "World") {}
 
 SceneNode::SceneNode(const SceneNode& other) : SceneNode(other.mLocation, other.mSize, other.mName)
 {
@@ -59,7 +56,7 @@ void turboHiker::SceneNode::render() const
 
 bool SceneNode::collidesWith(const SceneNode& other) const
 {
-        if (&other != this && hasBoundingBox() && other.hasBoundingBox()) {
+        if (&other != this && !getBoundingBox().empty() && !other.getBoundingBox().empty()) {
                 return collidesWith(other.getBoundingBox());
         }
         return false;
@@ -88,20 +85,22 @@ unsigned int turboHiker::SceneNode::getCategory() const { return GameCategory::G
 
 BoundingBox SceneNode::getBoundingBox() const
 {
-        return BoundingBox(getLocation().x - mSize.x / 2, getLocation().y - mSize.y / 2, mSize.x, mSize.y);
+        if (mSize.x == 0 or mSize.y == 0) {
+                return BoundingBox::getEmptyBB();
+        } else {
+                return BoundingBox(getLocation().x - mSize.x / 2, getLocation().y - mSize.y / 2, mSize.x, mSize.y);
+        }
 }
 
-bool SceneNode::hasBoundingBox() const { return mSize.x != 0 && mSize.y != 0; }
-
-void SceneNode::setSize(const Vector2d& boundingSize)
+void SceneNode::setSize(const Vector2d& size)
 {
-        assert(boundingSize.x >= 0);
-        assert(boundingSize.y >= 0);
-        mSize = boundingSize;
+        assert(size.x >= 0);
+        assert(size.y >= 0);
+        mSize = size;
 }
 
 void SceneNode::setWidth(double width) { setSize(Vector2d(width, mSize.y)); }
 void SceneNode::setHeight(double height) { setSize(Vector2d(mSize.x, height)); }
-void SceneNode::setLocation(const Vector2d& newLocation) { mLocation = newLocation; }
+void SceneNode::setLocation(const Vector2d& location) { mLocation = location; }
 
 void SceneNode::setRenderer(const Renderer& renderer) { mRenderer = renderer.clone(); }

@@ -25,33 +25,78 @@ namespace turboHiker {
 using namespace turboHiker;
 
 // TODO implement scaling/zooming: draw the scenenodes smaller or bigger depending on changes in view
+/**
+ * Singleton class that creates a view system for the world. View can be modified / updated. In the end it comes down to
+ * converting World Coordinates into pixel coordinate values, without specifically knowing the visual implementation for
+ * this.
+ */
 class Transformation
 {
 
 public:
+
+        /**
+         * Deleted the copy constructor as its a singleton
+         */
         Transformation(Transformation& other) = delete;
 
+        /**
+         * Deleted the assignment operator as its a singleton
+         */
         void operator=(const Transformation&) = delete;
 
+        /**
+         * Simple getter
+         * @return the instance of the transformation class
+         */
         static Transformation& get();
 
+        /**
+         * Initialize the transformation class with current windowSize and World Borders
+         * @param windowSize: the windowSize to initialize the transformation class with
+         * @param worldBorders: the world borders
+         */
         void initialize(const WindowSize& windowSize, const turboHiker::BoundingBox& worldBorders);
 
+        /**
+         * Sets the height of the world you can see, updating other values as well to keep the aspect ratio the same
+         * @param worldViewHeight: the new world view height
+         */
         void setWorldViewHeight(double worldViewHeight);
-
+        
+        /**
+         * Sets the height of the world you can see, updating other values as well to keep the aspect ratio the same
+         * @param worldViewHeight: the new world view height
+         */
         void setWorldViewWidth(double worldViewWidth);
 
+        /**
+         * Sets the width of the world you can see, updating other values as well to keep the aspect ratio the same
+         * @param worldViewWidth: the new world view width
+         */
         const WorldView& getWorldView() const;
 
+        /**
+         * Gets the current coordinate which represents the center-of-view.
+         * @return the center of view of the world
+         */
         const Vector2d& getWorldViewCenter() const;
 
-        void setWorldViewCenter(const Vector2d& newCenter);
+        /**
+         * Sets the world view to a new center point
+         * @param center
+         */
+        void setWorldViewCenter(const Vector2d& center);
 
+        /**
+         * Sets the x coordinate center of view
+         * @param x: the x coordinate
+         */
         void setWorldViewCenterX(double x);
 
         void setWorldViewCenterY(double y);
 
-        void setWindowSize(const WindowSize& newWindowSize);
+        void setWindowSize(const WindowSize& windowSize);
 
         const WindowSize& getWindowSize() const;
 
@@ -81,7 +126,6 @@ private:
         bool initialized() const;
 
 private:
-
         static std::mutex mMutex;
 
         std::unique_ptr<WorldView> mWorldView;
@@ -92,6 +136,6 @@ private:
         turboHiker::BoundingBox mWorldBorders;
 };
 
-} // namespace turboHikerSFML
+} // namespace turboHiker
 
 #endif // TURBOHIKER_TRANSFORMATION_H

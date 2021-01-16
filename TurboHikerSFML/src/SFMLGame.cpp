@@ -7,7 +7,7 @@
 
 #include "BoundingBox.h"
 #include "FontManager.h"
-#include "LiveScore.h"
+#include "Score.h"
 #include "Transformation.h"
 #include "World.h"
 
@@ -110,7 +110,7 @@ void SFMLGame::drawStatsOverlay()
         text.setString("Live Score and Stats: ");
         currentStatsToDisplay.push_back(text);
 
-        const LiveScore& liveScore = mWorld->getLiveScore();
+        const Score& liveScore = mWorld->getLiveScore();
 
         text.setString(
             "Hike duration: " +
@@ -136,7 +136,7 @@ void SFMLGame::drawStatsOverlay()
         text.setString("High scores: ");
         currentStatsToDisplay.push_back(text);
 
-        const std::vector<LiveScore>& highScores = mWorld->getHighScores().getHighScores();
+        const std::vector<Score>& highScores = mWorld->getHighScores().getHighScores();
         for (int currentHighScore = 0; currentHighScore < highScores.size(); currentHighScore++) {
                 text.setString("High score " + std::to_string(currentHighScore + 1) + ": " +
                                std::to_string(highScores.at(currentHighScore).getPointsAtFinish()));

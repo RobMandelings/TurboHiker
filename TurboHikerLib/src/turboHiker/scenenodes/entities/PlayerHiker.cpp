@@ -7,11 +7,11 @@
 #include "Renderer.h"
 #include <cassert>
 
-turboHiker::PlayerHiker::PlayerHiker(const Vector2d& initialLocation, const Vector2d& boundingSize,
-                                     const Vector2d& initialVelocity, const std::string& name, double slowSpeed,
-                                     double fastSpeed)
-    : Hiker(initialLocation, boundingSize, initialVelocity, name), mSlowSpeed(slowSpeed), mFastSpeed(fastSpeed)
+turboHiker::PlayerHiker::PlayerHiker(const Vector2d& location, const Vector2d& size, const std::string& name,
+                                     double slowSpeed, double fastSpeed)
+    : Hiker(location, size, Vector2d(0,0), name), mSlowSpeed(slowSpeed), mFastSpeed(fastSpeed)
 {
+        assert(slowSpeed <= fastSpeed && "The slow speed should be slower than the fast speed of the player hiker");
 }
 
 unsigned int turboHiker::PlayerHiker::getCategory() const { return GameCategory::GamePlayerHiker; }

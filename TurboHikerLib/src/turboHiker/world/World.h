@@ -15,14 +15,14 @@
 #include "Renderer.h"
 
 #include "CommandQueue.h"
-#include "HighScores.h"
+#include "HighScoreContainer.h"
 #include "WorldStats.h"
 
 #include <memory>
 
 namespace turboHiker {
 
-class LiveScore;
+class Score;
 
 class World : public Updatable, public Renderable, public Commandable, private Observable
 {
@@ -65,8 +65,8 @@ public:
         void resetHike();
         void endHike();
 
-        const LiveScore& getLiveScore() const;
-        const HighScores& getHighScores() const;
+        const Score& getLiveScore() const;
+        const HighScoreContainer& getHighScores() const;
 
 private:
         /**
@@ -80,8 +80,8 @@ private:
 
         const turboHiker::BoundingBox mWorldBorders;
 
-        std::shared_ptr<LiveScore> mLiveScore;
-        HighScores mHighscores;
+        std::shared_ptr<Score> mLiveScore;
+        HighScoreContainer mHighscores;
 
         int mPreviousLaneEnemySpawned;
         HikeStatus mHikeStatus;

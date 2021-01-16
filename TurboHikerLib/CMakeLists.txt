@@ -4,9 +4,8 @@ set(CMAKE_CXX_STANDARD 17)
 
 set(SRC
         src/turboHiker/Game.cpp
-        src/turboHiker/utils/constants.h
-        src/turboHiker/utils/Clock.cpp
-        src/turboHiker/utils/Clock.h
+        src/turboHiker/utils/Stopwatch.cpp
+        src/turboHiker/utils/Stopwatch.h
         src/turboHiker/world/World.cpp
         src/turboHiker/world/World.h
         src/turboHiker/scenenodes/SceneNode.cpp
@@ -41,10 +40,10 @@ set(SRC
         src/turboHiker/world/WorldStats.cpp
         src/turboHiker/world/WorldStats.h
         src/turboHiker/interfaces/EventObserver.h
-        src/turboHiker/scoring/LiveScore.cpp
-        src/turboHiker/scoring/LiveScore.h
+        src/turboHiker/scoring/Score.cpp
+        src/turboHiker/scoring/Score.h
         src/turboHiker/interfaces/Observable.cpp
-        src/turboHiker/interfaces/Observable.h src/turboHiker/scoring/HighScores.cpp src/turboHiker/scoring/HighScores.h src/turboHiker/scenenodes/entities/RunningHiker.cpp src/turboHiker/scenenodes/entities/RunningHiker.h src/turboHiker/GameCategory.h src/turboHiker/HikeStatus.h src/turboHiker/scenenodes/entities/StaticHiker.cpp src/turboHiker/scenenodes/entities/StaticHiker.h)
+        src/turboHiker/interfaces/Observable.h src/turboHiker/scoring/HighScoreContainer.cpp src/turboHiker/scoring/HighScoreContainer.h src/turboHiker/scenenodes/entities/RunningHiker.cpp src/turboHiker/scenenodes/entities/RunningHiker.h src/turboHiker/GameCategory.h src/turboHiker/HikeStatus.h src/turboHiker/scenenodes/entities/StaticHiker.cpp src/turboHiker/scenenodes/entities/StaticHiker.h)
 
 add_library(TurboHikerLib ${SRC})
 

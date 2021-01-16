@@ -8,27 +8,47 @@
 #include "Entity.h"
 
 namespace turboHiker {
-/** An SceneNode which only takes an InputComponent and Renderer. The MovingPhysicsComponent is created inside
- * here
+
+/**
+ * Entity which can be put on lanes and can be yelled at. Specific implementation of what happens when a hiker is yelled
+ * at is done in the child classes
  */
 class Hiker : public Entity
 {
 
 public:
-
-        Hiker(const Vector2d& location, const Vector2d& boundingSize, const Vector2d& velocity,
+        /**
+         * Simple constructor
+         * @param location: the initial location of the hiker
+         * @param size: the size of the hiker (world coordinates), used for collision detection
+         * @param velocity: the initial velocity of the hiker
+         * @param name: the name of the hiker
+         */
+        Hiker(const Vector2d& location, const Vector2d& size, const Vector2d& velocity,
               const std::string& name);
 
+        /**
+         * Simple getter
+         * @return which lane the hiker is currently at
+         */
         int getCurrentLane() const;
 
-        void setCurrentLane(int currentLane);
+        /**
+         * Simple setter
+         * @param lane: the lane to put the hiker at
+         */
+        void setCurrentLane(int lane);
 
+        /**
+         * Something that happens when a hiker is yelled at
+         */
         virtual void onYelledAt() = 0;
 
 private:
+        /**
+         * The current lane of the hiker
+         */
         int mCurrentLane;
-
-        bool mPlayerControlled;
 };
 } // namespace turboHiker
 

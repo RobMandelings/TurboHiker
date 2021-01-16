@@ -2,14 +2,14 @@
 // Created by Rob Mandelings on 11/01/2021.
 //
 
-#include "HighScores.h"
-#include "LiveScore.h"
+#include "HighScoreContainer.h"
+#include "Score.h"
 #include <algorithm>
 #include <cassert>
 
-turboHiker::HighScores::HighScores(int maxNr) : mMaxNr(maxNr) {}
+turboHiker::HighScoreContainer::HighScoreContainer(int maxNr) : mMaxNr(maxNr) {}
 
-void turboHiker::HighScores::addScore(const turboHiker::LiveScore& liveScore)
+void turboHiker::HighScoreContainer::addScore(const turboHiker::Score& score)
 {
 
         if (mHighScores.size() == mMaxNr) {
@@ -20,19 +20,19 @@ void turboHiker::HighScores::addScore(const turboHiker::LiveScore& liveScore)
                         }
                 }
 
-                if (liveScore.getPointsAtFinish() > lowestScoreIt->getPointsAtFinish()) {
+                if (score.getPointsAtFinish() > lowestScoreIt->getPointsAtFinish()) {
                         mHighScores.erase(lowestScoreIt);
-                        mHighScores.push_back(liveScore);
+                        mHighScores.push_back(score);
                 }
         } else {
-                mHighScores.push_back(liveScore);
+                mHighScores.push_back(score);
         }
 
-        std::sort(mHighScores.begin(), mHighScores.end(), [](const LiveScore& lhs, const LiveScore& rhs) {
+        std::sort(mHighScores.begin(), mHighScores.end(), [](const Score& lhs, const Score& rhs) {
                 return lhs.getPointsAtFinish() > rhs.getPointsAtFinish();
         });
 
         assert(mHighScores.size() <= 5);
 }
 
-const std::vector<turboHiker::LiveScore>& turboHiker::HighScores::getHighScores() const { return mHighScores; }
+const std::vector<turboHiker::Score>& turboHiker::HighScoreContainer::getHighScores() const { return mHighScores; }

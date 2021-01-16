@@ -64,10 +64,10 @@ void Transformation::setWorldViewHeight(double worldViewHeight)
 const WorldView& Transformation::getWorldView() const {
         return *mWorldView;
 }
-void Transformation::setWorldViewCenter(const Vector2d& newCenter)
+void Transformation::setWorldViewCenter(const Vector2d& center)
 {
         assert(initialized() && "Transformation singleton not yet initialized with required values (View and window)!");
-        mWorldView->setWorldViewCenter(newCenter);
+        mWorldView->setWorldViewCenter(center);
 }
 
 void Transformation::setWorldViewCenterX(double x)
@@ -82,15 +82,15 @@ void Transformation::setWorldViewCenterY(double y)
         mWorldView->setWorldViewCenter(Vector2d(getWorldViewCenter().x, y));
 }
 
-void Transformation::setWindowSize(const WindowSize& newWindowSize)
+void Transformation::setWindowSize(const WindowSize& windowSize)
 {
 
         // Calculate the new world view width based on the new window size, old windowSize and old world view width
         double newWorldViewWidth =
-            double(newWindowSize.getWidth()) / mWindowSize->getWidth() * mWorldView->getWorldViewWidth();
+            double(windowSize.getWidth()) / mWindowSize->getWidth() * mWorldView->getWorldViewWidth();
 
         // Set the window size to the new value
-        *mWindowSize = newWindowSize;
+        *mWindowSize = windowSize;
 
         // Set the new worldViewWidth to the calculated value. Automatically calculates the new world view height
         // (always in function of the world view width) to keep the 1:1 ratio

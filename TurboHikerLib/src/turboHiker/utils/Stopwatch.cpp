@@ -2,11 +2,11 @@
 // Created by Rob Mandelings on 12/12/2020.
 //
 
-#include "Clock.h"
+#include "Stopwatch.h"
 
-turboHiker::Clock::Clock() : m_start(std::chrono::high_resolution_clock::now()) {}
+turboHiker::Stopwatch::Stopwatch() : m_start(std::chrono::high_resolution_clock::now()) {}
 
-std::chrono::nanoseconds turboHiker::Clock::restart()
+std::chrono::nanoseconds turboHiker::Stopwatch::restart()
 {
         auto now = std::chrono::high_resolution_clock::now();
         auto difference = now - m_start;
@@ -14,7 +14,7 @@ std::chrono::nanoseconds turboHiker::Clock::restart()
         return difference;
 }
 
-std::chrono::nanoseconds turboHiker::Clock::getElapsedTime() const
+std::chrono::nanoseconds turboHiker::Stopwatch::getElapsedTime() const
 {
         return std::chrono::high_resolution_clock::now() - m_start;
 }

@@ -14,11 +14,12 @@ class Finish : public SceneNode
 {
 
 public:
-
-
-private:
-public:
-        Finish(const Vector2d& initialLocation, const Vector2d& boundingSize, const std::string& name);
+        /**
+         * Simple constructor
+         * @param span: what the finish 'spans' on the world coordinates: left, bottom, width, height. The initial
+         * location and size is deduced from this span.
+         */
+        Finish(const BoundingBox& span);
         unsigned int getCategory() const override;
 };
 } // namespace turboHiker

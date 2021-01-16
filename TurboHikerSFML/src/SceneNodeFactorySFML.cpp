@@ -51,9 +51,7 @@ Finish SceneNodeFactorySFML::createFinish(const BoundingBox& finishDimensions) c
         FinishRenderer finishRenderer =
             FinishRenderer(mWindowRenderer, sf::Vector2f(finishDimensionsInPixels.x, finishDimensionsInPixels.y));
 
-        Finish finish(Vector2d(finishDimensions.getLeft() + finishDimensions.getWidth() / 2,
-                               finishDimensions.getBottom() + finishDimensions.getHeight() / 2),
-                      Vector2d(finishDimensions.getWidth(), finishDimensions.getHeight()), "Finish");
+        Finish finish(<#initializer #>);
         finish.setRenderer(finishRenderer);
 
         return finish;
@@ -68,7 +66,7 @@ PlayerHiker turboHiker::SceneNodeFactorySFML::createPlayerHiker(double yLocation
             HikerRenderer(mWindowRenderer, 1, float(Transformation::get().scaleWorldCoordsToPixelCoords(size).x / 2),
                           sf::Color(0, 0, 255));
 
-        PlayerHiker playerHiker(Vector2d(0, yLocation), size, Vector2d(0, 0), "Player Hiker", slowSpeed, fastSpeed);
+        PlayerHiker playerHiker(Vector2d(0, yLocation), size, "Player Hiker", slowSpeed, fastSpeed);
         playerHiker.setRenderer(hikerRenderer);
 
         return playerHiker;

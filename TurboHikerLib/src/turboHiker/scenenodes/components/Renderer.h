@@ -10,14 +10,13 @@
 
 namespace turboHiker {
 
-class WorldLocation;
-class Model;
-
+/**
+ * The renderer is an abstract class used to render SceneNodes. The specific visual implementation is not done here.
+ */
 class Renderer
 {
 
 public:
-
         /**
          * Clones the render component
          * @return the cloned render component

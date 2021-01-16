@@ -9,7 +9,6 @@
 #include "Renderer.h"
 
 namespace turboHiker {
-class WorldLocation;
 }
 
 namespace turboHikerSFML {
