@@ -19,9 +19,9 @@ using namespace turboHiker;
 
 turboHiker::World::World(const BoundingBox& worldBorders)
     : mWorldBorders(worldBorders), mPreviousLaneEnemySpawned(0), mHikeStatus(HikeStatus::BeforeHiking), mHighscores(3),
-      mLiveScore(std::make_shared<Score>(300, 5, 5000, std::chrono::duration<double>(30)))
+      mScore(std::make_shared<Score>(300, 5, 5000, std::chrono::duration<double>(30)))
 {
-        addObserver(mLiveScore);
+        addObserver(mScore);
 }
 
 void World::update(Updatable::seconds dt)
@@ -83,7 +83,7 @@ void turboHiker::World::buildWorld(int nrLanes)
                 mSceneGraph.addLane(currentLane);
         }
 
-        mSceneGraph.addFinish(mSceneNodeFactory->createFinish(BoundingBox(
+        mSceneGraph.setFinish(mSceneNodeFactory->createFinish(BoundingBox(
             getWorldBorders().getLeft(), getWorldBorders().getTop() - 100, getWorldBorders().getWidth(), 100)));
 
         mSceneGraph.setPlayerHiker(mSceneNodeFactory->createPlayerHiker(10, Vector2d(20, 20), 50, 200));
@@ -199,16 +199,16 @@ void World::trackPlayer() const
         Transformation::get().setWorldViewCenter(Vector2d(newWorldViewCenterX, newWorldViewCenterY));
 }
 
-bool World::matchesCategories(SceneGraph::SceneNodePair& colliders, GameCategory type1, GameCategory type2)
+bool World::matchesCategories(SceneGraph::SceneNodePair& sceneNodePair, GameCategory type1, GameCategory type2)
 {
-        unsigned int category1 = colliders.first->getCategory();
-        unsigned int category2 = colliders.second->getCategory();
+        unsigned int category1 = sceneNodePair.first->getCategory();
+        unsigned int category2 = sceneNodePair.second->getCategory();
 
         // Make sure first pair entry has category type1 and second has type2
         if (type1 & category1 && type2 & category2) {
                 return true;
         } else if (type1 & category2 && type2 & category1) {
-                std::swap(colliders.first, colliders.second);
+                std::swap(sceneNodePair.first, sceneNodePair.second);
                 return true;
         } else {
                 return false;
@@ -311,8 +311,8 @@ void World::resetHike()
         buildWorld(static_cast<int>(mSceneGraph.getAmountOfLanes()));
         Transformation::get().setWorldViewCenterY(Transformation::get().getWorldView().getWorldViewHeight() / 2);
 
-        mHighscores.addScore(*mLiveScore);
-        mLiveScore->reset();
+        mHighscores.addScore(*mScore);
+        mScore->reset();
 }
 
 void World::endHike()
@@ -322,5 +322,5 @@ void World::endHike()
         mSceneGraph.getPlayerHiker().setVelocity(Vector2d(0, 0));
 }
 
-const Score& World::getLiveScore() const { return *mLiveScore; }
+const Score& World::getScore() const { return *mScore; }
 const HighScoreContainer& World::getHighScores() const { return mHighscores; }

@@ -4,9 +4,9 @@
 
 #pragma once
 
+#include "GameCategory.h"
 #include "Renderable.h"
 #include "Updatable.h"
-#include "GameCategory.h"
 #include <memory>
 #include <set>
 #include <vector>
@@ -32,9 +32,9 @@ class SceneGraph : public Updatable, public Renderable
 {
 
 public:
-
         /**
-         * Used for convenience if you would want to get a pair of two SceneNodes (for usage with collision detection, for example)
+         * Used for convenience if you would want to get a pair of two SceneNodes (for usage with collision detection,
+         * for example)
          */
         typedef std::pair<std::shared_ptr<SceneNode>, std::shared_ptr<SceneNode>> SceneNodePair;
 
@@ -65,38 +65,112 @@ public:
          */
         void cleanupDeadObjects();
 
+        /**
+         * Find all SceneNodes that collide with eachother and put them in pairs
+         * @return a set of all pairs of colliding SceneNodes
+         */
         std::set<SceneNodePair> findCollisionPairs() const;
 
+        /**
+         * Checks whether or not a specific world space is occupied by a certain object with game category
+         * @param boundingBox: the area you want to check for
+         * @param category: the category of the game object you want to check for (e.g. 'Is this space occupied by a
+         * RunningHiker?')
+         * @return true if the space is occupied, false if not
+         */
         bool spaceOccupiedBy(const BoundingBox& boundingBox, const GameCategory& category);
 
+        /**
+         * Delegates the command to all SceneNodes in this scenegraph so they can handle it properly
+         * @param command: the command to execute
+         * @param dt: the timestep to execute for time-based commands
+         */
         void onCommand(const Command& command, std::chrono::duration<double> dt);
 
+        /**
+         * Simple getter
+         * @return the amount of SceneNode present in this scenegraph
+         */
         unsigned int getAmountOfSceneNodes() const;
 
+        /**
+         * Simple getter
+         * @return the amount of Lanes present in this scenegraph
+         */
         unsigned int getAmountOfLanes() const;
 
+        /**
+         * Simple getter
+         * @return the amount of Competing Hikers (either static or running) present in this Scene Graph
+         */
         unsigned int getAmountOfCompetingHikers() const;
 
+        /**
+         * Simple getter
+         * @return a reference to the PlayerHiker
+         */
         PlayerHiker& getPlayerHiker() const;
 
+        /**
+         * Simple getter
+         * @return a reference to the SceneNode at specific index
+         */
         SceneNode& getSceneNode(unsigned int index) const;
 
+        /**
+         * Simple getter
+         * @return a reference to the Competing hiker at specific index
+         */
         Hiker& getCompetingHiker(unsigned int index) const;
 
+        /**
+         * Simple getter
+         * @return a reference to a Lane at specific index
+         */
         SceneNode& getLane(unsigned int index) const;
 
+        /**
+         * Simple getter
+         * @return a reference the finish SceneNode, for checking when a player reached the finish
+         */
         Finish& getFinish() const;
 
+        /**
+         * Adds a SceneNode to the Scene Graph. Can be anything, but be aware that you can't very easily get access to
+         * this SceneNode if it would be a derived class, so the object placed in here should be able to handle itself
+         * completely
+         */
         void addSceneNode(const SceneNode& sceneNode);
 
+        /**
+         * Adds a Static Hiker to the SceneGraph. Can be queries easily without the need of downcasting anything
+         * @param staticHiker: the staticHiker to add
+         */
         void addStaticHiker(const StaticHiker& staticHiker);
+
+        /**
+         * Adds a Running Hiker to the SceneGraph. Can be queries easily without the need of downcasting anything
+         * @param RunningHiker: the RunningHiker to add
+         */
         void addRunningHiker(const RunningHiker& runningHiker);
 
+        /**
+         * Sets the new PlayerHiker to another Hiker
+         * @param playerHiker: the new PlayerHiker
+         */
         void setPlayerHiker(const PlayerHiker& playerHiker);
 
+        /**
+         * Adds a lane to the SceneGraph. Used to position hikers correctly on their respective lanes
+         * @param lane: the lane SceneNode to add
+         */
         void addLane(const SceneNode& lane);
 
-        void addFinish(const Finish& finish);
+        /**
+         * Sets the finish to the SceneGraph
+         * @param finish: the finish to add
+         */
+        void setFinish(const Finish& finish);
 
 private:
         /**
@@ -112,6 +186,9 @@ private:
          */
         std::vector<std::weak_ptr<Hiker>> mCompetingHikers;
 
+        /**
+         * Weak pointer to the PlayerHikers
+         */
         std::weak_ptr<PlayerHiker> mPlayerHiker;
 
         /**
@@ -120,6 +197,9 @@ private:
          */
         std::vector<std::weak_ptr<SceneNode>> mLanes;
 
+        /**
+         * Weak ptr to the Finish of this ScenieGraph
+         */
         std::weak_ptr<Finish> mFinish;
 };
 } // namespace turboHiker

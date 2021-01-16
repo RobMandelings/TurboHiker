@@ -12,8 +12,8 @@
 #include "World.h"
 #include "Command.h"
 
-turboHiker::Game::Game(std::chrono::duration<double> timePerFrame, std::unique_ptr<World> world)
-    : m_timePerFrame(timePerFrame), mWorld(std::move(world))
+turboHiker::Game::Game(std::chrono::duration<double> timeStep, std::unique_ptr<World> world)
+    : m_timePerFrame(timeStep), mWorld(std::move(world))
 {
 }
 

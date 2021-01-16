@@ -110,7 +110,7 @@ void SFMLGame::drawStatsOverlay()
         text.setString("Live Score and Stats: ");
         currentStatsToDisplay.push_back(text);
 
-        const Score& liveScore = mWorld->getLiveScore();
+        const Score& liveScore = mWorld->getScore();
 
         text.setString(
             "Hike duration: " +

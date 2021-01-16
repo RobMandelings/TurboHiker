@@ -14,11 +14,21 @@ namespace turboHiker {
 
 class World;
 
+/**
+ * Main game class of the turboHiker. Keeps track of the world and handles updates, rendering,... The game class is
+ * still abstract though: the rendering is specific to the visual implementation used.
+ */
 class Game
 {
 
 public:
-        Game(std::chrono::duration<double> timePerFrame, std::unique_ptr<World> world);
+
+        /**
+         * Simple constructor
+         * @param timeStep: by how many seconds the world should be updated each time
+         * @param world: the world
+         */
+        Game(std::chrono::duration<double> timeStep, std::unique_ptr<World> world);
 
         /**
          * Starts and maintains the Game Loop
@@ -45,7 +55,6 @@ public:
         // TODO add pause functionality
 
 protected:
-
         /**
          * Renders the game (window, world, overlays,...)
          */
@@ -56,19 +65,20 @@ protected:
          */
         virtual void processInput() = 0;
 
-protected:
-
+        /**
+         * The current world that the Game keeps track of
+         */
         std::unique_ptr<World> mWorld;
 
 private:
-
         /**
          * Updates the game by the given timestep
          */
         void update();
 
-private:
-
+        /**
+         * The timestep: by how much time each update in the world should be
+         */
         std::chrono::duration<double> m_timePerFrame;
 };
 } // namespace turboHiker

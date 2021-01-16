@@ -188,7 +188,7 @@ void SceneGraph::addLane(const SceneNode& lane)
         mLanes.push_back(lanePtr);
 }
 
-void SceneGraph::addFinish(const Finish& finish) {
+void SceneGraph::setFinish(const Finish& finish) {
         std::shared_ptr<Finish> finishPtr = std::make_shared<Finish>(finish);
         mSceneNodes.push_back(finishPtr);
         mFinish = finishPtr;

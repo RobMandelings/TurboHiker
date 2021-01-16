@@ -37,8 +37,6 @@ set(SRC
         src/turboHiker/scenenodes/entities/PlayerHiker.h
         src/turboHiker/scenenodes/Finish.h
         src/turboHiker/scenenodes/Finish.cpp
-        src/turboHiker/world/WorldStats.cpp
-        src/turboHiker/world/WorldStats.h
         src/turboHiker/interfaces/EventObserver.h
         src/turboHiker/scoring/Score.cpp
         src/turboHiker/scoring/Score.h

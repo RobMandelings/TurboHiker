@@ -5,6 +5,10 @@
 #pragma once
 
 namespace turboHiker {
+
+/**
+ * Represents the HikeStatus the world is currently in
+ */
 enum class HikeStatus
 {
         BeforeHiking,
