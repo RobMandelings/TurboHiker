@@ -56,9 +56,28 @@ Enemies will be spawned on the fly, creating a more `dynamic hike` each time you
 
 ### Scene Nodes
 
+Scene Nodes are the fundamental objects the game is built of. They make up everything the [World](#the-world) consists of. These SceneNodes can be purely decorative, [Entities](#entities-and-the-hikers), [zones](#zones) or something custom. Each SceneNode has a rendering component which is, in the logic library of TurboHiker, just and abstract class. This [rendering](#rendering-system) component can then be implemented by your specific visual implementation of the game and it can be set to render the given SceneNode.
+
+Why I chose a Rendering component above rendering Hierarchy: I think that the visual representation of an object should not really be a part of the Object itself, this decouples the Game logic from the Visual implementation more in my opinion. The Renderer should never be able to control any Game Logic, it should only track the current state and render differently depending on those states. Also, its fairly easy to create customized renderers for the same kind of object now. Just `plug in` a different renderer and the object will be rendered differently. This would be harder to do using inheritance, and you would get a bigger inheritance structure by all the different visualizations of the a same object.
+
+#### Entities and the Hikers
+
+Entities are basically SceneNodes with an extra attribute 'velocity'. Hikers are part of Entities
+
+#### Zone
+
+A zone is a specific type of SceneNode which is only used in [collisions](#collision-handling) and does nothing on itself. A finish is an example of this.
+
 ### The World
 
+The world keeps track of all game logic from above: it does some logic itself, and delegates other logic to its children. Also the rendering requests are delegated further. The [SceneNodes](#scene-nodes) I talked about earlier are kept track in the [Scene Graph](#scene-graph) instead of in the world itself.
 #### Scene Graph
+
+The Scene Graph is basically an `'extension' of the world` that is only responsible for maintaining all SceneNodes currently present. It delegates specific requests such as commands, updates, or rendering, to all its 'children'. At first I kept track of all SceneNodes directly in the world class. So why did I switch? I was struggling to find a way to `not use downcasts` for each SceneNode to get to their derived form (e.g. Hikers), as this is generally something you should avoid. The SceneGraph solves this problem for you: internally it keeps track of a vector of shared ptrs to SceneNodes. Also the derivations of these SceneNodes are kept here using weak_ptrs. So the main 'ownership' is still in the list of SceneNodes, but there are already references to all derived objects added to the world. For example: If you want to add a competing hiker to the list of SceneNodes but still be able to directly get access to the derived Object (of the StaticHiker class for example), you use the function `addCompetingHiker`. This will automatically add the Hiker (SceneNode) to the list of objects to be updated/rendered/..., but also add a weak ptr to still directly have access to the derived version.
+
+Another reason why I used it is because it hides most of the 'specific' implementation of how the SceneNodes are kept track of. If it would ever change, this piece is a little more decoupled.
+
+### Collision Handling
 
 ### Commands
 ### Rendering System
