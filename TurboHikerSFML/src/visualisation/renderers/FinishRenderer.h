@@ -9,23 +9,49 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 
 namespace turboHikerSFML {
+
+/**
+ * Renderer used to render the finish
+ */
 class FinishRenderer : public turboHikerSFML::SceneNodeRendererSFML
 {
 
 public:
-
-        FinishRenderer(turboHiker::DrawableRenderer& windowDrawer, const sf::Vector2f& dimensions);
+        /**
+         * Simple constructor
+         * @param drawableRenderer: the renderer that is used to render the finish
+         * @param dimensions: dimensions of the finish
+         */
+        FinishRenderer(turboHiker::DrawableRenderer& drawableRenderer, const sf::Vector2f& dimensions);
 
 private:
-
+        /**
+         * See base class
+         */
         std::unique_ptr<Renderer> clone() const override;
+
+        /**
+         * See Renderer
+         */
         void update(const turboHiker::Updatable::seconds& dt,
                     const turboHiker::Vector2d& currentWorldLocation) override;
+
+        /**
+         * See Renderer
+         */
         void render() const override;
 
 private:
-
+        /**
+         * Shape representing the finish
+         */
         sf::RectangleShape mFinishShape;
+
+        /**
+         * Creates the finish shape
+         * @param dimensions: the dimensions in pixels
+         * @return the created shape for the finish
+         */
         sf::RectangleShape createFinish(const sf::Vector2f& dimensions);
 };
 } // namespace turboHikerSFML

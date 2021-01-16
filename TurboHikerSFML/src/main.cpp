@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
 
-#include "SFMLGame.h"
+#include "GameSFML.h"
 
 #include "BoundingBox.h"
 #include "SceneNodeFactorySFML.h"
@@ -13,8 +13,7 @@ using namespace turboHiker;
 int main()
 {
 
-
-        SFMLGame game(std::chrono::duration<double>(1 / 120.0));
+        GameSFML game(std::chrono::duration<double>(1 / 120.0));
         game.startRunning();
 
         return 0;

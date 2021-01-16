@@ -19,8 +19,8 @@
 using namespace turboHiker;
 using namespace turboHikerSFML;
 
-turboHiker::SceneNodeFactorySFML::SceneNodeFactorySFML(turboHiker::DrawableRenderer& mWindowDrawer)
-    : mWindowRenderer(mWindowDrawer)
+turboHiker::SceneNodeFactorySFML::SceneNodeFactorySFML(turboHiker::DrawableRenderer& drawableRenderer)
+    : mDrawableRenderer(drawableRenderer)
 {
 }
 
@@ -31,7 +31,7 @@ SceneNode turboHiker::SceneNodeFactorySFML::createLane(const BoundingBox& laneDi
             Vector2d(laneDimensions.getWidth(), laneDimensions.getHeight()));
 
         LaneRenderer laneRenderer =
-            LaneRenderer(mWindowRenderer, sf::Vector2f(laneRectangleSizeInPixels.x, laneRectangleSizeInPixels.y));
+            LaneRenderer(mDrawableRenderer, sf::Vector2f(laneRectangleSizeInPixels.x, laneRectangleSizeInPixels.y));
 
         SceneNode lane(Vector2d(laneDimensions.getLeft() + laneDimensions.getWidth() / 2,
                                 laneDimensions.getBottom() + laneDimensions.getHeight() / 2),
@@ -49,7 +49,7 @@ Finish SceneNodeFactorySFML::createFinish(const BoundingBox& finishDimensions) c
             Vector2d(finishDimensions.getWidth(), finishDimensions.getHeight()));
 
         FinishRenderer finishRenderer =
-            FinishRenderer(mWindowRenderer, sf::Vector2f(finishDimensionsInPixels.x, finishDimensionsInPixels.y));
+            FinishRenderer(mDrawableRenderer, sf::Vector2f(finishDimensionsInPixels.x, finishDimensionsInPixels.y));
 
         Finish finish(finishDimensions);
         finish.setRenderer(finishRenderer);
@@ -63,7 +63,7 @@ PlayerHiker turboHiker::SceneNodeFactorySFML::createPlayerHiker(double yLocation
         assert(size.x == size.y && "Must be a square in order for the shape to be a circle");
 
         HikerRenderer hikerRenderer =
-            HikerRenderer(mWindowRenderer, 1, float(Transformation::get().scaleWorldCoordsToPixelCoords(size).x / 2),
+            HikerRenderer(mDrawableRenderer, 1, float(Transformation::get().scaleWorldCoordsToPixelCoords(size).x / 2),
                           sf::Color(0, 0, 255));
 
         PlayerHiker playerHiker(Vector2d(0, yLocation), size, "Player Hiker", slowSpeed, fastSpeed);
@@ -76,7 +76,7 @@ StaticHiker SceneNodeFactorySFML::createStaticHiker(double yLocation, const Vect
         assert(size.x == size.y && "Must be a square in order for the shape to be a circle");
 
         HikerRenderer hikerRenderer =
-            HikerRenderer(mWindowRenderer, 1, float(Transformation::get().scaleWorldCoordsToPixelCoords(size).x / 2),
+            HikerRenderer(mDrawableRenderer, 1, float(Transformation::get().scaleWorldCoordsToPixelCoords(size).x / 2),
                           sf::Color(0, 255, 0));
 
         StaticHiker staticHiker(Vector2d(0, yLocation), size, "Static Hiker");
@@ -88,7 +88,7 @@ RunningHiker SceneNodeFactorySFML::createMovingHiker(double yLocation, const Vec
         assert(size.x == size.y && "Must be a square in order for the shape to be a circle");
 
         HikerRenderer hikerRenderer =
-            HikerRenderer(mWindowRenderer, 1.5, float(Transformation::get().scaleWorldCoordsToPixelCoords(size).x / 2),
+            HikerRenderer(mDrawableRenderer, 1.5, float(Transformation::get().scaleWorldCoordsToPixelCoords(size).x / 2),
                           sf::Color(255, 0, 0));
 
         RunningHiker runningHiker(Vector2d(0, yLocation), size, velocity, "Moving Hiker");

@@ -7,8 +7,8 @@
 
 using namespace turboHiker;
 
-turboHikerSFML::FinishRenderer::FinishRenderer(DrawableRenderer& windowDrawer, const sf::Vector2f& dimensions)
-    : SceneNodeRendererSFML(windowDrawer)
+turboHikerSFML::FinishRenderer::FinishRenderer(DrawableRenderer& drawableRenderer, const sf::Vector2f& dimensions)
+    : SceneNodeRendererSFML(drawableRenderer)
 {
         mFinishShape = createFinish(dimensions);
 }

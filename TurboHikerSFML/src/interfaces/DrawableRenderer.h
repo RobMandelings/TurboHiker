@@ -19,6 +19,9 @@ class Vector2d;
 
 namespace turboHiker {
 
+/**
+ * Renderer to render SFML drawables
+ */
 class DrawableRenderer
 {
 

@@ -25,24 +25,51 @@ using namespace turboHiker;
 
 class DrawableRenderer;
 
+/**
+ * Factory to create SceneNodes, with the rendering done using SFML
+ */
 class SceneNodeFactorySFML : public turboHiker::SceneNodeFactory
 {
 
 public:
-        SceneNodeFactorySFML(DrawableRenderer& mWindowDrawer);
+        /**
+         * Simple constructor
+         * @param drawableRenderer: the renderer which is responsible for drawing drawables onto the screen
+         */
+        explicit SceneNodeFactorySFML(DrawableRenderer& drawableRenderer);
 
+        /**
+         * Creates the PlayerHiker in SFML representation. See SceneNodeFactory for parameter details
+         */
         PlayerHiker createPlayerHiker(double yLocation, const Vector2d& size, double slowSpeed,
-                                double fastSpeed) const override;
+                                      double fastSpeed) const override;
 
+        /**
+         * Creates the StaticHiker in SFML representation. See SceneNodeFactory for parameter details
+         */
         StaticHiker createStaticHiker(double yLocation, const Vector2d& size) const override;
+
+        /**
+         * Creates the MovingHiker in SFML representation. See SceneNodeFactory for parameter details
+         */
         RunningHiker createMovingHiker(double yLocation, const Vector2d& size, const Vector2d& velocity) const override;
 
+        /**
+         * Creates the Lane in SFML representation. See SceneNodeFactory for parameter details
+         */
         SceneNode createLane(const turboHiker::BoundingBox& laneDimensions) const override;
+
+        /**
+         * Creates the Finish in SFML representation. See SceneNodeFactory for parameter details
+         */
         Finish createFinish(const BoundingBox& finishDimensions) const override;
 
 private:
-        DrawableRenderer& mWindowRenderer;
+        /**
+         * the renderer which is responsible for drawing drawables onto the screen
+         */
+        DrawableRenderer& mDrawableRenderer;
 };
-} // namespace turboHikerSFML
+} // namespace turboHiker
 
 #endif // TURBOHIKER_SCENENODEFACTORYSFML_H

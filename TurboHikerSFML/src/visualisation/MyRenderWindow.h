@@ -16,10 +16,20 @@ class MyRenderWindow : public sf::RenderWindow, public turboHiker::DrawableRende
 {
 
 public:
+
+        /**
+         * SimpleConstructor
+         * See RenderWindow for specific parameter information
+         */
         MyRenderWindow(const sf::VideoMode& mode, const sf::String& title, unsigned int style = sf::Style::Default,
                        const sf::ContextSettings& settings = sf::ContextSettings());
 
 private:
+
+        /**
+         * Render the drawable onto the window
+         * @param drawable: drawable to render
+         */
         void renderOnWindow(const sf::Drawable& drawable) override;
 };
 } // namespace turboHikerSFML

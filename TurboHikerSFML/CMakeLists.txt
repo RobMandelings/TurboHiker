@@ -28,8 +28,8 @@ message(STATUS ${SFML_LIBRARIES})
 set(SRC
         src/main.cpp
         src/utils/constants.h
-        src/SFMLGame.cpp
-        src/SFMLGame.h
+        src/GameSFML.cpp
+        src/GameSFML.h
         ../TurboHikerLib/src/turboHiker/view/Transformation.cpp
         ../TurboHikerLib/src/turboHiker/view/Transformation.h
         src/interfaces/DrawableRenderer.h

@@ -2,7 +2,7 @@
 // Created by Rob Mandelings on 12/12/2020.
 //
 
-#include "SFMLGame.h"
+#include "GameSFML.h"
 #include <SFML/Graphics/Text.hpp>
 
 #include "BoundingBox.h"
@@ -16,7 +16,7 @@
 using namespace turboHiker;
 using namespace turboHiker;
 
-SFMLGame::SFMLGame(const std::chrono::duration<double>& timePerFrame)
+GameSFML::GameSFML(const std::chrono::duration<double>& timePerFrame)
     : Game(timePerFrame, std::make_unique<turboHiker::World>(BoundingBox(0,0, 1000, 6000))),
       mWindow(sf::VideoMode(1000, 700), "TurboHiker")
 {
@@ -28,7 +28,7 @@ SFMLGame::SFMLGame(const std::chrono::duration<double>& timePerFrame)
         mWorld->buildWorld(12);
 }
 
-void SFMLGame::processInput()
+void GameSFML::processInput()
 {
         CommandQueue& commands = mWorld->getCommandQueue();
 
@@ -56,7 +56,7 @@ void SFMLGame::processInput()
 
         mPlayer.handleRealtimeInput(commands);
 }
-void SFMLGame::render()
+void GameSFML::render()
 {
         mWindow.clear();
         mWorld->render();
@@ -65,10 +65,10 @@ void SFMLGame::render()
         mWindow.display();
 }
 
-void SFMLGame::stopRunning() { mWindow.close(); }
-bool SFMLGame::isRunning() const { return mWindow.isOpen(); }
+void GameSFML::stopRunning() { mWindow.close(); }
+bool GameSFML::isRunning() const { return mWindow.isOpen(); }
 
-void SFMLGame::drawStatsOverlay()
+void GameSFML::drawStatsOverlay()
 {
 
         const sf::Font& arial = FontManager::get().getFont(Font::ARIAL);
