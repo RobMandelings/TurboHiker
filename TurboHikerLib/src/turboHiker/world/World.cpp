@@ -17,10 +17,9 @@
 
 using namespace turboHiker;
 
-turboHiker::World::World()
-    : mWorldBorders(BoundingBox::getEmptyBB()), mPreviousLaneEnemySpawned(0),
-      mHikeStatus(HikeStatus::BeforeHiking),
-      mHighscores(3), mLiveScore(std::make_shared<Score>(300, 5, 5000, std::chrono::duration<double>(30)))
+turboHiker::World::World(const BoundingBox& worldBorders)
+    : mWorldBorders(worldBorders), mPreviousLaneEnemySpawned(0), mHikeStatus(HikeStatus::BeforeHiking), mHighscores(3),
+      mLiveScore(std::make_shared<Score>(300, 5, 5000, std::chrono::duration<double>(30)))
 {
         addObserver(mLiveScore);
 }
@@ -69,13 +68,11 @@ void World::onCommand(const Command& command, Updatable::seconds dt)
         }
 }
 
-void turboHiker::World::buildWorld(int nrLanes, double laneWidth, double worldHeight)
+void turboHiker::World::buildWorld(int nrLanes)
 {
         assert(mSceneNodeFactory != nullptr && "SceneNode Factory not set: no way to create new SceneNodes");
 
         mSceneGraph.clear();
-
-        mWorldBorders = BoundingBox(0, 0, laneWidth * nrLanes, worldHeight);
 
         for (int lane = 0; lane < nrLanes + 0; lane++) {
                 SceneNode currentLane = mSceneNodeFactory->createLane(
@@ -107,8 +104,12 @@ void World::generateCompetingHikers(seconds dt)
 
         // We want the enemies to spawn on the fly as the player moves
 
-        // The higher this number is, the more enemies will spawn per time unit. If the player is going fast, more enemies will spawn proportionally to the player's 'fast' speed versus the slow.
-        double spawnRate = 3 * (getPlayerHiker().goingFast() ? (getPlayerHiker().getFastSpeed() / getPlayerHiker().getSlowSpeed()) : 1) * dt.count();
+        // The higher this number is, the more enemies will spawn per time unit. If the player is going fast, more
+        // enemies will spawn proportionally to the player's 'fast' speed versus the slow.
+        double spawnRate =
+            3 *
+            (getPlayerHiker().goingFast() ? (getPlayerHiker().getFastSpeed() / getPlayerHiker().getSlowSpeed()) : 1) *
+            dt.count();
         //        assert(spawnRate >= 0 && spawnRate <= 1);
 
         bool enemyShouldSpawn = false;
@@ -220,7 +221,8 @@ void turboHiker::World::handleCollisions()
 
         for (auto pair : collisionPairs) {
 
-                if (matchesCategories(pair, GameCategory::GamePlayerHiker, GameCategory::GameStaticHiker) || matchesCategories(pair, GameCategory::GamePlayerHiker, GameCategory::GameRunningHiker)) {
+                if (matchesCategories(pair, GameCategory::GamePlayerHiker, GameCategory::GameStaticHiker) ||
+                    matchesCategories(pair, GameCategory::GamePlayerHiker, GameCategory::GameRunningHiker)) {
 
                         std::shared_ptr<Hiker> playerHiker = std::static_pointer_cast<Hiker>(pair.first);
 
@@ -306,7 +308,7 @@ void World::startHiking()
 void World::resetHike()
 {
         assert(mHikeStatus == HikeStatus::AfterHiking);
-        buildWorld(static_cast<int>(mSceneGraph.getAmountOfLanes()), 0, 0);
+        buildWorld(static_cast<int>(mSceneGraph.getAmountOfLanes()));
         Transformation::get().setWorldViewCenterY(Transformation::get().getWorldView().getWorldViewHeight() / 2);
 
         mHighscores.addScore(*mLiveScore);

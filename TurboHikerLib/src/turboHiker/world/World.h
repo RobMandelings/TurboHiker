@@ -32,7 +32,7 @@ class World : public Updatable, public Renderable, public Commandable, private O
 {
 
 public:
-        World();
+        World(const BoundingBox& worldBorders);
 
         void handleCollisions();
 
@@ -46,7 +46,7 @@ public:
 
         void hikerYelled(Hiker& hiker, double yellDistance);
 
-        void buildWorld(int nrLanes, double laneWidth, double worldHeight);
+        void buildWorld(int nrLanes);
 
         void generateCompetingHikers(seconds dt);
         void removeCompetingHikers();
