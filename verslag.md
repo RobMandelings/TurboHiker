@@ -32,7 +32,7 @@ If you press `R` during hiking or after (when you have reached the finish) you w
 
 ## Features
 
-The `player hiker` is the hiker in blue / purple which animates between these two colors. The animation is just for fanciness and doesn't add anything special, same for the other two types. This is also used to demonstrate how the [Rendering](#Rendering) system works.
+The `player hiker` is the hiker in blue / purple which animates between these two colors. The animation is just for fanciness and doesn't add anything special, same for the other two types. This is also used to demonstrate how the [Rendering](#rendering-system) system works.
 
 The `static hiker` is the green/yellow hiker which stays static throughout the hike. *Be aware that they may 'seem' like moving obstactles due to the moving [Camera](#Camera)*.
 
@@ -58,7 +58,13 @@ Enemies will be spawned on the fly, creating a more `dynamic hike` each time you
 
 Scene Nodes are the fundamental objects the game is built of. They make up everything the [World](#the-world) consists of. These SceneNodes can be purely decorative, [Entities](#entities-and-the-hikers), [zones](#zones) or something custom. Each SceneNode has a rendering component which is, in the logic library of TurboHiker, just and abstract class. This [rendering](#rendering-system) component can then be implemented by your specific visual implementation of the game and it can be set to render the given SceneNode.
 
-Why I chose a Rendering component above rendering Hierarchy: I think that the visual representation of an object should not really be a part of the Object itself, this decouples the Game logic from the Visual implementation more in my opinion. The Renderer should never be able to control any Game Logic, it should only track the current state and render differently depending on those states. Also, its fairly easy to create customized renderers for the same kind of object now. Just `plug in` a different renderer and the object will be rendered differently. This would be harder to do using inheritance, and you would get a bigger inheritance structure by all the different visualizations of the a same object.
+#### Locations
+
+Each SceneNode has a specific Vector2d (x, y) coordinate to position the SceneNode in the world. The [BoundingBox](#boundingboxes) is calculated with regard to this location.
+
+#### Lanes
+
+The lanes are basic SceneNodes that represent a lane. These lanes don't do anything on theirselves and are mostly decorative. The only thing here is that the x locations of the lanes are used to position the Hikers correctly on their current lane.
 
 #### Entities and the Hikers
 
@@ -73,17 +79,79 @@ A zone is a specific type of SceneNode which is only used in [collisions](#colli
 The world keeps track of all game logic from above: it does some logic itself, and delegates other logic to its children. Also the rendering requests are delegated further. The [SceneNodes](#scene-nodes) I talked about earlier are kept track in the [Scene Graph](#scene-graph) instead of in the world itself.
 #### Scene Graph
 
-The Scene Graph is basically an `'extension' of the world` that is only responsible for maintaining all SceneNodes currently present. It delegates specific requests such as commands, updates, or rendering, to all its 'children'. At first I kept track of all SceneNodes directly in the world class. So why did I switch? I was struggling to find a way to `not use downcasts` for each SceneNode to get to their derived form (e.g. Hikers), as this is generally something you should avoid. The SceneGraph solves this problem for you: internally it keeps track of a vector of shared ptrs to SceneNodes. Also the derivations of these SceneNodes are kept here using weak_ptrs. So the main 'ownership' is still in the list of SceneNodes, but there are already references to all derived objects added to the world. For example: If you want to add a competing hiker to the list of SceneNodes but still be able to directly get access to the derived Object (of the StaticHiker class for example), you use the function `addCompetingHiker`. This will automatically add the Hiker (SceneNode) to the list of objects to be updated/rendered/..., but also add a weak ptr to still directly have access to the derived version.
+The Scene Graph is basically an `'extension' of the world` that is only responsible for maintaining all SceneNodes currently present. It delegates specific requests such as commands, updates, or rendering, to all its 'children'. At first I kept track of all SceneNodes directly in the world class. So why did I switch? I was struggling to find a way to `not use downcasts` for each SceneNode to get to their derived form (e.g. Hikers), as this is generally something to avoid. The SceneGraph solves this problem for you: internally it keeps track of a vector of shared ptrs to SceneNodes. Also the derivations of these SceneNodes are kept here using weak_ptrs. So the main 'ownership' is still in the list of SceneNodes, but there are already references to all derived objects added to the world. For example: If you want to add a competing hiker to the list of SceneNodes but still be able to directly get access to the derived Object (of the StaticHiker class for example), you use the function `addCompetingHiker`. This will automatically add the Hiker (SceneNode) to the list of objects to be updated/rendered/..., but also add a weak ptr to still directly have access to the derived version.
 
 Another reason why I used it is because it hides most of the 'specific' implementation of how the SceneNodes are kept track of. If it would ever change, this piece is a little more decoupled.
 
 ### Collision Handling
 
-### Commands
+The [World](#the-world) is responsible for reacting to collisions between [SceneNodes](#scene-nodes). I think that collisions should be handled from the top, to always be able to correctly define behaviour of two colliding SceneNodes. I though at first that each SceneNode should be responsible of reacting to collisions with other SceneNodes, but this doesn't guarantee that one SceneNode reacts first. For example, lets say a SceneNode reacts to another SceneNode by moving away from the other SceneNode so that they don't collide anymore. The location of this SceneNode has changed and the behaviour of the other SceneNode may now be different that intented.
+
+#### BoundingBoxes
+
+All SceneNodes can set a `bounding size`, which just means how big (in world coordinates) the SceneNode is. This bounding size is then used to calculate the current bounding box of the entity, which is the rectangle (world coordinates) that currently represents the entity. These boundingBoxes have a left, bottom, width and height component and if the SceneNode location changes, the bounding box is adjusted accordingly. I implemented the boundingBox so that the `origin of the 'location' of the SceneNode is in the middle of the boundingBox`.
+
+#### Collision Pairs
+
+When checking for and handling collisions, the world sends a request to find all pairs of SceneNodes which collide with each other, by asking the [SceneGraph](#scene-graph) for it. The world will then react to these collisions individually in the `handleCollisions()` method.
+
+### Input handling
+
+**Pattern used:** [Command Pattern](https://gameprogrammingpatterns.com/command.html)
+
+#### PlayerSFML and ActionBinder class
+
+The ActionBinder is a class which binds actions with specific commands so that they can be executed on the world or SceneNodes. This ActionBinder class is part of the library. In the SFML implementation, the PlayerSFML class handles any keyBoard input which is binded to an Action. This way, `dynamic key bindings` are enabled as you just need to assign a different key to a different action to get the same effect, which is very easy to do. Each Action is in turn binded to a corresponding command using the ActionBinder. So indirectly, each key is binded to a specific command to execute as well.
+
+#### Commands
+
+Commands in the TurboHiker game are basic implementations of the command pattern. Each command holds a function pointer and this function will be executed in the correct places of the World. I used this pattern because it is very easy to keep Input apart from the Logic itself, and it is very easy to delegate commands to all its corresponding destinations. The function takes as parameters a reference to a Commandable and the delta time, in case you wanted to do some commands based on the timeStep. Examples of Commandables are the SceneNodes and the World.
+
+Commandable is a simple interface with an unimplemented onCommand() function to do something specific if wanted.
+
 ### Rendering System
 
+**Pattern used:** [Component Pattern](https://gameprogrammingpatterns.com/component.html)
+
+The Rendering System is used to separate all Game Logic from the concrete Visual implementation of the game. Each SceneNode has a renderer which is a component of the SceneNode. This Renderer is simply an interface in the game logic library and can be implemented in the concrete visual implementation, so that the logic library does not know anything about how, or if, the object is actually rendered. The RendererSFML simply implements this class and adds some extra SFML specific things to actually make it work using SFML.
+
+*Why I chose a Rendering Component above Rendering Hierarchy:* I think that the visual representation of an object should not really be a part of the Object itself, this pattern decouples the Game logic from the Visual implementation a bit more. The Renderer should never be able to control any Game Logic, it should only track the current state and render depending on those states. Another reason why I did this is that its fairly easy to create different renderers for the same type of SceneNode now. Just `plug in` a different renderer and the object will be rendered differently. This would be harder to do using inheritance, and you would get a bigger inheritance structure by all the different visualizations of the a same thing.
 ### View System (Sophisticated Transformation class)
 
+**Pattern used:** [Singleton Pattern](https://gameprogrammingpatterns.com/singleton.html)
+
+In its essence, the Transformation class is a class which converts pixel values to the visible 2D game world space, as was mentioned in the programming assignment. It doesn't use SFML specific classes to implement views or enable scrolling.
+
+*I did some more upgrades on this Transformation class though*, to have a better gaming experience. A View system was implemented in the transformation class itself, with a `working Camera`: you can adjust how much you can see of the world (in world coordinates), both in width and in height. I've implemented it so that the ratios of the screen and world view are always one to one, so that you don't get any stretched renderings of the SceneNodes. This also made sure that `resizing the window to any arbitrary size` is now easy to do and this just makes sure you can see more / less of the world, but everything still looks perfect. If you can't see as wide to see all lanes of the world, the camera moves along with the player to keep the player in the middle of the screen. On the other hand, if its possible to see all lanes at once, the camera is centered in the middle and doesn't move to the left/right if the player switches lanes.
+
+#### Scrolling
+
+Scrolling is very important, as the world is a lot higher than what you can initially see. Whenever the player moves above the center of the screen, the view starts moving along with the player to keep the player in sight and scroll upwards on the lanes.
+
+Why the transformation class resides in the Game Logic instead of the Visual implementation: some of the game logic depends on the View system (which only uses world coordinates, so its okay to put into the logic library), such as tracking the player or [cleaning](#cleaning-up) up some of the competing hikers. This is why I had to implement the transformation class in the game logic libary instead of the SFML implementation I would have preferred to use another pattern than the Singleton pattern so that I could do a part of the transformation system in the Game logic (the World View implementation) and use inheritance for the SFML implementation to do the conversions from coordinates into their corresponding pixel values.
+
+### Scoring System
+
+**Pattern used:** [Observer Pattern](https://gameprogrammingpatterns.com/observer.html).
+
+The class `Score` is used to keep track of the Score of a hike, which takes in account the amount of successful [yells](#yelling), the amount of hikers [collided](#collisions) with and the time of arrival. The `total score is calculated in the end`, because the time of arrival is completely unkown whilst hiking. It uses the Observer pattern to receive events when something happens and update the score accordingly. This way, the Score cannot be manipulated directly in every corner of the Game, which decouples the code.
+
+To maintain the current HighScores, the `HighScoreContainer` class is used. Upon construction, you can set the max amount of HighScores to keep. Whenever a hike is [Reset](#resetting-the-world), the current score is passed into the `addScore` function of the HighScoreContainer and does the following:
+
+1. If the HighScoreContainer did not reach the max capacity of HighScores yet, the new Score is simply added.
+2. If the HighScoreContainer is at its max capacity, the Score
+   1. Either replaces the current 'worst' high score, if the new score is better
+   2. Is not added to the list of HighScores as it doesn't defeat any other HighScores.
+
+### Generating SceneNodes and Competing Hikers
+
+**Pattern used:** [Abstract Factory Pattern](https://refactoring.guru/design-patterns/abstract-factory)
+
+#### SceneNodeFactory
+
+The SceneNodeFactory is my implementation of the Abstract Factory Pattern: no concrete SceneNodes are created from the library, but it can be implemented by a concrete visual implementation, which creates and sets the [renderer](#rendering-system) as well
+
+#### Competing Hikers Generation
 ### Cleaning up
 
 This is also what you can see on the top left corner of your screen as `'current amount of hikers'`.
