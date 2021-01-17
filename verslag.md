@@ -59,11 +59,11 @@ Enemies are be spawned on the fly and will appear constantly from the top of the
 
 ### Scene Nodes
 
-Scene Nodes are the fundamental objects the game is built of. They make up everything the [World](#the-world) consists of. These SceneNodes can be purely decorative, [Entities](#entities-and-the-hikers), [zones](#zones) or something custom. Each SceneNode has a rendering component which is, in the logic library of TurboHiker, just and abstract class. This [rendering](#rendering-system) component can then be implemented by your specific visual implementation of the game and it can be set to render the given SceneNode.
+Scene Nodes are the fundamental objects the game is built of. They make up everything the [World](#the-world) consists of. These SceneNodes can be purely decorative, [Entities](#entities-and-the-hikers), [zones](#zones) or something custom. Each Type has a rendering component which is, in the logic library of TurboHiker, just and abstract class. This [rendering](#rendering-system) component can then be implemented by your specific visual implementation of the game and it can be set to render the given Type.
 
 #### Locations
 
-Each SceneNode has a specific Vector2d (x, y) coordinate to position the SceneNode in the world. The [BoundingBox](#boundingboxes) is calculated with regard to this location.
+Each Type has a specific Vector2d (x, y) coordinate to position the Type in the world. The [BoundingBox](#boundingboxes) is calculated with regard to this location.
 
 #### Lanes
 
@@ -75,24 +75,24 @@ Entities are basically SceneNodes with an extra attribute 'velocity'. Hikers are
 
 #### Zone
 
-A zone is a specific type of SceneNode which is only used in [collisions](#collision-handling) and does nothing on itself, such as the finish.
+A zone is a specific type of Type which is only used in [collisions](#collision-handling) and does nothing on itself, such as the finish.
 
 ### The World
 
 The world keeps track of all game logic from above: it does some logic itself, and delegates other logic to its children. Also the rendering requests are delegated further. The [SceneNodes](#scene-nodes) I talked about earlier are kept track in the [Scene Graph](#scene-graph) instead of in the world itself.
 #### Scene Graph
 
-The Scene Graph is basically an *'extension' of the world* that is only responsible for maintaining all SceneNodes currently present. It delegates specific requests such as commands, updates, or rendering, to all its 'children'. At first I kept track of all SceneNodes directly in the world class. So why did I switch? I was struggling to find a way to `not use downcasts` for each SceneNode to get to their derived form (e.g. Hikers), as this is generally something to avoid. The SceneGraph solves this problem for you: internally it keeps track of a vector of shared ptrs to SceneNodes. Also the derivations of these SceneNodes are kept here using weak_ptrs. So the main 'ownership' is still in the list of SceneNodes, but there are already references to all derived objects added to the world. For example: If you want to add a competing hiker to the list of SceneNodes but still be able to directly get access to the derived Object (of the StaticHiker class for example), you use the function `addCompetingHiker`. This will automatically add the Hiker (SceneNode) to the list of objects to be updated/rendered/..., but also add a weak pointer to still directly have access to the derived version.
+The Scene Graph is basically an *'extension' of the world* that is only responsible for maintaining all SceneNodes currently present. It delegates specific requests such as commands, updates, or rendering, to all its 'children'. At first I kept track of all SceneNodes directly in the world class. So why did I switch? I was struggling to find a way to `not use downcasts` for each Type to get to their derived form (e.g. Hikers), as this is generally something to avoid. The SceneGraph solves this problem for you: internally it keeps track of a vector of shared ptrs to SceneNodes. Also the derivations of these SceneNodes are kept here using weak_ptrs. So the main 'ownership' is still in the list of SceneNodes, but there are already references to all derived objects added to the world. For example: If you want to add a competing hiker to the list of SceneNodes but still be able to directly get access to the derived Object (of the StaticHiker class for example), you use the function `addCompetingHiker`. This will automatically add the Hiker (Type) to the list of objects to be updated/rendered/..., but also add a weak pointer to still directly have access to the derived version.
 
 Another reason why I used it is because it hides most of the 'specific' implementation of how the SceneNodes are kept track of. If it would ever change, the world doesn't necessarily needs to know.
 
 ### Collision Handling
 
-The [World](#the-world) is responsible for reacting to collisions between [SceneNodes](#scene-nodes). I think that collisions should be handled from the top, to always be able to correctly define behaviour of two colliding SceneNodes. I thought at first that each SceneNode should be responsible for reacting to collisions with other SceneNodes, but this doesn't guarantee that one SceneNode reacts first. For example, let's say a SceneNode reacts to another SceneNode by moving away from the other SceneNode so that they don't collide anymore. The location of this SceneNode has changed and the behaviour of the other SceneNode may now be different than intented.
+The [World](#the-world) is responsible for reacting to collisions between [SceneNodes](#scene-nodes). I think that collisions should be handled from the top, to always be able to correctly define behaviour of two colliding SceneNodes. I thought at first that each Type should be responsible for reacting to collisions with other SceneNodes, but this doesn't guarantee that one Type reacts first. For example, let's say a Type reacts to another Type by moving away from the other Type so that they don't collide anymore. The location of this Type has changed and the behaviour of the other Type may now be different than intented.
 
 #### BoundingBoxes
 
-All SceneNodes can set a `bounding size`, which just means how big (in world coordinates) the SceneNode is. This bounding size is then used to calculate the current bounding box, which is the rectangle (world coordinates) that currently represents the entity. These boundingBoxes have a left, bottom, width and height component and if the SceneNode location changes, the bounding box is adjusted accordingly. I implemented the boundingBox so that the *origin of the 'location' of the SceneNode is in the middle of the boundingBox*.
+All SceneNodes can set a `bounding size`, which just means how big (in world coordinates) the Type is. This bounding size is then used to calculate the current bounding box, which is the rectangle (world coordinates) that currently represents the entity. These boundingBoxes have a left, bottom, width and height component and if the Type location changes, the bounding box is adjusted accordingly. I implemented the boundingBox so that the *origin of the 'location' of the Type is in the middle of the boundingBox*.
 
 #### Collision Pairs
 
@@ -116,9 +116,9 @@ Commandable is a simple interface with an unimplemented onCommand() function to 
 
 **Pattern used:** [Component Pattern](https://gameprogrammingpatterns.com/component.html)
 
-The Rendering System is used to separate all Game Logic from the concrete Visual implementation of the game. Each SceneNode has a renderer which is a component of the SceneNode. This Renderer is simply an interface in the game logic library and can be implemented in the concrete visual implementation, so that the logic library does not know anything about how, or if, the object is actually rendered. The RendererSFML simply implements this class and adds some extra SFML specific things to actually make it work using SFML.
+The Rendering System is used to separate all Game Logic from the concrete Visual implementation of the game. Each Type has a renderer which is a component of the Type. This Renderer is simply an interface in the game logic library and can be implemented in the concrete visual implementation, so that the logic library does not know anything about how, or if, the object is actually rendered. The RendererSFML simply implements this class and adds some extra SFML specific things to actually make it work using SFML.
 
-*Why I chose a Rendering Component above Rendering Hierarchy:* I think that the visual representation of an object should not really be a part of the Object itself, this pattern decouples the Game logic from the Visual implementation a bit more. The Renderer should never be able to control any Game Logic, it should only track the current state and render depending on those states. Another reason why I did this is that its fairly easy to create different renderers for the same type of SceneNode now. Just `plug in` a different renderer and the object will be rendered differently. This would be harder to do using inheritance, and you would get a bigger inheritance structure by all the different visualizations of the a same thing.
+*Why I chose a Rendering Component above Rendering Hierarchy:* I think that the visual representation of an object should not really be a part of the Object itself, this pattern decouples the Game logic from the Visual implementation a bit more. The Renderer should never be able to control any Game Logic, it should only track the current state and render depending on those states. Another reason why I did this is that its fairly easy to create different renderers for the same type of Type now. Just `plug in` a different renderer and the object will be rendered differently. This would be harder to do using inheritance, and you would get a bigger inheritance structure by all the different visualizations of the a same thing.
 ### View System (Sophisticated Transformation class)
 
 **Pattern used:** [Singleton Pattern](https://gameprogrammingpatterns.com/singleton.html)
@@ -152,7 +152,7 @@ To maintain the current HighScores, the `HighScoreContainer` class is used. Upon
 
 #### SceneNodeFactory
 
-The SceneNodeFactory is my implementation of the Abstract Factory Pattern: no concrete SceneNodes are created from the library, but it can be implemented by a concrete visual implementation, which creates the SceneNode and sets the [renderer](#rendering-system) for it as well (which is specific to the visual implementation of the Game). The concrete implementation of the SceneNodeFactory is done in the `SceneNodeFactorySFML` class.
+The SceneNodeFactory is my implementation of the Abstract Factory Pattern: no concrete SceneNodes are created from the library, but it can be implemented by a concrete visual implementation, which creates the Type and sets the [renderer](#rendering-system) for it as well (which is specific to the visual implementation of the Game). The concrete implementation of the SceneNodeFactory is done in the `SceneNodeFactorySFML` class.
 
 #### Generation Of Competing Hikers
 
@@ -165,7 +165,7 @@ When the competing hikers are not relevant anymore, the competing Hikers are rem
 
 I've implemented a markForRemoval function in the `Removable` abstract class which just implements a simple boolean value to indicate whether or not an object should be removed in the next update. Every update of the world, the sceneGraph gets the command to `cleanup all dead objects` first, meaning all objects who have been marked for removal in the previous update.
 
-The mark for removal is useful as no objects are directly removed, which makes sure that no other 'living' SceneNodes are skipped whenever you are iterating over the them. For example: if you would remove a SceneNode in the middle of iteration, the vector shifts all its SceneNodes to the left meaning that the SceneNode previously at index i can now be found at i - 1. If you would increment the index, you would actually move two SceneNodes forward.
+The mark for removal is useful as no objects are directly removed, which makes sure that no other 'living' SceneNodes are skipped whenever you are iterating over the them. For example: if you would remove a Type in the middle of iteration, the vector shifts all its SceneNodes to the left meaning that the Type previously at index i can now be found at i - 1. If you would increment the index, you would actually move two SceneNodes forward.
 
 Another usefulness about this is that the markForRemoval can be called from anywhere, while the actual removal can only be done within the SceneGraph itself.
 
