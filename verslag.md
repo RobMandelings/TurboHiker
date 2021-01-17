@@ -149,11 +149,23 @@ To maintain the current HighScores, the `HighScoreContainer` class is used. Upon
 
 #### SceneNodeFactory
 
-The SceneNodeFactory is my implementation of the Abstract Factory Pattern: no concrete SceneNodes are created from the library, but it can be implemented by a concrete visual implementation, which creates and sets the [renderer](#rendering-system) as well
+The SceneNodeFactory is my implementation of the Abstract Factory Pattern: no concrete SceneNodes are created from the library, but it can be implemented by a concrete visual implementation, which creates the SceneNode and sets the [renderer](#rendering-system) for it as well (which is specific to the visual implementation of the Game). The concrete implementation of the SceneNodeFactory is done in the `SceneNodeFactorySFML` class.
 
-#### Competing Hikers Generation
+#### Generation Of Competing Hikers
+
+To meet the requirement of 'different runs should not result in the same games', I've decided to `dynamically generate competing hikers on the fly`. All hikers are placed quite randomly on the lanes which makes the game more unpredictable and harder to avoid collisions. This is all done in the `generateCompetingHikers()` function of the [world](#the-world). When they go out of screen, the hikers are [removed](#cleaning-up)
 ### Cleaning up
 
-This is also what you can see on the top left corner of your screen as `'current amount of hikers'`.
+When the competing hikers are not relevant anymore, the competing Hikers are removed from the world as they are no longer relevant and won't participate anymore. This increases efficiency as you won't have to do pointless collision detections and no updates and renderings are done anymore. You can see the workings of this a bit when you look on the `top left corner of the screen: currentAmountOfCompetingHikers: X`.
+
+#### Mark for removal
+
+I've implemented a markForRemoval function in the `Removable` abstract class which just implements a simple boolean value to indicate whether or not an object should be removed in the next update. Every update of the world, the sceneGraph gets the command to `cleanup all dead objects` first, meaning all objects who have been marked for removal in the previous update.
+
+The mark for removal is useful as no objects are directly removed, which makes sure that no other 'living' SceneNodes are skipped whenever you are iterating over the them. For example: if you would remove a SceneNode in the middle of iteration, the vector shifts all its SceneNodes to the left meaning that the SceneNode previously at index i can now be found at i - 1. If you would increment the index, you would actually move two SceneNodes forward.
+
+Another usefulness about this is that the markForRemoval can be called from anywhere, while the actual removal can only be done within the SceneGraph itself.
+
+####
 
 ## Extras
