@@ -6,6 +6,9 @@
 
 namespace turboHiker {
 
+/**
+ * Enum to denote events received by the EventObserver
+ */
 enum class Event
 {
         PLAYER_COLLIDED,
@@ -16,11 +19,23 @@ enum class Event
         PLAYER_SPED_UP
 };
 
+/**
+ * Observer which receives events
+ */
 class EventObserver
 {
 
 public:
+
+        /**
+         * Destructor for the event observer
+         */
         virtual ~EventObserver() = default;
+
+        /**
+         * Called whenever the observer is notified of an event that happened
+         * @param event: the event that happened
+         */
         virtual void onNotify(const Event& event) = 0;
 };
 

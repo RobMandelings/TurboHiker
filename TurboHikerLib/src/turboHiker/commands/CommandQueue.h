@@ -14,11 +14,30 @@ class Command;
 class CommandQueue
 {
 public:
+
+        /**
+         * Pushes a command onto the command queue
+         * @param command: the command to push
+         */
         void push(const Command& command);
+
+        /**
+         * Pops a command from the command queue
+         * @return the popped command
+         */
         Command pop();
+
+        /**
+         * Checks if the command queue is empty
+         * @return true if this is the case, false if not
+         */
         bool isEmpty() const;
 
 private:
+
+        /**
+         * The queue internally, used by the CommandQueue
+         */
         std::queue<Command> mQueue;
 };
 } // namespace turboHiker

@@ -6,10 +6,18 @@
 #define TURBOHIKER_RENDERABLE_H
 
 namespace turboHiker {
+
+/**
+ * Implement this if you want to be able to render your object
+ */
 class Renderable
 {
 
 public:
+
+        /**
+         * Pure virtual method that needs to have a concrete implementation
+         */
         virtual void render() const = 0;
 };
 } // namespace turboHiker

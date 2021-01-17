@@ -8,6 +8,10 @@
 #include <chrono>
 
 namespace turboHiker {
+
+/**
+ * Abstract class which contains an update function
+ */
 class Updatable
 {
 
@@ -18,6 +22,10 @@ public:
          */
         typedef std::chrono::duration<double> seconds;
 
+        /**
+         * Update the object by the given timestep
+         * @param dt: the timestep
+         */
         virtual void update(seconds dt) = 0;
 };
 } // namespace turboHiker
