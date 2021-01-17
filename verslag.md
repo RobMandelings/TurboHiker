@@ -168,7 +168,3 @@ I've implemented a markForRemoval function in the `Removable` abstract class whi
 The mark for removal is useful as no objects are directly removed, which makes sure that no other 'living' SceneNodes are skipped whenever you are iterating over the them. For example: if you would remove a Type in the middle of iteration, the vector shifts all its SceneNodes to the left meaning that the Type previously at index i can now be found at i - 1. If you would increment the index, you would actually move two SceneNodes forward.
 
 Another usefulness about this is that the markForRemoval can be called from anywhere, while the actual removal can only be done within the SceneGraph itself.
-
-####
-
-## Extras
