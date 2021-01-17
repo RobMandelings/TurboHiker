@@ -3,24 +3,27 @@
 This is a report about the advanced programming project TurboHiker, 
 containing information about how how the game has been implemented and why I used some specific design principles.
 
+## Game info
+
+Your job is to *avoid as much collisions and yells as possible, whilst trying to finish in the shortest amount of time*. This will earn you the most points.
+
 ## Note
 
-I've followed the given assignment fairly well in terms of gameplay so most should look familiar.
+I've followed the given assignment quite strictly in terms of gameplay so most should look familiar. Information about the used keys can be found below as there are a few specific keys mentioned (used for starting / restarting a hike, or yelling).
 
 ## Gameplay Cheatsheet
 
 ### Starting a hike
 The game starts when pressing the key `S` in which the timer starts running. 
-From now on, you can use the arrows to move your purple friend.
+From now on, you can use the arrows to move the purple (player)hiker.
 
 ### Arrow keys
 
-The `Up` arrow key is used to move the player at a faster pace, while the `Down` arrow key is used to make the player go slower.
-If you want to be able to dodge in a more controlled manner for example. If you use the `left` arrow key, you move a lane to the right at a constant pace. The `right` arrow key makes you go a lane to the right.
+The `Up` arrow key is used to move the player at a faster pace, while the `Down` arrow key is used to make the player go slower, in case you wanted to be able to dodge in a more controlled manner. If you use the `left` arrow key, you move a lane to the right at a constant pace. The `right` arrow key makes you go a lane to the right.
 
 ### Yelling
 
-Yelling can be done using the `spacebar`, which has different effects on the different types of hiker. The [Running Hiker](#running-hiker) goes slower (at 1/4th the original speed) and the [Static Hiker](#static-hiker) is deleted from the world, (on a successful hike, with 50% chance per space bar pressed). A small penalty in the score is given for each succesful yell, so its best to avoid it if you can easily avoid a collision. If there are no other options besides actually colliding with another hiker, you will be better off yelling.
+Yelling can be done using the `spacebar`, which has different effects on the different types of hiker. The [Running Hiker](#features) goes slower (at 1/4th the original speed) and the [Static Hiker](#features) is [deleted](#mark-for-removal) from the world, (on a successful hike, with 50% chance per space bar pressed). A small penalty in the score is given for each succesful yell, so its best to avoid it if you can easily avoid a collision. If there are no other options besides actually colliding with another hiker, you will be better off yelling.
 
 ### Finish
 
@@ -28,31 +31,31 @@ After doing a hike for around 30 - 45 seconds, you will reach the finish. The ga
 
 ### Resetting the world
 
-If you press `R` during hiking or after (when you have reached the finish) you will be back at the beginning of the world. If you do this after you have reached the finish, the final score will be added to the list of scores `in case it is a new high score`. If not, the current score will not be saved. From here on you can [start hiking again](#starting-a-hike) by pressing the `S` key.
+If you press `R` during hiking or after (when you have reached the finish) you will be back at the beginning of the world. If you do this after you have reached the finish, the final score will be added to the list of scores *in case it is a [new highscore](#scoring-system)* If not, the current score will not be saved in the high scores. From here on you can [start hiking again](#starting-a-hike) by pressing the `S` key.
 
 ## Features
 
-The `player hiker` is the hiker in blue / purple which animates between these two colors. The animation is just for fanciness and doesn't add anything special, same for the other two types. This is also used to demonstrate how the [Rendering](#rendering-system) system works.
+The `player hiker` is the hiker in *blue / purple* which animates between these two colors. The animation is just for fanciness and doesn't add anything special, same for the other two types. This is also used to demonstrate how the [Rendering](#rendering-system) system works.
 
-The `static hiker` is the green/yellow hiker which stays static throughout the hike. *Be aware that they may 'seem' like moving obstactles due to the moving [Camera](#Camera)*.
+The `static hiker` is the *green/yellow* hiker which stays static throughout the hike. *Be aware that they may seem like moving obstactles due to the moving [Camera](#view-system-sophisticated-transformation-class)*.
 
-The `running hiker` is the red/black hiker implemented as 'the hiker running towards the player'. These are the hardest one to dodge and again, due to the moving camera they may seem like going even faster.
+The `running hiker` is the *red/black* hiker implemented as 'the hiker running towards the player'. These are the hardest ones to dodge and again, due to the moving camera they may seem like going even faster.
 
-The competing hikers are [spawned on the fly](#enemygeneration) and [cleaned up afterwards](#markforremoval) as well
+The competing hikers are [spawned on the fly](#generation-of-competing-hikers) and [cleaned up afterwards](#cleaning-up) as well.
 
-### High Scores
+### Scores
 
-High scores are measured as follows: each time a hiker collides with another hiker, minus points will be given (-300). No distinction is made between a running hiker or a static hiker. A small penalty (-5) will be given *for each succesful [yell](#yelling)* as it is not the 'best' but its definitely not as bad as colliding with another hiker.
+Scores are measured as follows: each time a hiker collides with another hiker, minus points will be given (-300). No distinction is made between a running hiker or a static hiker. A small penalty (-5) will be given *for each succesful [yell](#yelling)* as it is not the 'best' but its definitely not as bad as colliding with another hiker.
 
 ### Collisions
 
-Colliding with another hiker `makes the competing hiker dissapear` and give you minus points, as mentioned in [HighScores](#high-scores).
+Colliding with another hiker *makes the competing hiker dissapear* and give you minus points, as mentioned in [HighScores](#high-scores).
 
 ### Spawning
 
-Enemies will be spawned on the fly, creating a more `dynamic hike` each time you run a game. This is to make sure that no two hikes will be exactly the same as the positions of the competing hikers are unknown until they appear. When they go [out of screen](#view-system), they are also [removed](#cleaned) from the world.
+Enemies are be spawned on the fly and will appear constantly from the top of the screen until you've reached the finish. *Try to avoid all hikers*. The mechanics are explained [here](#generation-of-competing-hikers).
 
-## Design Principles 
+## Design Principles / Underlying Mechanics
 
 ### Scene Nodes
 
@@ -64,32 +67,32 @@ Each SceneNode has a specific Vector2d (x, y) coordinate to position the SceneNo
 
 #### Lanes
 
-The lanes are basic SceneNodes that represent a lane. These lanes don't do anything on theirselves and are mostly decorative. The only thing here is that the x locations of the lanes are used to position the Hikers correctly on their current lane.
+The lanes are basic SceneNodes that represent a lane. These lanes don't do anything on their own and are mostly decorative. The only thing here is that the x locations of the lanes are used to position the Hikers correctly on their current lane.
 
 #### Entities and the Hikers
 
-Entities are basically SceneNodes with an extra attribute 'velocity'. Hikers are part of Entities
+Entities are basically SceneNodes with an extra attribute 'velocity'. Hikers are an example of this.
 
 #### Zone
 
-A zone is a specific type of SceneNode which is only used in [collisions](#collision-handling) and does nothing on itself. A finish is an example of this.
+A zone is a specific type of SceneNode which is only used in [collisions](#collision-handling) and does nothing on itself, such as the finish.
 
 ### The World
 
 The world keeps track of all game logic from above: it does some logic itself, and delegates other logic to its children. Also the rendering requests are delegated further. The [SceneNodes](#scene-nodes) I talked about earlier are kept track in the [Scene Graph](#scene-graph) instead of in the world itself.
 #### Scene Graph
 
-The Scene Graph is basically an `'extension' of the world` that is only responsible for maintaining all SceneNodes currently present. It delegates specific requests such as commands, updates, or rendering, to all its 'children'. At first I kept track of all SceneNodes directly in the world class. So why did I switch? I was struggling to find a way to `not use downcasts` for each SceneNode to get to their derived form (e.g. Hikers), as this is generally something to avoid. The SceneGraph solves this problem for you: internally it keeps track of a vector of shared ptrs to SceneNodes. Also the derivations of these SceneNodes are kept here using weak_ptrs. So the main 'ownership' is still in the list of SceneNodes, but there are already references to all derived objects added to the world. For example: If you want to add a competing hiker to the list of SceneNodes but still be able to directly get access to the derived Object (of the StaticHiker class for example), you use the function `addCompetingHiker`. This will automatically add the Hiker (SceneNode) to the list of objects to be updated/rendered/..., but also add a weak ptr to still directly have access to the derived version.
+The Scene Graph is basically an *'extension' of the world* that is only responsible for maintaining all SceneNodes currently present. It delegates specific requests such as commands, updates, or rendering, to all its 'children'. At first I kept track of all SceneNodes directly in the world class. So why did I switch? I was struggling to find a way to `not use downcasts` for each SceneNode to get to their derived form (e.g. Hikers), as this is generally something to avoid. The SceneGraph solves this problem for you: internally it keeps track of a vector of shared ptrs to SceneNodes. Also the derivations of these SceneNodes are kept here using weak_ptrs. So the main 'ownership' is still in the list of SceneNodes, but there are already references to all derived objects added to the world. For example: If you want to add a competing hiker to the list of SceneNodes but still be able to directly get access to the derived Object (of the StaticHiker class for example), you use the function `addCompetingHiker`. This will automatically add the Hiker (SceneNode) to the list of objects to be updated/rendered/..., but also add a weak pointer to still directly have access to the derived version.
 
-Another reason why I used it is because it hides most of the 'specific' implementation of how the SceneNodes are kept track of. If it would ever change, this piece is a little more decoupled.
+Another reason why I used it is because it hides most of the 'specific' implementation of how the SceneNodes are kept track of. If it would ever change, the world doesn't necessarily needs to know.
 
 ### Collision Handling
 
-The [World](#the-world) is responsible for reacting to collisions between [SceneNodes](#scene-nodes). I think that collisions should be handled from the top, to always be able to correctly define behaviour of two colliding SceneNodes. I though at first that each SceneNode should be responsible of reacting to collisions with other SceneNodes, but this doesn't guarantee that one SceneNode reacts first. For example, lets say a SceneNode reacts to another SceneNode by moving away from the other SceneNode so that they don't collide anymore. The location of this SceneNode has changed and the behaviour of the other SceneNode may now be different that intented.
+The [World](#the-world) is responsible for reacting to collisions between [SceneNodes](#scene-nodes). I think that collisions should be handled from the top, to always be able to correctly define behaviour of two colliding SceneNodes. I thought at first that each SceneNode should be responsible for reacting to collisions with other SceneNodes, but this doesn't guarantee that one SceneNode reacts first. For example, let's say a SceneNode reacts to another SceneNode by moving away from the other SceneNode so that they don't collide anymore. The location of this SceneNode has changed and the behaviour of the other SceneNode may now be different than intented.
 
 #### BoundingBoxes
 
-All SceneNodes can set a `bounding size`, which just means how big (in world coordinates) the SceneNode is. This bounding size is then used to calculate the current bounding box of the entity, which is the rectangle (world coordinates) that currently represents the entity. These boundingBoxes have a left, bottom, width and height component and if the SceneNode location changes, the bounding box is adjusted accordingly. I implemented the boundingBox so that the `origin of the 'location' of the SceneNode is in the middle of the boundingBox`.
+All SceneNodes can set a `bounding size`, which just means how big (in world coordinates) the SceneNode is. This bounding size is then used to calculate the current bounding box, which is the rectangle (world coordinates) that currently represents the entity. These boundingBoxes have a left, bottom, width and height component and if the SceneNode location changes, the bounding box is adjusted accordingly. I implemented the boundingBox so that the *origin of the 'location' of the SceneNode is in the middle of the boundingBox*.
 
 #### Collision Pairs
 
