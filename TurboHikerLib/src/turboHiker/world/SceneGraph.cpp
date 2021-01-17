@@ -7,17 +7,18 @@
 #include "BoundingBox.h"
 #include "Finish.h"
 #include "Hiker.h"
-#include "StaticHiker.h"
-#include "RunningHiker.h"
 #include "PlayerHiker.h"
 #include "Renderer.h"
+#include "RunningHiker.h"
 #include "SceneNode.h"
+#include "StaticHiker.h"
 #include <algorithm>
 #include <cassert>
 
 using namespace turboHiker;
 
-void SceneGraph::clear() {
+void SceneGraph::clear()
+{
         for (const std::shared_ptr<SceneNode>& sceneNode : mSceneNodes) {
                 sceneNode->markForRemoval();
         }
@@ -29,7 +30,9 @@ void turboHiker::SceneGraph::update(turboHiker::Updatable::seconds dt)
 {
 
         for (const std::shared_ptr<SceneNode>& sceneNode : mSceneNodes) {
-                sceneNode->update(dt);
+                if (!sceneNode->isMarkedForRemoval()) {
+                        sceneNode->update(dt);
+                }
         }
 
         // The lanes don't need to be updated at all
@@ -38,14 +41,18 @@ void turboHiker::SceneGraph::update(turboHiker::Updatable::seconds dt)
 void SceneGraph::updateRenderComponents(Updatable::seconds dt)
 {
         for (const std::shared_ptr<SceneNode>& sceneNode : mSceneNodes) {
-                sceneNode->updateRenderComponent(dt);
+                if (!sceneNode->isMarkedForRemoval()) {
+                        sceneNode->updateRenderComponent(dt);
+                }
         }
 }
 
 void turboHiker::SceneGraph::render() const
 {
         for (const std::shared_ptr<SceneNode>& sceneNode : mSceneNodes) {
-                sceneNode->render();
+                if (!sceneNode->isMarkedForRemoval()) {
+                        sceneNode->render();
+                }
         }
 }
 
@@ -153,9 +160,7 @@ SceneNode& SceneGraph::getLane(unsigned int index) const
         return *mLanes.at(index).lock();
 }
 
-Finish& SceneGraph::getFinish() const {
-        return *mFinish.lock();
-}
+Finish& SceneGraph::getFinish() const { return *mFinish.lock(); }
 
 void SceneGraph::addSceneNode(const SceneNode& sceneNode)
 {
@@ -169,7 +174,8 @@ void SceneGraph::addStaticHiker(const StaticHiker& competingHiker)
         mCompetingHikers.push_back(staticHikerPtr);
 }
 
-void SceneGraph::addRunningHiker(const RunningHiker& runningHiker) {
+void SceneGraph::addRunningHiker(const RunningHiker& runningHiker)
+{
         std::shared_ptr<RunningHiker> runningHikerPtr = std::make_shared<RunningHiker>(runningHiker);
         mSceneNodes.push_back(runningHikerPtr);
         mCompetingHikers.push_back(runningHikerPtr);
@@ -188,7 +194,8 @@ void SceneGraph::addLane(const SceneNode& lane)
         mLanes.push_back(lanePtr);
 }
 
-void SceneGraph::setFinish(const Finish& finish) {
+void SceneGraph::setFinish(const Finish& finish)
+{
         std::shared_ptr<Finish> finishPtr = std::make_shared<Finish>(finish);
         mSceneNodes.push_back(finishPtr);
         mFinish = finishPtr;
