@@ -107,7 +107,8 @@ void World::generateCompetingHikers(seconds dt)
         // The higher this number is, the more enemies will spawn per time unit. If the player is going fast, more
         // enemies will spawn proportionally to the player's 'fast' speed versus the slow.
         double spawnRate =
-            2 * (getPlayerHiker().goingFast() ? (getPlayerHiker().getFastSpeed() / getPlayerHiker().getSlowSpeed()) : 1) *
+            2 *
+            (getPlayerHiker().goingFast() ? (getPlayerHiker().getFastSpeed() / getPlayerHiker().getSlowSpeed()) : 1) *
             dt.count();
         //        assert(spawnRate >= 0 && spawnRate <= 1);
 
@@ -229,6 +230,10 @@ void turboHiker::World::handleCollisions()
 
                         otherHiker->markForRemoval();
                         notify(Event::PLAYER_COLLIDED);
+
+                } else if (matchesCategories(pair, GameCategory::GameStaticHiker, GameCategory::GameRunningHiker)) {
+
+                        pair.first->markForRemoval();
 
                 } else if (matchesCategories(pair, GameCategory::GamePlayerHiker, GameCategory::GameFinish)) {
                         endHike();
