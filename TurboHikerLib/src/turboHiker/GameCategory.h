@@ -7,7 +7,7 @@
 namespace turboHiker {
 
 /**
- * Used to easily check which type of Type it is so it can be casted. Very important that SceneNodes who are not of
+ * Used to easily check which type of SceneNode it is so it can be casted. Very important that SceneNodes who are not of
  * this type should not use the specific Game category, but this is easy to check. It eliminates the need of dynamic
  * down casting if it would ever be necessary.
  */

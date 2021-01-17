@@ -7,14 +7,13 @@
 
 #include "SceneNodeRendererSFML.h"
 #include <SFML/Graphics/RectangleShape.hpp>
-#include "Finish.h"
 
 namespace turboHikerSFML {
 
 /**
  * Renderer used to render the finish
  */
-class FinishRenderer : public turboHikerSFML::SceneNodeRendererSFML<turboHiker::Finish>
+class FinishRenderer : public turboHikerSFML::SceneNodeRendererSFML
 {
 
 public:
@@ -29,7 +28,7 @@ private:
         /**
          * See base class
          */
-        std::unique_ptr<Renderer<turboHiker::SceneNode>> clone() const override;
+        std::unique_ptr<Renderer> clone() const override;
 
         /**
          * See Renderer

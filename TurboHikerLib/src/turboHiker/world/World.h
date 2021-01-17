@@ -191,7 +191,7 @@ private:
         CommandQueue mCommandQueue;
 
         /**
-         * Type factory to provide the world with a way to generate more entities
+         * SceneNode factory to provide the world with a way to generate more entities
          */
         std::unique_ptr<SceneNodeFactory> mSceneNodeFactory;
 

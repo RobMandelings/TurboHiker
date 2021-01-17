@@ -16,7 +16,7 @@ class SceneNode;
 }
 
 /**
- * Creates Entities (A type of Type that can move) with a specific VisualComponent created with SFML to give a
+ * Creates Entities (A type of SceneNode that can move) with a specific VisualComponent created with SFML to give a
  * visual representation to these scenenodes
  */
 namespace turboHiker {

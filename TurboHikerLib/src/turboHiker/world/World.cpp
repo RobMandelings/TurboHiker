@@ -9,7 +9,6 @@
 #include "Hiker.h"
 #include "Random.h"
 #include "Renderer.h"
-#include "Finish.h"
 #include "Score.h"
 #include "Transformation.h"
 
@@ -71,7 +70,7 @@ void World::onCommand(const Command& command, Updatable::seconds dt)
 
 void turboHiker::World::buildWorld(int nrLanes)
 {
-        assert(mSceneNodeFactory != nullptr && "Type Factory not set: no way to create new SceneNodes");
+        assert(mSceneNodeFactory != nullptr && "SceneNode Factory not set: no way to create new SceneNodes");
 
         mSceneGraph.clear();
 

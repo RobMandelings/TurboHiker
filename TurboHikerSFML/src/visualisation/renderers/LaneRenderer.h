@@ -7,10 +7,9 @@
 
 #include "SceneNodeRendererSFML.h"
 #include <SFML/Graphics/RectangleShape.hpp>
-#include "SceneNode.h"
 
 namespace turboHikerSFML {
-class LaneRenderer : public turboHikerSFML::SceneNodeRendererSFML<turboHiker::SceneNode>
+class LaneRenderer : public turboHikerSFML::SceneNodeRendererSFML
 {
 
 public:
