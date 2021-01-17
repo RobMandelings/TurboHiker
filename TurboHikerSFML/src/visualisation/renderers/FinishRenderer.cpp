@@ -13,8 +13,9 @@ turboHikerSFML::FinishRenderer::FinishRenderer(DrawableRenderer& drawableRendere
         mFinishShape = createFinish(dimensions);
 }
 
-std::unique_ptr<Renderer> turboHikerSFML::FinishRenderer::clone() const
+std::unique_ptr<Renderer<SceneNode>> turboHikerSFML::FinishRenderer::clone() const
 {
+        std::unique_ptr<Renderer<SceneNode>> copy = std::make_unique<SceneNodeRendererSFML<SceneNode>>(*this);
         return std::make_unique<FinishRenderer>(*this);
 }
 void turboHikerSFML::FinishRenderer::update(const turboHiker::Updatable::seconds& dt,
@@ -29,6 +30,7 @@ void turboHikerSFML::FinishRenderer::update(const turboHiker::Updatable::seconds
         mFinishShape.setPosition(pixelCoordinates2f.x, pixelCoordinates2f.y);
 
 }
+
 void turboHikerSFML::FinishRenderer::render() const
 {
         renderOnWindow(mFinishShape);

@@ -9,9 +9,9 @@
 #include "HikerRenderer.h"
 #include "LaneRenderer.h"
 #include "PlayerHiker.h"
-#include "StaticHiker.h"
 #include "RunningHiker.h"
 #include "SceneNode.h"
+#include "StaticHiker.h"
 #include "Transformation.h"
 #include "Vector2d.h"
 #include <cassert>
@@ -48,8 +48,8 @@ Finish SceneNodeFactorySFML::createFinish(const BoundingBox& finishDimensions) c
         Vector2d finishDimensionsInPixels = Transformation::get().scaleWorldCoordsToPixelCoords(
             Vector2d(finishDimensions.getWidth(), finishDimensions.getHeight()));
 
-        FinishRenderer finishRenderer =
-            FinishRenderer(mDrawableRenderer, sf::Vector2f(finishDimensionsInPixels.x, finishDimensionsInPixels.y));
+        FinishRenderer finishRenderer = FinishRenderer(
+            FinishRenderer(mDrawableRenderer, sf::Vector2f(finishDimensionsInPixels.x, finishDimensionsInPixels.y)));
 
         Finish finish(finishDimensions);
         finish.setRenderer(finishRenderer);
@@ -83,13 +83,14 @@ StaticHiker SceneNodeFactorySFML::createStaticHiker(double yLocation, const Vect
         staticHiker.setRenderer(hikerRenderer);
         return staticHiker;
 }
-RunningHiker SceneNodeFactorySFML::createMovingHiker(double yLocation, const Vector2d& size, const Vector2d& velocity) const
+RunningHiker SceneNodeFactorySFML::createMovingHiker(double yLocation, const Vector2d& size,
+                                                     const Vector2d& velocity) const
 {
         assert(size.x == size.y && "Must be a square in order for the shape to be a circle");
 
         HikerRenderer hikerRenderer =
-            HikerRenderer(mDrawableRenderer, 1.5, float(Transformation::get().scaleWorldCoordsToPixelCoords(size).x / 2),
-                          sf::Color(255, 0, 0));
+            HikerRenderer(mDrawableRenderer, 1.5,
+                          float(Transformation::get().scaleWorldCoordsToPixelCoords(size).x / 2), sf::Color(255, 0, 0));
 
         RunningHiker runningHiker(Vector2d(0, yLocation), size, velocity, "Moving Hiker");
         runningHiker.setRenderer(hikerRenderer);

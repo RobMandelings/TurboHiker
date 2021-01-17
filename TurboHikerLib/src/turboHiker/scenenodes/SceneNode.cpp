@@ -102,5 +102,3 @@ void SceneNode::setSize(const Vector2d& size)
 void SceneNode::setWidth(double width) { setSize(Vector2d(width, mSize.y)); }
 void SceneNode::setHeight(double height) { setSize(Vector2d(mSize.x, height)); }
 void SceneNode::setLocation(const Vector2d& location) { mLocation = location; }
-
-void SceneNode::setRenderer(const Renderer& renderer) { mRenderer = renderer.clone(); }

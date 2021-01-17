@@ -13,9 +13,10 @@ namespace turboHiker {
 namespace turboHikerSFML {
 
 /**
- * Renderer used to render a SceneNode using SFML
+ * Renderer used to render a Type using SFML
  */
-class SceneNodeRendererSFML : public turboHiker::Renderer
+template<typename Type>
+class SceneNodeRendererSFML : public turboHiker::Renderer<Type>
 {
 public:
 
@@ -23,13 +24,16 @@ public:
          * Simple constructor
          * @param drawableRenderer: the renderer to render the drawable
          */
-        explicit SceneNodeRendererSFML(turboHiker::DrawableRenderer& drawableRenderer);
+        explicit SceneNodeRendererSFML(turboHiker::DrawableRenderer& drawableRenderer) : mDrawableRenderer(drawableRenderer) {}
 
         /**
          * Render the given drawable onto the window
          * @param drawable: drawable to render
          */
-        void renderOnWindow(const sf::Drawable& drawable) const;
+        void renderOnWindow(const sf::Drawable& drawable) const
+        {
+                mDrawableRenderer.renderOnWindow(drawable);
+        }
 
 private:
 

@@ -6,13 +6,13 @@
 #define TURBOHIKER_SCENENODEFACTORY_H
 
 #include "BoundingBox.h"
-#include "Finish.h"
 #include "PlayerHiker.h"
 #include <RunningHiker.h>
 #include <StaticHiker.h>
 
 namespace turboHiker {
 
+class Finish;
 class SceneNode;
 class Hiker;
 class Vector2d;
@@ -28,7 +28,7 @@ public:
         /**
          * Creates a lane with given dimensions
          * @param dimensions: the dimensions of the lane, in world coordinates
-         * @return the created Lane (SceneNode)
+         * @return the created Lane (Type)
          */
         virtual SceneNode createLane(const BoundingBox& dimensions) const = 0;
 

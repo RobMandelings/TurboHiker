@@ -61,7 +61,7 @@ public:
         void render() const override;
 
         /**
-         * Removes all SceneNodes that have been marked for removal (see documentation of SceneNode)
+         * Removes all SceneNodes that have been marked for removal (see documentation of Type)
          */
         void cleanupDeadObjects();
 
@@ -89,7 +89,7 @@ public:
 
         /**
          * Simple getter
-         * @return the amount of SceneNode present in this scenegraph
+         * @return the amount of Type present in this scenegraph
          */
         unsigned int getAmountOfSceneNodes() const;
 
@@ -113,7 +113,7 @@ public:
 
         /**
          * Simple getter
-         * @return a reference to the SceneNode at specific index
+         * @return a reference to the Type at specific index
          */
         SceneNode& getSceneNode(unsigned int index) const;
 
@@ -131,13 +131,13 @@ public:
 
         /**
          * Simple getter
-         * @return a reference the finish SceneNode, for checking when a player reached the finish
+         * @return a reference the finish Type, for checking when a player reached the finish
          */
         Finish& getFinish() const;
 
         /**
-         * Adds a SceneNode to the Scene Graph. Can be anything, but be aware that you can't very easily get access to
-         * this SceneNode if it would be a derived class, so the object placed in here should be able to handle itself
+         * Adds a Type to the Scene Graph. Can be anything, but be aware that you can't very easily get access to
+         * this Type if it would be a derived class, so the object placed in here should be able to handle itself
          * completely
          */
         void addSceneNode(const SceneNode& sceneNode);
@@ -162,7 +162,7 @@ public:
 
         /**
          * Adds a lane to the SceneGraph. Used to position hikers correctly on their respective lanes
-         * @param lane: the lane SceneNode to add
+         * @param lane: the lane Type to add
          */
         void addLane(const SceneNode& lane);
 
@@ -174,7 +174,7 @@ public:
 
 private:
         /**
-         * Basic SceneNodes that make up the world. They can be everything derived from SceneNode as well. SceneNodes
+         * Basic SceneNodes that make up the world. They can be everything derived from Type as well. SceneNodes
          * who update, render and do everything on their own can be put in here, as no special references /
          * communication is specifically required between these.
          */

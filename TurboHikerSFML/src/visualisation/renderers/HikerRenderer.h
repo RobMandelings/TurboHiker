@@ -9,6 +9,7 @@
 #include "SceneNodeRendererSFML.h"
 #include <SFML/Graphics/CircleShape.hpp>
 #include <memory>
+#include "Hiker.h"
 
 namespace turboHiker {
 class Vector2d;
@@ -20,7 +21,7 @@ namespace turboHikerSFML {
 /**
  * Renders a Hiker
  */
-class HikerRenderer : public turboHikerSFML::SceneNodeRendererSFML
+class HikerRenderer : public turboHikerSFML::SceneNodeRendererSFML<turboHiker::Hiker>
 {
 
 public:
@@ -46,7 +47,7 @@ public:
         /**
          * Clones the renderer
          */
-        std::unique_ptr<Renderer> clone() const override;
+        std::unique_ptr<Renderer<turboHiker::SceneNode>> clone() const override;
 
 private:
 
